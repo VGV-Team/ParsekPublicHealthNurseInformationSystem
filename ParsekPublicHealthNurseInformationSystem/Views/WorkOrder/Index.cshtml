@@ -1,0 +1,177 @@
+﻿@using Microsoft.Ajax.Utilities
+@using ParsekPublicHealthNurseInformationSystem.ViewModels
+@model ParsekPublicHealthNurseInformationSystem.ViewModels.WorkOrderViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>WorkOrderViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.SupervisorId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SupervisorId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SupervisorId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SupervisorName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SupervisorName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SupervisorName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SupervisorSurname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SupervisorSurname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SupervisorSurname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SupervisorTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SupervisorTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SupervisorTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateTimeOfFirstVisit, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateTimeOfFirstVisit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateTimeOfFirstVisit, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MandatoryFirstVisit, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.MandatoryFirstVisit)
+                    @Html.ValidationMessageFor(model => model.MandatoryFirstVisit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumberOfVisits, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumberOfVisits, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumberOfVisits, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TimeFrame, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TimeFrame, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeFrame, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        
+        
+        
+
+        @if (Model.PreventiveVisit != null)
+        { 
+            <div class="form-group">
+                @Html.LabelFor(model => model.PreventiveVisit.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PreventiveVisit.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PreventiveVisit.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        
+        
+        
+
+
+        @if (Model.CurativeVisit != null)
+        {
+
+            <select class="btn btn-primary dropdown-toggle" id="purpose">
+                <option value="InjectionApplication">Odvzem krvi</option>
+                <option value="BloodSample">Kontrola zdravstvenega stanja</option>
+                <option value="CheckingHealthCondition">Aplikacija inekcij</option>
+            </select>
+
+            <div class="form-group" style='display:none;' id='InjectionApplication'>
+                @Html.LabelFor(model => model.CurativeVisit.InjectionMedications[0], htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CurativeVisit.InjectionMedications[0], new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CurativeVisit.InjectionMedications[0], "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group" style='display:none;' id='BloodSample'>
+                @Html.LabelFor(model => model.CurativeVisit.BloodVialCounts[0], htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CurativeVisit.BloodVialCounts[0], new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CurativeVisit.BloodVialCounts[0], "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+            <script>
+                $('#purpose').on('change',
+                function() {
+                    switch (this.value) {
+                    case "InjectionApplication":
+                        $("#InjectionApplication").show();
+                        $("#BloodSample").hide();
+                        $("#CheckingHealthCondition").hide();
+                        break;
+                    case "BloodSample":
+                        $("#InjectionApplication").hide();
+                        $("#BloodSample").show();
+                        $("#CheckingHealthCondition").hide();
+                        break;
+                    case "CheckingHealthCondition":
+                        $("#InjectionApplication").hide();
+                        $("#BloodSample").hide();
+                        $("#CheckingHealthCondition").show();
+                        break;
+                    default:
+                        break;
+                    }
+                });
+            </script>
+        }
+        
+        
+
+        
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
