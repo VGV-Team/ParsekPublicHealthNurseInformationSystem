@@ -26,7 +26,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         {
             Doctor, //Doktor
             Head, // Vodja
-            HealthVisitor, // PS
+            HealthNurse, // PS
             Coworker // Sodelavec
         };
     }

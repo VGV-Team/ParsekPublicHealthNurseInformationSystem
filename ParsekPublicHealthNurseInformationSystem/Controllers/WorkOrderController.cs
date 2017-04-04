@@ -18,6 +18,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             wowm.CurativeVisit = new WorkOrderCurativeViewModel();
             wowm.CurativeVisit.Title = WorkOrderCurativeViewModel.VisitTitle.BloodSample;
 
+            wowm.PreventiveVisit = new WorkOrderPreventiveViewModel();
+
             return View(wowm);
         }
     }

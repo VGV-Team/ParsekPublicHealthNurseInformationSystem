@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -15,10 +16,9 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public VisitTitle Title { get; set; }
         public enum VisitTitle
         {
-            InjectionApplication,
-            BloodSample,
-            CheckingHealthCondition
-
+            [Display(Name = "Aplikacija injekcij")] InjectionApplication = 1,
+            [Display(Name = "Odvzem krvi")] BloodSample = 2,
+            [Display(Name = "Kontrola zdravstvenega stanja")] CheckingHealthCondition = 3
         }
 
     }
