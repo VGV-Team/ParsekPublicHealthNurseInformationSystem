@@ -19,9 +19,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public virtual Disease Disease { get; set; }
 
         public virtual ICollection<Visit> Visits { get; set; }
-        // TODO:
-        // MAHNIC!
-        //public virtual ICollection<PatientWorkOrder> PatientWorkOrders { get; set; }
+        public virtual ICollection<PatientWorkOrder> PatientWorkOrders { get; set; }
 
 
     }

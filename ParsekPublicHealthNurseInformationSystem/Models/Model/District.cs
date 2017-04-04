@@ -15,11 +15,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public string Name { get; set; }
 
         // GPS?
-        public string Lat { get; set; }
-        public string Lon { get; set; }
+        public decimal Lat { get; set; }
+        public decimal Lon { get; set; }
 
 
-        public virtual ICollection<Patient> Patients { get; set; }
-        public virtual Employee Employee { get; set; } // Only HealthVisitor
+        //public virtual ICollection<Patient> Patients { get; set; }
+        //public virtual Employee Employee { get; set; } // Only HealthVisitor
     }
 }

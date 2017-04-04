@@ -21,27 +21,24 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
         // public virtual DbSet<MyEntity> MyEntities { get; set; }
-        public virtual DbSet<ContactPerson> ContactPersons { get; set; }
+        //public virtual DbSet<ContactPerson> ContactPersons { get; set; }
         public virtual DbSet<Contractor> Contractors { get; set; }
         public virtual DbSet<Disease> Diseases { get; set; }
         public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<PostOffice> PostOffices { get; set; }
-        public virtual DbSet<Relationship> Relationships { get; set; }
+        //public virtual DbSet<Relationship> Relationships { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Visit> Visits { get; set; }
         public virtual DbSet<WorkOrder> WorkOrders { get; set; }
-
-        // TODO DATA MODELS
-        /*
         public virtual DbSet<Material> Materials { get; set; }
         public virtual DbSet<MaterialWorkOrder> MaterialWorkOrders { get; set; }
-        public virtual DbSet<Medicine> Medicines { get; set; } // s?
+        public virtual DbSet<Medicine> Medicines { get; set; }
         public virtual DbSet<MedicineWorkOrder> MedicineWorkOrders { get; set; }
         public virtual DbSet<PatientWorkOrder> PatientWorkOrders { get; set; }
-        */
+        
     }
 
     //public class MyEntity

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,8 +10,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
     public class Employee
     {
         
-        [Key]
+        [ForeignKey("User")]
         public int EmployeeId { get; set; }
+        [Required]
+        public string Number { get; set; }
         [Required]
         public string Name { get; set; }
 
@@ -19,14 +22,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual User User { get; set; }
         public virtual Contractor Contractor { get; set; }
-        public virtual District District { get; set; } // Only for HealthVisitor
+        public virtual District District { get; set; } // Only for HealthNurse
         public virtual ICollection<WorkOrder> WorkOrders { get; set; }
 
         public enum JobTitle
         {
-            Doctor, //Doktor
+            Doctor = 1, //Doktor
             Head, // Vodja
-            HealthVisitor, // PS
+            HealthNurse, // PS
             Coworker // Sodelavec
         };
     }

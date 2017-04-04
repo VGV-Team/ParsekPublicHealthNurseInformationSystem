@@ -6,15 +6,18 @@ using System.Web;
 
 namespace ParsekPublicHealthNurseInformationSystem.Models
 {
-    public class Disease
+    public class Medicine
     {
         [Key]
-        public int DiseaseId { get; set; }
+        public int MedicineId { get; set; }
+
         [Required]
         public string Code { get; set; }
-        public string Description { get; set; }
+        [Required]
+        public string Title { get; set; }
 
 
-        //public virtual ICollection<WorkOrder> WorkOrders { get; set; }
+
+        //public virtual ICollection<MedicineWorkOrder> MedicineWorkOrders { get; set; }
     }
 }

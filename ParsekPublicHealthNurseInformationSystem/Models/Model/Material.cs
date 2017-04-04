@@ -11,10 +11,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Key]
         public int MaterialId { get; set; }
 
-        // Attributes?
+        [Required]
+        public string Title { get; set; }
+
+        public string Description { get; set; }
 
 
-        
-        public virtual ICollection<MaterialWorkOrder> MaterialWorkOrders { get; set; }
+
+        //public virtual ICollection<MaterialWorkOrder> MaterialWorkOrders { get; set; }
     }
 }

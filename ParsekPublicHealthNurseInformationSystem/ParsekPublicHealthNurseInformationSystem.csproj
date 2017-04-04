@@ -156,12 +156,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model TODO\Material.cs" />
-    <Compile Include="Models\Model TODO\MaterialWorkOrder.cs" />
-    <Compile Include="Models\Model TODO\Medicine.cs" />
-    <Compile Include="Models\Model TODO\MedicineWorkOrder.cs" />
-    <Compile Include="Models\Model TODO\PatientWorkOrder.cs" />
-    <Compile Include="Models\Model\ContactPerson.cs" />
+    <Compile Include="Migrations\201704041959005_InitialMigration.cs" />
+    <Compile Include="Migrations\201704041959005_InitialMigration.Designer.cs">
+      <DependentUpon>201704041959005_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Model\Material.cs" />
+    <Compile Include="Models\Model\MaterialWorkOrder.cs" />
+    <Compile Include="Models\Model\Medicine.cs" />
+    <Compile Include="Models\Model\MedicineWorkOrder.cs" />
+    <Compile Include="Models\Model\PatientWorkOrder.cs" />
+    <Compile Include="Models\Model TODO\ContactPerson.cs" />
     <Compile Include="Models\Model\Contractor.cs" />
     <Compile Include="Models\Model\Disease.cs" />
     <Compile Include="Models\Model\District.cs" />
@@ -169,7 +174,7 @@
     <Compile Include="Models\EntityDataModel.cs" />
     <Compile Include="Models\Model\Patient.cs" />
     <Compile Include="Models\Model\PostOffice.cs" />
-    <Compile Include="Models\Model\Relationship.cs" />
+    <Compile Include="Models\Model TODO\Relationship.cs" />
     <Compile Include="Models\Model\Role.cs" />
     <Compile Include="Models\Model\User.cs" />
     <Compile Include="Models\Model\Visit.cs" />
@@ -235,6 +240,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704041959005_InitialMigration.resx">
+      <DependentUpon>201704041959005_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
