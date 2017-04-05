@@ -13,17 +13,16 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public int UserId { get; set; }
         
         [Required]
-        public string Name { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        public string Password { get; set; }
 
 
 
         public virtual Role Role { get; set; }
 
-        
-
         public virtual Patient Patient { get; set; } // Only 1 of each!!
-
-        
         public virtual Employee Employee { get; set; } // Only 1 of each!!
 
         //[ForeignKey("Patient")]

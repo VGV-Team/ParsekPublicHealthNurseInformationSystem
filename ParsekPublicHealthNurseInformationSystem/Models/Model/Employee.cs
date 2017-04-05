@@ -16,12 +16,15 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public string Number { get; set; }
         [Required]
         public string Name { get; set; }
-
+        [Required]
+        public string Surname { get; set; }
         [Required]
         public JobTitle Title { get; set; }
+        [Required]
+        public virtual Contractor Contractor { get; set; }
+        public string PhoneNumber { get; set; }
 
         public virtual User User { get; set; }
-        public virtual Contractor Contractor { get; set; }
         public virtual District District { get; set; } // Only for HealthNurse
         public virtual ICollection<WorkOrder> WorkOrders { get; set; }
 

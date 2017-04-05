@@ -41,8 +41,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Admin.Employee = null;
             Admin.Patient = null;
             Admin.Role = AdminRole;
-            Admin.Name = "ADMINISTRATOR";
-            context.Users.AddOrUpdate(Admin);
+            Admin.Email = "admin@parsek.si";
+            Admin.Password = "admin";
+            context.Users.AddOrUpdate(a => a.Email, Admin);
+
+            
 
             // Diseases
             Disease d1, d2, d3, d4;
@@ -58,7 +61,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             d3.Description = "Nadzor nad normalno noseènostjo, neopredeljen";
             d4.Code = "Z35.0";
             d4.Description = "Nadzor nad noseènostjo z anamnezo infertilnosti";
-            context.Diseases.AddOrUpdate(d1, d2, d3, d4);
+            context.Diseases.AddOrUpdate(d => d.Code, d1, d2, d3, d4);
             // TODO: ...
 
             // Medicine
@@ -75,7 +78,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             m3.Title = "Acipan 40 mg prašek za raztopino za injicir";
             m4.Code = "121550";
             m4.Title = "Aconitum napellus C200 kroglice";
-            context.Medicines.AddOrUpdate(m1, m2, m3, m4);
+            context.Medicines.AddOrUpdate(m => m.Code, m1, m2, m3, m4);
             // TODO: ...
 
             // Post Office
@@ -92,7 +95,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             p4 = new PostOffice();
             p4.Title = "Ljubljana";
             p4.Number = "1000";
-            context.PostOffices.AddOrUpdate(p1, p2, p3, p4);
+            context.PostOffices.AddOrUpdate(p => p.Number, p1, p2, p3, p4);
             // TODO: ...
 
             // Contractors
@@ -117,7 +120,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             c4.Number = "04970";
             c4.Address = "POD SKALO 4";
             c4.PostOffice = p2;
-            context.Contractors.AddOrUpdate(c1, c2, c3, c4);
+            context.Contractors.AddOrUpdate(c => c.Number, c1, c2, c3, c4);
             // TODO: ...
 
             // Districts
@@ -138,7 +141,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             di4.Name = "Okolis 4";
             di4.Lat = (decimal)400.0;
             di4.Lon = (decimal)999.0;
-            context.Districts.AddOrUpdate(di1, di2, di3, di4);
+            context.Districts.AddOrUpdate(d => d.Name, di1, di2, di3, di4);
             // TODO: ...
 
             Material mat1, mat2, mat3, mat4;
@@ -154,10 +157,25 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             mat4 = new Material();
             mat4.Title = "Svinènik";
             mat4.Description = "Za zapisovanje";
-            context.Materials.AddOrUpdate(mat1, mat2, mat3, mat4);
+            context.Materials.AddOrUpdate(m => m.Title, mat1, mat2, mat3, mat4);
             // TODO: ...
 
-            
+            Employee AdminEmployee = new Employee();
+            AdminEmployee.User = Admin;
+            AdminEmployee.Name = "qwe";
+            AdminEmployee.Surname = "qwe";
+            AdminEmployee.Contractor = c1;
+            //AdminEmployee.District = di1;
+            AdminEmployee.Number = "qeasdasd";
+            AdminEmployee.PhoneNumber = "213232";
+            AdminEmployee.Title = Employee.JobTitle.Head;
+            context.Employees.AddOrUpdate(a => a.Number, AdminEmployee);
+
+            /*if (System.Diagnostics.Debugger.IsAttached == false)
+                System.Diagnostics.Debugger.Launch();
+
+            System.Diagnostics.Debug.WriteLine("Mejl: "+context.Employees.Where(e => e.Number == "qeasdasd").FirstOrDefault().User.Email);*/
+           
 
         }
     }

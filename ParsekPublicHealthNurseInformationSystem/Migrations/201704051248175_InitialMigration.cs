@@ -59,12 +59,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                         EmployeeId = c.Int(nullable: false),
                         Number = c.String(nullable: false),
                         Name = c.String(nullable: false),
+                        Surname = c.String(nullable: false),
                         Title = c.Int(nullable: false),
-                        Contractor_ContractorId = c.Int(),
+                        PhoneNumber = c.String(),
+                        Contractor_ContractorId = c.Int(nullable: false),
                         District_DistrictId = c.Int(),
                     })
                 .PrimaryKey(t => t.EmployeeId)
-                .ForeignKey("dbo.Contractors", t => t.Contractor_ContractorId)
+                .ForeignKey("dbo.Contractors", t => t.Contractor_ContractorId, cascadeDelete: true)
                 .ForeignKey("dbo.Districts", t => t.District_DistrictId)
                 .ForeignKey("dbo.Users", t => t.EmployeeId)
                 .Index(t => t.EmployeeId)
@@ -76,7 +78,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 c => new
                     {
                         UserId = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
+                        Email = c.String(nullable: false),
+                        Password = c.String(nullable: false),
                         Role_RoleId = c.Int(),
                     })
                 .PrimaryKey(t => t.UserId)
@@ -88,16 +91,26 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 c => new
                     {
                         PatientId = c.Int(nullable: false),
+                        CardNumber = c.String(nullable: false),
+                        Name = c.String(nullable: false),
+                        Surname = c.String(nullable: false),
+                        Address = c.String(nullable: false),
+                        PhoneNumber = c.String(nullable: false),
+                        Gender = c.Int(nullable: false),
                         ContactName = c.String(),
+                        ContactSurname = c.String(),
+                        ContactAddress = c.String(),
                         ContactPhone = c.String(),
+                        ContactRelationship = c.String(),
                         ParentPatientId = c.Int(),
-                        District_DistrictId = c.Int(),
-                        PostOffice_PostOfficeId = c.Int(),
+                        ParentPatientRelationship = c.String(),
+                        District_DistrictId = c.Int(nullable: false),
+                        PostOffice_PostOfficeId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.PatientId)
-                .ForeignKey("dbo.Districts", t => t.District_DistrictId)
                 .ForeignKey("dbo.Patients", t => t.ParentPatientId)
-                .ForeignKey("dbo.PostOffices", t => t.PostOffice_PostOfficeId)
+                .ForeignKey("dbo.Districts", t => t.District_DistrictId, cascadeDelete: true)
+                .ForeignKey("dbo.PostOffices", t => t.PostOffice_PostOfficeId, cascadeDelete: true)
                 .ForeignKey("dbo.Users", t => t.PatientId)
                 .Index(t => t.PatientId)
                 .Index(t => t.ParentPatientId)
@@ -224,8 +237,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             DropForeignKey("dbo.MedicineWorkOrders", "Medicine_MedicineId", "dbo.Medicines");
             DropForeignKey("dbo.MaterialWorkOrders", "PatientWorkOrder_PatientWorkOrderId", "dbo.PatientWorkOrders");
             DropForeignKey("dbo.MaterialWorkOrders", "Material_MaterialId", "dbo.Materials");
-            DropForeignKey("dbo.Patients", "ParentPatientId", "dbo.Patients");
             DropForeignKey("dbo.Patients", "District_DistrictId", "dbo.Districts");
+            DropForeignKey("dbo.Patients", "ParentPatientId", "dbo.Patients");
             DropForeignKey("dbo.Employees", "District_DistrictId", "dbo.Districts");
             DropForeignKey("dbo.Employees", "Contractor_ContractorId", "dbo.Contractors");
             DropForeignKey("dbo.Contractors", "PostOffice_PostOfficeId", "dbo.PostOffices");
