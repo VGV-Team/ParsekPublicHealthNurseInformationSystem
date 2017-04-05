@@ -10,32 +10,37 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
     {
 
         [Display(Name = "Tip zaposlenega")]
-        [Required]
-        public Models.Employee.JobTitle JobTitle;
+        [Required(ErrorMessage = "Polje je obvezno")]
+        public Models.Employee.JobTitle JobTitle { get; set; }
         [Display(Name = "Ime")]
-        [Required]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public string Name { get; set; }
         [Display(Name = "Priimek")]
-        [Required]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public string Surname { get; set; }
         [Display(Name = "Šifra")]
-        [Required]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public string Number { get; set; }
         [Display(Name = "Izvajalec dejavnosti")] // sifra
-        [Required]
+        //[Required]
         public List<Models.Contractor> Contractors { get; set; }
         [Display(Name = "Telefonska številka")]
-        [Required]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public string PhoneNumber { get; set; }
         [Display(Name = "E-mail")]
-        [EmailAddress]
-        [Required(ErrorMessage = "Email ni popoln!")]
+        [EmailAddress(ErrorMessage = "Neveljaven E-mail naslov")]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public string Email { get; set; }
         [Display(Name = "Geslo")]
-        [Required]
+        [Required(ErrorMessage = "Polje je obvezno")]
+        [MinLength(8, ErrorMessage = "Najmanjše število znakov je 8")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         [Display(Name = "Geslo ponovno")]
-        [Required]
+        [Required(ErrorMessage = "Polje je obvezno")]
+        [MinLength(8, ErrorMessage = "Najmanjše število znakov je 8")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Gesli se ne ujemata!")]
         public string PasswordRepeat { get; set; }
 
 
@@ -43,7 +48,10 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public List<Models.District> Districts { get; set; }
 
         public int SelectedDistrictId { get; set; }
+        [Required(ErrorMessage = "Polje je obvezno")]
         public int SelectedContractorId { get; set; }
+
+        public string ViewMessage { get; set; }
 
     }
 }
