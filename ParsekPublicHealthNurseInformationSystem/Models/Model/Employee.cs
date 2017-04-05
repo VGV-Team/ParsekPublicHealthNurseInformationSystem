@@ -28,11 +28,16 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public virtual District District { get; set; } // Only for HealthNurse
         public virtual ICollection<WorkOrder> WorkOrders { get; set; }
 
+        //[Display(Name = "Tip zaposlenega")]
         public enum JobTitle
         {
+            [Display(Name = "Doktor")]
             Doctor = 1, //Doktor
+            [Display(Name = "Vodja")]
             Head, // Vodja
+            [Display(Name = "Patronažna sestra")]
             HealthNurse, // PS
+            [Display(Name = "Sodelavec")]
             Coworker // Sodelavec
         };
     }
