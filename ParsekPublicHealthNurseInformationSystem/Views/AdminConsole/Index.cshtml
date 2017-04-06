@@ -5,7 +5,9 @@
 @{
     ViewBag.Title = "Index";
 }
-
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 <h2>Index</h2>
 
 
@@ -39,6 +41,12 @@
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
         <script>
             $('#DistrictDropdown').hide();
+
+            if ($('#JobTitleDropdown').val() == 3)
+            {
+                $('#DistrictDropdown').show();
+            }
+
             $('#JobTitleDropdown').on('change',
                 function () {
                     if (this.value == 3) {
@@ -124,5 +132,8 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+
 
 

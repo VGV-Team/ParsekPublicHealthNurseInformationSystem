@@ -31,11 +31,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             if (acvm == null)
             {
                 acvm = new AdminConsoleViewModel();
+                acvm.JobTitle = Employee.JobTitle.Doctor;
             }
 
-            acvm.JobTitle = Employee.JobTitle.Doctor;
+            
             acvm.Contractors = DB.Contractors.ToList();
             acvm.Districts = DB.Districts.ToList();
+
+            ModelState.Clear();
 
             return View("Index", acvm);
         }
@@ -47,6 +50,20 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             try
             {
 
+                if (acvm.Email.IsNullOrWhiteSpace() ||
+                    acvm.JobTitle.ToString().IsNullOrWhiteSpace() ||
+                    acvm.Name.IsNullOrWhiteSpace() ||
+                    acvm.Number.IsNullOrWhiteSpace() ||
+                    acvm.Password.IsNullOrWhiteSpace() ||
+                    acvm.PasswordRepeat.IsNullOrWhiteSpace() ||
+                    acvm.PhoneNumber.IsNullOrWhiteSpace() ||
+                    acvm.SelectedContractorId <= 0 ||
+                    acvm.Surname.IsNullOrWhiteSpace())
+                {
+                    acvm.ViewMessage = "Ponovno preverite vnešene podatke!";
+                    return Form(acvm);
+                }
+
                 /*if (!ModelState.IsValid)
                 {
                     acvm.ViewMessage = "Prišlo je do napake! Preglejte polja!";
@@ -55,7 +72,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 if (DB.Users.Where(u => u.Email == acvm.Email).FirstOrDefault() != null)
                 {
-                    //acvm.ViewMessage = "Uporabnik s tem e-mail naslovom že obstaja!";
+                    acvm.ViewMessage = "Uporabnik s tem e-mail naslovom že obstaja!";
                     return Form(acvm);
                 }
 
@@ -84,6 +101,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 employee.Contractor = DB.Contractors.Find(acvm.SelectedContractorId);
                 if (acvm.JobTitle == Employee.JobTitle.HealthNurse)
                 {
+                    if (acvm.SelectedDistrictId <= 0)
+                    {
+                        acvm.ViewMessage = "Za patronažno sestro morate vnesti še okoliš!";
+                        return Form(acvm);
+                    }
                     employee.District = DB.Districts.Find(acvm.SelectedDistrictId);
                 }
                 employee.Name = acvm.Name;

@@ -22,7 +22,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = "Polje je obvezno")]
         public string Number { get; set; }
         [Display(Name = "Izvajalec dejavnosti")] // sifra
-        //[Required]
+        [Required(ErrorMessage = " ")]
         public List<Models.Contractor> Contractors { get; set; }
         [Display(Name = "Telefonska številka")]
         [Required(ErrorMessage = "Polje je obvezno")]
