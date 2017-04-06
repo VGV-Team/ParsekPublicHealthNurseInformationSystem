@@ -52,7 +52,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public enum GenderEnum
         {
+            [Display(Name = "Moški")]
             Male = 'M',
+            [Display(Name = "Ženski")]
             Female = 'Ž'
         }
     }

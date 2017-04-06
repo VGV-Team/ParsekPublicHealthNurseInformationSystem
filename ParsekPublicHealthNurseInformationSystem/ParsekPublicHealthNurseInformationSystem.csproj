@@ -153,6 +153,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminConsoleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\WorkOrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -182,6 +183,7 @@
     <Compile Include="Models\Model\WorkOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AdminConsole\AdminConsoleViewModel.cs" />
+    <Compile Include="ViewModels\Register\RegisterViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderCurativeViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderPreventiveViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderViewModel.cs" />
@@ -226,6 +228,7 @@
     <Content Include="Views\WorkOrder\Index.cshtml" />
     <Content Include="Views\AdminConsole\Index.cshtml" />
     <Content Include="Views\AdminConsole\View.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,7 +8,6 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-<h2>Index</h2>
 
 
 @using (Html.BeginForm("AddEmployee", "AdminConsole", FormMethod.Post))
@@ -84,7 +83,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Contractors, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedContractorId, new SelectList(Model.Contractors, "ContractorId", "Number"), "---", htmlAttributes : new { @class = "form-control dropdown" })
+                @Html.DropDownListFor(model => model.SelectedContractorId, new SelectList(Model.Contractors, "ContractorId", "Number"), "-- Izberi --", htmlAttributes : new { @class = "form-control dropdown" })
                 @Html.ValidationMessageFor(model => model.Contractors, "", new { @class = "text-danger" })
             </div>
         </div>
