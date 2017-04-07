@@ -80,6 +80,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                         UserId = c.Int(nullable: false, identity: true),
                         Email = c.String(nullable: false),
                         Password = c.String(nullable: false),
+                        Active = c.Boolean(nullable: false),
+                        EmailCode = c.String(),
+                        EmailExpire = c.DateTime(),
                         Role_RoleId = c.Int(),
                     })
                 .PrimaryKey(t => t.UserId)
@@ -97,6 +100,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                         Address = c.String(nullable: false),
                         PhoneNumber = c.String(nullable: false),
                         Gender = c.Int(nullable: false),
+                        BirthDate = c.DateTime(nullable: false),
                         ContactName = c.String(),
                         ContactSurname = c.String(),
                         ContactAddress = c.String(),

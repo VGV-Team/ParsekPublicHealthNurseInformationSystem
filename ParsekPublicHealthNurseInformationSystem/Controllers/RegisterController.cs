@@ -36,6 +36,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             //hack
             if (rvm.ViewMessage != "Neustrezen datum!")
                 ModelState.Clear();
+            else
+            {
+                rvm.ViewMessage = "";
+            }
 
             return View("Index", rvm);
         }
@@ -48,14 +52,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             {
 
                 if (rvm.Email.IsNullOrWhiteSpace() ||
-                    rvm.Address.ToString().IsNullOrWhiteSpace() ||
+                    rvm.Address.IsNullOrWhiteSpace() ||
                     rvm.Name.IsNullOrWhiteSpace() ||
                     rvm.Number.IsNullOrWhiteSpace() ||
                     rvm.Password.IsNullOrWhiteSpace() ||
                     rvm.PasswordRepeat.IsNullOrWhiteSpace() ||
                     rvm.PhoneNumber.IsNullOrWhiteSpace() ||
                     rvm.Surname.IsNullOrWhiteSpace() ||
-                    rvm.Gender.HasValue ||
+                    !rvm.Gender.HasValue ||
                     rvm.SelectedDistrictId.ToString().IsNullOrWhiteSpace() ||
                     rvm.SelectedPostOfficeId.ToString().IsNullOrWhiteSpace()
                 ) 
@@ -65,11 +69,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 }
 
 
-                if (rvm.BirthDate > DateTime.UtcNow && rvm.BirthDate < DateTime.Parse("1/1/1900"))
-                {
-                    rvm.ViewMessage = "Neustrezen datum!";
-                    return Form(rvm);
-                }
+                
 
 
                 if (rvm.HasContactPerson)
@@ -84,6 +84,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         rvm.ViewMessage = "Vnesite vse podatke o kontaktni osebi!";
                         return Form(rvm);
                     }
+                }
+
+                if (rvm.BirthDate > DateTime.UtcNow || rvm.BirthDate < DateTime.Parse("1/1/1900"))
+                {
+                    rvm.ViewMessage = "Neustrezen datum!";
+                    return Form(rvm);
                 }
 
                 if (DB.Users.Where(u => u.Email == rvm.Email).FirstOrDefault() != null)
@@ -126,30 +132,42 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 patient.Name = rvm.Name;
                 patient.Address = rvm.Address;
                 patient.CardNumber = rvm.Number;
-                patient.ContactAddress = rvm.ContactAddress;
-                patient.ContactName = rvm.ContactName;
-                patient.ContactPhone = rvm.ContactPhone;
-                patient.ContactRelationship = rvm.ContactRelationsip;
-                patient.ContactSurname = rvm.ContactSurname;
+                if (rvm.HasContactPerson)
+                {
+                    patient.ContactAddress = rvm.ContactAddress;
+                    patient.ContactName = rvm.ContactName;
+                    patient.ContactPhone = rvm.ContactPhone;
+                    patient.ContactRelationship = rvm.ContactRelationsip;
+                    patient.ContactSurname = rvm.ContactSurname;
+                }
                 patient.District = DB.Districts.Find(rvm.SelectedDistrictId);
                 patient.Gender = (Patient.GenderEnum) rvm.Gender;
                 patient.ParentPatient = null;
                 patient.ParentPatientId = null;
                 patient.ParentPatientRelationship = null; // or "" ?
-                patient.PhoneNumber = patient.PhoneNumber;
+                patient.PhoneNumber = rvm.PhoneNumber;
                 patient.PostOffice = DB.PostOffices.Find(rvm.SelectedPostOfficeId);
                 patient.Surname = rvm.Surname;
+                patient.BirthDate = rvm.BirthDate;
 
                 patient.User = user;
 
                 user.Patient = patient;
+
+                #region Email Sending
+
+                user.Active = false;
+                user.EmailCode = "qwe";
+                user.EmailExpire = DateTime.Now.AddHours(1);
+
+                #endregion
 
                 DB.Users.Add(user);
                 DB.Patients.Add(patient);
                 DB.SaveChanges();
 
                 rvm = new RegisterViewModel();
-                rvm.ViewMessage = "Registracija uspešna!";
+                rvm.ViewMessage = "Registracija uspešna! Na Email vam bomo poslali kodo za aktivacijo računa.";
 
                 return Form(rvm);
             }

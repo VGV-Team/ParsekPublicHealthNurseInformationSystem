@@ -43,6 +43,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Admin.Role = AdminRole;
             Admin.Email = "admin@parsek.si";
             Admin.Password = "admin";
+            Admin.Active = true;
             context.Users.AddOrUpdate(a => a.Email, Admin);
 
             
