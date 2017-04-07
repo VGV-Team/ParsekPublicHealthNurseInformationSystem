@@ -11,11 +11,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Key]
         public int PostOfficeId { get; set; }
         [Required]
-        public string City { get; set; }
+        public string Title { get; set; }
         [Required]
         public string Number { get; set; }
 
-        public virtual ICollection<Patient> Patients { get; set; }
-        public virtual ICollection<Contractor> Contractor { get; set; }
+        //public virtual ICollection<Patient> Patients { get; set; }
+        //public virtual ICollection<Contractor> Contractor { get; set; }
     }
 }

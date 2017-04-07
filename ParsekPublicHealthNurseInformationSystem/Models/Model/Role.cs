@@ -11,8 +11,15 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Key]
         public int RoleId { get; set; }
         [Required]
-        public string Title { get; set; }
+        public RoleEnum Title { get; set; }
 
-        public virtual ICollection<User> Categories { get; set; }
+        //public virtual ICollection<User> Categories { get; set; }
+
+        public enum RoleEnum
+        {
+            Admin = 1,
+            Employee,
+            Patient
+        }
     }
 }
