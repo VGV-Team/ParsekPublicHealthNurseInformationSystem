@@ -15,39 +15,18 @@
     
     <div class="form-horizontal">
         <h4>WorkOrderViewModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.SupervisorId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SupervisorId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SupervisorId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <hr />
+        
+        
+    <div class="form-group">
+        @Model.CurrentEmployee.EmployeeId
+        @Model.CurrentEmployee.Title
+        @Model.CurrentEmployee.Name
+    </div>
+   
+    
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SupervisorName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SupervisorName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SupervisorName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SupervisorSurname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SupervisorSurname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SupervisorSurname, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SupervisorTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SupervisorTitle, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SupervisorTitle, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        
 
         <div class="form-group">
             @Html.LabelFor(model => model.DateTimeOfFirstVisit, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -83,9 +62,17 @@
             </div>
         </div>
         
+        <div class="form-group">
+            @Html.LabelFor(model => model.TimeBetweenVisits, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TimeBetweenVisits, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeBetweenVisits, "", new { @class = "text-danger" })
+            </div>
+        </div>
         
         
-
+        
+    <!-- Visit type -->
         <div class="form-group">
             <div class="col-md-10">
 
@@ -94,7 +81,6 @@
                     "Izberite tip obiska",
                     new { @class = "form-control" })
             </div>
-
 
             <div class="col-md-10" id=@WorkOrderViewModel.VisitType.CurativeVisit style="display: none;">
                 @if (Model.PreventiveVisit != null)

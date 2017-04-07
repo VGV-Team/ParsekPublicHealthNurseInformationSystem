@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ParsekPublicHealthNurseInformationSystem.Models;
 using ParsekPublicHealthNurseInformationSystem.ViewModels;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
@@ -13,7 +14,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         public ActionResult Index()
         {
             WorkOrderViewModel wowm = new WorkOrderViewModel();
-            wowm.SupervisorName = "qwe";
+            wowm.CurrentEmployee = new Employee();
+            wowm.CurrentEmployee.Title = Employee.JobTitle.Doctor;
+            wowm.CurrentEmployee.Name = "QWE";
 
             wowm.CurativeVisit = new WorkOrderCurativeViewModel();
             wowm.CurativeVisit.Title = WorkOrderCurativeViewModel.VisitTitle.BloodSample;
