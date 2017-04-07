@@ -229,6 +229,7 @@
     <Content Include="Views\AdminConsole\Index.cshtml" />
     <Content Include="Views\AdminConsole\View.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Register\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,7 +21,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Display(Name = "Naslov")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public string Address { get; set; }
-        [Display(Name = "Potna številka")]
+        [Display(Name = "Poštna številka")]
         [Required(ErrorMessage = " ")]
         public List<Models.PostOffice> PostOffices { get; set; }
         [Display(Name = "Okoliš")]
@@ -54,15 +54,23 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Compare("Password", ErrorMessage = "Gesli se ne ujemata!")]
         public string PasswordRepeat { get; set; }
 
+        [Display(Name = "Kontaktna oseba")]
+        public bool HasContactPerson { get; set; }
+
         [Display(Name = "Ime")]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public string ContactName { get; set; }
         [Display(Name = "Priimek")]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public string ContactSurname { get; set; }
         [Display(Name = "Naslov")]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public string ContactAddress { get; set; }
         [Display(Name = "Telefonska številka")]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public string ContactPhone { get; set; }
         [Display(Name = "Razmerje")]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public string ContactRelationsip { get; set; }
 
 
