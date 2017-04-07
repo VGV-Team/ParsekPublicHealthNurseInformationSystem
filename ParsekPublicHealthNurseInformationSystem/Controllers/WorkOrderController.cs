@@ -10,20 +10,40 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
     public class WorkOrderController : Controller
     {
+        private EntityDataModel DB = new EntityDataModel();
+
         // GET: WorkOrder
         public ActionResult Index()
         {
-            WorkOrderViewModel wowm = new WorkOrderViewModel();
-            wowm.CurrentEmployee = new Employee();
-            wowm.CurrentEmployee.Title = Employee.JobTitle.Doctor;
-            wowm.CurrentEmployee.Name = "QWE";
+            return View("Index");
+        }
 
-            wowm.CurativeVisit = new WorkOrderCurativeViewModel();
-            wowm.CurativeVisit.Title = WorkOrderCurativeViewModel.VisitTitle.BloodSample;
+        public ActionResult CreateWorkOrder()
+        {
+            WorkOrderViewModel wovm = new WorkOrderViewModel();
+            wovm.CurativeVisit = new WorkOrderCurativeViewModel();
+            wovm.PreventiveVisit = new WorkOrderPreventiveViewModel();
 
-            wowm.PreventiveVisit = new WorkOrderPreventiveViewModel();
 
-            return View(wowm);
+            List<int> patients = new List<int>(); //DB.Patients.Select(p => p.PatientId).ToList();
+            patients.Add(123123);
+            patients.Add(221);
+            patients.Add(25112);
+            wovm.AllPatients = patients;
+
+            // wovm should be loaded from currently logged in user
+            wovm.CurrentEmployee = new Employee
+            {
+                Title = Employee.JobTitle.Doctor,
+                Name = "QWE"
+            };
+
+            return View("Create", wovm);
+        }
+
+        public ActionResult SubmitWorkOrder(WorkOrderViewModel wovm)
+        {
+            return View("Index");
         }
     }
 }

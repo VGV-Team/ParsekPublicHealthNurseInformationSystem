@@ -12,8 +12,12 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
     {
         public Employee CurrentEmployee { get; set; }
 
-        public Patient[] Patients { get; set; }
-        
+        //public Patient Patient { get; set; }
+
+        public List<int> AllPatients { get; set; }
+        public int PatientId { get; set; }
+        public string PatientName { get; set; }
+
         public DateTime DateTimeOfFirstVisit { get; set; }
         public bool MandatoryFirstVisit { get; set; }
         public int NumberOfVisits { get; set; }
@@ -31,7 +35,9 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         {
             [Display(Name = "Kurativni obisk")] CurativeVisit = 1,
             [Display(Name = "Preventivni obisk")] PreventiveVisit = 2,
-
         }
+
+
+
     }
 }
