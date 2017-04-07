@@ -12,6 +12,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         public enum VisitTitle
         {
+            [Display(Name = "Izberite iz seznama")] Default = 0,
             [Display(Name = "Obisk nosečnice")] VisitPregnantWomen = 1,
             [Display(Name = "Obisk otročnice")] VisitPuerperium = 2,
             [Display(Name = "obisk novorojenčka")] VisitNewborn = 3,

@@ -16,14 +16,16 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         public List<int> AllPatients { get; set; }
         public int PatientId { get; set; }
-        public string PatientName { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime DateTimeOfFirstVisit { get; set; }
         public bool MandatoryFirstVisit { get; set; }
         public int NumberOfVisits { get; set; }
-        public DateTime TimeFrame { get; set; }
-        public int TimeBetweenVisits { get; set; }
 
+        [DataType(DataType.Date)]
+        public DateTime TimeFrame { get; set; }
+        public int TimeInterval { get; set; }
+        public VisitTimeType TimeType { get; set; }
 
 
         public WorkOrderCurativeViewModel CurativeVisit { get; set; }
@@ -33,11 +35,17 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         public enum VisitType
         {
+            [Display(Name = "Izberite iz seznama")] Default = 0,
             [Display(Name = "Kurativni obisk")] CurativeVisit = 1,
-            [Display(Name = "Preventivni obisk")] PreventiveVisit = 2,
+            [Display(Name = "Preventivni obisk")] PreventiveVisit = 2
         }
 
-
+        public enum VisitTimeType
+        {
+            [Display(Name = "Izberite iz seznama")] Default = 0,
+            [Display(Name = "Časovno obdobje")] TimeFrame = 1,
+            [Display(Name = "Časovni interval")] TimeInterval = 2
+        }
 
     }
 }

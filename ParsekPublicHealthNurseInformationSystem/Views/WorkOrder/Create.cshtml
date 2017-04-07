@@ -24,18 +24,6 @@
         </div>
 
 
-    <!--
-
-    patient id
-    patient name
-
-    time of first visit
-    mandatory visit
-    time interval
-    time frame
-
-    visit type
-    -->
      
     <div class="form-group">
         @Html.LabelFor(model => model.PatientId, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -44,16 +32,6 @@
             @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
         </div>
     </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.PatientName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PatientName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PatientName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        
-
-    
 
     <div class="form-group">
         @Html.LabelFor(model => model.DateTimeOfFirstVisit, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -81,22 +59,53 @@
         </div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.TimeFrame, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TimeFrame, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TimeFrame, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        
+        
 
     <div class="form-group">
-        @Html.LabelFor(model => model.TimeBetweenVisits, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.TimeBetweenVisits, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TimeBetweenVisits, "", new { @class = "text-danger" })
+            @Html.EnumDropDownListFor(
+                x => x.TimeType,
+                new { @class = "form-control" })
         </div>
-    </div>
 
+        <div class="col-md-10" id=@WorkOrderViewModel.VisitTimeType.TimeInterval style="display: none;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeInterval, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TimeInterval, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TimeInterval, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10" id=@WorkOrderViewModel.VisitTimeType.TimeFrame style="display: none;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeFrame, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TimeFrame, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TimeFrame, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script>
+            $('#TimeType').on('change',
+                function () {
+                    $(@WorkOrderViewModel.VisitTimeType.TimeInterval).hide();
+                    $(@WorkOrderViewModel.VisitTimeType.TimeFrame).hide();
+                    switch (this.value)
+                    {
+                        case "1":
+                        $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
+                        break;
+                        case "2":
+                         $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
+                        break;
+                    }
+                });
+        </script>
+    </div>
+        
 
 
     <!-- Visit type -->
@@ -105,7 +114,6 @@
 
             @Html.EnumDropDownListFor(
             x => x.Type,
-            "Izberite tip obiska",
             new { @class = "form-control" })
         </div>
 
@@ -113,9 +121,8 @@
             @if (Model.PreventiveVisit != null)
             {
                 @Html.EnumDropDownListFor(
-        x => x.PreventiveVisit.Title,
-        "Izberite tip obiska",
-        new { @class = "form-control" })
+                    x => x.PreventiveVisit.Title,
+                    new { @class = "form-control" })
 
                 <div class="form-group" id=@WorkOrderPreventiveViewModel.VisitTitle.VisitPregnantWomen>
                 </div>
@@ -161,9 +168,8 @@
             @if (Model.CurativeVisit != null)
             {
                 @Html.EnumDropDownListFor(
-                x => x.CurativeVisit.Title,
-                "Izberite tip obiska",
-                new { @class = "form-control" })
+                    x => x.CurativeVisit.Title,
+                    new { @class = "form-control" })
 
                 <div class="form-group" style='display:none;' id=@WorkOrderCurativeViewModel.VisitTitle.InjectionApplication>
                     @Html.LabelFor(model => model.CurativeVisit.InjectionMedications[0], htmlAttributes: new { @class = "control-label col-md-2" })
@@ -197,10 +203,10 @@
                                     $(@WorkOrderCurativeViewModel.VisitTitle.InjectionApplication).show();
                                     break;
                                 case "2":
-                                    $(@WorkOrderCurativeViewModel.VisitTitle.CheckingHealthCondition).show();
+                                    $(@WorkOrderCurativeViewModel.VisitTitle.BloodSample).show();
                                     break;
                                 case "3":
-                                    $(@WorkOrderCurativeViewModel.VisitTitle.BloodSample).show();
+                                    $(@WorkOrderCurativeViewModel.VisitTitle.CheckingHealthCondition).show();
                                     break;
                             }
                         });
