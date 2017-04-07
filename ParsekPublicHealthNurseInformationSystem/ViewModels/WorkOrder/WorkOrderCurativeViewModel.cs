@@ -16,6 +16,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public VisitTitle Title { get; set; }
         public enum VisitTitle
         {
+            [Display(Name = "Izberite iz seznama")] Default = 0,
             [Display(Name = "Aplikacija injekcij")] InjectionApplication = 1,
             [Display(Name = "Odvzem krvi")] BloodSample = 2,
             [Display(Name = "Kontrola zdravstvenega stanja")] CheckingHealthCondition = 3
