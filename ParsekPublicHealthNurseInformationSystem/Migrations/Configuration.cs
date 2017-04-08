@@ -58,6 +58,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient.Email = "injured@work.com";
             Patient.Password = "death";
             context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Patient);
+            Admin.Active = true;
+            context.Users.AddOrUpdate(a => a.Email, Admin);
 
 
             // Diseases

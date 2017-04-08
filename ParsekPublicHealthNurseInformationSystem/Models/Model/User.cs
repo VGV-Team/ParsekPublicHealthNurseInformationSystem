@@ -18,6 +18,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public string Password { get; set; }
 
+        public bool Active { get; set; }
+        public string EmailCode { get; set; }
+        public DateTime? EmailExpire { get; set; }
+
 
 
         public virtual Role Role { get; set; }

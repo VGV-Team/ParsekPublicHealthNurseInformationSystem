@@ -28,6 +28,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public string PhoneNumber { get; set; }
         [Required]
         public GenderEnum Gender { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
 
         // Contact person
         public string ContactName { get; set; }

@@ -96,6 +96,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 user.Role = role;
                 user.Password = acvm.Password;
                 user.Patient = null;
+                user.Active = true;
 
                 Models.Employee employee = new Models.Employee();
                 employee.Contractor = DB.Contractors.Find(acvm.SelectedContractorId);
