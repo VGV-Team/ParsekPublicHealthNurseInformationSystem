@@ -8,6 +8,20 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Activities",
+                c => new
+                    {
+                        ActivityId = c.Int(nullable: false, identity: true),
+                        ServiceCode = c.String(nullable: false),
+                        ServiceTitle = c.String(nullable: false),
+                        ActivityCode = c.String(nullable: false),
+                        ActivityTitle = c.String(nullable: false),
+                        Report = c.String(nullable: false),
+                        PreventiveVisit = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.ActivityId);
+            
+            CreateTable(
                 "dbo.Contractors",
                 c => new
                     {
@@ -276,6 +290,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             DropTable("dbo.Diseases");
             DropTable("dbo.PostOffices");
             DropTable("dbo.Contractors");
+            DropTable("dbo.Activities");
         }
     }
 }

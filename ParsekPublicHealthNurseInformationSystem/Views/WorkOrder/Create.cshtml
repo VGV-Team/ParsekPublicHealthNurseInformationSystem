@@ -5,26 +5,13 @@
 @{
     ViewBag.Title = "Create";
 }
-
-<h2>Create</h2>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<h2>Nov delovni nalog</h2>
 
 @using (Html.BeginForm("SubmitWorkOrder","WorkOrder"))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>WorkOrderViewModel</h4>
-        <hr />
-
-
-        <div class="form-group">
-            <div>Id: @Model.CurrentEmployee.EmployeeId</div>
-            <div>Title: @Model.CurrentEmployee.Title</div>
-            <div>Name: @Model.CurrentEmployee.Name</div>
-        </div>
-
-
-     
     <div class="form-group">
         @Html.LabelFor(model => model.PatientId, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -59,13 +46,12 @@
         </div>
     </div>
 
-        
-        
 
     <div class="form-group">
         <div class="col-md-10">
             @Html.EnumDropDownListFor(
                 x => x.TimeType,
+                "-- Izberi --",
                 new { @class = "form-control" })
         </div>
 
@@ -105,159 +91,16 @@
                 });
         </script>
     </div>
-        
 
-
-    <!-- Visit type -->
     <div class="form-group">
-        <div class="col-md-10">
-
-            @Html.EnumDropDownListFor(
-            x => x.Type,
-            new { @class = "form-control" })
-        </div>
-
-        <div class="col-md-10" id=@WorkOrderViewModel.VisitType.CurativeVisit style="display: none;">
-            @if (Model.PreventiveVisit != null)
-            {
-                @Html.EnumDropDownListFor(
-                    x => x.PreventiveVisit.Title,
-                    new { @class = "form-control" })
-
-                <div class="form-group" id=@WorkOrderPreventiveViewModel.VisitTitle.VisitPregnantWomen>
-                </div>
-
-                <div class="form-group" id=@WorkOrderPreventiveViewModel.VisitTitle.VisitPuerperium>
-                </div>
-
-                <div class="form-group" id=@WorkOrderPreventiveViewModel.VisitTitle.VisitNewborn>
-                </div>
-
-                <div class="form-group" id=@WorkOrderPreventiveViewModel.VisitTitle.VisitElderly>
-                </div>
-
-                <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-                <script>
-            $('#PreventiveVisit_Title').on('change',
-                function () {
-                    $(@WorkOrderPreventiveViewModel.VisitTitle.VisitPregnantWomen).hide();
-                    $(@WorkOrderPreventiveViewModel.VisitTitle.VisitPuerperium).hide();
-                    $(@WorkOrderPreventiveViewModel.VisitTitle.VisitNewborn).hide();
-                    $(@WorkOrderPreventiveViewModel.VisitTitle.VisitElderly).hide();
-                    switch (this.value)
-                    {
-                        case "1":
-                            $(@WorkOrderPreventiveViewModel.VisitTitle.VisitPregnantWomen).show();
-                            break;
-                        case "2":
-                            $(@WorkOrderPreventiveViewModel.VisitTitle.VisitPuerperium).show();
-                            break;
-                        case "3":
-                            $(@WorkOrderPreventiveViewModel.VisitTitle.VisitNewborn).show();
-                            break;
-                        case "4":
-                            $(@WorkOrderPreventiveViewModel.VisitTitle.VisitElderly).show();
-                            break;
-                    }
-                });
-                </script>
-            }
-        </div>
-
-        <div class="col-md-10" id=@WorkOrderViewModel.VisitType.PreventiveVisit style="display: none;">
-            @if (Model.CurativeVisit != null)
-            {
-                @Html.EnumDropDownListFor(
-                    x => x.CurativeVisit.Title,
-                    new { @class = "form-control" })
-
-                <div class="form-group" style='display:none;' id=@WorkOrderCurativeViewModel.VisitTitle.InjectionApplication>
-                    @Html.LabelFor(model => model.CurativeVisit.InjectionMedications[0], htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CurativeVisit.InjectionMedications[0], new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CurativeVisit.InjectionMedications[0], "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group" style='display:none;' id=@WorkOrderCurativeViewModel.VisitTitle.CheckingHealthCondition>
-                </div>
-
-                <div class="form-group" style='display:none;' id=@WorkOrderCurativeViewModel.VisitTitle.BloodSample>
-                    @Html.LabelFor(model => model.CurativeVisit.BloodVialCounts[0], htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CurativeVisit.BloodVialCounts[0], new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CurativeVisit.BloodVialCounts[0], "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-                <script>
-                    $('#CurativeVisit_Title').on('change',
-                        function () {
-                            $(@WorkOrderCurativeViewModel.VisitTitle.InjectionApplication).hide();
-                            $(@WorkOrderCurativeViewModel.VisitTitle.CheckingHealthCondition).hide();
-                            $(@WorkOrderCurativeViewModel.VisitTitle.BloodSample).hide();
-                            switch (this.value)
-                            {
-                                case "1":
-                                    $(@WorkOrderCurativeViewModel.VisitTitle.InjectionApplication).show();
-                                    break;
-                                case "2":
-                                    $(@WorkOrderCurativeViewModel.VisitTitle.BloodSample).show();
-                                    break;
-                                case "3":
-                                    $(@WorkOrderCurativeViewModel.VisitTitle.CheckingHealthCondition).show();
-                                    break;
-                            }
-                        });
-                </script>
-            }
-        </div>
-
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-        <script>
-            $('#Type').on('change',
-            function () {
-                $(@WorkOrderViewModel.VisitType.CurativeVisit).hide();
-                $(@WorkOrderViewModel.VisitType.PreventiveVisit).hide();
-                switch (this.value)
-                {
-                    case "1":
-                        $(@WorkOrderViewModel.VisitType.CurativeVisit).show();
-                        break;
-                    case "2":
-                        $(@WorkOrderViewModel.VisitType.PreventiveVisit).show();
-                        break;
-                }
-            });
-        </script>
-
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to home", "Index", "Home")
 </div>
 
 @section Scripts {

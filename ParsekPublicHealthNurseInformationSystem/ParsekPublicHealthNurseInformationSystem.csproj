@@ -158,11 +158,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704072047160_initial.cs" />
-    <Compile Include="Migrations\201704072047160_initial.Designer.cs">
-      <DependentUpon>201704072047160_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201704082041336_initial.cs" />
+    <Compile Include="Migrations\201704082041336_initial.Designer.cs">
+      <DependentUpon>201704082041336_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Model\Activity.cs" />
     <Compile Include="Models\Model\Material.cs" />
     <Compile Include="Models\Model\MaterialWorkOrder.cs" />
     <Compile Include="Models\Model\Medicine.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="ViewModels\WorkOrder\WorkOrderCurativeViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderPreventiveViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderViewModel.cs" />
+    <Compile Include="ViewModels\WorkOrder\WorkOrderVisitTypeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -195,6 +197,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Migrations\Drop all tables.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -250,8 +253,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704072047160_initial.resx">
-      <DependentUpon>201704072047160_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704082041336_initial.resx">
+      <DependentUpon>201704082041336_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

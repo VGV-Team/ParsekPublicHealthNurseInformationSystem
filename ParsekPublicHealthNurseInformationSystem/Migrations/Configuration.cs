@@ -29,12 +29,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             //
 
             Role AdminRole = new Role { Title = Role.RoleEnum.Admin };
+            Role EmployeeRole = new Role { Title = Role.RoleEnum.Employee };
+            Role PatientRole = new Role { Title = Role.RoleEnum.Patient };
 
             context.Roles.AddOrUpdate(
                 r => r.Title,
                 AdminRole,
-                new Role { Title = Role.RoleEnum.Employee },
-                new Role { Title = Role.RoleEnum.Patient }
+                EmployeeRole,
+                PatientRole
             );
 
             User Admin = new User();
@@ -43,9 +45,20 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Admin.Role = AdminRole;
             Admin.Email = "admin@parsek.si";
             Admin.Password = "admin";
-            context.Users.AddOrUpdate(a => a.Email, Admin);
+            User Doctor = new User();
+            Doctor.Employee = null;
+            Doctor.Patient = null;
+            Doctor.Role = EmployeeRole;
+            Doctor.Email = "doctor@parsek.si";
+            Doctor.Password = "doctor";
+            User Patient = new User();
+            Patient.Employee = null;
+            Patient.Patient = null;
+            Patient.Role = PatientRole;
+            Patient.Email = "injured@work.com";
+            Patient.Password = "death";
+            context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Patient);
 
-            
 
             // Diseases
             Disease d1, d2, d3, d4;
@@ -169,13 +182,51 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             AdminEmployee.Number = "qeasdasd";
             AdminEmployee.PhoneNumber = "213232";
             AdminEmployee.Title = Employee.JobTitle.Head;
-            context.Employees.AddOrUpdate(a => a.Number, AdminEmployee);
+            Employee DoctorEmployee = new Employee();
+            DoctorEmployee.User = Doctor;
+            DoctorEmployee.Name = "Doctory";
+            DoctorEmployee.Surname = "Doktorsky";
+            DoctorEmployee.Contractor = c1;
+            //AdminEmployee.District = di1;
+            DoctorEmployee.Number = "jmmfgh";
+            DoctorEmployee.PhoneNumber = "867685";
+            DoctorEmployee.Title = Employee.JobTitle.Doctor;
+            context.Employees.AddOrUpdate(a => a.Number, AdminEmployee, DoctorEmployee);
+
+            Patient patient = new Patient();
+            patient.CardNumber = "qweqwe";
+            patient.Name = "Frampt";
+            patient.Surname = "Kingseeker";
+            patient.Address = "A hole";
+            patient.PostOffice = p1;
+            patient.District = di1;
+            patient.PhoneNumber = "4545";
+            patient.Gender = Models.Patient.GenderEnum.Male;
+            patient.User = Patient;
+            context.Patients.AddOrUpdate(y => y.CardNumber, patient);
+
+            Activity ac1 = new Activity();
+            ac1.ServiceCode = "10";
+            ac1.ServiceTitle = "Obisk noseènice";
+            ac1.ActivityCode = "10";
+            ac1.ActivityTitle = "Seznanitev noseènice o normalnem poteku noseènosti in o spremembah na telesu.";
+            ac1.Report = "Prosti vnos";
+            ac1.PreventiveVisit = true;
+            Activity ac2 = new Activity();
+            ac2.ServiceCode = "70";
+            ac2.ServiceTitle = "Kontrola zdravstvenega stanja";
+            ac2.ActivityCode = "20";
+            ac2.ActivityTitle = "Krvni pritisk: sistolièni, diastolièni";
+            ac2.Report = "Sistolièni (mm Hg) * Diastolièni(mm Hg) *";
+            ac2.PreventiveVisit = false;
+            context.Activities.AddOrUpdate(y => y.ActivityId, ac1, ac2);
+
 
             /*if (System.Diagnostics.Debugger.IsAttached == false)
                 System.Diagnostics.Debugger.Launch();
 
             System.Diagnostics.Debug.WriteLine("Mejl: "+context.Employees.Where(e => e.Number == "qeasdasd").FirstOrDefault().User.Email);*/
-           
+
 
         }
     }

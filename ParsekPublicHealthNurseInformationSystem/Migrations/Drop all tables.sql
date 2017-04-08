@@ -1,0 +1,16 @@
+﻿DROP TABLE PatientWorkOrders
+DROP TABLE Patients
+DROP TABLE WorkOrders
+DROP TABLE Districts
+DROP TABLE Diseases
+DROP TABLE Contractors
+DROP TABLE Employees
+DROP TABLE Users
+DROP TABLE MaterialWorkOrders
+DROP TABLE Materials
+DROP TABLE MedicineWorkOrders
+DROP TABLE Medicines
+DROP TABLE Visits
+DROP TABLE Roles
+DROP TABLE PostOffices
+DROP TABLE __MigrationHistory

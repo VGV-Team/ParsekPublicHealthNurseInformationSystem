@@ -38,7 +38,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public virtual DbSet<Medicine> Medicines { get; set; }
         public virtual DbSet<MedicineWorkOrder> MedicineWorkOrders { get; set; }
         public virtual DbSet<PatientWorkOrder> PatientWorkOrders { get; set; }
-        
+        public virtual DbSet<Activity> Activities { get; set; }
+
     }
 
     //public class MyEntity

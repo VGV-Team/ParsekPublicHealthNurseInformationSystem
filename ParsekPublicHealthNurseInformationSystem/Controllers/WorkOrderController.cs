@@ -15,62 +15,62 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         // GET: WorkOrder
         public ActionResult Index()
         {
-            return View("Index");
+            // TODO: get this from session
+            bool isDoctor = true;
+
+            WorkOrderVisitTypeViewModel wovtvm = new WorkOrderVisitTypeViewModel();
+            wovtvm.CreateWorkOrderVisitTypeViewModel(isDoctor);
+
+            return View("Index", wovtvm);
         }
 
-        public ActionResult CreateWorkOrder()
+        public ActionResult CreateWorkOrder(WorkOrderVisitTypeViewModel wovtvm)
         {
-            WorkOrderViewModel wovm = new WorkOrderViewModel();
-            wovm.CurativeVisit = new WorkOrderCurativeViewModel();
-            wovm.PreventiveVisit = new WorkOrderPreventiveViewModel();
+            // TODO: get this from session
+            bool isDoctor = true;
 
-
-            List<int> patients = DB.Patients.Select(x => x.PatientId).ToList();
-            wovm.AllPatients = patients;
-
-            // wovm should be loaded from currently logged in user
-            wovm.CurrentEmployee = new Employee
+            Activity activity = DB.Activities.FirstOrDefault(x => x.ActivityId == wovtvm.SelectedActivityId);
+            if (activity == null || !activity.PreventiveVisit && !isDoctor)
             {
-                Title = Employee.JobTitle.Doctor,
-                Name = "QWE"
-            };
+                // TODO: error
+            }
+
+            WorkOrderViewModel wovm = new WorkOrderViewModel();
+            wovm.AllPatients = DB.Patients.ToList();
 
             return View("Create", wovm);
         }
 
         public ActionResult SubmitWorkOrder(WorkOrderViewModel wovm)
         {
-            // TODO: check for fields
-            if (DB.Patients.FirstOrDefault(x => x.PatientId == wovm.PatientId) != null &&
-                wovm.DateTimeOfFirstVisit > DateTime.Now &&
-                wovm.NumberOfVisits > 0 &&
-                wovm.TimeType != WorkOrderViewModel.VisitTimeType.Default &&
-                (
-                    wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeFrame &&
-                    wovm.TimeFrame > DateTime.Now
-                    ||
-                    wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeInterval &&
-                    wovm.TimeInterval > 1
-                ) &&
-                wovm.Type != WorkOrderViewModel.VisitType.Default &&
-                (
-                    wovm.CurrentEmployee.Title == Employee.JobTitle.Doctor &&
-                    wovm.Type == WorkOrderViewModel.VisitType.CurativeVisit &&
-                    wovm.CurativeVisit.Title != WorkOrderCurativeViewModel.VisitTitle.Default
-                    ||
-                    wovm.Type == WorkOrderViewModel.VisitType.PreventiveVisit && 
-                    wovm.PreventiveVisit.Title != WorkOrderPreventiveViewModel.VisitTitle.Default
-                )
+            Patient patient = DB.Patients.FirstOrDefault(x => x.PatientId == wovm.PatientId);
+
+            if (patient == null ||
+                wovm.DateTimeOfFirstVisit < DateTime.Now ||
+                wovm.DateTimeOfFirstVisit.AddMonths(-6) > DateTime.Now ||
+                wovm.NumberOfVisits < 1 || wovm.NumberOfVisits > 10 ||
+                wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeFrame &&
+                (wovm.TimeFrame.AddMonths(-6) > DateTime.Now ||
+                 wovm.TimeFrame < DateTime.Now) &&
+                 wovm.TimeFrame < wovm.DateTimeOfFirstVisit ||
+                wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeInterval &&
+                (wovm.TimeInterval > 30 || wovm.TimeInterval < 1)
             )
             {
-                Patient patient = DB.Patients.FirstOrDefault(x => x.PatientId == wovm.PatientId);
-                Employee employee = DB.Employees.FirstOrDefault(x => x.EmployeeId == wovm.CurrentEmployee.EmployeeId);
-                Contractor contractor = DB.Contractors.FirstOrDefault(x => x.ContractorId == wovm.CurrentEmployee.Contractor.ContractorId);
+                // TODO: wrong data
+                ;
+            }
+            else
+            {
+                // TODO: get this from session
+                Employee employee = DB.Employees.FirstOrDefault(x => x.Name == "Doctory");
+                Contractor contractor = employee.Contractor;
+                //DB.Contractors.FirstOrDefault(x => x.ContractorId == wovm.CurrentEmployee.Contractor.ContractorId);
 
                 WorkOrder workOrder = new WorkOrder();
                 workOrder.Contractor = contractor;
                 workOrder.Employee = employee;
-                workOrder.Name = wovm.Type.ToString();
+                workOrder.Name = "Name of activity";
 
                 PatientWorkOrder patientWorkOrder = new PatientWorkOrder();
                 patientWorkOrder.Patient = patient;
@@ -79,10 +79,16 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 Visit visit = new Visit();
                 visit.Date = wovm.DateTimeOfFirstVisit;
                 visit.Mandatory = wovm.MandatoryFirstVisit;
-                visit.WorkOrder = workOrder;            }
-                
+                visit.WorkOrder = workOrder;
 
-            return View("Index");
+                DB.WorkOrders.Add(workOrder);
+                DB.PatientWorkOrders.Add(patientWorkOrder);
+                DB.Visits.Add(visit);
+                DB.SaveChanges();
+            }
+
+            // TODO: redirect and confirm message
+            return RedirectToAction("Index", "Home");
         }
     }
 }
