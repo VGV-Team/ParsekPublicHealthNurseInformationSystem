@@ -27,9 +27,18 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             {
                 lvm = new LoginViewModel();
             }
-            //lvm.ViewMessage = "";
+            if (lvm.ViewMessage == "qwe")
+                return View("~/Views/Home/Index.cshtml");
+            else
+                return View("Index", lvm);
+        }
 
-            return View("Index", lvm);
+        public static string GetExternalClientIP()
+        {
+            char[] separator1 = { '<' };
+            char[] separator2 = { '>' };
+            using (var _webClient = new System.Net.WebClient())
+                return _webClient.DownloadString("http://whatismyip.org").Split(separator1)[27].Split(separator2)[1];
         }
 
         [HttpPost]
@@ -38,7 +47,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             
             try
             {
-                if(lvm.Email.IsNullOrWhiteSpace()||
+                string visitorIPAddress = GetExternalClientIP();
+
+                if (lvm.Email.IsNullOrWhiteSpace()||
                     lvm.Password.IsNullOrWhiteSpace())
                 {
                     lvm.ViewMessage = "Ponovno preverite vnešene podatke!";
@@ -53,7 +64,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 Models.User user = DB.Users.Where(u => u.Email == lvm.Email).FirstOrDefault();
                 if(user.Password != lvm.Password)
                 {
-                    lvm.ViewMessage = "Vnešeno geslo je napačno";
+                    lvm.ViewMessage = "Vnešeno geslo je napačno ";
                     return Form(lvm);
                 }
                 
@@ -65,6 +76,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 Session["user"] = user;
                 lvm.ViewMessage = "qwe";
+                //return Redirect(Request.Url.Authority);
+                
+
                 return Form(lvm);
             }
             catch (Exception e)
