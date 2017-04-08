@@ -83,17 +83,20 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                         Active = c.Boolean(nullable: false),
                         EmailCode = c.String(),
                         EmailExpire = c.DateTime(),
+                        Patient_PatientId = c.Int(),
                         Role_RoleId = c.Int(),
                     })
                 .PrimaryKey(t => t.UserId)
+                .ForeignKey("dbo.Patients", t => t.Patient_PatientId)
                 .ForeignKey("dbo.Roles", t => t.Role_RoleId)
+                .Index(t => t.Patient_PatientId)
                 .Index(t => t.Role_RoleId);
             
             CreateTable(
                 "dbo.Patients",
                 c => new
                     {
-                        PatientId = c.Int(nullable: false),
+                        PatientId = c.Int(nullable: false, identity: true),
                         CardNumber = c.String(nullable: false),
                         Name = c.String(nullable: false),
                         Surname = c.String(nullable: false),
@@ -107,19 +110,28 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                         ContactPhone = c.String(),
                         ContactRelationship = c.String(),
                         ParentPatientId = c.Int(),
-                        ParentPatientRelationship = c.String(),
                         District_DistrictId = c.Int(nullable: false),
+                        ParentPatientRelationship_RelationshipId = c.Int(),
                         PostOffice_PostOfficeId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.PatientId)
                 .ForeignKey("dbo.Patients", t => t.ParentPatientId)
                 .ForeignKey("dbo.Districts", t => t.District_DistrictId, cascadeDelete: true)
+                .ForeignKey("dbo.Relationships", t => t.ParentPatientRelationship_RelationshipId)
                 .ForeignKey("dbo.PostOffices", t => t.PostOffice_PostOfficeId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.PatientId)
-                .Index(t => t.PatientId)
                 .Index(t => t.ParentPatientId)
                 .Index(t => t.District_DistrictId)
+                .Index(t => t.ParentPatientRelationship_RelationshipId)
                 .Index(t => t.PostOffice_PostOfficeId);
+            
+            CreateTable(
+                "dbo.Relationships",
+                c => new
+                    {
+                        RelationshipId = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.RelationshipId);
             
             CreateTable(
                 "dbo.PatientWorkOrders",
@@ -229,7 +241,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
         {
             DropForeignKey("dbo.Employees", "EmployeeId", "dbo.Users");
             DropForeignKey("dbo.Users", "Role_RoleId", "dbo.Roles");
-            DropForeignKey("dbo.Patients", "PatientId", "dbo.Users");
+            DropForeignKey("dbo.Users", "Patient_PatientId", "dbo.Patients");
             DropForeignKey("dbo.Patients", "PostOffice_PostOfficeId", "dbo.PostOffices");
             DropForeignKey("dbo.Visits", "WorkOrder_WorkOrderId", "dbo.WorkOrders");
             DropForeignKey("dbo.PatientWorkOrders", "WorkOrder_WorkOrderId", "dbo.WorkOrders");
@@ -241,6 +253,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             DropForeignKey("dbo.MedicineWorkOrders", "Medicine_MedicineId", "dbo.Medicines");
             DropForeignKey("dbo.MaterialWorkOrders", "PatientWorkOrder_PatientWorkOrderId", "dbo.PatientWorkOrders");
             DropForeignKey("dbo.MaterialWorkOrders", "Material_MaterialId", "dbo.Materials");
+            DropForeignKey("dbo.Patients", "ParentPatientRelationship_RelationshipId", "dbo.Relationships");
             DropForeignKey("dbo.Patients", "District_DistrictId", "dbo.Districts");
             DropForeignKey("dbo.Patients", "ParentPatientId", "dbo.Patients");
             DropForeignKey("dbo.Employees", "District_DistrictId", "dbo.Districts");
@@ -257,10 +270,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             DropIndex("dbo.PatientWorkOrders", new[] { "WorkOrder_WorkOrderId" });
             DropIndex("dbo.PatientWorkOrders", new[] { "Patient_PatientId" });
             DropIndex("dbo.Patients", new[] { "PostOffice_PostOfficeId" });
+            DropIndex("dbo.Patients", new[] { "ParentPatientRelationship_RelationshipId" });
             DropIndex("dbo.Patients", new[] { "District_DistrictId" });
             DropIndex("dbo.Patients", new[] { "ParentPatientId" });
-            DropIndex("dbo.Patients", new[] { "PatientId" });
             DropIndex("dbo.Users", new[] { "Role_RoleId" });
+            DropIndex("dbo.Users", new[] { "Patient_PatientId" });
             DropIndex("dbo.Employees", new[] { "District_DistrictId" });
             DropIndex("dbo.Employees", new[] { "Contractor_ContractorId" });
             DropIndex("dbo.Employees", new[] { "EmployeeId" });
@@ -273,6 +287,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             DropTable("dbo.Materials");
             DropTable("dbo.MaterialWorkOrders");
             DropTable("dbo.PatientWorkOrders");
+            DropTable("dbo.Relationships");
             DropTable("dbo.Patients");
             DropTable("dbo.Users");
             DropTable("dbo.Employees");

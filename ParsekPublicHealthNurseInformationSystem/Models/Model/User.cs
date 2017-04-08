@@ -27,6 +27,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public virtual Role Role { get; set; }
 
         public virtual Patient Patient { get; set; } // Only 1 of each!!
+        //public virtual ICollection<Patient> Patient { get; set; } // ONE TO ONE WORKAROUND!
+
         public virtual Employee Employee { get; set; } // Only 1 of each!!
 
         //[ForeignKey("Patient")]

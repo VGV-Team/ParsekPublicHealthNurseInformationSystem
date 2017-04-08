@@ -151,17 +151,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AddPatientController.cs" />
     <Compile Include="Controllers\AdminConsoleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\WorkOrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704071635316_InitialMigration.cs" />
-    <Compile Include="Migrations\201704071635316_InitialMigration.Designer.cs">
-      <DependentUpon>201704071635316_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201704082254120_InitialMigration.cs" />
+    <Compile Include="Migrations\201704082254120_InitialMigration.Designer.cs">
+      <DependentUpon>201704082254120_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model\Material.cs" />
@@ -177,7 +179,7 @@
     <Compile Include="Models\EntityDataModel.cs" />
     <Compile Include="Models\Model\Patient.cs" />
     <Compile Include="Models\Model\PostOffice.cs" />
-    <Compile Include="Models\Model TODO\Relationship.cs" />
+    <Compile Include="Models\Model\Relationship.cs" />
     <Compile Include="Models\Model\Role.cs" />
     <Compile Include="Models\Model\User.cs" />
     <Compile Include="Models\Model\Visit.cs" />
@@ -185,6 +187,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AdminConsole\AdminConsoleViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
+    <Compile Include="ViewModels\PatientActions\AddCarePatientViewModel.cs" />
     <Compile Include="ViewModels\Register\RegisterViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderCurativeViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderPreventiveViewModel.cs" />
@@ -233,9 +236,12 @@
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Register\View.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\AddPatient\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModels\Profile\" />
+    <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -253,8 +259,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704071635316_InitialMigration.resx">
-      <DependentUpon>201704071635316_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704082254120_InitialMigration.resx">
+      <DependentUpon>201704082254120_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

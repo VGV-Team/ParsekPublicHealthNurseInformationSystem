@@ -28,7 +28,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<PostOffice> PostOffices { get; set; }
-        //public virtual DbSet<Relationship> Relationships { get; set; }
+        public virtual DbSet<Relationship> Relationships { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Visit> Visits { get; set; }

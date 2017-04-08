@@ -73,5 +73,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 return Form(lvm);
             }
         }
+
+        public ActionResult Logout()
+        {
+            Session["user"] = null;
+            return Redirect("/");
+        }
     }
 }

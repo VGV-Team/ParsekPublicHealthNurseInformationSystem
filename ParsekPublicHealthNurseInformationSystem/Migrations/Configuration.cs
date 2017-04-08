@@ -46,7 +46,18 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Admin.Active = true;
             context.Users.AddOrUpdate(a => a.Email, Admin);
 
-            
+
+            // Relationships
+            Relationship rel1, rel2, rel3, rel4;
+            rel1 = new Relationship();
+            rel1.Name = "Starš - otrok";
+            rel2 = new Relationship();
+            rel2.Name = "Ožji družinski krog";
+            rel3 = new Relationship();
+            rel3.Name = "Širši družinski krog";
+            rel4 = new Relationship();
+            rel4.Name = "Ni v sorodu";
+            context.Relationships.AddOrUpdate(rel => rel.Name, rel1, rel2, rel3, rel4);
 
             // Diseases
             Disease d1, d2, d3, d4;
