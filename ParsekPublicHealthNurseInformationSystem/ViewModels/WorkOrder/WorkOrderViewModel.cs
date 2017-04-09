@@ -30,7 +30,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Display(Name = "Datum prvega obiska")]
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Polje je obvezno")]
-        //[CheckDateMaxRangeAttribute(ErrorMessage = "Neustrezen datum")]
+        [CheckDateMaxRangeAttribute(ErrorMessage = "Neustrezen datum")]
         public DateTime DateTimeOfFirstVisit { get; set; }
 
         [Display(Name = "Obvezen prvi obisk")]
@@ -44,7 +44,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         [Display(Name = "Obdobje vseh obiskov")]
         [DataType(DataType.Date)]
-        //[CheckDateMaxRangeAttribute(ErrorMessage = "Neustrezen datum")]
+        [CheckDateMaxRangeAttribute(ErrorMessage = "Neustrezen datum")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public DateTime TimeFrame { get; set; }
 
@@ -81,6 +81,8 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         {
             public override bool IsValid(object value)
             {
+                if (value == null) return true;
+
                 DateTime dt = (DateTime)value;
                 if (dt >= DateTime.UtcNow && dt <= DateTime.UtcNow.AddMonths(6))
                 {

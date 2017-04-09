@@ -29,6 +29,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public bool PreventiveVisit { get; set; }
 
+        public virtual ICollection<WorkOrder> WorkOrders { get; set; }
+
         
     }
 }

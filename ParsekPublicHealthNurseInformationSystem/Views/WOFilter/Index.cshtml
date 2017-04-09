@@ -1,0 +1,118 @@
+﻿@model ParsekPublicHealthNurseInformationSystem.ViewModels.WorkOrderFilterViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Pregled delovnih nalogov</h2>
+
+@using (Html.BeginForm("Index", "WOFilter", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="well">
+            
+
+            <div class="btn-group">
+                <button onclick="return false;" class="btn btn-info form-control" data-toggle="collapse" data-target="#Filters">Filtriranje</button>
+            </div>
+
+            <br />
+
+            <div id="Filters" class="collapse">
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateStart, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DateStart, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Vrsta obiska", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.VisitType, "-- Vsi --", new { @class = "form-control dropdown", @id = "JobTitleDropdown" })
+                    </div>
+                </div>
+
+                <div class="form-group" id="DistrictDropdown">
+                    @Html.LabelFor(model => model.Issuers, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SelectedIssuerId, new SelectList(Model.Issuers, "EmployeeId", "Name"), "-- Vsi --", htmlAttributes: new { @class = "form-control dropdown" })
+                    </div>
+                </div>
+
+                <div class="form-group" id="DistrictDropdown">
+                    @Html.LabelFor(model => model.Patients, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SelectedPatientId, new SelectList(Model.Patients, "PatientId", "Name"), "-- Vsi --", htmlAttributes: new { @class = "form-control dropdown" })
+                    </div>
+                </div>
+
+                <div class="form-group" id="DistrictDropdown">
+                    @Html.LabelFor(model => model.Nurse, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SelectedNurseId, new SelectList(Model.Nurse, "EmployeeId", "Name"), "-- Vse --", htmlAttributes: new { @class = "form-control dropdown" })
+                    </div>
+                </div>
+
+                <div class="form-group" id="DistrictDropdown">
+                    @Html.LabelFor(model => model.NurseReplacement, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SelectedNurseReplacementId, new SelectList(Model.NurseReplacement, "EmployeeId", "Name"), "-- Vse --", htmlAttributes: new { @class = "form-control dropdown" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Filtriraj" class="btn btn-default" />
+                    </div>
+                </div>
+
+            </div>
+        </div>   
+
+        <div class="well">
+
+            <h3>Delovni nalogi, ki ustrezajo filtrom: </h3>
+
+            @for (int i = 0; i < Model.WorkOrders.Count; i++)
+            {
+                <div class="well">
+                    @{
+                        ParsekPublicHealthNurseInformationSystem.Models.WorkOrder WO = Model.WorkOrders[i];
+                    }
+                    <ul>
+                        <li>@WO.Name</li>
+                        <li>Izdajatelj: @WO.Issuer.Name @WO.Issuer.Surname, @WO.Issuer.Title.ToString()</li>
+                        <li>Zadolžena sestra: @WO.Nurse.Name @WO.Nurse.Surname</li>
+                        <li>Nadomestna sestra: @WO.NurseReplacement.Name @WO.NurseReplacement.Surname</li>
+                        <li>Preventivni obisk: @WO.Activity.PreventiveVisit.ToString()</li>
+                        <li><input type="button" value="Podrobnosti" /></li>
+                    </ul>
+                </div>
+                        }
+
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

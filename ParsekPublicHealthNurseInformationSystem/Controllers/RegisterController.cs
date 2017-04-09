@@ -19,6 +19,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         public ActionResult Index()
         {
 
+
             return Form(null);
         }
 
