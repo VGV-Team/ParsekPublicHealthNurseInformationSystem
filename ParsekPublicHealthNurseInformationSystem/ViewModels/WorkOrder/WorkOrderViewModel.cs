@@ -12,6 +12,8 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
     public class WorkOrderViewModel
     {
         // TODO: validation not working??
+        // TODO: hidden fields still validating??
+        // TODO: dropdowns can be empty??
 
 
         public WorkOrderViewModel()
@@ -42,6 +44,10 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = "Polje je obvezno")]
         public int NumberOfVisits { get; set; }
 
+        [Display(Name = "Več obiskov")]
+        [Required(ErrorMessage = "Polje je obvezno")]
+        public bool MultipleVisits { get; set; }
+
         [Display(Name = "Obdobje vseh obiskov")]
         [DataType(DataType.Date)]
         //[CheckDateMaxRangeAttribute(ErrorMessage = "Neustrezen datum")]
@@ -56,6 +62,8 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Display(Name = "Tip časovnega vnosa")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public VisitTimeType TimeType { get; set; }
+
+        
 
         /*
         public WorkOrderCurativeViewModel CurativeVisit { get; set; }

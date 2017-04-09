@@ -28,7 +28,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 lvm = new LoginViewModel();
             }
             if (lvm.ViewMessage == "qwe")
-                return View("~/Views/Home/Index.cshtml");
+                return RedirectToAction("Index", "Home");
             else
                 return View("Index", lvm);
         }
@@ -55,13 +55,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     lvm.ViewMessage = "Ponovno preverite vnešene podatke!";
                     return Form(lvm);
                 }
-                if(DB.Users.Where(u => u.Email == lvm.Email).FirstOrDefault() == null)
+                if(DB.Users.FirstOrDefault(u => u.Email == lvm.Email) == null)
                 {
                     lvm.ViewMessage = "Preverite vnešeni e-mail";
                     return Form(lvm);
                 }
 
-                Models.User user = DB.Users.Where(u => u.Email == lvm.Email).FirstOrDefault();
+                Models.User user = DB.Users.FirstOrDefault(u => u.Email == lvm.Email);
                 if(user.Password != lvm.Password)
                 {
                     lvm.ViewMessage = "Vnešeno geslo je napačno ";
@@ -91,7 +91,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         public ActionResult Logout()
         {
             Session["user"] = null;
-            return Redirect("/");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

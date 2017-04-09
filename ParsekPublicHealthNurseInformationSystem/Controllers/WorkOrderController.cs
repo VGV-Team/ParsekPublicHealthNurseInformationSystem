@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,8 +16,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         // GET: WorkOrder
         public ActionResult Index()
         {
-            // TODO: get this from session
-            bool isDoctor = true;
+            User currentUser = (User) Session["user"];
+            bool isDoctor = currentUser.Employee.Title == Employee.JobTitle.Doctor;
 
             WorkOrderVisitTypeViewModel wovtvm = new WorkOrderVisitTypeViewModel();
             wovtvm.CreateWorkOrderVisitTypeViewModel(isDoctor);
@@ -26,8 +27,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
         public ActionResult CreateWorkOrder(WorkOrderVisitTypeViewModel wovtvm)
         {
-            // TODO: get this from session
-            bool isDoctor = true;
+            User currentUser = (User)Session["user"];
+            bool isDoctor = currentUser.Employee.Title == Employee.JobTitle.Doctor;
 
             Activity activity = DB.Activities.FirstOrDefault(x => x.ActivityId == wovtvm.SelectedActivityId);
             if (activity == null || !activity.PreventiveVisit && !isDoctor)
@@ -47,25 +48,27 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             if (patient == null ||
                 wovm.DateTimeOfFirstVisit < DateTime.Now ||
-                wovm.DateTimeOfFirstVisit.AddMonths(-6) > DateTime.Now ||
-                wovm.NumberOfVisits < 1 || wovm.NumberOfVisits > 10 ||
-                wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeFrame &&
-                (wovm.TimeFrame.AddMonths(-6) > DateTime.Now ||
-                 wovm.TimeFrame < DateTime.Now) &&
-                 wovm.TimeFrame < wovm.DateTimeOfFirstVisit ||
-                wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeInterval &&
-                (wovm.TimeInterval > 30 || wovm.TimeInterval < 1)
+                wovm.DateTimeOfFirstVisit > DateTime.Now.AddMonths(6) ||
+                wovm.MultipleVisits && (
+                    wovm.TimeType == 0 ||
+                    wovm.NumberOfVisits < 1 || wovm.NumberOfVisits > 10 ||
+                    wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeFrame &&
+                        (wovm.TimeFrame > DateTime.Now.AddMonths(6) ||
+                         wovm.TimeFrame < DateTime.Now ||
+                         wovm.TimeFrame < wovm.DateTimeOfFirstVisit ||
+                         (wovm.TimeFrame - wovm.DateTimeOfFirstVisit).Days < (wovm.NumberOfVisits-1) 
+                         ) ||
+                    wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeInterval &&
+                    (wovm.TimeInterval > 30 || wovm.TimeInterval < 1))
             )
             {
                 // TODO: wrong data
-                ;
             }
             else
             {
-                // TODO: get this from session
-                Employee employee = DB.Employees.FirstOrDefault(x => x.Name == "Doctory");
+                User currentUser = (User)Session["user"];
+                Employee employee = DB.Employees.FirstOrDefault(x => x.EmployeeId == currentUser.Employee.EmployeeId);
                 Contractor contractor = employee.Contractor;
-                //DB.Contractors.FirstOrDefault(x => x.ContractorId == wovm.CurrentEmployee.Contractor.ContractorId);
 
                 WorkOrder workOrder = new WorkOrder();
                 workOrder.Contractor = contractor;
@@ -80,6 +83,28 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 visit.Date = wovm.DateTimeOfFirstVisit;
                 visit.Mandatory = wovm.MandatoryFirstVisit;
                 visit.WorkOrder = workOrder;
+
+                if (wovm.MultipleVisits && wovm.NumberOfVisits > 1)
+                {
+                    int timeFrame = 1;
+                    if (wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeFrame)
+                    {
+                        timeFrame = (wovm.TimeFrame - wovm.DateTimeOfFirstVisit).Days / (wovm.NumberOfVisits-1);
+                    }
+                    else if(wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeInterval)
+                    {
+                        timeFrame = wovm.TimeInterval;
+                    }
+
+                    for (int i = 1; i < wovm.NumberOfVisits; i++)
+                    {
+                        Visit vis = new Visit();
+                        vis.Date = wovm.DateTimeOfFirstVisit.AddDays(timeFrame * i);
+                        vis.Mandatory = wovm.MandatoryFirstVisit; // TODO: what is this based on?
+                        vis.WorkOrder = workOrder;
+                        DB.Visits.Add(vis);
+                    }
+                }
 
                 DB.WorkOrders.Add(workOrder);
                 DB.PatientWorkOrders.Add(patientWorkOrder);
