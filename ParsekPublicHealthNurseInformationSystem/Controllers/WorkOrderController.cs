@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using ParsekPublicHealthNurseInformationSystem.Models;
 using ParsekPublicHealthNurseInformationSystem.ViewModels;
 
@@ -44,9 +46,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
         public ActionResult SubmitWorkOrder(WorkOrderViewModel wovm)
         {
-            Patient patient = DB.Patients.FirstOrDefault(x => x.PatientId == wovm.PatientId);
+            string patients = wovm.PatientIds;
 
-            if (patient == null ||
+            if (patients.IsNullOrWhiteSpace() ||
                 wovm.DateTimeOfFirstVisit < DateTime.Now ||
                 wovm.DateTimeOfFirstVisit > DateTime.Now.AddMonths(6) ||
                 wovm.MultipleVisits && (
@@ -75,10 +77,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 workOrder.Employee = employee;
                 workOrder.Name = "Name of activity";
 
-                PatientWorkOrder patientWorkOrder = new PatientWorkOrder();
-                patientWorkOrder.Patient = patient;
-                patientWorkOrder.WorkOrder = workOrder;
-
                 Visit visit = new Visit();
                 visit.Date = wovm.DateTimeOfFirstVisit;
                 visit.Mandatory = wovm.MandatoryFirstVisit;
@@ -106,14 +104,41 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     }
                 }
 
+                int[] ids = GetIdsFromString(patients);
+                foreach (var id in ids)
+                {
+                    Patient patient = DB.Patients.FirstOrDefault(x => x.PatientId == id);
+                    PatientWorkOrder patientWorkOrder = new PatientWorkOrder();
+                    patientWorkOrder.WorkOrder = workOrder;
+                    patientWorkOrder.Patient = patient;
+                    DB.PatientWorkOrders.Add(patientWorkOrder);
+                }
+
                 DB.WorkOrders.Add(workOrder);
-                DB.PatientWorkOrders.Add(patientWorkOrder);
                 DB.Visits.Add(visit);
                 DB.SaveChanges();
             }
 
             // TODO: redirect and confirm message
             return RedirectToAction("Index", "Home");
+        }
+
+        private int[] GetIdsFromString(string input)
+        {
+            string[] splits = input.Split(',');
+            int[] ids = new int[splits.Length];
+            for (int i = 0; i < splits.Length; i++)
+            {
+                string idString = splits[i].Split('-').Last().Replace(" ", "");
+                int id;
+                if (int.TryParse(idString, out id) && id != 0)
+                {
+                    ids[i] = id;
+                }
+            }
+            ids = ids.Distinct().ToArray();
+
+            return ids;
         }
     }
 }

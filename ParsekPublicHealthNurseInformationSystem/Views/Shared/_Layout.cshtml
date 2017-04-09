@@ -43,7 +43,10 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/Scripts/jquery-1.10.2.js")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
     
 
 </head>
@@ -65,8 +68,11 @@
                     {
                         <li>@Html.ActionLink("Admin konzola", "", "AdminConsole")</li>
                     }
+                    @if (IsEmployee) // TODO: Change this to supervisor/doctor
+                    {
+                        <li>@Html.ActionLink("Kreiranje DN", "Index", "WorkOrder")</li>
+                    }
 
-                    <li>@Html.ActionLink("Kreiranje DN", "Index", "WorkOrder")</li>
                     <li>@Html.ActionLink("Izpis DN", "", "Home")</li>
                     <li>@Html.ActionLink("Planiranje obiskov", "", "Home")</li>
                 </ul>
@@ -112,8 +118,5 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

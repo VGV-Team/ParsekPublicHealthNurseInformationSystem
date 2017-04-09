@@ -5,20 +5,22 @@
 @{
     ViewBag.Title = "Create";
 }
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
 <h2>Nov delovni nalog</h2>
 
 @using (Html.BeginForm("SubmitWorkOrder","WorkOrder"))
 {
     @Html.AntiForgeryToken()
-
+    
+    @Html.Raw(Model.GeneratePatientDropDown(Model.AllPatients, "PatientIds"))
     <div class="form-group">
-        @Html.LabelFor(model => model.PatientId, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.PatientIds, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.PatientId, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.PatientIds, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PatientIds, "", new { @class = "text-danger" })
         </div>
     </div>
+    
 
     <div class="form-group">
         @Html.LabelFor(model => model.DateTimeOfFirstVisit, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -38,9 +40,6 @@
         </div>
     </div>
 
-    
-
-
     <div class="form-group">
         @Html.LabelFor(model => model.MultipleVisits, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -51,19 +50,18 @@
         </div>
     </div>
     <script type="text/javascript">
-    $(function () {
-        $("#MultipleVisits").click(function () {
-            if ($(this).is(":checked")) {
-                $("#timeEntry").show();
-            } else {
-                $("#timeEntry").hide();
-            }
+        $(function () {
+            $("#MultipleVisits").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#timeEntry").show();
+                } else {
+                    $("#timeEntry").hide();
+                }
+            });
         });
-    });
     </script>
 
     <div class="form-group" id="timeEntry" style="display: none;">
-        
         <div class="form-group">
             @Html.LabelFor(model => model.NumberOfVisits, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -101,11 +99,11 @@
                     $(@WorkOrderViewModel.VisitTimeType.TimeFrame).hide();
                     switch (this.value)
                     {
-                        case "1":
+                    case "1":
                         $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
                         break;
-                        case "2":
-                         $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
+                    case "2":
+                        $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
                         break;
                     }
                 });
@@ -122,7 +120,3 @@
 <div>
     @Html.ActionLink("Back to home", "Index", "Home")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

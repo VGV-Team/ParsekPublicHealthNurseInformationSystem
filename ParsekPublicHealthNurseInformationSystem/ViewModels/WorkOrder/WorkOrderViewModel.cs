@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Principal;
 using System.Web;
 using ParsekPublicHealthNurseInformationSystem.Models;
@@ -25,7 +26,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         [Display(Name = "Izbran pacient")]
         [Required(ErrorMessage = "Polje je obvezno")]
-        public int PatientId { get; set; }
+        public string PatientIds { get; set; }
 
         
         [Display(Name = "Datum prvega obiska")]
@@ -96,6 +97,63 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
                 return false;
             }
         }
+
+
+
+        public string GeneratePatientDropDown(List<Patient> list, string id)
+        {
+            string str = "<script>\n" +
+                         "$(function() {\n" +
+                         "var availableTags = [\n";
+            for (var index = 0; index < list.Count; index++)
+            {
+                str += "\"" + list[index].FullNameWithCode + "\"";
+                if (index < list.Count-1)
+                    str += ",";
+            }
+
+            str += "];\n" +
+                   "function split(val) {\n" +
+                   "return val.split(/,\\s*/);\n" +
+                   "}\n" +
+                   "function extractLast(term) {\n" +
+                   "return split(term).pop();\n" +
+                   "}\n" +
+                   "$(\"#"+id+ "\")\n" +
+                   "// don't navigate away from the field on tab when selecting an item\n" +
+                   ".on(\"keydown\", function (event) {\n" +
+                   "if (event.keyCode === $.ui.keyCode.TAB &&\n" +
+                   "$(this).autocomplete(\"instance\").menu.active) {\n" +
+                   "event.preventDefault();\n" +
+                   "}\n" +
+                   "}).autocomplete({\n" +
+                   "minLength: 0,\n" +
+                   "source: function (request, response) {\n" +
+                   "// delegate back to autocomplete, but extract the last term\n" +
+                   "response($.ui.autocomplete.filter(\n" +
+                   "availableTags, extractLast(request.term)));\n" +
+                   "},\n" +
+                   "focus: function () {\n" +
+                   "// prevent value inserted on focus\n" +
+                   "return false;\n" +
+                   "},\n" +
+                   "select: function (event, ui) {\n" +
+                   "var terms = split(this.value);\n" +
+                   "// remove the current input\n" +
+                   "terms.pop();\n" +
+                   "// add the selected item\n" +
+                   "terms.push(ui.item.value);\n" +
+                   "// add placeholder to get the comma-and-space at the end\n" +
+                   "terms.push(\"\");\n" +
+                   "this.value = terms.join(\", \");\n" +
+                   "return false;\n" +
+                   "}\n" +
+                   "});\n" +
+                   "});\n" +
+                   "</script>";
+            return str;
+        }
+
         
     }
 }
