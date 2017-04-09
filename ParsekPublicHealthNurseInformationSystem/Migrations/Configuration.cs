@@ -39,7 +39,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 PatientRole
             );
 
- 
+
             // Relationships
             Relationship rel1, rel2, rel3, rel4;
             rel1 = new Relationship();
@@ -191,6 +191,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Doctor.Email = "doctor@parsek.si";
             Doctor.Password = "doctor";
             Doctor.Active = true;
+            User Nurse = new User();
+            Nurse.Employee = null;
+            Nurse.Patient = null;
+            Nurse.Role = EmployeeRole;
+            Nurse.Email = "nurse@parsek.si";
+            Nurse.Password = "nurse";
+            Nurse.Active = true;
             User Patient = new User();
             Patient.Employee = null;
             Patient.Patient = null;
@@ -199,17 +206,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient.Password = "death";
             Patient.Active = true;
             Patient.Patient = patient;
-            context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Patient);
+            context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse, Patient);
 
-            Employee AdminEmployee = new Employee();
-            AdminEmployee.User = Admin;
-            AdminEmployee.Name = "qwe";
-            AdminEmployee.Surname = "qwe";
-            AdminEmployee.Contractor = c1;
-            //AdminEmployee.District = di1;
-            AdminEmployee.Number = "qeasdasd";
-            AdminEmployee.PhoneNumber = "213232";
-            AdminEmployee.Title = Employee.JobTitle.Head;
+
             Employee DoctorEmployee = new Employee();
             DoctorEmployee.User = Doctor;
             DoctorEmployee.Name = "Doctory";
@@ -219,7 +218,18 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             DoctorEmployee.Number = "jmmfgh";
             DoctorEmployee.PhoneNumber = "867685";
             DoctorEmployee.Title = Employee.JobTitle.Doctor;
-            context.Employees.AddOrUpdate(a => a.Number, AdminEmployee, DoctorEmployee);
+            context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee);
+
+            Employee NurseEmployee = new Employee();
+            NurseEmployee.User = Nurse;
+            NurseEmployee.Name = "Nurse";
+            NurseEmployee.Surname = "Nursy";
+            NurseEmployee.Contractor = c1;
+            NurseEmployee.District = di1;
+            NurseEmployee.Number = "234234";
+            NurseEmployee.PhoneNumber = "77777";
+            NurseEmployee.Title = Employee.JobTitle.HealthNurse;
+            context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, NurseEmployee);
 
             Activity ac1 = new Activity();
             ac1.ServiceCode = "10";
@@ -237,6 +247,26 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ac2.PreventiveVisit = false;
             context.Activities.AddOrUpdate(y => y.ActivityId, ac1, ac2);
 
+
+
+
+
+            WorkOrder wo = new WorkOrder();
+            wo.Activity = ac1;
+            wo.Contractor = c1;
+            wo.Disease = d1;
+            wo.Issuer = DoctorEmployee;
+            wo.Name = "The Chosen One";
+            wo.Nurse = NurseEmployee;
+            wo.NurseReplacement = NurseEmployee;
+
+
+            Visit v = new Visit();
+            v.Date = DateTime.Now;
+            v.Mandatory = true;
+            v.WorkOrder = wo;
+            context.Visits.AddOrUpdate(vis => vis.VisitId, v);
+            context.WorkOrders.AddOrUpdate(wordr => wordr.WorkOrderId, wo);
 
             /*if (System.Diagnostics.Debugger.IsAttached == false)
                 System.Diagnostics.Debugger.Launch();

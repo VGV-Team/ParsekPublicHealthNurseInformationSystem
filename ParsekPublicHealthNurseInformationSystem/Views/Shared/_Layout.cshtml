@@ -9,6 +9,11 @@
     bool IsEmployee = false;
     string DisplayName = "";
 
+    bool IsDoctor = false;
+    bool IsHead = false;
+    bool IsNurse = false;
+    bool IsCoworker = false;
+
 
     if (SessionUser != null)
     {
@@ -23,6 +28,15 @@
         {
             IsEmployee = true;
             DisplayName = SessionUser.Employee.Name;
+
+            switch (SessionUser.Employee.Title)
+            {
+                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Coworker: IsCoworker = true; break;
+                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor: IsDoctor = true; break;
+                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Head: IsHead = true; break;
+                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.HealthNurse: IsNurse = true; break;
+                default: break;
+            }
         }
         else if (Role == 3)
         {
@@ -33,7 +47,7 @@
     }
 
 
-}
+                }
 
 <!DOCTYPE html>
 <html>
@@ -68,12 +82,15 @@
                     {
                         <li>@Html.ActionLink("Admin konzola", "", "AdminConsole")</li>
                     }
-                    @if (IsEmployee) // TODO: Change this to supervisor/doctor
+
+                    @if (IsNurse || IsHead || IsDoctor)
+                    {
+                        <li>@Html.ActionLink("Izpis DN", "Index", "WOFilter")</li>
+                    }
+                    @if (IsHead || IsDoctor)
                     {
                         <li>@Html.ActionLink("Kreiranje DN", "Index", "WorkOrder")</li>
                     }
-
-                    <li>@Html.ActionLink("Izpis DN", "", "Home")</li>
                     <li>@Html.ActionLink("Planiranje obiskov", "", "Home")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

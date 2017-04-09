@@ -74,7 +74,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 WorkOrder workOrder = new WorkOrder();
                 workOrder.Contractor = contractor;
-                workOrder.Employee = employee;
+                workOrder.Issuer = employee;
                 workOrder.Name = "Name of activity";
 
                 Visit visit = new Visit();
@@ -121,6 +121,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             // TODO: redirect and confirm message
             return RedirectToAction("Index", "Home");
+            
+            // !!!ATTENTION!!!
+            // For date validation to work you must do this upon failure!!
+            //return View("Create");
         }
 
         private int[] GetIdsFromString(string input)

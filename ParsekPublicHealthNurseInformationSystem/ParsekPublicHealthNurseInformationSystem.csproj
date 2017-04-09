@@ -157,6 +157,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\WOFilterController.cs" />
     <Compile Include="Controllers\WorkOrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -187,6 +188,7 @@
     <Compile Include="ViewModels\PatientActions\AddCarePatientViewModel.cs" />
     <Compile Include="ViewModels\Register\RegisterViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderCurativeViewModel.cs" />
+    <Compile Include="ViewModels\WorkOrder\WorkOrderFilterViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderPreventiveViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderVisitTypeViewModel.cs" />
@@ -281,6 +283,7 @@
     <Content Include="Views\Register\View.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\AddPatient\Index.cshtml" />
+    <Content Include="Views\WOFilter\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

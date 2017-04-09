@@ -16,6 +16,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = "Polje je obvezno")]
         public string Surname { get; set; }
         [Display(Name = "Številka kartice ZZ")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Polje mora vsebovati številko brez presledkov")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public string Number { get; set; }
         [Display(Name = "Naslov")]
@@ -28,6 +29,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = " ")]
         public List<Models.District> Districts { get; set; }
         [Display(Name = "Telefonska številka")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Polje mora vsebovati številko brez presledkov")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public string PhoneNumber { get; set; }
         [Display(Name = "E-mail")]
@@ -67,6 +69,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = "Polje je obvezno")]
         public string ContactAddress { get; set; }
         [Display(Name = "Telefonska številka")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Polje mora vsebovati številko brez presledkov")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public string ContactPhone { get; set; }
         [Display(Name = "Razmerje")]
