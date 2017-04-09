@@ -39,29 +39,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 PatientRole
             );
 
-            User Admin = new User();
-            Admin.Employee = null;
-            Admin.Patient = null;
-            Admin.Role = AdminRole;
-            Admin.Email = "admin@parsek.si";
-            Admin.Password = "admin";
-            User Doctor = new User();
-            Doctor.Employee = null;
-            Doctor.Patient = null;
-            Doctor.Role = EmployeeRole;
-            Doctor.Email = "doctor@parsek.si";
-            Doctor.Password = "doctor";
-            User Patient = new User();
-            Patient.Employee = null;
-            Patient.Patient = null;
-            Patient.Role = PatientRole;
-            Patient.Email = "injured@work.com";
-            Patient.Password = "death";
-            context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Patient);
-            Admin.Active = true;
-            context.Users.AddOrUpdate(a => a.Email, Admin);
-
-
+ 
             // Relationships
             Relationship rel1, rel2, rel3, rel4;
             rel1 = new Relationship();
@@ -187,6 +165,42 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             context.Materials.AddOrUpdate(m => m.Title, mat1, mat2, mat3, mat4);
             // TODO: ...
 
+            Patient patient = new Patient();
+            patient.CardNumber = "qweqwe";
+            patient.Name = "Frampt";
+            patient.Surname = "Kingseeker";
+            patient.Address = "A hole";
+            patient.PostOffice = p1;
+            patient.District = di1;
+            patient.PhoneNumber = "4545";
+            patient.Gender = Models.Patient.GenderEnum.Male;
+            patient.BirthDate = DateTime.Now.AddMonths(-10);
+            context.Patients.AddOrUpdate(y => y.CardNumber, patient);
+
+            User Admin = new User();
+            Admin.Employee = null;
+            Admin.Patient = null;
+            Admin.Role = AdminRole;
+            Admin.Email = "admin@parsek.si";
+            Admin.Password = "admin";
+            Admin.Active = true;
+            User Doctor = new User();
+            Doctor.Employee = null;
+            Doctor.Patient = null;
+            Doctor.Role = EmployeeRole;
+            Doctor.Email = "doctor@parsek.si";
+            Doctor.Password = "doctor";
+            Doctor.Active = true;
+            User Patient = new User();
+            Patient.Employee = null;
+            Patient.Patient = null;
+            Patient.Role = PatientRole;
+            Patient.Email = "injured@work.com";
+            Patient.Password = "death";
+            Patient.Active = true;
+            Patient.Patient = patient;
+            context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Patient);
+
             Employee AdminEmployee = new Employee();
             AdminEmployee.User = Admin;
             AdminEmployee.Name = "qwe";
@@ -206,18 +220,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             DoctorEmployee.PhoneNumber = "867685";
             DoctorEmployee.Title = Employee.JobTitle.Doctor;
             context.Employees.AddOrUpdate(a => a.Number, AdminEmployee, DoctorEmployee);
-
-            Patient patient = new Patient();
-            patient.CardNumber = "qweqwe";
-            patient.Name = "Frampt";
-            patient.Surname = "Kingseeker";
-            patient.Address = "A hole";
-            patient.PostOffice = p1;
-            patient.District = di1;
-            patient.PhoneNumber = "4545";
-            patient.Gender = Models.Patient.GenderEnum.Male;
-            patient.User = Patient;
-            context.Patients.AddOrUpdate(y => y.CardNumber, patient);
 
             Activity ac1 = new Activity();
             ac1.ServiceCode = "10";
