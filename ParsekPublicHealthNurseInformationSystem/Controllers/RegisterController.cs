@@ -150,7 +150,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 patient.Surname = rvm.Surname;
                 patient.BirthDate = rvm.BirthDate;
 
-                patient.User = user;
+                //patient.User = user; // We don't need that probably
 
                 user.Patient = patient;
 

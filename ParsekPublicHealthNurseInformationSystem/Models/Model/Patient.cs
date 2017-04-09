@@ -9,7 +9,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 {
     public class Patient
     {
-        [ForeignKey("User")]
+        //[ForeignKey("User")]
+        [Key]
         public int PatientId { get; set; }
 
         [Required]
@@ -40,12 +41,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public string ContactRelationship { get; set; }
         //
 
-        [Required]
-        public virtual User User { get; set; }
-        
-        
+
+        public virtual ICollection<User> User { get; set; } // ONE TO ONE WORKAROUND
+
+        public virtual Relationship ParentPatientRelationship { get; set; } // optional parent Patient relationship
         public int? ParentPatientId { get; set; } // optional parent Patient ID
-        public string ParentPatientRelationship { get; set; } // optional parent Patient relationship
         [ForeignKey("ParentPatientId")]
         public virtual Patient ParentPatient { get; set; } // optional FK for parent Patient
         public virtual ICollection<Patient> ChildPatients { get; set; } // optional child Patients
