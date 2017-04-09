@@ -4,6 +4,7 @@ using ParsekPublicHealthNurseInformationSystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -42,6 +43,21 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             }
 
             return View("Index", rvm);
+        }
+
+        [HttpGet]
+        public ActionResult EmailActivation(string userEmail, string emailCode)
+        {
+            Models.User u = DB.Users.Where(us => us.Email == userEmail).FirstOrDefault();
+
+            if (u != null && u.Active == false && u.EmailCode == emailCode && u.EmailExpire > DateTime.Now)
+            {
+                u.Active = true;
+                Session["user"] = u;
+                DB.SaveChanges();
+            }
+
+            return Redirect("/");
         }
 
         [HttpPost]
@@ -119,6 +135,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 user.Password = rvm.Password;
                 user.Employee = null;
 
+                // For email
+                user.Active = false;
+                user.EmailCode = "qwe";
+                DateTime emailExpire = DateTime.Now.AddHours(1); ;
+                user.EmailExpire = emailExpire;
+
                 Models.Patient patient = new Models.Patient();
                 /*if (rvm.JobTitle == Employee.JobTitle.HealthNurse)
                 {
@@ -154,17 +176,32 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 user.Patient = patient;
 
-                #region Email Sending
-
-                user.Active = false;
-                user.EmailCode = "qwe";
-                user.EmailExpire = DateTime.Now.AddHours(1);
-
-                #endregion
-
                 DB.Users.Add(user);
                 DB.Patients.Add(patient);
                 DB.SaveChanges();
+
+
+                #region Email Sending
+
+                
+                SmtpClient smtpClient = new SmtpClient("smtp.t-2.si", 25);
+
+                MailMessage mail = new MailMessage();
+
+                //Setting From , To and CC
+                mail.From = new MailAddress("registracija@parsek.si", "Parsek");
+                mail.To.Add(new MailAddress(user.Email));
+
+                string baseUrl = Request.Url.Authority;
+
+                mail.Subject = "Account activation";
+                mail.Body = "Kliknite na spodnjo povezavo da zaključite registracijo in aktivirate svoj račun: \n" +
+                    "http://" + baseUrl + "/Register/EmailActivation?userEmail=" + user.Email + "&emailCode=" + user.EmailCode + "\n" +
+                    "\n\nOb aktivaciji boste avtomatsko prijavljeni. Povezava velja do " + emailExpire.ToString("d.M.yyyy HH:mm") + ".";
+
+                smtpClient.Send(mail);
+
+                #endregion
 
                 rvm = new RegisterViewModel();
                 rvm.ViewMessage = "Registracija uspešna! Na Email vam bomo poslali kodo za aktivacijo računa.";

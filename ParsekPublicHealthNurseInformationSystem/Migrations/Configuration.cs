@@ -201,15 +201,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient.Patient = patient;
             context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Patient);
 
-            Employee AdminEmployee = new Employee();
-            AdminEmployee.User = Admin;
-            AdminEmployee.Name = "qwe";
-            AdminEmployee.Surname = "qwe";
-            AdminEmployee.Contractor = c1;
-            //AdminEmployee.District = di1;
-            AdminEmployee.Number = "qeasdasd";
-            AdminEmployee.PhoneNumber = "213232";
-            AdminEmployee.Title = Employee.JobTitle.Head;
+            
             Employee DoctorEmployee = new Employee();
             DoctorEmployee.User = Doctor;
             DoctorEmployee.Name = "Doctory";
@@ -219,7 +211,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             DoctorEmployee.Number = "jmmfgh";
             DoctorEmployee.PhoneNumber = "867685";
             DoctorEmployee.Title = Employee.JobTitle.Doctor;
-            context.Employees.AddOrUpdate(a => a.Number, AdminEmployee, DoctorEmployee);
+            context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee);
 
             Activity ac1 = new Activity();
             ac1.ServiceCode = "10";
