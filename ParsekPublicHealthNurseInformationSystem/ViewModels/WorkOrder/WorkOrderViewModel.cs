@@ -15,7 +15,6 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         // TODO: hidden fields still validating??
         // TODO: dropdowns can be empty??
 
-
         public WorkOrderViewModel()
         {
             NumberOfVisits = 1;
