@@ -17,6 +17,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public string Surname { get; set; }
 
         [Display(Name = "Številka kartice ZZ")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Polje mora vsebovati številko brez presledkov")]
         public string Number { get; set; }
 
         [Display(Name = "Naslov")]
@@ -33,6 +34,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         [Display(Name = "Telefonska številka")]
         [Required(ErrorMessage = "Polje je obvezno")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Polje mora vsebovati številko brez presledkov")]
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Datum rojstva")]
