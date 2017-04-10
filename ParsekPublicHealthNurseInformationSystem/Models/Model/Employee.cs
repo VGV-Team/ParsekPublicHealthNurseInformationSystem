@@ -28,6 +28,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public virtual District District { get; set; } // Only for HealthNurse
         public virtual ICollection<WorkOrder> WorkOrders { get; set; }
 
+        public string DisplayName { get { return string.Format("{0} {1} [{2}]", Name, Surname, Number); } }
+
         //[Display(Name = "Tip zaposlenega")]
         public enum JobTitle
         {

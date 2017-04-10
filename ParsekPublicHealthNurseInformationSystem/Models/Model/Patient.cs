@@ -55,6 +55,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual ICollection<PatientWorkOrder> PatientWorkOrders { get; set; }
 
+
+        public string DisplayName { get { return string.Format("{0} {1} [{2}]", Name, Surname, CardNumber); } }
+
         public enum GenderEnum
         {
             [Display(Name = "Moški")]

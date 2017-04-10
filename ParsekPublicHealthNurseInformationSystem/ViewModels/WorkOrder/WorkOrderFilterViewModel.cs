@@ -48,7 +48,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         {
             [Display(Name = "Preventivni")]
             Preventive = 1,
-            [Display(Name = "Curative")]
+            [Display(Name = "Kurativni")]
             Curative
         }
 

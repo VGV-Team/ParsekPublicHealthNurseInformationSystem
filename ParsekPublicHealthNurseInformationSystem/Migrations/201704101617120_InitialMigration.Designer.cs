@@ -13,7 +13,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201704101519400_InitialMigration"; }
+            get { return "201704101617120_InitialMigration"; }
         }
         
         string IMigrationMetadata.Source

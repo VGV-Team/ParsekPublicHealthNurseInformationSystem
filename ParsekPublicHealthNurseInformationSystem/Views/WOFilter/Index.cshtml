@@ -20,7 +20,7 @@
             
 
             <div class="btn-group">
-                <button onclick="return false;" class="btn btn-info form-control" data-toggle="collapse" data-target="#Filters">Filtriranje</button>
+                <button onclick="return false;" class="btn btn-info form-control " data-toggle="collapse" data-target="#Filters">Filtriranje</button>
             </div>
 
             <br />
@@ -52,28 +52,28 @@
                 <div class="form-group" id="DistrictDropdown">
                     @Html.LabelFor(model => model.Issuers, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.SelectedIssuerId, new SelectList(Model.Issuers, "EmployeeId", "Name"), "-- Vsi --", htmlAttributes: new { @class = "form-control dropdown" })
+                        @Html.DropDownListFor(model => model.SelectedIssuerId, new SelectList(Model.Issuers, "EmployeeId", "DisplayName"), "-- Vsi --", htmlAttributes: new { @class = "form-control dropdown" })
                     </div>
                 </div>
 
                 <div class="form-group" id="DistrictDropdown">
                     @Html.LabelFor(model => model.Patients, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.SelectedPatientId, new SelectList(Model.Patients, "PatientId", "Name"), "-- Vsi --", htmlAttributes: new { @class = "form-control dropdown" })
+                        @Html.DropDownListFor(model => model.SelectedPatientId, new SelectList(Model.Patients, "PatientId", "DisplayName"), "-- Vsi --", htmlAttributes: new { @class = "form-control dropdown" })
                     </div>
                 </div>
 
                 <div class="form-group" id="DistrictDropdown">
                     @Html.LabelFor(model => model.Nurse, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.SelectedNurseId, new SelectList(Model.Nurse, "EmployeeId", "Name"), "-- Vse --", htmlAttributes: new { @class = "form-control dropdown" })
+                        @Html.DropDownListFor(model => model.SelectedNurseId, new SelectList(Model.Nurse, "EmployeeId", "DisplayName"), "-- Vse --", htmlAttributes: new { @class = "form-control dropdown" })
                     </div>
                 </div>
 
                 <div class="form-group" id="DistrictDropdown">
                     @Html.LabelFor(model => model.NurseReplacement, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.SelectedNurseReplacementId, new SelectList(Model.NurseReplacement, "EmployeeId", "Name"), "-- Vse --", htmlAttributes: new { @class = "form-control dropdown" })
+                        @Html.DropDownListFor(model => model.SelectedNurseReplacementId, new SelectList(Model.NurseReplacement, "EmployeeId", "DisplayName"), "-- Vse --", htmlAttributes: new { @class = "form-control dropdown" })
                     </div>
                 </div>
 
@@ -87,7 +87,7 @@
             </div>
         </div>   
 
-        <div class="well">
+        <div class="">
 
             <h3>Delovni nalogi, ki ustrezajo filtrom: </h3>
 
@@ -98,8 +98,15 @@
                         ParsekPublicHealthNurseInformationSystem.Models.WorkOrder WO = Model.WorkOrders[i];
                     }
                     <ul>
+
+                        @{ 
+                            string WOIssuerTitle = WO.Issuer.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor ?
+                                "Doktor" : "Vodja";
+                        }
+
+
                         <li>@WO.Name</li>
-                        <li>Izdajatelj: @WO.Issuer.Name @WO.Issuer.Surname, @WO.Issuer.Title.ToString()</li>
+                        <li>Izdajatelj: @WO.Issuer.Name @WO.Issuer.Surname, @WOIssuerTitle</li>
                         <li>Zadolžena sestra: @WO.Nurse.Name @WO.Nurse.Surname</li>
                         @if (@WO.NurseReplacement != null)
                         {
@@ -123,8 +130,8 @@
                                 }
                             </ul>
                         </li>
-                        <li><input type="button" value="Podrobnosti" /></li>
                     </ul>
+                    <input type="button" value="Podrobnosti" />
                 </div>
             }
 
