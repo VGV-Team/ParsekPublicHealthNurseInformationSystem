@@ -192,6 +192,7 @@
     <Compile Include="ViewModels\WorkOrder\WorkOrderFilterViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderNurseSelectionViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderPreventiveViewModel.cs" />
+    <Compile Include="ViewModels\WorkOrder\WorkOrderSummaryViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderVisitTypeViewModel.cs" />
   </ItemGroup>
@@ -287,6 +288,7 @@
     <Content Include="Views\AddPatient\Index.cshtml" />
     <Content Include="Views\WOFilter\Index.cshtml" />
     <Content Include="Views\WorkOrder\NurseSelection.cshtml" />
+    <Content Include="Views\WorkOrder\Summary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

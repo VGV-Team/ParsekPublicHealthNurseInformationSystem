@@ -1,0 +1,87 @@
+﻿@model ParsekPublicHealthNurseInformationSystem.ViewModels.WorkOrderSummaryViewModel
+
+@{
+    ViewBag.Title = "Summary";
+}
+
+<h2>Pregled</h2>
+
+<div class="well">
+
+    <div>
+        Izdajatelj: @Model.Doctor
+    </div>
+    <div>
+        Tip obiska: @Model.ActivityTitle
+    </div>
+    <div>
+        Zadolžena patronažna sestra: @Model.Nurse
+    </div>
+    <div>
+        Nadomesta patronažna sestra: @Model.NurseReplacement
+    </div>
+    <div>
+        Pacienti: 
+        <ul>
+            @for (int i = 0; i < Model.Patients.Count; i++)
+            {
+                <li>@Model.Patients[i]</li>
+            }
+        </ul>
+    </div>
+    
+    <div>
+        @if (Model.WorkOrderVM.MultipleVisits)
+        {
+            if (Model.WorkOrderVM.TimeType ==
+                    ParsekPublicHealthNurseInformationSystem.ViewModels.WorkOrderViewModel.VisitTimeType.TimeFrame)
+            {
+                <span>
+                    @Model.WorkOrderVM.NumberOfVisits obiskov v obdobju od 
+                    @Model.WorkOrderVM.DateTimeOfFirstVisit.ToString("dd. MM. yyyy") do
+                    @Model.WorkOrderVM.TimeFrame.ToString("dd. MM. yyyy")
+                </span>
+            }
+            else
+            {
+                <span>
+                    @Model.WorkOrderVM.NumberOfVisits obiskov, vsak <span>@Model.WorkOrderVM.TimeInterval</span>. dan z začetkom @Model.WorkOrderVM.DateTimeOfFirstVisit.ToString("dd. MM. yyyy")
+                </span>
+            }
+        }
+        else
+        {
+            <span>En obisk @Model.WorkOrderVM.DateTimeOfFirstVisit.ToString("dd. MM. yyyy")</span>
+        }
+        @if (Model.WorkOrderVM.MandatoryFirstVisit)
+        {
+            <span>OBVEZNO</span>
+        }
+        else
+        {
+            <span>OKVIRNO</span>
+        }
+    </div>
+
+    <div>
+        Zdravila: 
+        <ul>
+            @for (int i = 0; i < Model.Medicine.Count; i++)
+            {
+                <li>@Model.Medicine[i]</li>
+            }
+        </ul>
+    </div>
+
+</div>
+
+@using (Html.BeginForm("Submit", "WorkOrder", FormMethod.Post))
+{
+    <div class="form-group">
+        <div class="col-md-12">
+            <input type="submit" value="POTRDI" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+       

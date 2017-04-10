@@ -15,6 +15,10 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = "Polje je obvezno")]
         public int SelectedNurseId { get; set; }
 
+        public List<Employee> PossibleNursesReplacement { get; set; }
+        [Display(Name = "Izbrana nadomestna sestra")]
+        public int? SelectedNurseReplacementId { get; set; }
+
         public int WorkOrderId { get; set; }
 
         public List<District> Districts { get; set; }

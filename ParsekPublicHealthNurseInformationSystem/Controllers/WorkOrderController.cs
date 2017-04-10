@@ -20,6 +20,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         // GET: WorkOrder
         public ActionResult Index()
         {
+            Session["workorder"] = null; // Summaryviewmodel
+            Session["workorder_DB"] = null; // workorder model
+
             User currentUser = (User) Session["user"];
             bool isDoctor = currentUser.Employee.Title == Employee.JobTitle.Doctor;
 
@@ -95,6 +98,16 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 visit.Mandatory = wovm.MandatoryFirstVisit;
                 visit.WorkOrder = workOrder;
 
+                WorkOrderSummaryViewModel wosvm = new WorkOrderSummaryViewModel();
+                wosvm.WorkOrderVM = wovm;
+                wosvm.Patients = new List<string>();
+                wosvm.Doctor = employee.DisplayName;
+                wosvm.ActivityTitle = workOrder.Activity.ActivityTitle;
+                wosvm.Medicine = new List<string>();
+
+
+
+
                 // Check for single or multiple visits.
                 if (wovm.MultipleVisits && wovm.NumberOfVisits > 1)
                 {
@@ -160,10 +173,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                         DB.PatientWorkOrders.Add(patientWorkOrder);
 
+                        wosvm.Patients.Add(patient.DisplayName);
+
                         districts.Add(patient.District);
                     }
                 }
-
 
                 // Check for possible nurses.
                 List<Employee> possibleNurses = new List<Employee>();
@@ -184,9 +198,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 // Save data to database.
                 DB.WorkOrders.Add(workOrder);
                 DB.Visits.Add(visit);
-                DB.SaveChanges();
 
-                
+
+                Session["workorder"] = wosvm;
+                Session["workorder_DB"] = workOrder; // DELETE
+                //DB.SaveChanges();
+
+
 
                 if (possibleNurses.Count != 1) // To many or too few nurses to select from.
                 {
@@ -202,6 +220,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     {
                     }
                     wonsvm.PossibleNurses = possibleNurses;
+                    wonsvm.PossibleNursesReplacement = possibleNurses;
 
                     return View("NurseSelection", wonsvm);
                 }
@@ -222,15 +241,42 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             {
                 // TODO: error
             }
-            WorkOrder workOrder = DB.WorkOrders.FirstOrDefault(x => x.WorkOrderId == wovm.WorkOrderId);
+
+            Employee selectedNurseReplacement = null;
+            if (wovm.SelectedNurseReplacementId != null && wovm.SelectedNurseReplacementId > 0)
+            {
+                selectedNurseReplacement = DB.Employees.FirstOrDefault(x => x.EmployeeId == wovm.SelectedNurseReplacementId);
+            }
+
+            //WorkOrder workOrder = DB.WorkOrders.FirstOrDefault(x => x.WorkOrderId == wovm.WorkOrderId);
+            WorkOrder workOrder = (WorkOrder) Session["workorder_DB"]; // DELETE
             if (workOrder == null)
             {
                 // TODO: error
             }
 
             workOrder.Nurse = selectedNurse;
-            DB.SaveChanges();
+            if (selectedNurseReplacement != null) workOrder.NurseReplacement = selectedNurseReplacement;
 
+            // OLD
+            //DB.SaveChanges();
+
+            //return RedirectToAction("Index", "Home");
+
+            WorkOrderSummaryViewModel wosvm = Session["workorder"] as WorkOrderSummaryViewModel;
+            wosvm.Nurse = workOrder.Nurse.DisplayName;
+            if (selectedNurseReplacement != null) wosvm.NurseReplacement = workOrder.NurseReplacement.DisplayName;
+            else wosvm.NurseReplacement = "/";
+            
+            Session["workorder"] = wosvm;
+            Session["workorder_DB"] = workOrder; //DELETE
+
+            return View("Summary", wosvm);
+        }
+
+        public ActionResult Submit(WorkOrderSummaryViewModel workOrder)
+        {
+            //DB.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
 
