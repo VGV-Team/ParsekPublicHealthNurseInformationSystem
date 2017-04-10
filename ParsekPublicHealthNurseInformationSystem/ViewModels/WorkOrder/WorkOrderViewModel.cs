@@ -28,7 +28,9 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = "Polje je obvezno")]
         public string PatientIds { get; set; }
 
-        
+        [Display(Name = "Tip obiska")]
+        public int SelectedActivityId { get; set; }
+
         [Display(Name = "Datum prvega obiska")]
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Polje je obvezno")]

@@ -101,7 +101,10 @@
                         <li>@WO.Name</li>
                         <li>Izdajatelj: @WO.Issuer.Name @WO.Issuer.Surname, @WO.Issuer.Title.ToString()</li>
                         <li>Zadolžena sestra: @WO.Nurse.Name @WO.Nurse.Surname</li>
-                        <li>Nadomestna sestra: @WO.NurseReplacement.Name @WO.NurseReplacement.Surname</li>
+                        @if (@WO.NurseReplacement != null)
+                        {
+                            <li>Nadomestna sestra: @WO.NurseReplacement.Name @WO.NurseReplacement.Surname</li>
+                        }
                         <li>Preventivni obisk: @WO.Activity.PreventiveVisit.ToString()</li>
                         <li><input type="button" value="Podrobnosti" /></li>
                     </ul>

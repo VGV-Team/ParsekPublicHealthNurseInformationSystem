@@ -1,0 +1,33 @@
+﻿@using Microsoft.Ajax.Utilities
+@using ParsekPublicHealthNurseInformationSystem.ViewModels
+@model ParsekPublicHealthNurseInformationSystem.ViewModels.WorkOrderNurseSelectionViewModel
+@{
+    ViewBag.Title = "NurseSelection";
+}
+
+<h2>Izbira patronažne sestre</h2>
+
+
+@using (Html.BeginForm("SelectNurseWorkOrder", "WorkOrder"))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.WorkOrderId)
+
+    <div class="form-group">
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedNurseId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(
+            model => model.SelectedNurseId,
+            new SelectList(Model.PossibleNurses, "EmployeeId", "FullNameWithCode"),
+            "-- Izberi --",
+            htmlAttributes: new { @class = "form-control dropdown" })
+            @Html.ValidationMessageFor(model => model.SelectedNurseId, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Select" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

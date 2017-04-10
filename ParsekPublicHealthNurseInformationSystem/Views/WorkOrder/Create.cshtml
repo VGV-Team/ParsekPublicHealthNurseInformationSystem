@@ -11,7 +11,9 @@
 @using (Html.BeginForm("SubmitWorkOrder","WorkOrder"))
 {
     @Html.AntiForgeryToken()
-    
+
+    @Html.HiddenFor(m => m.SelectedActivityId)
+
     @Html.Raw(Model.GeneratePatientDropDown(Model.AllPatients, "PatientIds"))
     <div class="form-group">
         @Html.LabelFor(model => model.PatientIds, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -118,5 +120,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to home", "Index", "Home")
+    @Html.ActionLink("Prekliči", "Index", "Home")
 </div>

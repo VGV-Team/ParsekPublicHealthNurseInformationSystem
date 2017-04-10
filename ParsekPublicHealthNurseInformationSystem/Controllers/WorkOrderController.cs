@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using ParsekPublicHealthNurseInformationSystem.Models;
 using ParsekPublicHealthNurseInformationSystem.ViewModels;
+using WebGrease.Css.Ast.Selectors;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
@@ -40,6 +42,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             WorkOrderViewModel wovm = new WorkOrderViewModel();
             wovm.AllPatients = DB.Patients.ToList();
+            wovm.SelectedActivityId = wovtvm.SelectedActivityId;
 
             return View("Create", wovm);
         }
@@ -65,6 +68,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             )
             {
                 // TODO: wrong data
+                wovm.AllPatients = DB.Patients.ToList(); // TODO: horrible fix!! Change this!
+                return View("Create", wovm);
             }
             else
             {
@@ -75,19 +80,23 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 WorkOrder workOrder = new WorkOrder();
                 workOrder.Contractor = contractor;
                 workOrder.Issuer = employee;
-                workOrder.Name = "Name of activity";
+                workOrder.Activity = DB.Activities.FirstOrDefault(x => x.ActivityId == wovm.SelectedActivityId);
+                workOrder.Name = workOrder.Activity.ActivityTitle;
 
                 Visit visit = new Visit();
                 visit.Date = wovm.DateTimeOfFirstVisit;
                 visit.Mandatory = wovm.MandatoryFirstVisit;
                 visit.WorkOrder = workOrder;
 
+                // Check for single or multiple visits.
                 if (wovm.MultipleVisits && wovm.NumberOfVisits > 1)
                 {
                     int timeFrame = 1;
+                    bool mandatoryvisit = wovm.MandatoryFirstVisit;
                     if (wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeFrame)
                     {
                         timeFrame = (wovm.TimeFrame - wovm.DateTimeOfFirstVisit).Days / (wovm.NumberOfVisits-1);
+                        mandatoryvisit = false;
                     }
                     else if(wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeInterval)
                     {
@@ -98,36 +107,101 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     {
                         Visit vis = new Visit();
                         vis.Date = wovm.DateTimeOfFirstVisit.AddDays(timeFrame * i);
-                        vis.Mandatory = wovm.MandatoryFirstVisit; // TODO: what is this based on?
+                        vis.Mandatory = mandatoryvisit;
                         vis.WorkOrder = workOrder;
                         DB.Visits.Add(vis);
                     }
                 }
 
+                // Generate work order for all patients.
                 int[] ids = GetIdsFromString(patients);
+                List<District> districts = new List<District>();
                 foreach (var id in ids)
                 {
                     Patient patient = DB.Patients.FirstOrDefault(x => x.PatientId == id);
-                    PatientWorkOrder patientWorkOrder = new PatientWorkOrder();
-                    patientWorkOrder.WorkOrder = workOrder;
-                    patientWorkOrder.Patient = patient;
-                    DB.PatientWorkOrders.Add(patientWorkOrder);
+                    if (patient != null)
+                    {
+                        PatientWorkOrder patientWorkOrder = new PatientWorkOrder();
+                        patientWorkOrder.WorkOrder = workOrder;
+                        patientWorkOrder.Patient = patient;
+                        DB.PatientWorkOrders.Add(patientWorkOrder);
+
+                        districts.Add(patient.District);
+                    }
                 }
 
+                
+
+                // Check for possible nurses.
+                List<Employee> possibleNurses = new List<Employee>();
+                districts = districts.Distinct().ToList();
+                for (int i = 0; i < districts.Count; i++)
+                {
+                    //possibleNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse && districts.Contains(x.District)).ToList();
+                    possibleNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
+                    possibleNurses = possibleNurses.Where(x => districts.Contains(x.District)).ToList();
+                }
+
+                if (possibleNurses.Count == 1)
+                {
+                    // If there is only 1 nurse then we assign her to work order.
+                    workOrder.Nurse = possibleNurses.First();
+                }
+
+                // Save data to database.
                 DB.WorkOrders.Add(workOrder);
                 DB.Visits.Add(visit);
                 DB.SaveChanges();
+
+                
+
+                if (possibleNurses.Count != 1) // To many or too few nurses to select from.
+                {
+                    WorkOrderNurseSelectionViewModel wonsvm = new WorkOrderNurseSelectionViewModel();
+                    wonsvm.WorkOrderId = workOrder.WorkOrderId;
+                    wonsvm.Districts = districts;
+
+                    if (possibleNurses.Count == 0) // There are no nurses for selected district so we need to choose some other nurse.
+                    {
+                        possibleNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
+                    }
+                    else // There are more than 1 nurse for one district so we need to choose the right one.
+                    {
+                    }
+                    wonsvm.PossibleNurses = possibleNurses;
+
+                    return View("NurseSelection", wonsvm);
+                }
+                
             }
 
             // TODO: redirect and confirm message
             return RedirectToAction("Index", "Home");
-            
             // !!!ATTENTION!!!
             // For date validation to work you must do this upon failure!!
             //return View("Create");
         }
 
-        private int[] GetIdsFromString(string input)
+        public ActionResult SelectNurseWorkOrder(WorkOrderNurseSelectionViewModel wovm)
+        {
+            Employee selectedNurse = DB.Employees.FirstOrDefault(x => x.EmployeeId == wovm.SelectedNurseId);
+            if (selectedNurse == null)
+            {
+                // TODO: error
+            }
+            WorkOrder workOrder = DB.WorkOrders.FirstOrDefault(x => x.WorkOrderId == wovm.WorkOrderId);
+            if (workOrder == null)
+            {
+                // TODO: error
+            }
+
+            workOrder.Nurse = selectedNurse;
+            DB.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        private static int[] GetIdsFromString(string input)
         {
             string[] splits = input.Split(',');
             int[] ids = new int[splits.Length];
