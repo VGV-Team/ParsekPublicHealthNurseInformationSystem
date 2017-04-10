@@ -279,7 +279,22 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ac2.ActivityTitle = "Krvni pritisk: sistolièni, diastolièni";
             ac2.Report = "Sistolièni (mm Hg) * Diastolièni(mm Hg) *";
             ac2.PreventiveVisit = false;
-            context.Activities.AddOrUpdate(y => y.ActivityId, ac1, ac2);
+
+            Activity ac3 = new Activity();
+            ac3.ServiceCode = "50";
+            ac3.ServiceTitle = "Aplikacija injekcij";
+            ac3.ActivityCode = "10";
+            ac3.ActivityTitle = "Aplikacija injekcije";
+            ac3.Report = "";
+            ac3.PreventiveVisit = false;
+            Activity ac4 = new Activity();
+            ac4.ServiceCode = "60";
+            ac4.ServiceTitle = "Odvzem krvi";
+            ac4.ActivityCode = "10";
+            ac4.ActivityTitle = "Odvzem krvi";
+            ac4.Report = "";
+            ac4.PreventiveVisit = false;
+            context.Activities.AddOrUpdate(y => y.ActivityId, ac1, ac2, ac3, ac4);
 
 
 

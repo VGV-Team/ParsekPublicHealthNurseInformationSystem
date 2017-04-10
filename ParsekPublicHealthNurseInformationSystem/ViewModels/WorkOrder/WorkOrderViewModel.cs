@@ -69,11 +69,22 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
 
         public List<Medicine> AllMedicines { get; set; }
-        public List<string> AllColors { get; set; }
+        public List<string> AllColors = new List<string> { "Rdeča", "Modra", "Rumena", "Zelena" };
 
+        [Display(Name = "Seznam zdravil")]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public string MedicineIds { get; set; }
+
+        [Display(Name = "Barva epruvete")]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public string BloodVialColor { get; set; }
+
+        [Display(Name = "Število epruvet")]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public int BloodVialCount { get; set; }
+
+        public bool EnterMedicine { get; set; }
+        public bool EnterBloodSample { get; set; }
 
         /*
         public WorkOrderCurativeViewModel CurativeVisit { get; set; }

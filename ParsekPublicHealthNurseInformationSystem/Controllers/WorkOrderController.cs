@@ -37,24 +37,24 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             Activity activity = DB.Activities.FirstOrDefault(x => x.ActivityId == wovtvm.SelectedActivityId);
             if (activity == null || !activity.PreventiveVisit && !isDoctor)
             {
-                // TODO: error
+                return View("Index", wovtvm);
             }
 
             WorkOrderViewModel wovm = new WorkOrderViewModel();
-            wovm.AllPatients = DB.Patients.ToList();
             wovm.SelectedActivityId = wovtvm.SelectedActivityId;
 
-            // TODO: do this
+            wovm.EnterMedicine = activity.RequiresMedicine;
+            wovm.EnterBloodSample = activity.RequiresBloodSample;
+
+            wovm.AllPatients = DB.Patients.ToList();
             wovm.AllMedicines = DB.Medicines.ToList();
-            wovm.AllColors = new List<string> { "Rdeča", "Modra", "Rumena", "Zelena" };
+
             return View("Create", wovm);
         }
 
         public ActionResult SubmitWorkOrder(WorkOrderViewModel wovm)
         {
-            string patients = wovm.PatientIds;
-
-            if (patients.IsNullOrWhiteSpace() ||
+            if (wovm.PatientIds.IsNullOrWhiteSpace() ||
                 wovm.DateTimeOfFirstVisit < DateTime.Now ||
                 wovm.DateTimeOfFirstVisit > DateTime.Now.AddMonths(6) ||
                 wovm.MultipleVisits && (
@@ -67,11 +67,15 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                          (wovm.TimeFrame - wovm.DateTimeOfFirstVisit).Days < (wovm.NumberOfVisits-1) 
                          ) ||
                     wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeInterval &&
-                    (wovm.TimeInterval > 30 || wovm.TimeInterval < 1))
+                    (wovm.TimeInterval > 30 || wovm.TimeInterval < 1)) ||
+                wovm.EnterMedicine && wovm.MedicineIds.IsNullOrWhiteSpace() ||
+                wovm.EnterBloodSample && 
+                    (wovm.BloodVialColor.IsNullOrWhiteSpace() || wovm.BloodVialCount < 1)
             )
             {
                 // TODO: wrong data
                 wovm.AllPatients = DB.Patients.ToList(); // TODO: horrible fix!! Change this!
+                wovm.AllMedicines = DB.Medicines.ToList();
                 return View("Create", wovm);
             }
             else
@@ -117,8 +121,17 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 }
 
                 // Generate work order for all patients.
-                int[] ids = GetIdsFromString(patients);
+                int[] ids = GetIdsFromString(wovm.PatientIds);
                 List<District> districts = new List<District>();
+
+                // Get all used medicine
+                List<Medicine> medicines = new List<Medicine>();
+                if (wovm.EnterMedicine)
+                {
+                    int[] medicineIds = GetIdsFromString(wovm.MedicineIds);
+                    medicines = DB.Medicines.Where(x => medicineIds.Contains(x.MedicineId)).ToList();
+                }
+
                 foreach (var id in ids)
                 {
                     Patient patient = DB.Patients.FirstOrDefault(x => x.PatientId == id);
@@ -127,13 +140,30 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         PatientWorkOrder patientWorkOrder = new PatientWorkOrder();
                         patientWorkOrder.WorkOrder = workOrder;
                         patientWorkOrder.Patient = patient;
+
+                        foreach (var medicine in medicines)
+                        {
+                            MedicineWorkOrder medicineWorkOrder = new MedicineWorkOrder();
+                            medicineWorkOrder.Medicine = medicine;
+                            medicineWorkOrder.PatientWorkOrder = patientWorkOrder;
+                            DB.MedicineWorkOrders.Add(medicineWorkOrder);
+                        }
+
+                        if (wovm.EnterBloodSample)
+                        {
+                            BloodSample bloodSample = new BloodSample();
+                            bloodSample.BloodVialColor = wovm.BloodVialColor;
+                            bloodSample.BloodVialCount = wovm.BloodVialCount;
+                            bloodSample.PatientWorkOrder = patientWorkOrder;
+                            DB.BloodSamples.Add(bloodSample);
+                        }
+
                         DB.PatientWorkOrders.Add(patientWorkOrder);
 
                         districts.Add(patient.District);
                     }
                 }
 
-                
 
                 // Check for possible nurses.
                 List<Employee> possibleNurses = new List<Employee>();
@@ -207,19 +237,18 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         private static int[] GetIdsFromString(string input)
         {
             string[] splits = input.Split(',');
-            int[] ids = new int[splits.Length];
+            List<int> ids = new List<int>();
             for (int i = 0; i < splits.Length; i++)
             {
-                string idString = splits[i].Split('(').Last().Replace(" ", "");
+                string idString = splits[i].Split('(').Last().Split(')').First();
                 int id;
                 if (int.TryParse(idString, out id) && id != 0)
                 {
-                    ids[i] = id;
+                    ids.Add(id);
                 }
             }
-            ids = ids.Distinct().ToArray();
 
-            return ids;
+            return ids.ToArray().Distinct().ToArray();
         }
     }
 }

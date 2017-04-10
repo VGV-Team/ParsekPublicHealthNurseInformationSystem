@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 
 namespace ParsekPublicHealthNurseInformationSystem.Models
@@ -22,8 +23,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public string ActivityTitle { get; set; }
 
-        // TODO: this
-        [Required]
         public string Report { get; set; }
 
         [Required]
@@ -31,6 +30,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual ICollection<WorkOrder> WorkOrders { get; set; }
 
-        
+
+        public bool RequiresMedicine => (ServiceCode == "50" && ActivityCode == "10");
+        public bool RequiresBloodSample => (ServiceCode == "60" && ActivityCode == "10");
     }
 }
