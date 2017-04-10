@@ -3,7 +3,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigration : DbMigration
+    public partial class initialmigration : DbMigration
     {
         public override void Up()
         {
@@ -261,6 +261,17 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 .ForeignKey("dbo.WorkOrders", t => t.WorkOrder_WorkOrderId)
                 .Index(t => t.WorkOrder_WorkOrderId);
             
+            CreateTable(
+                "dbo.IpLogs",
+                c => new
+                    {
+                        IpId = c.Int(nullable: false, identity: true),
+                        Ips = c.String(nullable: false),
+                        counter = c.Int(nullable: false),
+                        LastTry = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.IpId);
+            
         }
         
         public override void Down()
@@ -313,6 +324,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             DropIndex("dbo.WorkOrders", new[] { "Disease_DiseaseId" });
             DropIndex("dbo.WorkOrders", new[] { "Contractor_ContractorId" });
             DropIndex("dbo.WorkOrders", new[] { "Activity_ActivityId" });
+            DropTable("dbo.IpLogs");
             DropTable("dbo.Visits");
             DropTable("dbo.Roles");
             DropTable("dbo.Medicines");
