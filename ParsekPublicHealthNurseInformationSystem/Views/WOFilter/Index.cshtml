@@ -106,10 +106,27 @@
                             <li>Nadomestna sestra: @WO.NurseReplacement.Name @WO.NurseReplacement.Surname</li>
                         }
                         <li>Preventivni obisk: @WO.Activity.PreventiveVisit.ToString()</li>
+                        <li>
+                            Pacienti: 
+                            @if (Model.WorkOrders[i].PatientWorkOrders.Count == 0)
+                            { 
+                                <span>/</span>
+                            }
+                            <ul>
+                                @for (int j = 0; j < Model.WorkOrders[i].PatientWorkOrders.Count; j++)
+                                {
+                                     
+                                    ParsekPublicHealthNurseInformationSystem.Models.PatientWorkOrder PWO = 
+                                        Model.WorkOrders[i].PatientWorkOrders.ElementAt(j);
+                                     
+                                    <li>@PWO.Patient.Name @PWO.Patient.Surname</li>
+                                }
+                            </ul>
+                        </li>
                         <li><input type="button" value="Podrobnosti" /></li>
                     </ul>
                 </div>
-                        }
+            }
 
         </div>
 
