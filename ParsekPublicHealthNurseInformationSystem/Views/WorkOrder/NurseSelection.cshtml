@@ -5,6 +5,11 @@
     ViewBag.Title = "NurseSelection";
 }
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
 <h2>Izbira patronažne sestre</h2>
 
 
@@ -24,6 +29,17 @@
             htmlAttributes: new { @class = "form-control dropdown" })
             @Html.ValidationMessageFor(model => model.SelectedNurseId, "", new { @class = "text-danger" })
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedNurseReplacementId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(
+            model => model.SelectedNurseReplacementId,
+            new SelectList(Model.PossibleNursesReplacement, "EmployeeId", "FullNameWithCode"),
+            "/",
+            htmlAttributes: new { @class = "form-control dropdown" })
+            @Html.ValidationMessageFor(model => model.SelectedNurseReplacementId, "", new { @class = "text-danger" })
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Select" class="btn btn-default" />
