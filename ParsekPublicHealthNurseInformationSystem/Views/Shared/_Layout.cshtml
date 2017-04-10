@@ -118,6 +118,7 @@
                             }
                             @if (IsLoggedIn)
                             {
+                                <li>@Html.ActionLink("Sprememba gesla", "", "ChangePassword")</li>
                                 <li role="separator" class="divider"></li>
                                 <li>@Html.ActionLink("Odjava", "Logout", "Login")</li>
                             }
