@@ -205,9 +205,12 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
             }
             else
             {
-                str += "$(\"#"+id+"\").autocomplete({\n" +
+                str += "];" +
+                       "$(\"#" + id +"\").autocomplete({\n" +
                        "source: availableTags\n" +
-                       "});";
+                       "});" +
+                       "} );" +
+                       "</script>";
             }
             return str;
         }
