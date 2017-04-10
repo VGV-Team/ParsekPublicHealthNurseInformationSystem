@@ -44,6 +44,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             wovm.AllPatients = DB.Patients.ToList();
             wovm.SelectedActivityId = wovtvm.SelectedActivityId;
 
+            // TODO: do this
+            wovm.AllMedicines = DB.Medicines.ToList();
+            wovm.AllColors = new List<string> { "Rdeča", "Modra", "Rumena", "Zelena" };
             return View("Create", wovm);
         }
 
@@ -207,7 +210,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             int[] ids = new int[splits.Length];
             for (int i = 0; i < splits.Length; i++)
             {
-                string idString = splits[i].Split('-').Last().Replace(" ", "");
+                string idString = splits[i].Split('(').Last().Replace(" ", "");
                 int id;
                 if (int.TryParse(idString, out id) && id != 0)
                 {

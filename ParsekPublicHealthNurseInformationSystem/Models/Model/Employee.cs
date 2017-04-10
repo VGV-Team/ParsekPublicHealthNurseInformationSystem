@@ -43,7 +43,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
             Coworker // Sodelavec
         };
 
-        public string FullNameWithCode => $"{Surname} {Name} - {EmployeeId}" + (Title == JobTitle.HealthNurse ? $" - {District.Name}" : "");
+        public string FullNameWithCode => $"{Surname} {Name} - ({EmployeeId})" + (Title == JobTitle.HealthNurse ? $" - {District.Name}" : "");
     }
     
 }

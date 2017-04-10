@@ -42,7 +42,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         //
 
         public string FullName => $"{Surname} {Name}";
-        public string FullNameWithCode => $"{Surname} {Name} - {PatientId}";
+        public string FullNameWithCode => $"{Surname} {Name} ({PatientId})";
 
         public virtual ICollection<User> User { get; set; } // ONE TO ONE WORKAROUND
 
