@@ -3,7 +3,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initialmigration : DbMigration
+    public partial class InitialMigration : DbMigration
     {
         public override void Up()
         {
@@ -255,6 +255,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                         VisitId = c.Int(nullable: false, identity: true),
                         Date = c.DateTime(nullable: false),
                         Mandatory = c.Boolean(nullable: false),
+                        Confirmed = c.Boolean(nullable: false),
                         WorkOrder_WorkOrderId = c.Int(),
                     })
                 .PrimaryKey(t => t.VisitId)

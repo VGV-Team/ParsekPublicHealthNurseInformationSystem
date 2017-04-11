@@ -158,14 +158,15 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\VisitPlannerController.cs" />
     <Compile Include="Controllers\WOFilterController.cs" />
     <Compile Include="Controllers\WorkOrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704101850081_initialmigration.cs" />
-    <Compile Include="Migrations\201704101850081_initialmigration.Designer.cs">
-      <DependentUpon>201704101850081_initialmigration.cs</DependentUpon>
+    <Compile Include="Migrations\201704111535156_InitialMigration.cs" />
+    <Compile Include="Migrations\201704111535156_InitialMigration.Designer.cs">
+      <DependentUpon>201704111535156_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model\Activity.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="ViewModels\PatientActions\AddCarePatientViewModel.cs" />
     <Compile Include="ViewModels\Register\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\VisitPlanner\VisitPlannerViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderCurativeViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderFilterViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderNurseSelectionViewModel.cs" />
@@ -294,6 +296,7 @@
     <Content Include="Views\WOFilter\Index.cshtml" />
     <Content Include="Views\WorkOrder\NurseSelection.cshtml" />
     <Content Include="Views\ChangePassword\Index.cshtml" />
+    <Content Include="Views\VisitPlanner\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -313,8 +316,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704101850081_initialmigration.resx">
-      <DependentUpon>201704101850081_initialmigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704111535156_InitialMigration.resx">
+      <DependentUpon>201704111535156_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

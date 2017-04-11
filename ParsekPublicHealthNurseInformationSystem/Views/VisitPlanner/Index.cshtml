@@ -1,0 +1,87 @@
+﻿@model ParsekPublicHealthNurseInformationSystem.ViewModels.VisitPlannerViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Planer obiskov</h2>
+
+<p>Ustvarite plan za obiske. Dodajanje obiska v plan mu avtomatsko nastavi datum na datum plana.</p>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h3>Datum </h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlanDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PlanDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PlanDate, "", new { @class = "text-danger" })
+                <div class="text-danger">@Model.ViewMessage</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <h3>Planirani obiski</h3>
+
+    for (int i = 0; i < Model.MandatoryVisits.Count; i++)
+    {
+        <div class="well">
+            <ul>
+                <li>Delovni nalog: @Model.MandatoryVisits[i].WorkOrder.Name</li>
+                <li>Datum: @Model.MandatoryVisits[i].Date.ToString("dd. MM. yyyy")</li>
+                @if (Model.MandatoryVisits[i].Mandatory == false)
+                {
+                    <li>Obvezen: NE</li>
+                    <li>@Html.ActionLink("Zavrni obisk", "DisconfirmVisit", "VisitPlanner", routeValues: new { date = Model.PlanDate, DisconfirmedVisitId = Model.MandatoryVisits[i].VisitId }, htmlAttributes: null)</li>
+                }
+                else
+                {
+                    <li>Obvezen: DA</li>
+                }
+                
+            </ul>
+        </div>
+    }
+
+    <h3>Izbirni obiski</h3>
+
+    for (int i = 0; i < Model.OptionalVisits.Count; i++)
+    {
+        <div class="well">
+            <ul>
+                <li>Delovni nalog: @Model.OptionalVisits[i].WorkOrder.Name</li>
+                <li>Okviren datum: @Model.OptionalVisits[i].Date.ToString("dd. MM. yyyy")</li>
+                <li>Obvezen: NE</li>
+                <li>@Html.ActionLink("Dodaj v plan", "ConfirmVisit", "VisitPlanner", routeValues: new { date = Model.PlanDate, ConfirmedVisitId = Model.OptionalVisits[i].VisitId }, htmlAttributes: null)</li>
+            </ul>
+        </div>
+    }
+
+    <h3>! Zapadli obiski !</h3>
+
+    for (int i = 0; i < Model.OverdueVisits.Count; i++)
+    {
+        <div class="well">
+            <ul>
+                <li>Delovni nalog: @Model.OverdueVisits[i].WorkOrder.Name</li>
+                <li>Datum: @Model.OverdueVisits[i].Date.ToString("dd. MM. yyyy")</li>
+                <li>Obvezen: NE</li>
+                <li>@Html.ActionLink("Dodaj v plan", "ConfirmVisit", "VisitPlanner", routeValues: new { date = Model.PlanDate, ConfirmedVisitId = Model.OverdueVisits[i].VisitId }, htmlAttributes: null)</li>
+            </ul>
+        </div>
+    }
+}

@@ -91,7 +91,10 @@
                     {
                         <li>@Html.ActionLink("Kreiranje DN", "Index", "WorkOrder")</li>
                     }
-                    <li>@Html.ActionLink("Planiranje obiskov", "", "Home")</li>
+                    @if (IsNurse)
+                    {
+                        <li>@Html.ActionLink("Planiranje obiskov", "Index", "VisitPlanner")</li>
+                    }  
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
