@@ -314,6 +314,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             v.Date = DateTime.Now;
             v.Mandatory = true;
             v.WorkOrder = wo;
+            v.Confirmed = true;
             context.Visits.AddOrUpdate(vis => vis.VisitId, v);
             context.WorkOrders.AddOrUpdate(wordr => wordr.WorkOrderId, wo);
 

@@ -16,6 +16,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public bool Mandatory { get; set; }
 
+        [Required]
+        public bool Confirmed { get; set; }
+
 
         public virtual WorkOrder WorkOrder { get; set; }
     }
