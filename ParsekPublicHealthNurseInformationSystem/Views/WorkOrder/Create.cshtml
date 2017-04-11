@@ -14,7 +14,7 @@
 
     @Html.HiddenFor(m => m.SelectedActivityId)
 
-    @Html.Raw(Model.GeneratePatientDropDown(Model.AllPatients, "PatientIds"))
+    @Html.Raw(Model.GenerateDropDown(Model.AllPatients, "PatientIds"))
     <div class="form-group">
         @Html.LabelFor(model => model.PatientIds, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -124,7 +124,7 @@
         @Html.HiddenFor(m => m.EnterMedicine)
         @if (Model.EnterMedicine)
         {
-            @Html.Raw(Model.GeneratePatientDropDown(Model.AllMedicines, "MedicineIds"))
+            @Html.Raw(Model.GenerateDropDown(Model.AllMedicines, "MedicineIds"))
             <div class="form-group">
                 @Html.LabelFor(model => model.MedicineIds, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">

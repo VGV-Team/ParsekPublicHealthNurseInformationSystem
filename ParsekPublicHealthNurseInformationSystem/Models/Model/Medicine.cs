@@ -18,6 +18,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public string FullNameWithCode => $"{Code}; {Title}; ({MedicineId})";
 
+        public string FullName => $"{Code}; {Title}";
+
         //public virtual ICollection<MedicineWorkOrder> MedicineWorkOrders { get; set; }
     }
 }

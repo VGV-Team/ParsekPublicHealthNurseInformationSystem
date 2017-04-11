@@ -1,4 +1,5 @@
 ﻿DROP TABLE __MigrationHistory
+DROP TABLE dbo.BloodSamples
 DROP TABLE MaterialWorkOrders
 DROP TABLE MedicineWorkOrders
 DROP TABLE PatientWorkOrders

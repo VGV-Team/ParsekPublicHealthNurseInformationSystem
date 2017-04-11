@@ -44,6 +44,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         };
 
         public string FullNameWithCode => $"{Surname} {Name} - ({EmployeeId})" + (Title == JobTitle.HealthNurse ? $" - {District.Name}" : "");
+
+        public string FullName => $"{Surname} {Name}";
     }
     
 }

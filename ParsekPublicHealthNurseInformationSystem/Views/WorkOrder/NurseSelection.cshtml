@@ -17,7 +17,10 @@
 {
     @Html.AntiForgeryToken()
 
-    @Html.HiddenFor(m => m.WorkOrderId)
+    for (int i = 0; i < Model.Districts.Count; i++)
+    {
+        @Html.HiddenFor(model => Model.Districts[i])
+    }
 
     <div class="form-group">
         <div class="form-group">

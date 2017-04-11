@@ -17,9 +17,13 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         // TODO: hidden fields still validating??
         // TODO: dropdowns can be empty??
 
+        private EntityDataModel DB = new EntityDataModel();
+
         public WorkOrderViewModel()
         {
             NumberOfVisits = 1;
+            AllPatients = DB.Patients.ToList(); // TODO: horrible fix!! Change this!
+            AllMedicines = DB.Medicines.ToList();
         }
 
         [Display(Name = "Pacienti")]
@@ -80,25 +84,12 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public string BloodVialColor { get; set; }
 
         [Display(Name = "Število epruvet")]
+        [Range(1, 30, ErrorMessage = "Število epruvet mora biti med 1 in 10.")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public int BloodVialCount { get; set; }
 
         public bool EnterMedicine { get; set; }
         public bool EnterBloodSample { get; set; }
-
-        /*
-        public WorkOrderCurativeViewModel CurativeVisit { get; set; }
-        public WorkOrderPreventiveViewModel PreventiveVisit { get; set; }
-
-        public VisitType Type { get; set; }
-
-        public enum VisitType
-        {
-            [Display(Name = "Izberite iz seznama")] Default = 0,
-            [Display(Name = "Kurativni obisk")] CurativeVisit = 1,
-            [Display(Name = "Preventivni obisk")] PreventiveVisit = 2
-        }
-        */
 
         public enum VisitTimeType
         {
@@ -122,28 +113,28 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         }
 
 
-        public string GeneratePatientDropDown(List<Medicine> list, string id, bool multiChoice = true)
+        public string GenerateDropDown(List<Medicine> list, string id, bool multiChoice = true)
         {
             List<string> converterToStrings = new List<string>();
             foreach (var medicine in list)
             {
                 converterToStrings.Add(medicine.FullNameWithCode);
             }
-            return GeneratePatientDropDown(converterToStrings, id, multiChoice);
+            return GenerateDropDown(converterToStrings, id, multiChoice);
         }
 
-        public string GeneratePatientDropDown(List<Patient> list, string id, bool multiChoice = true)
+        public string GenerateDropDown(List<Patient> list, string id, bool multiChoice = true)
         {
             List<string> converterToStrings = new List<string>();
             foreach (var patient in list)
             {
                 converterToStrings.Add(patient.FullNameWithCode);
             }
-            return GeneratePatientDropDown(converterToStrings, id, multiChoice);
+            return GenerateDropDown(converterToStrings, id, multiChoice);
         }
 
 
-        public string GeneratePatientDropDown(List<string> list, string id, bool multiChoice = true)
+        public string GenerateDropDown(List<string> list, string id, bool multiChoice = true)
         {
             string str = "<script>\n" +
                          "$(function() {\n" +
@@ -153,21 +144,6 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
             for (var index = 0; index < list.Count; index++)
             {
                 str += "\"" + list[index] + "\"";
-
-                /*
-                if (typeof(T) == typeof(Patient))
-                {
-                    str += "\"" + ((Patient)(object)list[index]).FullNameWithCode + "\"";
-                }
-                else if (typeof(T) == typeof(Medicine))
-                {
-                    str += "\"" + ((Medicine)(object)list[index]).FullNameWithCode + "\"";
-                }
-                else
-                {
-                    str += "\"" + (string)(object)list[index] + "\"";
-                }
-                */
 
                 if (index < list.Count-1)
                     str += ",";
