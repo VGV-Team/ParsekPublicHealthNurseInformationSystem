@@ -51,6 +51,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 Models.User tmp = (Models.User)Session["user"];
                 Models.User user = DB.Users.FirstOrDefault(u => u.UserId == tmp.UserId);
+                TempData["email"] = user.Email;
                 user.Password = cpvm.Password1;
                 DB.SaveChanges();
                 cpvm.ViewMessage = "qwe";

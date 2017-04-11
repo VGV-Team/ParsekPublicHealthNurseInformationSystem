@@ -27,6 +27,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             {
                 lvm = new LoginViewModel();
             }
+            if (TempData["email"] == null) ;
+            else
+            {
+                lvm.Email = TempData["email"].ToString();
+                TempData["Email"] = null;
+            }
             if (lvm.ViewMessage == "qwe")
                 return RedirectToAction("Index", "Home");
             else
@@ -60,7 +66,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     ip = DB.IpLogs.Where(i => i.Ips == visitorIPAddress).FirstOrDefault();
                 }
 
-                if (ip.counter >= 3)
+                if (ip.counter >= 2)
                 {
                     if (ip.LastTry.AddMinutes(5) < DateTime.Now)
                     {
@@ -117,7 +123,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     lvm.ViewMessage = "E-mail ni aktiviran";
                     return Form(lvm);
                 }
-
+                user.LastLastLogin = user.LastLogin;
+                user.LastLogin = DateTime.Now;
                 Session["user"] = user;
                 lvm.ViewMessage = "qwe";
                 //return Redirect(Request.Url.Authority);

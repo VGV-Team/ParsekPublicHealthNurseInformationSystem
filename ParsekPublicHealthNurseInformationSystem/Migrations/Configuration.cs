@@ -194,6 +194,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Admin.Email = "admin@parsek.si";
             Admin.Password = "admin";
             Admin.Active = true;
+            Admin.LastLastLogin = DateTime.Now;
+            Admin.LastLogin = DateTime.Now;
             User Doctor = new User();
             Doctor.Employee = null;
             Doctor.Patient = null;
@@ -201,6 +203,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Doctor.Email = "doctor@parsek.si";
             Doctor.Password = "doctor";
             Doctor.Active = true;
+            Doctor.LastLastLogin = DateTime.Now;
+            Doctor.LastLogin = DateTime.Now;
             User Nurse1 = new User();
             Nurse1.Employee = null;
             Nurse1.Patient = null;
@@ -208,6 +212,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Nurse1.Email = "nurse1@parsek.si";
             Nurse1.Password = "nurse1";
             Nurse1.Active = true;
+            Nurse1.LastLastLogin = DateTime.Now;
+            Nurse1.LastLogin = DateTime.Now;
             User Nurse2 = new User();
             Nurse2.Employee = null;
             Nurse2.Patient = null;
@@ -215,6 +221,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Nurse2.Email = "nurse2@parsek.si";
             Nurse2.Password = "nurse2";
             Nurse2.Active = true;
+            Nurse2.LastLastLogin = DateTime.Now;
+            Nurse2.LastLogin = DateTime.Now;
             User Patient1 = new User();
             Patient1.Employee = null;
             Patient1.Patient = null;
@@ -223,6 +231,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient1.Password = "death";
             Patient1.Active = true;
             Patient1.Patient = patient1;
+            Patient1.LastLastLogin = DateTime.Now;
+            Patient1.LastLogin = DateTime.Now;
             User Patient2 = new User();
             Patient2.Employee = null;
             Patient2.Patient = null;
@@ -231,6 +241,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient2.Password = "Humanity";
             Patient2.Active = true;
             Patient2.Patient = patient2;
+            Patient2.LastLastLogin = DateTime.Now;
+            Patient2.LastLogin = DateTime.Now;
             context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse1, Nurse2, Patient1, Patient2);
 
 

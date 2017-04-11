@@ -21,7 +21,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public bool Active { get; set; }
         public string EmailCode { get; set; }
         public DateTime? EmailExpire { get; set; }
-
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime LastLastLogin { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime LastLogin { get; set; }
 
 
         public virtual Role Role { get; set; }
