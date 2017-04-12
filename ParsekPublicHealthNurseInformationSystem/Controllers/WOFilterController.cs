@@ -32,6 +32,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             // 
             if (Session["user"] != null)
             {
+
                 Models.User sessionUser = Session["user"] as Models.User;
 
                 if (sessionUser.Employee != null)
@@ -46,6 +47,26 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     }
                 }
             }
+
+            
+
+
+            return Filter(vm);
+        }
+
+        public ActionResult Filter(WorkOrderFilterViewModel vm)
+        {
+
+            if (vm == null)
+            {
+                vm = new WorkOrderFilterViewModel();
+            }
+
+            vm.Issuers = DB.Employees.Where(e => e.Title == Employee.JobTitle.Doctor || e.Title == Employee.JobTitle.Head).ToList();
+            vm.Patients = DB.Patients.ToList();
+            vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.Title == Employee.JobTitle.HealthNurse).ToList();
+
+            vm.WorkOrders = DB.WorkOrders.ToList();
 
             #region Filters
 
@@ -84,8 +105,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             #endregion
 
-
-            return View(vm);
+            return View("Index", vm);
         }
+
     }
 }

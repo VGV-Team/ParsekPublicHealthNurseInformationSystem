@@ -159,6 +159,7 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\VisitPlannerController.cs" />
+    <Compile Include="Controllers\WODetailsController.cs" />
     <Compile Include="Controllers\WOFilterController.cs" />
     <Compile Include="Controllers\WorkOrderController.cs" />
     <Compile Include="Global.asax.cs">
@@ -198,6 +199,7 @@
     <Compile Include="ViewModels\Register\RegisterViewModel.cs" />
     <Compile Include="ViewModels\VisitPlanner\VisitPlannerViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderCurativeViewModel.cs" />
+    <Compile Include="ViewModels\WorkOrder\WorkOrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderFilterViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderNurseSelectionViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderPreventiveViewModel.cs" />
@@ -301,6 +303,8 @@
     <Content Include="Views\ChangePassword\Index.cshtml" />
     <Content Include="Views\VisitPlanner\Index.cshtml" />
     <Content Include="Views\WorkOrder\Summary.cshtml" />
+    <Content Include="Views\VisitPlanner\Index - Copy.cshtml" />
+    <Content Include="Views\WODetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

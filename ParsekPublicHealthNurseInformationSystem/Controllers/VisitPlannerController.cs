@@ -15,12 +15,22 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         // GET: VisitPlanner
         public ActionResult Index(VisitPlannerViewModel vm, DateTime? date)
         {
+            vm = new VisitPlannerViewModel();
+            vm.OptionalVisits = new List<Visit>();
+            vm.MandatoryVisits = new List<Visit>();
+            vm.OverdueVisits = new List<Visit>();
+            vm.Visits = new List<List<Visit>>();
+            vm.VisitsDays = 7;
+
             if (vm == null)
             {
                 vm = new VisitPlannerViewModel();
                 vm.OptionalVisits = new List<Visit>();
                 vm.MandatoryVisits = new List<Visit>();
                 vm.OverdueVisits = new List<Visit>();
+                vm.Visits = new List<List<Visit>>();
+                vm.VisitsDays = 7;
+                FillViewModel(vm);
                 if (date != null)
                 {
                     vm.PlanDate = date;
@@ -48,7 +58,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     vm.OptionalVisits = new List<Visit>();
                     vm.MandatoryVisits = new List<Visit>();
                     vm.OverdueVisits = new List<Visit>();
+                    vm.Visits = new List<List<Visit>>();
+                    vm.VisitsDays = 7;
                 }
+                FillViewModel(vm);
             }
                
 
@@ -60,6 +73,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.OptionalVisits = new List<Visit>();
             vm.MandatoryVisits = new List<Visit>();
             vm.OverdueVisits = new List<Visit>();
+            vm.Visits = new List<List<Visit>>();
+            vm.VisitsDays = 7;
             vm.ViewMessage = "Datum mora biti enak ali večji od današnjega.";
         }
 
@@ -71,7 +86,27 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                                             (v.WorkOrder.NurseReplacement != null && v.WorkOrder.NurseReplacement.EmployeeId == CurrentNurse.EmployeeId)) //Check if nurse is replacement
                                             .ToList();
 
-            List<Visit> TodayVisits = AllVisits.Where(v => (v.Date.Day == vm.PlanDate.Value.Day && v.Date.Month == vm.PlanDate.Value.Month && v.Date.Year == vm.PlanDate.Value.Year) ||
+            DateTime dt = DateTime.Now.Date;
+
+            for (int i = 0; i < vm.VisitsDays; i++)
+            {
+                List<Visit> tmp = new List<Visit>();
+                tmp = AllVisits.Where(v => v.DateConfirmed.Day == dt.Day && v.DateConfirmed.Month == dt.Month && v.DateConfirmed.Year == dt.Year && (v.Mandatory || v.Confirmed)).ToList();
+                vm.Visits.Add(tmp);
+                dt = dt.AddDays(1);
+            }
+
+            vm.OptionalVisits = AllVisits.Where(v => !v.Confirmed && !v.Mandatory &&
+                                                v.Date.Date >= DateTime.Now.Date &&
+                                                v.Date.Date <= DateTime.Now.Date.Date.AddDays(7))
+                                                .OrderBy(v => v.Date)
+                                                .ToList();
+
+            vm.OverdueVisits = AllVisits.Where(v => v.Date.Date.Ticks < DateTime.Now.Date.Ticks && v.Confirmed == false)
+                                        .OrderBy(v => v.Date).ToList();
+            //OLD
+            //
+            /*List<Visit> TodayVisits = AllVisits.Where(v => (v.Date.Day == vm.PlanDate.Value.Day && v.Date.Month == vm.PlanDate.Value.Month && v.Date.Year == vm.PlanDate.Value.Year) ||
                                                             v.DateConfirmed.Day == vm.PlanDate.Value.Day && v.DateConfirmed.Month == vm.PlanDate.Value.Month && v.DateConfirmed.Year == vm.PlanDate.Value.Year).ToList();
 
             //List<Visit> ApproximateVisits = AllVisits.Where(v => v.Date.Ticks > Date)
@@ -88,15 +123,34 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
     
             //vm.OverdueVisits = AllVisits.Where(v => v.Date.Year <= DateTime.Now.Year && v.Date.Month <= DateTime.Now.Month && v.Date.Day < DateTime.Now.Day && v.Confirmed == false).ToList();
             vm.OverdueVisits = AllVisits.Where(v => v.Date.Date.Ticks < DateTime.Now.Date.Ticks && v.Confirmed == false)
-                                        .OrderBy(v => v.Date).ToList();
+                                        .OrderBy(v => v.Date).ToList();*/
         }
 
-        public ActionResult ConfirmVisit(DateTime date, int? ConfirmedVisitId)
+        public ActionResult ConfirmVisit(VisitPlannerViewModel vm)
         {
 
-            if (ConfirmedVisitId != null)
+            if (vm.PlanDate.Value.Date > DateTime.Now.Date && vm.HiddenVisitId != null)
+            {
+                Models.Visit visit = DB.Visits.Find(vm.HiddenVisitId);
+
+                if (visit != null)
+                {
+                    visit.DateConfirmed = vm.PlanDate.Value;
+                    visit.Confirmed = true;
+                    DB.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Index", "VisitPlanner", null);
+        }
+
+        public ActionResult Conf222irmVisit(DateTime date, int? ConfirmedVisitId)
+        {
+
+            if (ConfirmedVisitId != null && date.Date > DateTime.Now.Date)
             {
                 Models.Visit visit = DB.Visits.Find(ConfirmedVisitId);
+
                 if (visit != null)
                 {
                     visit.DateConfirmed = date;
@@ -120,6 +174,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 if (visit != null && visit.Mandatory == false)
                 {
                     visit.Confirmed = false;
+                    visit.DateConfirmed = visit.Date;
                     DB.SaveChanges();
                 }
             }

@@ -6,7 +6,7 @@
 
 <h2>Pregled delovnih nalogov</h2>
 
-@using (Html.BeginForm("Index", "WOFilter", FormMethod.Get))
+@using (Html.BeginForm("Filter", "WOFilter", FormMethod.Get))
 {
     @Html.AntiForgeryToken()
     
@@ -112,7 +112,15 @@
                         {
                             <li>Nadomestna sestra: @WO.NurseReplacement.Name @WO.NurseReplacement.Surname</li>
                         }
-                        <li>Preventivni obisk: @WO.Activity.PreventiveVisit.ToString()</li>
+                        @if (@WO.Activity.PreventiveVisit)
+                        {
+                            <li>Preventivni obisk: da</li>
+                        }
+                        else
+                        {
+                            <li>Preventivni obisk: ne</li>
+                        }
+                        
                         <li>
                             Pacienti: 
                             @if (Model.WorkOrders[i].PatientWorkOrders.Count == 0)
@@ -131,7 +139,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <input type="button" value="Podrobnosti" />
+                    @Html.ActionLink("Podrobnosti", "Index", "WODetails", new { workorderId = WO.WorkOrderId }, new { @class = "btn btn-primary", @style = "color:white" })
                 </div>
             }
 

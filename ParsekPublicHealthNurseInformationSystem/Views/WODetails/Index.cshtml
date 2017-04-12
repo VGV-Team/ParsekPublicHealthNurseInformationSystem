@@ -1,0 +1,125 @@
+﻿@model ParsekPublicHealthNurseInformationSystem.ViewModels.WorkOrderDetailsViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Podrobnosti delovnega naloga</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal well">
+        <dt>
+            @Html.DisplayNameFor(model => model.Supervisor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Supervisor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nurse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nurse)
+        </dd>
+
+        @if (Model.NurseReplacement != "/")
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.NurseReplacement)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NurseReplacement)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContractorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContractorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patients)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patients)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PreventiveActivity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PreventiveActivity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Disease)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disease)
+        </dd>
+
+        @if (Model.EnterBloodSample)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.BloodVialColor)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BloodVialColor)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BloodVialCount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BloodVialCount)
+            </dd>
+        }
+
+
+        @if (Model.EnterMedicine)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Medicine)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Medicine)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Visits)
+        </dt>
+
+        @for (int i = 0; i < Model.Visits.Count; i++)
+        {
+            <dd>
+                @Model.Visits.ElementAt(i) @Html.ActionLink("Podrobnosti", "Details", "VisitDetails", new { visitId = Model.VisitIds.ElementAt(i) })
+            </dd>
+        }
+
+        
+
+    </dl>
+</div>
+

@@ -16,6 +16,12 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public DateTime? PlanDate { get; set; }
 
         public List<Models.Visit> MandatoryVisits { get; set; }
+
+        public List<List<Models.Visit>> Visits { get; set; }
+
+        public int VisitsDays { get; set; }
+        public int? HiddenVisitId { get; set; }
+
         public List<Models.Visit> OptionalVisits { get; set; }
         public List<Models.Visit> OverdueVisits { get; set; }
 
