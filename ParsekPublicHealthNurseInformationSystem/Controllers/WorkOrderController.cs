@@ -13,6 +13,8 @@ using WebGrease.Css.Ast.Selectors;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
+    [AuthorizationFilter(Role.RoleEnum.Employee)]
+    [AuthorizationFilter(Employee.JobTitle.Doctor, Employee.JobTitle.Head)]
     public class WorkOrderController : Controller
     {
         private EntityDataModel DB = new EntityDataModel();
@@ -32,6 +34,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             return View("Index", wovtvm);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateWorkOrder(WorkOrderVisitTypeViewModel wovtvm)
         {
             User currentUser = (User)Session["user"];
@@ -40,6 +44,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             Activity activity = DB.Activities.FirstOrDefault(x => x.ActivityId == wovtvm.SelectedActivityId);
             if (activity == null || !activity.PreventiveVisit && !isDoctor)
             {
+                wovtvm.CreateWorkOrderVisitTypeViewModel(isDoctor);
                 return View("Index", wovtvm);
             }
 
@@ -52,6 +57,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             return View("Create", wovm);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SubmitWorkOrder(WorkOrderViewModel wovm)
         {
             if (wovm.PatientIds.IsNullOrWhiteSpace() ||
@@ -161,6 +168,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SelectNurseWorkOrder(WorkOrderNurseSelectionViewModel wonsvm)
         {
             Employee selectedNurse = DB.Employees.FirstOrDefault(x => x.EmployeeId == wonsvm.SelectedNurseId);
@@ -192,7 +201,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         }
 
 
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Submit()
         {
             WorkOrderDataViewModel wodvm = (WorkOrderDataViewModel)Session["SavedWorkOrder"];
@@ -287,6 +297,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Discard()
         {
             Session["SavedWorkOrder"] = null;

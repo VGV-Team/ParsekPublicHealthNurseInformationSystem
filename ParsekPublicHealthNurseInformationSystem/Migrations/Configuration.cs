@@ -243,7 +243,16 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient2.Patient = patient2;
             Patient2.LastLastLogin = DateTime.Now;
             Patient2.LastLogin = DateTime.Now;
-            context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse1, Nurse2, Patient1, Patient2);
+            User Head = new User();
+            Head.Employee = null;
+            Head.Patient = null;
+            Head.Role = EmployeeRole;
+            Head.Email = "head@parsek.si";
+            Head.Password = "head";
+            Head.Active = true;
+            Head.LastLastLogin = DateTime.Now;
+            Head.LastLogin = DateTime.Now;
+            context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse1, Nurse2, Patient1, Patient2, Head);
 
 
             Employee DoctorEmployee = new Employee();
@@ -255,7 +264,16 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             DoctorEmployee.Number = "jmmfgh";
             DoctorEmployee.PhoneNumber = "867685";
             DoctorEmployee.Title = Employee.JobTitle.Doctor;
-            context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee);
+            Employee HeadEmployee = new Employee();
+            HeadEmployee.User = Head;
+            HeadEmployee.Name = "Head";
+            HeadEmployee.Surname = "Headovsky";
+            HeadEmployee.Contractor = c1;
+            //HeadEmployee.District = di1;
+            HeadEmployee.Number = "ewfwfwefdsfw";
+            HeadEmployee.PhoneNumber = "555484888";
+            HeadEmployee.Title = Employee.JobTitle.Head;
+            context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, HeadEmployee);
 
             Employee NurseEmployee1 = new Employee();
             NurseEmployee1.User = Nurse1;
