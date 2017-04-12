@@ -51,19 +51,9 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(function () {
-            $("#MultipleVisits").click(function () {
-                if ($(this).is(":checked")) {
-                    $("#timeEntry").show();
-                } else {
-                    $("#timeEntry").hide();
-                }
-            });
-        });
-    </script>
+   
 
-    <div class="form-group" id="timeEntry" style="display: none;">
+    <div id="timeEntry" class="form-group" hidden>
         <div class="form-group">
             @Html.LabelFor(model => model.NumberOfVisits, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -72,11 +62,15 @@
             </div>
         </div>
 
-        <div class="col-md-10">
-            @Html.EnumDropDownListFor(x => x.TimeType, "-- Izberi --", new { @class = "form-control" })
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(x => x.TimeType, "-- Izberi --", new { @class = "form-control dropdown" })
+                    @Html.ValidationMessageFor(model => model.TimeType, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-        <div class="col-md-10" id=@WorkOrderViewModel.VisitTimeType.TimeInterval style="display: none;">
+        <div id=@WorkOrderViewModel.VisitTimeType.TimeInterval style="display: none;">
             <div class="form-group">
                 @Html.LabelFor(model => model.TimeInterval, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -85,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-10" id=@WorkOrderViewModel.VisitTimeType.TimeFrame style="display: none;">
+        <div id=@WorkOrderViewModel.VisitTimeType.TimeFrame style="display: none;">
             <div class="form-group">
                 @Html.LabelFor(model => model.TimeFrame, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -110,7 +104,34 @@
                     }
                 });
         </script>
+
+
+        <script type="text/javascript">
+            if ($("#MultipleVisits").is(":checked")) {
+                $("#timeEntry").show();
+            }
+
+            if ($("#TimeType").val() == "1") {
+                $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
+            }
+            if ($("#TimeType").val() == "2") {
+                $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
+            }
+
+            $(function () {
+                $("#MultipleVisits").click(function () {
+                    if ($(this).is(":checked")) {
+                        $("#timeEntry").show();
+                    } else {
+                        $("#timeEntry").hide();
+                    }
+                });
+            });
+        </script>
+
     </div>
+
+
 
 
 

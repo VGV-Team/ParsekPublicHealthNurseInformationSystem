@@ -16,7 +16,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public bool MultipleVisits { get; set; }
         public DateTime TimeFrame { get; set; }
         public int TimeInterval { get; set; }
-        public WorkOrderViewModel.VisitTimeType TimeType { get; set; }
+        public WorkOrderViewModel.VisitTimeType? TimeType { get; set; }
         public List<int> MedicineIds { get; set; }
         public string BloodVialColor { get; set; }
         public int BloodVialCount { get; set; }

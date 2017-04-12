@@ -9,6 +9,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
+    [AuthorizationFilter(Role.RoleEnum.Admin)]
     public class AdminConsoleController : Controller
     {
         private EntityDataModel DB = new EntityDataModel();

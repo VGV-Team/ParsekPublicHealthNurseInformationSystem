@@ -68,7 +68,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         [Display(Name = "Tip časovnega vnosa")]
         [Required(ErrorMessage = "Polje je obvezno")]
-        public VisitTimeType TimeType { get; set; }
+        public VisitTimeType? TimeType { get; set; }
 
 
 

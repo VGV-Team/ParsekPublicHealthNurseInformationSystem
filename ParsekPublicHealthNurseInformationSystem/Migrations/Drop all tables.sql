@@ -17,3 +17,4 @@ DROP TABLE Districts
 DROP TABLE Roles
 DROP TABLE PostOffices
 DROP TABLE Activities
+DROP TABLE IpLogs

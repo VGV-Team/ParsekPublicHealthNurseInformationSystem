@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
-    
+    [AllowAnonymous]
     public class LoginController : Controller
     {
         
