@@ -164,9 +164,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704121459162_InitialMigration.cs" />
-    <Compile Include="Migrations\201704121459162_InitialMigration.Designer.cs">
-      <DependentUpon>201704121459162_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201704121625282_InitialMigration.cs" />
+    <Compile Include="Migrations\201704121625282_InitialMigration.Designer.cs">
+      <DependentUpon>201704121625282_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model\Activity.cs" />
@@ -320,8 +320,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704121459162_InitialMigration.resx">
-      <DependentUpon>201704121459162_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704121625282_InitialMigration.resx">
+      <DependentUpon>201704121625282_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

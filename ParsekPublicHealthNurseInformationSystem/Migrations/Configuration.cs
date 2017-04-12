@@ -321,6 +321,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             wo.Nurse = NurseEmployee1;
             wo.NurseReplacement = NurseEmployee1;
 
+            PatientWorkOrder pwo = new PatientWorkOrder();
+            pwo.Patient = patient1;
+            pwo.WorkOrder = wo;
+            
+
 
             Visit v = new Visit();
             v.Date = DateTime.Now;
@@ -329,6 +334,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             v.Confirmed = true;
             context.Visits.AddOrUpdate(vis => vis.VisitId, v);
             context.WorkOrders.AddOrUpdate(wordr => wordr.WorkOrderId, wo);
+            context.PatientWorkOrders.AddOrUpdate(pwordr => pwordr.PatientWorkOrderId, pwo);
 
             /*if (System.Diagnostics.Debugger.IsAttached == false)
                 System.Diagnostics.Debugger.Launch();

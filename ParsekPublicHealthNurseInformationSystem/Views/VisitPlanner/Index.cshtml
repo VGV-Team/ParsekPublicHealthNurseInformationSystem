@@ -4,6 +4,16 @@
     ViewBag.Title = "Index";
 }
 
+<style>
+    .VisitContainer {
+     float:left !important;
+     margin:2px !important; 
+     width:350px !important; 
+     height: 140px !important;
+}
+</style>
+
+
 <h2>Planer obiskov</h2>
 
 <p>Ustvarite plan za obiske. Dodajanje obiska v plan mu avtomatsko nastavi datum na datum plana.</p>
@@ -35,7 +45,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Izberi" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -48,15 +58,16 @@
 
     for (int i = 0; i < Model.MandatoryVisits.Count; i++)
     {
-        <!--<div class="well" style="float:left; margin:2px; width:350px; height:120px;">-->
-        <div class="well">
+        <div class="well VisitContainer">
+        
             <ul>
                 <li>Delovni nalog: @Model.MandatoryVisits[i].WorkOrder.Name</li>
                 <li>Datum: @Model.MandatoryVisits[i].Date.ToString("dd. MM. yyyy")</li>
+                <li>Naslov pacienta: @Model.MandatoryVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</li>
                 @if (Model.MandatoryVisits[i].Mandatory == false)
                 {
                     <li>Obvezen: NE</li>
-                    <li>@Html.ActionLink("Zavrni obisk", "DisconfirmVisit", "VisitPlanner", routeValues: new { date = Model.PlanDate, DisconfirmedVisitId = Model.MandatoryVisits[i].VisitId }, htmlAttributes: null)</li>
+                    <li>@Html.ActionLink("Odstrani iz plana", "DisconfirmVisit", "VisitPlanner", routeValues: new { date = Model.PlanDate, DisconfirmedVisitId = Model.MandatoryVisits[i].VisitId }, htmlAttributes: null)</li>
                 }
                 else
                 {
@@ -69,28 +80,36 @@
 
     <div style="clear:both"></div>
 
+    <hr />
+
     <h3>Izbirni obiski</h3>
 
     for (int i = 0; i < Model.OptionalVisits.Count; i++)
     {
-        <div class="well">
+        <div class="well VisitContainer">
             <ul>
                 <li>Delovni nalog: @Model.OptionalVisits[i].WorkOrder.Name</li>
                 <li>Okviren datum: @Model.OptionalVisits[i].Date.ToString("dd. MM. yyyy")</li>
+                <li>Naslov pacienta: @Model.OptionalVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</li>
                 <li>Obvezen: NE</li>
                 <li>@Html.ActionLink("Dodaj v plan", "ConfirmVisit", "VisitPlanner", routeValues: new { date = Model.PlanDate, ConfirmedVisitId = Model.OptionalVisits[i].VisitId }, htmlAttributes: null)</li>
             </ul>
         </div>
     }
 
-    <h3>! Zapadli obiski !</h3>
+    <div style="clear:both"></div>
+
+    <hr />
+
+    <h3>Pozni obiski</h3>
 
     for (int i = 0; i < Model.OverdueVisits.Count; i++)
     {
-        <div class="well">
+        <div class="well VisitContainer">
             <ul>
                 <li>Delovni nalog: @Model.OverdueVisits[i].WorkOrder.Name</li>
                 <li>Datum: @Model.OverdueVisits[i].Date.ToString("dd. MM. yyyy")</li>
+                <li>Naslov pacienta: @Model.OverdueVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</li>
                 <li>Obvezen: NE</li>
                 <li>@Html.ActionLink("Dodaj v plan", "ConfirmVisit", "VisitPlanner", routeValues: new { date = Model.PlanDate, ConfirmedVisitId = Model.OverdueVisits[i].VisitId }, htmlAttributes: null)</li>
             </ul>
