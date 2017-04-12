@@ -20,8 +20,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PlanDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PlanDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PlanDate, "", new { @class = "text-danger" })
+                @if (Model.PlanDate != null)
+                {
+                    @Html.EditorFor(model => model.PlanDate, new { htmlAttributes = new { @class = "form-control", @Value = Model.PlanDate.Value.ToString("yyyy-MM-dd") } })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.PlanDate, new { htmlAttributes = new { @class = "form-control" } })
+                }
+                @Html.ValidationMessageFor(model => model.PlanDate, "", new { @class = "text-danger"})
                 <div class="text-danger">@Model.ViewMessage</div>
             </div>
         </div>
@@ -33,12 +40,15 @@
         </div>
     </div>
 
+    
+
     <hr />
 
     <h3>Planirani obiski</h3>
 
     for (int i = 0; i < Model.MandatoryVisits.Count; i++)
     {
+        <!--<div class="well" style="float:left; margin:2px; width:350px; height:120px;">-->
         <div class="well">
             <ul>
                 <li>Delovni nalog: @Model.MandatoryVisits[i].WorkOrder.Name</li>
@@ -52,10 +62,12 @@
                 {
                     <li>Obvezen: DA</li>
                 }
-                
+
             </ul>
         </div>
     }
+
+    <div style="clear:both"></div>
 
     <h3>Izbirni obiski</h3>
 

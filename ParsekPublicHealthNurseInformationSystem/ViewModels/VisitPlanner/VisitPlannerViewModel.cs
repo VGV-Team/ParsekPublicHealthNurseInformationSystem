@@ -12,7 +12,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = " ")]
         [DataType(DataType.Date)]
         [Display(Name = "Odpri plan za")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-M-d}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? PlanDate { get; set; }
 
         public List<Models.Visit> MandatoryVisits { get; set; }
