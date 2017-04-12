@@ -259,3 +259,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/ParsekPublicHealthNurseInformationSystem/Migrations/201704121723497_InitialMigration.resx
+/ParsekPublicHealthNurseInformationSystem/Migrations/201704121723497_InitialMigration.Designer.cs
+/ParsekPublicHealthNurseInformationSystem/Migrations/201704121723497_InitialMigration.cs

@@ -329,6 +329,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
 
             Visit v = new Visit();
             v.Date = DateTime.Now;
+            v.DateConfirmed = v.Date;
             v.Mandatory = true;
             v.WorkOrder = wo;
             v.Confirmed = true;

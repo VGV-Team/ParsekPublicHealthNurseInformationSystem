@@ -13,6 +13,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         [Required]
         public DateTime Date { get; set; }
+
+        [Required]
+        public DateTime DateConfirmed { get; set; }
+
         [Required]
         public bool Mandatory { get; set; }
 

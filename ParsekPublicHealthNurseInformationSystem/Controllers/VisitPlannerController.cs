@@ -71,13 +71,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                                             (v.WorkOrder.NurseReplacement != null && v.WorkOrder.NurseReplacement.EmployeeId == CurrentNurse.EmployeeId)) //Check if nurse is replacement
                                             .ToList();
 
-            List<Visit> TodayVisits = AllVisits.Where(v => v.Date.Day == vm.PlanDate.Value.Day && v.Date.Month == vm.PlanDate.Value.Month && v.Date.Year == vm.PlanDate.Value.Year).ToList();
+            List<Visit> TodayVisits = AllVisits.Where(v => (v.Date.Day == vm.PlanDate.Value.Day && v.Date.Month == vm.PlanDate.Value.Month && v.Date.Year == vm.PlanDate.Value.Year) ||
+                                                            v.DateConfirmed.Day == vm.PlanDate.Value.Day && v.DateConfirmed.Month == vm.PlanDate.Value.Month && v.DateConfirmed.Year == vm.PlanDate.Value.Year).ToList();
 
             //List<Visit> ApproximateVisits = AllVisits.Where(v => v.Date.Ticks > Date)
 
             //List<Visit> AllVisits = DB.Visits.Where(v => CurrentNurse.EmployeeId == v.WorkOrder.Nurse.EmployeeId).ToList();
 
-            vm.MandatoryVisits = TodayVisits.Where(v => v.Mandatory || v.Confirmed).OrderBy(v => v.Date).ToList();
+            vm.MandatoryVisits = TodayVisits.Where(v => (v.Mandatory || (v.Confirmed && v.DateConfirmed.Date.Ticks == vm.PlanDate.Value.Ticks))).OrderBy(v => v.Date).ToList();
             vm.OptionalVisits = AllVisits.Where(v => !v.Confirmed && !v.Mandatory &&
                                                 v.Date.Date >= DateTime.Now.Date &&
                                                 v.Date.Date <= vm.PlanDate.Value.Date.AddDays(5) &&
@@ -98,7 +99,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 Models.Visit visit = DB.Visits.Find(ConfirmedVisitId);
                 if (visit != null)
                 {
-                    visit.Date = date;
+                    visit.DateConfirmed = date;
                     visit.Confirmed = true;
                     DB.SaveChanges();
                 }

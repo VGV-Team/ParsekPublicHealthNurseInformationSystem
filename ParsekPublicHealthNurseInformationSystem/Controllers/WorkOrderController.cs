@@ -210,6 +210,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             Visit visit = new Visit();
             visit.Date = wodvm.DateTimeOfFirstVisit;
+            visit.DateConfirmed = wodvm.DateTimeOfFirstVisit;
             visit.Mandatory = wodvm.MandatoryFirstVisit;
             visit.WorkOrder = workOrder;
 
@@ -232,6 +233,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 {
                     Visit vis = new Visit();
                     vis.Date = wodvm.DateTimeOfFirstVisit.AddDays(timeFrame * i);
+                    vis.DateConfirmed = wodvm.DateTimeOfFirstVisit.AddDays(timeFrame * i);
                     vis.Mandatory = mandatoryvisit;
                     vis.WorkOrder = workOrder;
                     DB.Visits.Add(vis);
