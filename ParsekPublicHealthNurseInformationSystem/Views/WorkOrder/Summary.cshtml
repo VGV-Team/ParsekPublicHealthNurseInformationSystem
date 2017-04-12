@@ -90,6 +90,8 @@
 
 @using (Html.BeginForm("Submit", "WorkOrder", FormMethod.Post))
 {
+    @Html.AntiForgeryToken();
+
     <div class="form-group">
         <div class="col-md-12">
             <input type="submit" value="POTRDI" class="btn btn-default" />
@@ -98,6 +100,8 @@
 }
 @using (Html.BeginForm("Discard", "WorkOrder", FormMethod.Post))
 {
+    @Html.AntiForgeryToken();
+
     <div class="form-group">
         <div class="col-md-12">
             <input type="submit" value="PREKLIČI" class="btn btn-default" />

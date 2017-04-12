@@ -17,6 +17,8 @@
             @Html.DisplayFor(model => model.Supervisor)
         </dd>
 
+        <br/>
+
         <dt>
             @Html.DisplayNameFor(model => model.ActivityTitle)
         </dt>
@@ -25,6 +27,8 @@
             @Html.DisplayFor(model => model.ActivityTitle)
         </dd>
 
+        <br />
+
         <dt>
             @Html.DisplayNameFor(model => model.Nurse)
         </dt>
@@ -32,6 +36,8 @@
         <dd>
             @Html.DisplayFor(model => model.Nurse)
         </dd>
+
+        <br />
 
         @if (Model.NurseReplacement != "/")
         {
@@ -42,6 +48,8 @@
             <dd>
                 @Html.DisplayFor(model => model.NurseReplacement)
             </dd>
+
+            <br />
         }
 
         <dt>
@@ -52,6 +60,8 @@
             @Html.DisplayFor(model => model.ContractorName)
         </dd>
 
+        <br />
+
         <dt>
             @Html.DisplayNameFor(model => model.Patients)
         </dt>
@@ -59,6 +69,8 @@
         <dd>
             @Html.DisplayFor(model => model.Patients)
         </dd>
+
+        <br />
 
         <dt>
             @Html.DisplayNameFor(model => model.PreventiveActivity)
@@ -68,6 +80,8 @@
             @Html.DisplayFor(model => model.PreventiveActivity)
         </dd>
 
+        <br />
+
         <dt>
             @Html.DisplayNameFor(model => model.Disease)
         </dt>
@@ -75,6 +89,8 @@
         <dd>
             @Html.DisplayFor(model => model.Disease)
         </dd>
+
+        <br />
 
         @if (Model.EnterBloodSample)
         {
@@ -86,6 +102,8 @@
                 @Html.DisplayFor(model => model.BloodVialColor)
             </dd>
 
+            <br />
+
             <dt>
                 @Html.DisplayNameFor(model => model.BloodVialCount)
             </dt>
@@ -93,6 +111,8 @@
             <dd>
                 @Html.DisplayFor(model => model.BloodVialCount)
             </dd>
+
+            <br />
         }
 
 
@@ -102,10 +122,15 @@
                 @Html.DisplayNameFor(model => model.Medicine)
             </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Medicine)
-            </dd>
+            for (int i = 0; i < Model.Medicine.Count; i++)
+            {
+                <dd>
+                    @Model.Medicine.ElementAt(i)
+                </dd>
+            }
         }
+
+        <br />
 
         <dt>
             @Html.DisplayNameFor(model => model.Visits)

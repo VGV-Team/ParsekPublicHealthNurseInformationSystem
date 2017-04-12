@@ -8,12 +8,15 @@ using System.Web.Mvc;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
+
+    [AuthorizationFilter(Role.RoleEnum.Employee)]
+    [AuthorizationFilter(Employee.JobTitle.Doctor, Employee.JobTitle.Head, Employee.JobTitle.HealthNurse)]
     public class WODetailsController : Controller
     {
 
         private EntityDataModel DB = new EntityDataModel();
 
-        // GET: WODetails
+        
         public ActionResult Index(int? workOrderId)
         {
             //workOrderId = 2;
@@ -48,6 +51,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 if (vm.EnterMedicine)
                 {
                     PatientWorkOrder pwo = wo.PatientWorkOrders.First();
+                    vm.Medicine = new List<string>();
                     for (int i = 0; i < pwo.MedicineWorkOrders.Count; i++)
                     { 
                         vm.Medicine.Add(pwo.MedicineWorkOrders.ElementAt(i).Medicine.FullNameWithCode);
