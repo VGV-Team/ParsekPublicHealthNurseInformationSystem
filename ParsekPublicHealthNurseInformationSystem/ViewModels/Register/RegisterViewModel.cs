@@ -79,10 +79,6 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = "Polje je obvezno")]
         public string ContactPhone { get; set; }
 
-        [Display(Name = "Razmerje")]
-        [Required(ErrorMessage = "Polje je obvezno")]
-        public string ContactRelationsip { get; set; }
-
         [Display(Name = "Okoliš")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public int SelectedDistrictId { get; set; }
@@ -91,8 +87,13 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = "Polje je obvezno")]
         public int SelectedPostOfficeId { get; set; }
 
+        [Display(Name = "Razmerje")]
+        [Required(ErrorMessage = "Polje je obvezno")]
+        public int SelectedRelationshipId { get; set; }
+
         public List<Models.PostOffice> PostOffices { get; set; }
         public List<Models.District> Districts { get; set; }
+        public List<Models.Relationship> Relationships { get; set; }
 
         public string ViewMessage { get; set; }
 

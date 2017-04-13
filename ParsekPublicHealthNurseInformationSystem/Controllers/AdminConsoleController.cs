@@ -98,6 +98,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 user.Password = acvm.Password;
                 user.Patient = null;
                 user.Active = true;
+                user.LastLastLogin = DateTime.Now;
+                user.LastLogin = DateTime.Now;
 
                 Models.Employee employee = new Models.Employee();
                 employee.Contractor = DB.Contractors.Find(acvm.SelectedContractorId);

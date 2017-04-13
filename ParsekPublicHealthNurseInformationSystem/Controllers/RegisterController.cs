@@ -35,6 +35,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             
             rvm.Districts = DB.Districts.ToList();
             rvm.PostOffices = DB.PostOffices.ToList();
+            rvm.Relationships = DB.Relationships.ToList();
 
             //hack
             if (rvm.ViewMessage != "Neustrezen datum!")
@@ -79,7 +80,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     rvm.Surname.IsNullOrWhiteSpace() ||
                     !rvm.Gender.HasValue ||
                     rvm.SelectedDistrictId.ToString().IsNullOrWhiteSpace() ||
-                    rvm.SelectedPostOfficeId.ToString().IsNullOrWhiteSpace()
+                    rvm.SelectedPostOfficeId.ToString().IsNullOrWhiteSpace() 
                 ) 
                 {
                     rvm.ViewMessage = "Ponovno preverite vnešene podatke!";
@@ -95,7 +96,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     if (rvm.ContactAddress.IsNullOrWhiteSpace() ||
                         rvm.ContactName.IsNullOrWhiteSpace() ||
                         rvm.ContactPhone.IsNullOrWhiteSpace() ||
-                        rvm.ContactRelationsip.IsNullOrWhiteSpace() ||
+                        rvm.SelectedRelationshipId.ToString().IsNullOrWhiteSpace() ||
                         rvm.ContactSurname.IsNullOrWhiteSpace()
                     )
                     {
@@ -163,7 +164,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     patient.ContactAddress = rvm.ContactAddress;
                     patient.ContactName = rvm.ContactName;
                     patient.ContactPhone = rvm.ContactPhone;
-                    patient.ContactRelationship = rvm.ContactRelationsip;
+                    patient.ContactRelationship = DB.Relationships.Find(rvm.SelectedRelationshipId);
                     patient.ContactSurname = rvm.ContactSurname;
                 }
                 patient.District = DB.Districts.Find(rvm.SelectedDistrictId);
