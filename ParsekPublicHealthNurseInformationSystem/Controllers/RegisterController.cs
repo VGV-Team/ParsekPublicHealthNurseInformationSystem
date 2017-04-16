@@ -213,8 +213,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 string baseUrl = Request.Url.Authority;
                 MailMessage mail = new MailMessage("registracija@parsek.si", user.Email);
                 mail.From = new MailAddress("registracija@parsek.si", "Parsek");
-                mail.Subject = "Aktivacija računa";
-                mail.Body = "Kliknite na spodnjo povezavo da zaključite registracijo in aktivirate svoj račun: \n" +
+                mail.Subject = "Aktivacija računa na Parsek IS";
+                mail.Body = "Pozdravljeni,\nKliknite na spodnjo povezavo da zaključite registracijo na Parsek IS ter aktivirate svoj račun: \n" +
                     "http://" + baseUrl + "/Register/EmailActivation?userEmail=" + user.Email + "&emailCode=" + user.EmailCode + "\n" +
                     "\n\nOb aktivaciji boste avtomatsko prijavljeni. Povezava velja do " + emailExpire.ToString("d.M.yyyy HH:mm") + ".";
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);

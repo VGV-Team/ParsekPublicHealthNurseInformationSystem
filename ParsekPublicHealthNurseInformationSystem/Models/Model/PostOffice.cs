@@ -15,6 +15,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public string Number { get; set; }
 
+        public string FullName => $"{Number} - {Title}";
+
         //public virtual ICollection<Patient> Patients { get; set; }
         //public virtual ICollection<Contractor> Contractor { get; set; }
     }

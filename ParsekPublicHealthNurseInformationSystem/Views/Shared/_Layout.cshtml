@@ -8,6 +8,7 @@
     bool IsPatient = false;
     bool IsEmployee = false;
     string DisplayName = "";
+    string RoleString = "";
 
     bool IsDoctor = false;
     bool IsHead = false;
@@ -15,6 +16,7 @@
     bool IsCoworker = false;
 
     string LastLogin = "";
+
 
 
     if (SessionUser != null)
@@ -25,6 +27,7 @@
         {
             IsAdmin = true;
             DisplayName = "Admin";
+            RoleString = "admin";
         }
         else if (Role == 2)
         {
@@ -33,10 +36,10 @@
 
             switch (SessionUser.Employee.Title)
             {
-                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Coworker: IsCoworker = true; break;
-                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor: IsDoctor = true; break;
-                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Head: IsHead = true; break;
-                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.HealthNurse: IsNurse = true; break;
+                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Coworker: IsCoworker = true; RoleString = "sodelavec"; break;
+                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor: IsDoctor = true; RoleString = "zdravnik"; break;
+                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Head: IsHead = true; RoleString = "vodja"; break;
+                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.HealthNurse: IsNurse = true; RoleString = "sestra"; break;
                 default: break;
             }
         }
@@ -44,6 +47,7 @@
         {
             IsPatient = true;
             DisplayName = SessionUser.Patient.Name;
+            RoleString = "pacient";
         }
         LastLogin = SessionUser.LastLastLogin.ToString();
 
@@ -83,7 +87,7 @@
                     
                     @if (IsAdmin)
                     {
-                        <li>@Html.ActionLink("Admin konzola", "", "AdminConsole")</li>
+                        <li>@Html.ActionLink("Dodajanje zaposlenih", "", "AdminConsole")</li>
                     }
 
                     @if (IsNurse || IsHead || IsDoctor)
@@ -112,7 +116,7 @@
                             }
                             else
                             {
-                                <span>Pozdravljeni, @DisplayName</span>
+                                <span>Pozdravljeni, @RoleString @DisplayName</span>
                             }
                             <span class="caret"></span>
                         </a>

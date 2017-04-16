@@ -75,13 +75,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             m2 = new Medicine();
             m3 = new Medicine();
             m4 = new Medicine();
-            m1.Code = "133000";
+            m1.Code = "13300";
             m1.Title = "Abseamed 8.000 i.e./0,8 ml raztopina za inj";
-            m2.Code = "136092";
+            m2.Code = "13692";
             m2.Title = "Acidum nitricum C30 kroglice";
-            m3.Code = "025704";
+            m3.Code = "02504";
             m3.Title = "Acipan 40 mg prašek za raztopino za injicir";
-            m4.Code = "121550";
+            m4.Code = "21550";
             m4.Title = "Aconitum napellus C200 kroglice";
             context.Medicines.AddOrUpdate(m => m.Code, m1, m2, m3, m4);
             // TODO: ...
@@ -166,7 +166,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             // TODO: ...
 
             Patient patient1 = new Patient();
-            patient1.CardNumber = "65445656";
+            patient1.CardNumber = "65456";
             patient1.Name = "Janez";
             patient1.Surname = "Novak";
             patient1.Address = "Žememlje 8";
@@ -176,7 +176,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             patient1.Gender = Models.Patient.GenderEnum.Male;
             patient1.BirthDate = DateTime.Now.AddYears(-30);
             Patient patient2 = new Patient();
-            patient2.CardNumber = "978979878";
+            patient2.CardNumber = "99878";
             patient2.Name = "Francelj";
             patient2.Surname = "Horvat";
             patient2.Address = "Partizanska 99";
@@ -186,7 +186,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             patient2.Gender = Models.Patient.GenderEnum.Male;
             patient2.BirthDate = DateTime.Now.AddYears(-50);
             Patient patient3 = new Patient();
-            patient3.CardNumber = "78789879";
+            patient3.CardNumber = "78879";
             patient3.Name = "Joža";
             patient3.Surname = "Boža";
             patient3.Address = "Domobranska 11";
@@ -280,7 +280,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             DoctorEmployee.Name = "Doctory";
             DoctorEmployee.Surname = "Doktorsky";
             DoctorEmployee.Contractor = c1;
-            DoctorEmployee.Number = "789789789";
+            DoctorEmployee.Number = "78989";
             DoctorEmployee.PhoneNumber = "081579856";
             DoctorEmployee.Title = Employee.JobTitle.Doctor;
             Employee HeadEmployee = new Employee();
@@ -288,7 +288,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             HeadEmployee.Name = "Head";
             HeadEmployee.Surname = "Headovsky";
             HeadEmployee.Contractor = c1;
-            HeadEmployee.Number = "87897989795";
+            HeadEmployee.Number = "89795";
             HeadEmployee.PhoneNumber = "055555666";
             HeadEmployee.Title = Employee.JobTitle.Head;
             context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, HeadEmployee);
@@ -299,7 +299,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             NurseEmployee1.Surname = "Nursy";
             NurseEmployee1.Contractor = c1;
             NurseEmployee1.District = di1;
-            NurseEmployee1.Number = "44645546546";
+            NurseEmployee1.Number = "44646";
             NurseEmployee1.PhoneNumber = "222333444";
             NurseEmployee1.Title = Employee.JobTitle.HealthNurse;
             Employee NurseEmployee2 = new Employee();
@@ -308,7 +308,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             NurseEmployee2.Surname = "Morales";
             NurseEmployee2.Contractor = c1;
             NurseEmployee2.District = di1;
-            NurseEmployee2.Number = "7897897897";
+            NurseEmployee2.Number = "78797";
             NurseEmployee2.PhoneNumber = "888777654";
             NurseEmployee2.Title = Employee.JobTitle.HealthNurse;
             context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, NurseEmployee1, NurseEmployee2);
