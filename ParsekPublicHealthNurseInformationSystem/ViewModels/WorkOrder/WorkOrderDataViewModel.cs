@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Web;
 using ParsekPublicHealthNurseInformationSystem.Models;
 
@@ -8,6 +9,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 {
     public class WorkOrderDataViewModel
     {
+        public int PatientId { get; set; }
         public List<int> PatientIds { get; set; }
         public int SelectedActivityId { get; set; }
         public DateTime DateTimeOfFirstVisit { get; set; }
@@ -22,8 +24,8 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public int BloodVialCount { get; set; }
         public bool EnterMedicine { get; set; }
         public bool EnterBloodSample { get; set; }
+        public bool EnterPatients { get; set; }
         public int SupervisorId { get; set; }
         public int SelectedNurseId { get; set; }
-        public int? SelectedNurseReplacementId { get; set; }
     }
 }

@@ -14,15 +14,29 @@
 
     @Html.HiddenFor(m => m.SelectedActivityId)
 
-    @Html.Raw(Model.GenerateDropDown(Model.AllPatients, "PatientIds"))
+
+    @Html.Raw(Model.GenerateDropDown(Model.AllPatients, "PatientId", false))
     <div class="form-group">
-        @Html.LabelFor(model => model.PatientIds, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.PatientId, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.PatientIds, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PatientIds, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.PatientId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
         </div>
     </div>
-    
+
+    <!-- TODO: REST call -->
+    @Html.HiddenFor(m => m.EnterPatients)
+    if (Model.EnterPatients)
+    {
+        @Html.Raw(Model.GenerateDropDown(Model.AllPatients, "PatientIds"))
+        <div class="form-group">
+            @Html.LabelFor(model => model.PatientIds, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PatientIds, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PatientIds, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
 
     <div class="form-group">
         @Html.LabelFor(model => model.DateTimeOfFirstVisit, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -51,7 +65,7 @@
             </div>
         </div>
     </div>
-   
+
 
     <div id="timeEntry" class="form-group" hidden>
         <div class="form-group">
@@ -62,13 +76,13 @@
             </div>
         </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.TimeType, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EnumDropDownListFor(x => x.TimeType, "-- Izberi --", new { @class = "form-control dropdown" })
-                    @Html.ValidationMessageFor(model => model.TimeType, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TimeType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(x => x.TimeType, "-- Izberi --", new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(model => model.TimeType, "", new { @class = "text-danger" })
             </div>
+        </div>
 
         <div id=@WorkOrderViewModel.VisitTimeType.TimeInterval style="display: none;">
             <div class="form-group">
@@ -89,44 +103,44 @@
             </div>
         </div>
         <script>
-            $('#TimeType').on('change',
-                function () {
-                    $(@WorkOrderViewModel.VisitTimeType.TimeInterval).hide();
-                    $(@WorkOrderViewModel.VisitTimeType.TimeFrame).hide();
-                    switch (this.value)
-                    {
-                    case "1":
-                        $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
-                        break;
-                    case "2":
-                        $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
-                        break;
-                    }
-                });
+        $('#TimeType').on('change',
+            function () {
+                $(@WorkOrderViewModel.VisitTimeType.TimeInterval).hide();
+                $(@WorkOrderViewModel.VisitTimeType.TimeFrame).hide();
+                switch (this.value)
+                {
+                case "1":
+                    $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
+                    break;
+                case "2":
+                    $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
+                    break;
+                }
+            });
         </script>
 
 
         <script type="text/javascript">
-            if ($("#MultipleVisits").is(":checked")) {
-                $("#timeEntry").show();
-            }
+        if ($("#MultipleVisits").is(":checked")) {
+            $("#timeEntry").show();
+        }
 
-            if ($("#TimeType").val() == "1") {
-                $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
-            }
-            if ($("#TimeType").val() == "2") {
-                $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
-            }
+        if ($("#TimeType").val() == "1") {
+            $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
+        }
+        if ($("#TimeType").val() == "2") {
+            $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
+        }
 
-            $(function () {
-                $("#MultipleVisits").click(function () {
-                    if ($(this).is(":checked")) {
-                        $("#timeEntry").show();
-                    } else {
-                        $("#timeEntry").hide();
-                    }
-                });
+        $(function () {
+            $("#MultipleVisits").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#timeEntry").show();
+                } else {
+                    $("#timeEntry").hide();
+                }
             });
+        });
         </script>
 
     </div>
@@ -135,55 +149,50 @@
 
 
 
-    
+        <div class="form-group">
 
-
-    
-
-    <div class="form-group">
-        
-        @Html.HiddenFor(m => m.EnterMedicine)
-        @if (Model.EnterMedicine)
-        {
-            @Html.Raw(Model.GenerateDropDown(Model.AllMedicines, "MedicineIds"))
-            <div class="form-group">
-                @Html.LabelFor(model => model.MedicineIds, htmlAttributes: new {@class = "control-label col-md-2"})
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.MedicineIds, new {htmlAttributes = new {@class = "form-control"}})
-                    @Html.ValidationMessageFor(model => model.MedicineIds, "", new {@class = "text-danger"})
+            @Html.HiddenFor(m => m.EnterMedicine)
+            @if (Model.EnterMedicine)
+            {
+                @Html.Raw(Model.GenerateDropDown(Model.AllMedicines, "MedicineIds"))
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MedicineIds, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MedicineIds, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MedicineIds, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-        }
-        
-        @Html.HiddenFor(m => m.EnterBloodSample)
-        @if (Model.EnterBloodSample)
-        {
-            @Html.LabelFor(model => model.BloodVialColor, htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.DropDownListFor(
+            }
+
+            @Html.HiddenFor(m => m.EnterBloodSample)
+            @if (Model.EnterBloodSample)
+            {
+                @Html.LabelFor(model => model.BloodVialColor, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(
                     model => model.BloodVialColor,
                     new SelectList(Model.AllColors),
                     "-- Izberi --",
-                    htmlAttributes: new {@class = "form-control dropdown"})
-                @Html.ValidationMessageFor(model => model.BloodVialColor, "", new {@class = "text-danger"})
-            </div>
+                    htmlAttributes: new { @class = "form-control dropdown" })
+                    @Html.ValidationMessageFor(model => model.BloodVialColor, "", new { @class = "text-danger" })
+                </div>
 
-            @Html.LabelFor(model => model.BloodVialCount, htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BloodVialCount, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.BloodVialCount, "", new {@class = "text-danger"})
+                @Html.LabelFor(model => model.BloodVialCount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BloodVialCount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BloodVialCount, "", new { @class = "text-danger" })
+                </div>
+            }
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Naprej" class="btn btn-default" />
             </div>
+        </div>
         }
 
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Naprej" class="btn btn-default" />
+        <div>
+            @Html.ActionLink("Prekliči", "Index", "Home")
         </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Prekliči", "Index", "Home")
-</div>

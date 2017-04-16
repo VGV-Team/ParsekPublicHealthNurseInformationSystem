@@ -17,6 +17,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public string BloodVialColor { get; set; }
 
-        public virtual PatientWorkOrder PatientWorkOrder { get; set; }
+        public virtual WorkOrder WorkOrder { get; set; }
     }
 }

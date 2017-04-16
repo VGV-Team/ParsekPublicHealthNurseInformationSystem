@@ -344,35 +344,68 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, NurseEmployee1, NurseEmployee2);
 
             Activity ac1 = new Activity();
-            ac1.ServiceCode = "10";
-            ac1.ServiceTitle = "Obisk noseènice";
             ac1.ActivityCode = "10";
-            ac1.ActivityTitle = "Seznanitev noseènice o normalnem poteku noseènosti in o spremembah na telesu.";
-            ac1.Report = "Prosti vnos";
+            ac1.ActivityTitle = "Obisk noseènice";
+            //ac1.ActivityCode = "10";
+            //ac1.ActivityTitle = "Seznanitev noseènice o normalnem poteku noseènosti in o spremembah na telesu.";
+            //ac1.Report = "Prosti vnos";
             ac1.PreventiveVisit = true;
+            ac1.RequiresMedicine = false;
+            ac1.RequiresBloodSample = false;
+            ac1.RequiresPatients = false;
             Activity ac2 = new Activity();
-            ac2.ServiceCode = "70";
-            ac2.ServiceTitle = "Kontrola zdravstvenega stanja";
             ac2.ActivityCode = "20";
-            ac2.ActivityTitle = "Krvni pritisk: sistolièni, diastolièni";
-            ac2.Report = "Sistolièni (mm Hg) * Diastolièni(mm Hg) *";
-            ac2.PreventiveVisit = false;
-
+            ac2.ActivityTitle = "Obisk otroènice";
+            ac2.PreventiveVisit = true;
+            ac2.RequiresMedicine = false;
+            ac2.RequiresBloodSample = false;
+            ac2.RequiresPatients = true;
             Activity ac3 = new Activity();
-            ac3.ServiceCode = "50";
-            ac3.ServiceTitle = "Aplikacija injekcij";
-            ac3.ActivityCode = "10";
-            ac3.ActivityTitle = "Aplikacija injekcije";
-            ac3.Report = "";
-            ac3.PreventiveVisit = false;
+            ac3.ActivityCode = "30";
+            ac3.ActivityTitle = "Obisk novorojenèka";
+            ac3.PreventiveVisit = true;
+            ac3.RequiresMedicine = false;
+            ac3.RequiresBloodSample = false;
+            ac3.RequiresPatients = true;
             Activity ac4 = new Activity();
-            ac4.ServiceCode = "60";
-            ac4.ServiceTitle = "Odvzem krvi";
-            ac4.ActivityCode = "10";
-            ac4.ActivityTitle = "Odvzem krvi";
-            ac4.Report = "";
-            ac4.PreventiveVisit = false;
-            context.Activities.AddOrUpdate(y => y.ActivityId, ac1, ac2, ac3, ac4);
+            ac4.ActivityCode = "40";
+            ac4.ActivityTitle = "Obisk starostnika";
+            ac4.PreventiveVisit = true;
+            ac4.RequiresMedicine = false;
+            ac4.RequiresBloodSample = false;
+            ac4.RequiresPatients = false; // Was in requirements!
+            Activity ac5 = new Activity();
+            ac5.ActivityCode = "50";
+            ac5.ActivityTitle = "Aplikacija injekcij";
+            //ac5.ActivityCode = "10";
+            //ac5.ActivityTitle = "Aplikacija injekcije";
+            //ac5.Report = "";
+            ac5.PreventiveVisit = false;
+            ac5.RequiresMedicine = true;
+            ac5.RequiresBloodSample = false;
+            ac5.RequiresPatients = false;
+            Activity ac6 = new Activity();
+            ac6.ActivityCode = "60";
+            ac6.ActivityTitle = "Odvzem krvi";
+            //ac6.ActivityCode = "10";
+            //ac6.ActivityTitle = "Odvzem krvi";
+            //ac6.Report = "";
+            ac6.PreventiveVisit = false;
+            ac6.RequiresMedicine = false;
+            ac6.RequiresBloodSample = true;
+            ac6.RequiresPatients = false;
+            Activity ac7 = new Activity();
+            ac7.ActivityCode = "70";
+            ac7.ActivityTitle = "Kontrola zdravstvenega stanja";
+            //ac7.ActivityCode = "20";
+            //ac7.ActivityTitle = "Krvni pritisk: sistolièni, diastolièni";
+            //ac7.Report = "Sistolièni (mm Hg) * Diastolièni(mm Hg) *";
+            ac7.PreventiveVisit = false;
+            ac7.RequiresMedicine = false;
+            ac7.RequiresBloodSample = false;
+            ac7.RequiresPatients = false;
+
+            context.Activities.AddOrUpdate(y => y.ActivityId, ac1, ac2, ac3, ac4, ac5, ac6, ac7);
 
 
 
@@ -387,7 +420,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             wo.Nurse = NurseEmployee1;
             wo.NurseReplacement = NurseEmployee1;
 
-            PatientWorkOrder pwo = new PatientWorkOrder();
+            WorkOrder pwo = new WorkOrder();
             pwo.Patient = patient1;
             pwo.WorkOrder = wo;
             

@@ -18,18 +18,20 @@
         Zadolžena patronažna sestra: @Model.Nurse
     </div>
     <div>
-        Nadomesta patronažna sestra: @Model.NurseReplacement
+        Pacient: @Model.Patient
     </div>
-    <div>
-        Pacienti: 
-        <ul>
-            @for (int i = 0; i < Model.Patients.Count; i++)
-            {
-                <li>@Model.Patients[i]</li>
-            }
-        </ul>
-    </div>
-    
+    @if (Model.EnterPatients)
+    {
+        <div>
+            Dodatni pacienti:
+            <ul>
+                @for (int i = 0; i < Model.Patients.Count; i++)
+                {
+                    <li>@Model.Patients[i]</li>
+                }
+            </ul>
+        </div>
+    }
     <div>
         @if (Model.MultipleVisits)
         {

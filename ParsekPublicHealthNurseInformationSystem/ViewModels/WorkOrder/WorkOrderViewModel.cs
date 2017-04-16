@@ -13,10 +13,6 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 {
     public class WorkOrderViewModel
     {
-        // TODO: validation not working??
-        // TODO: hidden fields still validating??
-        // TODO: dropdowns can be empty??
-
         private EntityDataModel DB = new EntityDataModel();
 
         public WorkOrderViewModel()
@@ -26,8 +22,13 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
             AllMedicines = DB.Medicines.ToList();
         }
 
-        [Display(Name = "Pacienti")]
+        [Display(Name = "Dodatni pacienti")]
+        [Required(ErrorMessage = "Polje je obvezno")]
         public List<Patient> AllPatients { get; set; }
+
+        [Display(Name = "Pacient")]
+        [Required(ErrorMessage = "Polje je obvezno")]
+        public string PatientId { get; set; }
 
         [Display(Name = "Izbran pacient")]
         [Required(ErrorMessage = "Polje je obvezno")]
@@ -90,6 +91,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         public bool EnterMedicine { get; set; }
         public bool EnterBloodSample { get; set; }
+        public bool EnterPatients { get; set; }
 
         public enum VisitTimeType
         {

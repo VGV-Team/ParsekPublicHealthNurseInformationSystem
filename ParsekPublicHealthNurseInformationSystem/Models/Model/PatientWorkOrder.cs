@@ -10,13 +10,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
     {
         [Key]
         public int PatientWorkOrderId { get; set; }
-        
-        public virtual Patient Patient { get; set; }
-        public virtual WorkOrder WorkOrder { get; set; }
 
-        public virtual ICollection<MaterialWorkOrder> MaterialWorkOrders { get; set; }
-        public virtual ICollection<MedicineWorkOrder> MedicineWorkOrders { get; set; }
+        public Patient Patient { get; set; }
 
-        public virtual ICollection<BloodSample> BloodSamples { get; set; }
+        public WorkOrder WorkOrder { get; set; }
     }
 }

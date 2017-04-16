@@ -39,8 +39,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 vm.EnterBloodSample = wo.Activity.RequiresBloodSample;
                 if (vm.EnterBloodSample)
                 {
-                    vm.BloodVialColor = wo.PatientWorkOrders.First().BloodSamples.First().BloodVialColor;
-                    vm.BloodVialCount = wo.PatientWorkOrders.First().BloodSamples.First().BloodVialCount;
+                    vm.BloodVialColor = wo.BloodSamples.First().BloodVialColor;
+                    vm.BloodVialCount = wo.BloodSamples.First().BloodVialCount;
                 }
                 else
                 {
@@ -50,11 +50,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 vm.EnterMedicine = wo.Activity.RequiresMedicine;
                 if (vm.EnterMedicine)
                 {
-                    PatientWorkOrder pwo = wo.PatientWorkOrders.First();
                     vm.Medicine = new List<string>();
-                    for (int i = 0; i < pwo.MedicineWorkOrders.Count; i++)
+                    for (int i = 0; i < wo.MedicineWorkOrders.Count; i++)
                     { 
-                        vm.Medicine.Add(pwo.MedicineWorkOrders.ElementAt(i).Medicine.FullNameWithCode);
+                        vm.Medicine.Add(wo.MedicineWorkOrders.ElementAt(i).Medicine.FullNameWithCode);
                     }
                 }
                 vm.Nurse = wo.Nurse.FullNameWithCode;

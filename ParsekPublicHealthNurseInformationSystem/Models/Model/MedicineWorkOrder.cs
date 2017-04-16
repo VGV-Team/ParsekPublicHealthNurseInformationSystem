@@ -12,7 +12,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public int MedicineWorkOrderId { get; set; }
 
 
-        public virtual PatientWorkOrder PatientWorkOrder { get; set; }
+        public virtual WorkOrder WorkOrder { get; set; }
         public virtual Medicine Medicine { get; set; }
 
     }

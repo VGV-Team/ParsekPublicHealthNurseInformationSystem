@@ -12,18 +12,20 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Key]
         public int ActivityId { get; set; }
 
-
+        /*
         [Required]
         public string ServiceCode { get; set; }
         [Required]
         public string ServiceTitle { get; set; }
-
+        */
+        
         [Required]
         public string ActivityCode { get; set; }
         [Required]
         public string ActivityTitle { get; set; }
 
-        public string Report { get; set; }
+        //public string Report { get; set; }
+        
 
         [Required]
         public bool PreventiveVisit { get; set; }
@@ -31,7 +33,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public virtual ICollection<WorkOrder> WorkOrders { get; set; }
 
 
-        public bool RequiresMedicine => (ServiceCode == "50" && ActivityCode == "10");
-        public bool RequiresBloodSample => (ServiceCode == "60" && ActivityCode == "10");
+        //public bool RequiresMedicine => (ServiceCode == "50" && ActivityCode == "10");
+        //public bool RequiresBloodSample => (ServiceCode == "60" && ActivityCode == "10");
+        public bool RequiresMedicine { get; set; }
+        public bool RequiresBloodSample { get; set; }
+
+        public bool RequiresPatients { get; set; }
     }
 }

@@ -53,6 +53,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             wovm.EnterMedicine = activity.RequiresMedicine;
             wovm.EnterBloodSample = activity.RequiresBloodSample;
+            wovm.EnterPatients = activity.RequiresPatients;
 
             return View("Create", wovm);
         }
@@ -61,7 +62,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SubmitWorkOrder(WorkOrderViewModel wovm)
         {
-            if (wovm.PatientIds.IsNullOrWhiteSpace() ||
+            int[] temp = GetIdsFromString(wovm.PatientId);
+            Patient selectedPatient = temp.Length == 1 ? DB.Patients.FirstOrDefault(x => x.PatientId == temp.FirstOrDefault()) : null;
+            if (selectedPatient == null ||
+                wovm.EnterPatients && wovm.PatientIds.IsNullOrWhiteSpace() ||
                 wovm.DateTimeOfFirstVisit < DateTime.Now ||
                 wovm.DateTimeOfFirstVisit > DateTime.Now.AddMonths(6) ||
                 wovm.MultipleVisits && (
@@ -84,13 +88,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             }
             else
             {
-                
-
                 Session["SavedWorkOrder"] = null;
                 Session["SavedWorkOrderSummary"] = null;
 
                 WorkOrderDataViewModel wodvm = new WorkOrderDataViewModel();
-                wodvm.PatientIds = new List<int>();
+                wodvm.SupervisorId = ((User)Session["user"]).Employee.EmployeeId;
+                wodvm.PatientId = selectedPatient.PatientId;
                 wodvm.SelectedActivityId = wovm.SelectedActivityId;
                 wodvm.DateTimeOfFirstVisit = wovm.DateTimeOfFirstVisit;
                 wodvm.MandatoryFirstVisit = wovm.MandatoryFirstVisit;
@@ -100,17 +103,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 wodvm.TimeInterval = wovm.TimeInterval;
                 wodvm.TimeType = wovm.TimeType;
                 wodvm.EnterMedicine = wovm.EnterMedicine;
-                wodvm.MedicineIds = wovm.EnterMedicine ? GetIdsFromString(wovm.MedicineIds).ToList() : null;
                 wodvm.EnterBloodSample = wovm.EnterBloodSample;
                 wodvm.BloodVialColor = wovm.EnterBloodSample ? wovm.BloodVialColor : null;
                 wodvm.BloodVialCount = wovm.EnterBloodSample ? wovm.BloodVialCount : -1;
-                
-                wodvm.SupervisorId = ((User)Session["user"]).Employee.EmployeeId;
-                Session["SavedWorkOrder"] = wodvm;
-
+                wodvm.EnterPatients = wovm.EnterPatients;
 
                 WorkOrderSummaryViewModel wosvm = new WorkOrderSummaryViewModel();
-                wosvm.Patients = new List<string>();
+                wosvm.Patient = selectedPatient.FullName;
                 wosvm.Supervisor = ((User)Session["user"]).Employee.FullName;
                 wosvm.ActivityTitle = DB.Activities.FirstOrDefault(x => x.ActivityId == wovm.SelectedActivityId).ActivityTitle;
                 wosvm.DateTimeOfFirstVisit = wovm.DateTimeOfFirstVisit;
@@ -120,54 +119,68 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 wosvm.TimeFrame = wovm.TimeFrame;
                 wosvm.TimeInterval = wovm.TimeInterval;
                 wosvm.TimeType = wovm.TimeType;
-
                 wosvm.EnterBloodSample = wovm.EnterBloodSample;
-                wosvm.BloodVialColor = wovm.EnterBloodSample ? wovm.BloodVialColor : null;
-                wosvm.BloodVialCount = wovm.EnterBloodSample ? wovm.BloodVialCount : -1;
-
                 wosvm.EnterMedicine = wovm.EnterMedicine;
+                wosvm.EnterPatients = wovm.EnterPatients;
+
                 if (wovm.EnterMedicine)
                 {
+                    wodvm.MedicineIds = new List<int>();
                     wosvm.Medicine = new List<string>();
+
                     int[] medicineIds = GetIdsFromString(wovm.MedicineIds);
                     foreach (var medicine in DB.Medicines.Where(x => medicineIds.Contains(x.MedicineId)).ToList())
                     {
                         if (medicine != null)
+                        {
+                            wodvm.MedicineIds.Add(medicine.MedicineId);
                             wosvm.Medicine.Add(medicine.FullName);
+                        }
                     }
                 }
 
-                int[] ids = GetIdsFromString(wovm.PatientIds);
-                List<int> districts = new List<int>();
-                foreach (var id in ids)
+                if (wovm.EnterBloodSample)
                 {
-                    Patient patient = DB.Patients.FirstOrDefault(x => x.PatientId == id);
-                    if (patient != null)
+                    wosvm.BloodVialColor = wovm.BloodVialColor;
+                    wosvm.BloodVialCount = wovm.BloodVialCount;
+                }
+                
+                if (wovm.EnterPatients)
+                {
+                    wodvm.PatientIds = new List<int>();
+                    wosvm.Patients = new List<string>();
+
+                    int[] ids = GetIdsFromString(wovm.PatientIds);
+                    foreach (var id in ids)
                     {
-                        districts.Add(patient.District.DistrictId);
-                        wodvm.PatientIds.Add(patient.PatientId);
-                        wosvm.Patients.Add(patient.FullName);
+                        Patient patient = DB.Patients.FirstOrDefault(x => x.PatientId == id);
+                        if (patient != null)
+                        {
+                            wodvm.PatientIds.Add(patient.PatientId);
+                            wosvm.Patients.Add(patient.FullName);
+                        }
                     }
                 }
-                districts = districts.Distinct().ToList();
-                if (wodvm.PatientIds.Count == 0)
+
+                Employee selectedNurse = DB.Employees.FirstOrDefault(x => x.EmployeeId == selectedPatient.District.DistrictId);
+                if(selectedNurse == null)
                 {
-                    // TODO: message for no patients
-
-                    Session["SavedWorkOrder"] = null;
-                    Session["SavedWorkOrderSummary"] = null;
-                    return View("Create", wovm);
+                    // TODO: error
                 }
+                wodvm.SelectedNurseId = selectedNurse.EmployeeId;
+                wosvm.Nurse = selectedNurse.FullName;
 
+                Session["SavedWorkOrder"] = wodvm;
                 Session["SavedWorkOrderSummary"] = wosvm;
 
-                WorkOrderNurseSelectionViewModel wonsvm = new WorkOrderNurseSelectionViewModel();
-                wonsvm.CreateWorkOrderNurseSelectionViewModel(districts);
-                
-                return View("NurseSelection", wonsvm);
+                return View("Summary", wosvm);
+                //WorkOrderNurseSelectionViewModel wonsvm = new WorkOrderNurseSelectionViewModel();
+                //wonsvm.CreateWorkOrderNurseSelectionViewModel(districts);
+                //return View("NurseSelection", wonsvm);
             }
         }
 
+        [Obsolete]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SelectNurseWorkOrder(WorkOrderNurseSelectionViewModel wonsvm)
@@ -190,10 +203,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             }
 
             wodvm.SelectedNurseId = selectedNurse.EmployeeId;
-            wodvm.SelectedNurseReplacementId = selectedNurseReplacement?.EmployeeId;
+            //wodvm.SelectedNurseReplacementId = selectedNurseReplacement?.EmployeeId;
 
             wosvm.Nurse = selectedNurse.FullName;
-            wosvm.NurseReplacement = selectedNurseReplacement != null ? selectedNurseReplacement.FullName : "/";
+            //wosvm.NurseReplacement = selectedNurseReplacement != null ? selectedNurseReplacement.FullName : "/";
             Session["SavedWorkOrderSummary"] = wosvm;
             Session["SavedWorkOrder"] = wodvm;
 
@@ -216,7 +229,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             workOrder.Activity = DB.Activities.FirstOrDefault(x => x.ActivityId == wodvm.SelectedActivityId);
             workOrder.Name = workOrder.Activity.ActivityTitle;
             workOrder.Nurse = DB.Employees.FirstOrDefault(x => x.EmployeeId == wodvm.SelectedNurseId);
-            workOrder.NurseReplacement = wodvm.SelectedNurseReplacementId == null ? DB.Employees.FirstOrDefault(x => x.EmployeeId == wodvm.SelectedNurseReplacementId) : null;
+            workOrder.NurseReplacement = null;
+            workOrder.Patient = DB.Patients.FirstOrDefault(x => x.PatientId == wodvm.PatientId);
 
             Visit visit = new Visit();
             visit.Date = wodvm.DateTimeOfFirstVisit;
@@ -251,38 +265,40 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             }
 
             // Get all used medicine
-            List<Medicine> medicines = new List<Medicine>();
             if (wodvm.EnterMedicine)
             {
-                medicines = DB.Medicines.Where(x => wodvm.MedicineIds.Contains(x.MedicineId)).ToList();
+                List<Medicine> medicines = DB.Medicines.Where(x => wodvm.MedicineIds.Contains(x.MedicineId)).ToList();
+                foreach (var medicine in medicines)
+                {
+                    MedicineWorkOrder medicineWorkOrder = new MedicineWorkOrder();
+                    medicineWorkOrder.Medicine = medicine;
+                    medicineWorkOrder.WorkOrder = workOrder;
+                    DB.MedicineWorkOrders.Add(medicineWorkOrder);
+                }
             }
 
-            foreach (var id in wodvm.PatientIds)
+            if (wodvm.EnterBloodSample)
             {
-                Patient patient = DB.Patients.FirstOrDefault(x => x.PatientId == id);
-                if (patient != null)
+                BloodSample bloodSample = new BloodSample();
+                bloodSample.BloodVialColor = wodvm.BloodVialColor;
+                bloodSample.BloodVialCount = wodvm.BloodVialCount;
+                bloodSample.WorkOrder = workOrder;
+                DB.BloodSamples.Add(bloodSample);
+            }
+
+            if (wodvm.EnterPatients)
+            {
+                foreach (var id in wodvm.PatientIds)
                 {
-                    PatientWorkOrder patientWorkOrder = new PatientWorkOrder();
-                    patientWorkOrder.WorkOrder = workOrder;
-                    patientWorkOrder.Patient = patient;
-
-                    foreach (var medicine in medicines)
+                    Patient patient = DB.Patients.FirstOrDefault(x => x.PatientId == id);
+                    if (patient != null)
                     {
-                        MedicineWorkOrder medicineWorkOrder = new MedicineWorkOrder();
-                        medicineWorkOrder.Medicine = medicine;
-                        medicineWorkOrder.PatientWorkOrder = patientWorkOrder;
-                        DB.MedicineWorkOrders.Add(medicineWorkOrder);
-                    }
+                        PatientWorkOrder patientWorkOrder = new PatientWorkOrder();
+                        patientWorkOrder.WorkOrder = workOrder;
+                        patientWorkOrder.Patient = patient;
 
-                    if (wodvm.EnterBloodSample)
-                    {
-                        BloodSample bloodSample = new BloodSample();
-                        bloodSample.BloodVialColor = wodvm.BloodVialColor;
-                        bloodSample.BloodVialCount = wodvm.BloodVialCount;
-                        bloodSample.PatientWorkOrder = patientWorkOrder;
-                        DB.BloodSamples.Add(bloodSample);
+                        DB.PatientWorkOrders.Add(patientWorkOrder);
                     }
-                    DB.PatientWorkOrders.Add(patientWorkOrder);
                 }
             }
 

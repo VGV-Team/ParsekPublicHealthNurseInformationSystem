@@ -14,7 +14,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
 
 
-        public virtual PatientWorkOrder PatientWorkOrder { get; set; }
+        public virtual WorkOrder PatientWorkOrder { get; set; }
         public virtual Material Material { get; set; }
     }
 }

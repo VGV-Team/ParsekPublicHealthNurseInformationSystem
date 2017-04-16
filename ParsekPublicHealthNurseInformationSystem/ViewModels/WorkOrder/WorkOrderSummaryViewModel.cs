@@ -10,8 +10,8 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public string Supervisor { get; set; }
         public string ActivityTitle { get; set; }
         public string Nurse { get; set; }
-        public string NurseReplacement { get; set; }
 
+        public string Patient { get; set; }
         public List<string> Patients { get; set; }
         public bool MultipleVisits { get; set; }
         public WorkOrderViewModel.VisitTimeType? TimeType { get; set; }
@@ -25,5 +25,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public int BloodVialCount { get; set; }
         public bool EnterMedicine { get; set; }
         public bool EnterBloodSample { get; set; }
+        public bool EnterPatients { get; set; }
+        
     }
 }

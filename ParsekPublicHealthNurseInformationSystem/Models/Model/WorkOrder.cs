@@ -17,6 +17,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public virtual Employee Issuer { get; set; }
         public virtual Employee Nurse { get; set; } 
         public virtual Employee NurseReplacement { get; set; }
+        public virtual Patient Patient { get; set; }
 
 
         public virtual Contractor Contractor { get; set; }
@@ -25,7 +26,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual ICollection<Visit> Visits { get; set; }
         public virtual ICollection<PatientWorkOrder> PatientWorkOrders { get; set; }
-
+        public virtual ICollection<MaterialWorkOrder> MaterialWorkOrders { get; set; }
+        public virtual ICollection<MedicineWorkOrder> MedicineWorkOrders { get; set; }
+        public virtual ICollection<BloodSample> BloodSamples { get; set; }
 
     }
 }
