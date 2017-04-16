@@ -125,11 +125,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             c4.Number = "04970";
             c4.Address = "POD SKALO 4";
             c4.PostOffice = p2;
-            context.Contractors.AddOrUpdate(c => c.Number, c1, c2, c3, c4);
+            
             // TODO: ...
 
             // Districts
-            District di1, di2, di3, di4;
+            District di1, di2, di3, di4, di5, di6, di7, di8;
             di1 = new District();
             di1.Name = "Okoliš 1";
             di1.Lat = (decimal)100.0;
@@ -146,7 +146,37 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             di4.Name = "Okoliš 4";
             di4.Lat = (decimal)400.0;
             di4.Lon = (decimal)999.0;
-            context.Districts.AddOrUpdate(d => d.Name, di1, di2, di3, di4);
+            di5 = new District();
+            di5.Name = "Okoliš 5";
+            di5.Lat = (decimal)400.0;
+            di5.Lon = (decimal)999.0;
+            di6 = new District();
+            di6.Name = "Okoliš 6";
+            di6.Lat = (decimal)400.0;
+            di6.Lon = (decimal)999.0;
+            di7 = new District();
+            di7.Name = "Okoliš 7";
+            di7.Lat = (decimal)400.0;
+            di7.Lon = (decimal)999.0;
+            di8 = new District();
+            di8.Name = "Okoliš 8";
+            di8.Lat = (decimal)400.0;
+            di8.Lon = (decimal)999.0;
+
+            di1.Contractor = c1;
+            di2.Contractor = c1;
+
+            di3.Contractor = c2;
+            di4.Contractor = c2;
+
+            di5.Contractor = c3;
+            di6.Contractor = c3;
+
+            di7.Contractor = c4;
+            di8.Contractor = c4;
+
+            context.Districts.AddOrUpdate(d => d.Name, di1, di2, di3, di4, di5, di6, di7, di8);
+            context.Contractors.AddOrUpdate(c => c.Number, c1, c2, c3, c4);
             // TODO: ...
 
             Material mat1, mat2, mat3, mat4;

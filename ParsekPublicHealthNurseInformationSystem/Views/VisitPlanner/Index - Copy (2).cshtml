@@ -1,0 +1,167 @@
+﻿@model ParsekPublicHealthNurseInformationSystem.ViewModels.VisitPlannerViewModel
+
+@{
+    ViewBag.Title = "Planer obiskov";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<style>
+    .VisitContainer {
+         float:left !important;
+         margin:2px !important; 
+         width:350px !important; 
+         height: 180px !important;
+    }
+
+    .MandatoryVisitContainer {
+         float:left !important;
+         margin:2px !important; 
+         width:350px !important; 
+         height: 160px !important;
+    }
+</style>
+
+
+<h2>Planer obiskov</h2>
+
+<p>Ustvarite plan za obiske. Dodajanje obiska v plan mu avtomatsko nastavi datum na datum plana.</p>
+
+
+    
+
+    <hr />
+
+    <h3>Planirani obiski</h3>
+
+    @for (int j = 0; j < Model.VisitsDays; j++)
+    {
+
+        string bId = "Visits_" + j;
+
+        <div class="btn-group">
+            <button onclick="return false;" class="btn btn-info form-control" data-toggle="collapse" data-target="#@bId">@DateTime.Now.Date.AddDays(j).ToString("dd. MM. yyyy")</button>
+        </div>
+
+        <br />
+
+        <div id="@bId" class="collapse">
+
+
+                @if (Model.Visits[j].Count == 0)
+                {
+                <h4>Brez obiskov</h4>
+                }
+
+                @for (int i = 0; i < Model.Visits[j].Count; i++)
+                {
+                <div class="well MandatoryVisitContainer">
+
+                    <ul>
+                        <li>Delovni nalog: @Model.Visits[j][i].WorkOrder.Name</li>
+                        <li>Naslov pacienta: @Model.Visits[j][i].WorkOrder.PatientWorkOrders.First().Patient.Address</li>
+
+                        @if (Model.Visits[j][i].Mandatory == false)
+                        {
+                            <li>Okviren datum: @Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</li>
+                            <li>Izbran datum: @Model.Visits[j][i].DateConfirmed.ToString("dd. MM. yyyy")</li>
+                            <li>Obvezen: NE</li>
+                            <li>@Html.ActionLink("Odstrani iz plana", "DisconfirmVisit", "VisitPlanner", routeValues: new { date = Model.Visits[j][i].Date, DisconfirmedVisitId = Model.Visits[j][i].VisitId }, htmlAttributes: null)</li>
+                        }
+                        else
+                        {
+                            <li>Datum: @Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</li>
+                            <li>Obvezen: DA</li>
+                        }
+
+                    </ul>
+                </div>
+                }
+            </div>
+                <div style="clear:both"></div>
+                <hr />
+
+                }
+
+
+
+
+                <div style="clear:both"></div>
+
+                <hr />
+
+                <h3>Okvirni obiski</h3>
+
+                @for (int i = 0; i < Model.OptionalVisits.Count; i++)
+                {
+                <div class="well VisitContainer">
+                    <ul>
+                        <li>Delovni nalog: @Model.OptionalVisits[i].WorkOrder.Name</li>
+                        <li>Naslov pacienta: @Model.OptionalVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</li>
+                        <li>Okviren datum: @Model.OptionalVisits[i].Date.ToString("dd. MM. yyyy")</li>
+                        <li>Obvezen: NE</li>
+                        <li data-toggle="collapse" data-target="#visitContainer_@i"><a style="cursor:pointer;">Dodaj v plan</a></li>
+                        <li class="collapse" id="visitContainer_@i">
+
+@using ((Html.BeginForm("ConfirmVisit", "VisitPlanner", FormMethod.Post)))
+{
+
+    Model.HiddenVisitId = Model.OptionalVisits[i].VisitId;
+    @Html.EditorFor(e => e.PlanDate, new { htmlAttributes = new { @min = DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd") } })
+    @Html.EditorFor(e => e.HiddenVisitId, new { htmlAttributes = new { @class = "hidden", @value = Model.OptionalVisits[i].VisitId } })
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Potrdi" class="btn btn-default" />
+        </div>
+    </div>
+}
+                           
+                        </li>
+                    </ul>
+                </div>
+                }
+
+                <div style="clear:both"></div>
+
+               
+
+                @if (Model.OverdueVisits.Count > 0)
+                {
+                    <hr />
+                    <h3 style="color:red;">Pozni obiski</h3>
+                }
+
+                
+
+                @for (int i = 0; i < Model.OverdueVisits.Count; i++)
+                {
+                <div class="well VisitContainer">
+                    <ul>
+                        <li>Delovni nalog: @Model.OverdueVisits[i].WorkOrder.Name</li>
+                        <li>Naslov pacienta: @Model.OverdueVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</li>
+                        <li>Okviren Datum: @Model.OverdueVisits[i].Date.ToString("dd. MM. yyyy")</li>
+                        <li>Obvezen: NE</li>
+                        <li data-toggle="collapse" data-target="#overdueVisitContainer_@i"><a style="cursor:pointer;">Dodaj v plan</a></li>
+                        <li class="collapse" id="overdueVisitContainer_@i">
+
+                            @using ((Html.BeginForm("ConfirmVisit", "VisitPlanner", FormMethod.Post)))
+                            {
+                                Model.HiddenVisitId = Model.OverdueVisits[i].VisitId;
+                                @Html.EditorFor(e => e.PlanDate, new { htmlAttributes = new { @min = DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd") } })
+                                @Html.EditorFor(e => e.HiddenVisitId, new { htmlAttributes = new { @class = "hidden", @value = Model.OverdueVisits[i].VisitId } })
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Potrdi" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            }
+
+                        </li>
+                    </ul>
+                </div>
+                }
+
+                <div style="clear:both"></div>
+                

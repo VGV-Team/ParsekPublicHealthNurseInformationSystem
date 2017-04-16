@@ -21,5 +21,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         //public virtual ICollection<Patient> Patients { get; set; }
         //public virtual Employee Employee { get; set; } // Only HealthVisitor
+        public virtual Contractor Contractor { get; set; }
     }
 }

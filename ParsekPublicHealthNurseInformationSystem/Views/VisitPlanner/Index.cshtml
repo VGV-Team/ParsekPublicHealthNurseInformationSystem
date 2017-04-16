@@ -10,17 +10,17 @@
 
 <style>
     .VisitContainer {
-         float:left !important;
-         margin:2px !important; 
-         width:350px !important; 
-         height: 180px !important;
+        float: left !important;
+        margin: 2px !important;
+        width: 350px !important;
+        height: 180px !important;
     }
 
     .MandatoryVisitContainer {
-         float:left !important;
-         margin:2px !important; 
-         width:350px !important; 
-         height: 160px !important;
+        float: left !important;
+        margin: 2px !important;
+        width: 350px !important;
+        height: 160px !important;
     }
 </style>
 
@@ -30,138 +30,189 @@
 <p>Ustvarite plan za obiske. Dodajanje obiska v plan mu avtomatsko nastavi datum na datum plana.</p>
 
 
-    
 
-    <hr />
 
-    <h3>Planirani obiski</h3>
+<hr />
 
-    @for (int j = 0; j < Model.VisitsDays; j++)
-    {
+<h3>Planirani obiski</h3>
 
-        string bId = "Visits_" + j;
+@for (int j = 0; j < Model.VisitsDays; j++)
+{
 
-        <div class="btn-group">
-            <button onclick="return false;" class="btn btn-info form-control" data-toggle="collapse" data-target="#@bId">@DateTime.Now.Date.AddDays(j).ToString("dd. MM. yyyy")</button>
-        </div>
+    string bId = "Visits_" + j;
 
-        <br />
+    <div class="btn-group">
+        <button onclick="return false;" class="btn btn-info form-control" data-toggle="collapse" data-target="#@bId">@DateTime.Now.Date.AddDays(j).ToString("dd. MM. yyyy")</button>
+    </div>
+
+    <br />
 
         <div id="@bId" class="collapse">
 
 
-                @if (Model.Visits[j].Count == 0)
-                {
-                <h4>Brez obiskov</h4>
-                }
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Vrsta obiska</th>
+                        <th>Naslov pacienta</th>
+                        <th>Okviren datum</th>
+                        <th>Določen datum</th>
+                        <th>Obvezen</th>
+                        <th>Možnosti</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                @for (int i = 0; i < Model.Visits[j].Count; i++)
-                {
-                <div class="well MandatoryVisitContainer">
+                    @for (int i = 0; i < Model.Visits[j].Count; i++)
+                    {
 
-                    <ul>
-                        <li>Delovni nalog: @Model.Visits[j][i].WorkOrder.Name</li>
-                        <li>Naslov pacienta: @Model.Visits[j][i].WorkOrder.PatientWorkOrders.First().Patient.Address</li>
+                        <tr>
 
-                        @if (Model.Visits[j][i].Mandatory == false)
-                        {
-                            <li>Okviren datum: @Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</li>
-                            <li>Izbran datum: @Model.Visits[j][i].DateConfirmed.ToString("dd. MM. yyyy")</li>
-                            <li>Obvezen: NE</li>
-                            <li>@Html.ActionLink("Odstrani iz plana", "DisconfirmVisit", "VisitPlanner", routeValues: new { date = Model.Visits[j][i].Date, DisconfirmedVisitId = Model.Visits[j][i].VisitId }, htmlAttributes: null)</li>
-                        }
-                        else
-                        {
-                            <li>Datum: @Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</li>
-                            <li>Obvezen: DA</li>
-                        }
+                            <td>@Model.Visits[j][i].WorkOrder.Name</td>
+                            <td>@Model.Visits[j][i].WorkOrder.PatientWorkOrders.First().Patient.Address</td>
 
-                    </ul>
-                </div>
-                }
-            </div>
-                <div style="clear:both"></div>
-                <hr />
-
-                }
-
-
-
-
-                <div style="clear:both"></div>
-
-                <hr />
-
-                <h3>Okvirni obiski</h3>
-
-                @for (int i = 0; i < Model.OptionalVisits.Count; i++)
-                {
-                <div class="well VisitContainer">
-                    <ul>
-                        <li>Delovni nalog: @Model.OptionalVisits[i].WorkOrder.Name</li>
-                        <li>Naslov pacienta: @Model.OptionalVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</li>
-                        <li>Okviren datum: @Model.OptionalVisits[i].Date.ToString("dd. MM. yyyy")</li>
-                        <li>Obvezen: NE</li>
-                        <li data-toggle="collapse" data-target="#visitContainer_@i"><a style="cursor:pointer;">Dodaj v plan</a></li>
-                        <li class="collapse" id="visitContainer_@i">
-
-@using ((Html.BeginForm("ConfirmVisit", "VisitPlanner", FormMethod.Post)))
-{
-
-    Model.HiddenVisitId = Model.OptionalVisits[i].VisitId;
-    @Html.EditorFor(e => e.PlanDate, new { htmlAttributes = new { @min = DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd") } })
-    @Html.EditorFor(e => e.HiddenVisitId, new { htmlAttributes = new { @class = "hidden", @value = Model.OptionalVisits[i].VisitId } })
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Potrdi" class="btn btn-default" />
-        </div>
-    </div>
-}
-                           
-                        </li>
-                    </ul>
-                </div>
-                }
-
-                <div style="clear:both"></div>
-
-               
-
-                @if (Model.OverdueVisits.Count > 0)
-                {
-                    <hr />
-                    <h3 style="color:red;">Pozni obiski</h3>
-                }
-
-                
-
-                @for (int i = 0; i < Model.OverdueVisits.Count; i++)
-                {
-                <div class="well VisitContainer">
-                    <ul>
-                        <li>Delovni nalog: @Model.OverdueVisits[i].WorkOrder.Name</li>
-                        <li>Naslov pacienta: @Model.OverdueVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</li>
-                        <li>Okviren Datum: @Model.OverdueVisits[i].Date.ToString("dd. MM. yyyy")</li>
-                        <li>Obvezen: NE</li>
-                        <li data-toggle="collapse" data-target="#overdueVisitContainer_@i"><a style="cursor:pointer;">Dodaj v plan</a></li>
-                        <li class="collapse" id="overdueVisitContainer_@i">
-
-                            @using ((Html.BeginForm("ConfirmVisit", "VisitPlanner", FormMethod.Post)))
+                            @if (Model.Visits[j][i].Mandatory == false)
                             {
-                                Model.HiddenVisitId = Model.OverdueVisits[i].VisitId;
-                                @Html.EditorFor(e => e.PlanDate, new { htmlAttributes = new { @min = DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd") } })
-                                @Html.EditorFor(e => e.HiddenVisitId, new { htmlAttributes = new { @class = "hidden", @value = Model.OverdueVisits[i].VisitId } })
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Potrdi" class="btn btn-default" />
-                                    </div>
-                                </div>
+                                <td>@Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</td>
+                                <td>@Model.Visits[j][i].DateConfirmed.ToString("dd. MM. yyyy")</td>
+                                <td>NE</td>
+                                <td>@Html.ActionLink("Odstrani iz plana", "DisconfirmVisit", "VisitPlanner", routeValues: new { date = Model.Visits[j][i].Date, DisconfirmedVisitId = Model.Visits[j][i].VisitId }, htmlAttributes: null)</td>
                             }
+                            else
+                            {
+                                <td>/</td>
+                                <td>@Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</td>
+                                <td>DA</td>
+                                <td>Datum je fiksen</td>
+                            }
+                        </tr>
 
-                        </li>
-                    </ul>
-                </div>
-                }
 
-                <div style="clear:both"></div>
-                
+
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <div style="clear:both"></div>
+        <hr />
+
+}
+
+
+
+
+<div style="clear:both"></div>
+
+<hr />
+
+<h3>Okvirni obiski</h3>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Vrsta obiska</th>
+            <th>Naslov pacienta</th>
+            <th>Okviren datum</th>
+            <th>Obvezen</th>
+            <th>Možnosti</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (int i = 0; i < Model.OptionalVisits.Count; i++)
+        {
+
+
+            <tr>
+                <td>@Model.OptionalVisits[i].WorkOrder.Name</td>
+                <td>@Model.OptionalVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</td>
+                <td>@Model.OptionalVisits[i].Date.ToString("dd. MM. yyyy")</td>
+                <td>NE</td>
+                <td data-target="#visitContainer_@i">
+                    <a id="toggle_@i" style="cursor:pointer;" onclick="$('#toggle_@i').hide();$('#visitContainer_@i').show();">Dodaj v plan</a>
+                    <span class="collapse" id="visitContainer_@i">
+
+                        @using ((Html.BeginForm("ConfirmVisit", "VisitPlanner", FormMethod.Post)))
+                        {
+
+                            Model.HiddenVisitId = Model.OptionalVisits[i].VisitId;
+                            @Html.EditorFor(e => e.PlanDate, new { htmlAttributes = new { @min = DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd") } })
+                            @Html.EditorFor(e => e.HiddenVisitId, new { htmlAttributes = new { @class = "hidden", @value = Model.OptionalVisits[i].VisitId } })
+                            <span class="form-group">
+                                <span class="">
+                                    <input type="submit" value="Potrdi" class="btn btn-default" />
+                                </span>
+                            </span>
+                        }
+
+                    </span>
+                </td>
+            </tr>
+
+
+        }
+
+    </tbody>
+</table>
+
+<div style="clear:both"></div>
+
+
+
+@if (Model.OverdueVisits.Count > 0)
+{
+    <hr />
+    <h3 style="color:red;">Pozni obiski</h3>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Vrsta obiska</th>
+                                <th>Naslov pacienta</th>
+                                <th>Okviren datum</th>
+                                <th>Obvezen</th>
+                                <th>Možnosti</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @for (int i = 0; i < Model.OverdueVisits.Count; i++)
+                            {
+
+
+                                <tr>
+                                    <td>@Model.OverdueVisits[i].WorkOrder.Name</td>
+                                    <td>@Model.OverdueVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</td>
+                                    <td>@Model.OverdueVisits[i].Date.ToString("dd. MM. yyyy")</td>
+                                    <td>NE</td>
+                                    <td data-target="#visitContainer_@i">
+                                        <a id="overdueToggle_@i" style="cursor:pointer;" onclick="$('#overdueToggle_@i').hide();$('#overdueVisitContainer_@i').show();">Dodaj v plan</a>
+                                        <span class="collapse" id="overdueVisitContainer_@i">
+
+                                            @using ((Html.BeginForm("ConfirmVisit", "VisitPlanner", FormMethod.Post)))
+                                            {
+
+                                                Model.HiddenVisitId = Model.OverdueVisits[i].VisitId;
+                                                @Html.EditorFor(e => e.PlanDate, new { htmlAttributes = new { @min = DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd") } })
+                                                @Html.EditorFor(e => e.HiddenVisitId, new { htmlAttributes = new { @class = "hidden", @value = Model.OverdueVisits[i].VisitId } })
+                                                <span class="form-group">
+                                                    <span class="">
+                                                        <input type="submit" value="Potrdi" class="btn btn-default" />
+                                                    </span>
+                                                </span>
+                                            }
+
+                                        </span>
+                                    </td>
+                                </tr>
+
+
+                            }
+                        </tbody>
+                    </table>
+                    }
+<div style="clear:both"></div>
+

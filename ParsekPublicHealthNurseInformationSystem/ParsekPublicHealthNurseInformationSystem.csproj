@@ -158,12 +158,17 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\RESTController.cs" />
     <Compile Include="Controllers\VisitPlannerController.cs" />
     <Compile Include="Controllers\WODetailsController.cs" />
     <Compile Include="Controllers\WOFilterController.cs" />
     <Compile Include="Controllers\WorkOrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704161930166_Initial.cs" />
+    <Compile Include="Migrations\201704161930166_Initial.Designer.cs">
+      <DependentUpon>201704161930166_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model\Activity.cs" />
@@ -300,11 +305,13 @@
     <Content Include="Views\WorkOrder\Summary.cshtml" />
     <Content Include="Views\VisitPlanner\Index - Copy.cshtml" />
     <Content Include="Views\WODetails\Index.cshtml" />
+    <Content Include="Views\VisitPlanner\Index - Copy %282%29.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ViewModels\Profile\" />
     <Folder Include="Views\Profile\" />
+    <Folder Include="Views\REST\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -317,6 +324,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704161930166_Initial.resx">
+      <DependentUpon>201704161930166_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

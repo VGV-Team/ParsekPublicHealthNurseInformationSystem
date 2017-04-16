@@ -23,5 +23,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         //public virtual ICollection<WorkOrder> WorkOrders { get; set; }
         public virtual PostOffice PostOffice { get; set; }
 
+        public virtual ICollection<District> Districts { get; set; }
+
     }
 }

@@ -30,7 +30,16 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.WorkOrders = DB.WorkOrders.ToList();
 
 
-            // 
+            CheckForRole(vm);
+
+            
+
+
+            return Filter(vm);
+        }
+
+        public void CheckForRole(WorkOrderFilterViewModel vm)
+        {
             if (Session["user"] != null)
             {
 
@@ -41,18 +50,17 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     if (sessionUser.Employee.Title == Employee.JobTitle.HealthNurse)
                     {
                         vm.SelectedNurseId = vm.SelectedNurseReplacementId = sessionUser.Employee.EmployeeId;
+                        vm.SelectedNurseReplacementId = vm.SelectedNurseId;
+                        vm.Nurse = vm.Nurse.Where(n => n.EmployeeId == vm.SelectedNurseId).ToList();
+                        vm.NurseReplacement = vm.NurseReplacement.Where(n => n.EmployeeId == vm.SelectedNurseReplacementId).ToList();
                     }
                     else if (sessionUser.Employee.Title == Employee.JobTitle.Doctor)
                     {
                         vm.SelectedIssuerId = sessionUser.Employee.EmployeeId;
+                        vm.Issuers = vm.Issuers.Where(i => i.EmployeeId == vm.SelectedIssuerId).ToList();
                     }
                 }
             }
-
-            
-
-
-            return Filter(vm);
         }
 
         public ActionResult Filter(WorkOrderFilterViewModel vm)
@@ -68,6 +76,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.Title == Employee.JobTitle.HealthNurse).ToList();
 
             vm.WorkOrders = DB.WorkOrders.ToList();
+
+            CheckForRole(vm);
 
             #region Filters
 
@@ -94,14 +104,19 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             {
                 vm.WorkOrders = vm.WorkOrders.Where(wo => wo.PatientWorkOrders.Any(pwo => pwo.Patient.PatientId == vm.SelectedPatientId)).ToList();
             }
-            if (vm.SelectedNurseId > 0)
+            if (vm.SelectedNurseId > 0 && vm.SelectedNurseReplacementId > 0)
             {
-                vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Nurse.EmployeeId == vm.SelectedNurseId).ToList();
+                vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Nurse.EmployeeId == vm.SelectedNurseId ||  (wo.NurseReplacement != null && wo.NurseReplacement.EmployeeId == vm.SelectedNurseReplacementId)).ToList();
             }
-            if (vm.SelectedNurseReplacementId > 0)
+            else if (vm.SelectedNurseReplacementId > 0)
             {
                 vm.WorkOrders = vm.WorkOrders.Where(wo => wo.NurseReplacement != null && wo.NurseReplacement.EmployeeId == vm.SelectedNurseReplacementId).ToList();
             }
+            else if (vm.SelectedNurseId > 0)
+            {
+                vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Nurse.EmployeeId == vm.SelectedNurseId).ToList();
+            }
+
 
 
             #endregion

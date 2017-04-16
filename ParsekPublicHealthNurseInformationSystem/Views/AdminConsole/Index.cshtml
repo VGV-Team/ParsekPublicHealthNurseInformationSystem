@@ -29,32 +29,7 @@
             </div>
         </div>
 
-        <div class="form-group" id="DistrictDropdown">
-            @Html.LabelFor(model => model.Districts, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedDistrictId, new SelectList(Model.Districts, "DistrictId", "Name"), "-- Izberi --", htmlAttributes: new { @class = "form-control dropdown" })
-                @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-        <script>
-            $('#DistrictDropdown').hide();
-
-            if ($('#JobTitleDropdown').val() == 3)
-            {
-                $('#DistrictDropdown').show();
-            }
-
-            $('#JobTitleDropdown').on('change',
-                function () {
-                    if (this.value == 3) {
-                        $("#DistrictDropdown").show();
-                    } else {
-                        $("#DistrictDropdown").hide();
-                    }
-                });
-        </script>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -83,10 +58,56 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Contractors, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedContractorId, new SelectList(Model.Contractors, "ContractorId", "DisplayName"), "-- Izberi --", htmlAttributes : new { @class = "form-control dropdown" })
+                @Html.DropDownListFor(model => model.SelectedContractorId, new SelectList(Model.Contractors, "ContractorId", "DisplayName"), "-- Izberi --", htmlAttributes : new { @class = "form-control dropdown", @id = "ContractorDropdown" })
                 @Html.ValidationMessageFor(model => model.Contractors, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group" id="DistrictDropdown">
+            @Html.LabelFor(model => model.Districts, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SelectedDistrictId, new SelectList(Model.Districts, "DistrictId", "Name"), "-- Izberi --", htmlAttributes: new { @class = "form-control dropdown", @id = "DistrictDropdownId"})
+                @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <script>
+            var url = '@Url.Action("GetDistrictsByContractorId", "REST")';
+
+            $('#DistrictDropdownId').empty();
+
+            $('#ContractorDropdown').change(function () {
+                $('#DistrictDropdownId').empty();
+                $.getJSON(url, { ID: $(this).val() }, function(response) {
+
+                    //DistrictDropdown
+                    var DD = $('#DistrictDropdownId');
+
+                    for (var i = 0; i < response.count; i++)
+                    {
+                        DD.append($("<option />").val(response.ids[i]).text(response.names[i]));
+                    }
+
+                })
+            });
+
+            $('#DistrictDropdown').hide();
+
+            if ($('#JobTitleDropdown').val() == 3)
+            {
+                $('#DistrictDropdown').show();
+            }
+
+            $('#JobTitleDropdown').on('change',
+                function () {
+                    if (this.value == 3) {
+                        $("#DistrictDropdown").show();
+                    } else {
+                        $("#DistrictDropdown").hide();
+                    }
+                });
+
+        </script>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })

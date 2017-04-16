@@ -26,6 +26,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             return Form(null);
         }
 
+        
+
         public ActionResult Form(AdminConsoleViewModel acvm)
         {
 

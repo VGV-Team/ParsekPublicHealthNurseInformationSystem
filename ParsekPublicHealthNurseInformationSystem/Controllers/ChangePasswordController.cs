@@ -32,7 +32,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         {
             try {
                 if (cpvm.Password1.IsNullOrWhiteSpace() ||
-                       cpvm.Password2.IsNullOrWhiteSpace())
+                       cpvm.Password2.IsNullOrWhiteSpace() ||
+                       cpvm.OldPassword.IsNullOrWhiteSpace())
                 {
                     cpvm.ViewMessage = "Ponovno preverite vnešene podatke!";
                     return Form(cpvm);
@@ -46,12 +47,21 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 if (cpvm.Password1 != cpvm.Password2)
                 {
-                    cpvm.ViewMessage = "Gesli se ne ujemata";
+                    cpvm.ViewMessage = "Gesli se ne ujemata!";
                     return Form(cpvm);
                 }
 
+                
+
                 Models.User tmp = (Models.User)Session["user"];
                 Models.User user = DB.Users.FirstOrDefault(u => u.UserId == tmp.UserId);
+
+                if (cpvm.OldPassword != user.Password)
+                {
+                    cpvm.ViewMessage = "Staro geslo ni pravilno!";
+                    return Form(cpvm);
+                }
+
                 TempData["email"] = user.Email;
                 user.Password = cpvm.Password1;
                 DB.SaveChanges();

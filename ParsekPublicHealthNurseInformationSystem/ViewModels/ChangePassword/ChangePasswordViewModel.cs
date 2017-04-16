@@ -8,6 +8,10 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels.ChangePassword
 {
     public class ChangePasswordViewModel
     {
+        [Display(Name = "Staro geslo")]
+        [Required(ErrorMessage = "Vnesite staro geslo")]
+        [DataType(DataType.Password)]
+        public string OldPassword { get; set; }
         [Display(Name = "Novo geslo")]
         [Required(ErrorMessage = "Vnesite novo geslo")]
         [MinLength(8, ErrorMessage = "Najmanjše število znakov je 8")]

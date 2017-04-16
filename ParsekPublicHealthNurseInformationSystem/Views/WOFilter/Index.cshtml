@@ -52,7 +52,14 @@
                 <div class="form-group" id="DistrictDropdown">
                     @Html.LabelFor(model => model.Issuers, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.SelectedIssuerId, new SelectList(Model.Issuers, "EmployeeId", "DisplayName"), "-- Vsi --", htmlAttributes: new { @class = "form-control dropdown" })
+                        @if (((ParsekPublicHealthNurseInformationSystem.Models.User)Session["user"]).Employee.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor)
+                        {
+                            @Html.DropDownListFor(model => model.SelectedIssuerId, new SelectList(Model.Issuers, "EmployeeId", "DisplayName"), htmlAttributes: new { @class = "form-control dropdown" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.SelectedIssuerId, new SelectList(Model.Issuers, "EmployeeId", "DisplayName"), "-- Vsi --", htmlAttributes: new { @class = "form-control dropdown" })
+                        }
                     </div>
                 </div>
 
@@ -66,14 +73,28 @@
                 <div class="form-group" id="DistrictDropdown">
                     @Html.LabelFor(model => model.Nurse, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.SelectedNurseId, new SelectList(Model.Nurse, "EmployeeId", "DisplayName"), "-- Vse --", htmlAttributes: new { @class = "form-control dropdown" })
+                        @if (((ParsekPublicHealthNurseInformationSystem.Models.User)Session["user"]).Employee.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.HealthNurse)
+                        {
+                            @Html.DropDownListFor(model => model.SelectedNurseId, new SelectList(Model.Nurse, "EmployeeId", "DisplayName"), htmlAttributes: new { @class = "form-control dropdown" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.SelectedNurseId, new SelectList(Model.Nurse, "EmployeeId", "DisplayName"), "-- Vse --", htmlAttributes: new { @class = "form-control dropdown" })
+                        }
                     </div>
                 </div>
 
                 <div class="form-group" id="DistrictDropdown">
                     @Html.LabelFor(model => model.NurseReplacement, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.SelectedNurseReplacementId, new SelectList(Model.NurseReplacement, "EmployeeId", "DisplayName"), "-- Vse --", htmlAttributes: new { @class = "form-control dropdown" })
+                        @if (((ParsekPublicHealthNurseInformationSystem.Models.User)Session["user"]).Employee.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.HealthNurse)
+                        {
+                            @Html.DropDownListFor(model => model.SelectedNurseReplacementId, new SelectList(Model.NurseReplacement, "EmployeeId", "DisplayName"), htmlAttributes: new { @class = "form-control dropdown" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.SelectedNurseReplacementId, new SelectList(Model.NurseReplacement, "EmployeeId", "DisplayName"), "-- Vse --", htmlAttributes: new { @class = "form-control dropdown" })
+                        }
                     </div>
                 </div>
 
@@ -91,57 +112,81 @@
 
             <h3>Delovni nalogi, ki ustrezajo filtrom: </h3>
 
-            @for (int i = 0; i < Model.WorkOrders.Count; i++)
-            {
-                <div class="well">
-                    @{
-                        ParsekPublicHealthNurseInformationSystem.Models.WorkOrder WO = Model.WorkOrders[i];
-                    }
-                    <ul>
-
-                        @{ 
-                            string WOIssuerTitle = WO.Issuer.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor ?
-                                "Doktor" : "Vodja";
-                        }
-
-
-                        <li>@WO.Name</li>
-                        <li>Izdajatelj: @WO.Issuer.Name @WO.Issuer.Surname, @WOIssuerTitle</li>
-                        <li>Zadolžena sestra: @WO.Nurse.Name @WO.Nurse.Surname</li>
-                        @if (@WO.NurseReplacement != null)
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Vrsta obiska</th>
+                        <th>Izdajatelj</th>
+                        <th>Zadolžena sestra</th>
+                        <th>Nadomestna sestra</th>
+                        <th>Preventivni</th>
+                        <th>Pacient(i)</th>
+                        <th>Podrobnosti</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        @for (int i = 0; i < Model.WorkOrders.Count; i++)
                         {
-                            <li>Nadomestna sestra: @WO.NurseReplacement.Name @WO.NurseReplacement.Surname</li>
-                        }
-                        @if (@WO.Activity.PreventiveVisit)
-                        {
-                            <li>Preventivni obisk: da</li>
-                        }
-                        else
-                        {
-                            <li>Preventivni obisk: ne</li>
-                        }
-                        
-                        <li>
-                            Pacienti: 
-                            @if (Model.WorkOrders[i].PatientWorkOrders.Count == 0)
-                            { 
-                                <span>/</span>
-                            }
-                            <ul>
-                                @for (int j = 0; j < Model.WorkOrders[i].PatientWorkOrders.Count; j++)
-                                {
-                                     
-                                    ParsekPublicHealthNurseInformationSystem.Models.PatientWorkOrder PWO = 
-                                        Model.WorkOrders[i].PatientWorkOrders.ElementAt(j);
-                                     
-                                    <li>@PWO.Patient.Name @PWO.Patient.Surname</li>
+                            <tr>
+                                @{
+
+
+                                    ParsekPublicHealthNurseInformationSystem.Models.WorkOrder WO = Model.WorkOrders[i];
+
+
+
+                                    string WOIssuerTitle = WO.Issuer.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor ?
+                                    "Doktor" : "Vodja";
                                 }
-                            </ul>
-                        </li>
-                    </ul>
-                    @Html.ActionLink("Podrobnosti", "Index", "WODetails", new { workorderId = WO.WorkOrderId }, new { @class = "btn btn-primary", @style = "color:white" })
-                </div>
-            }
+
+
+                                <td>@WO.Name</td>
+                                <td>@WO.Issuer.Name @WO.Issuer.Surname, @WOIssuerTitle</td>
+                                <td>@WO.Nurse.Name @WO.Nurse.Surname</td>
+                                @if (@WO.NurseReplacement != null)
+                                {
+                                <td>@WO.NurseReplacement.Name @WO.NurseReplacement.Surname</td>
+                                }
+                                else
+                                {
+                                <td>/</td>
+                                }
+                                @if (@WO.Activity.PreventiveVisit)
+                                {
+                                <td>da</td>
+                                }
+                                else
+                                {
+                                <td>ne</td>
+                                }
+
+                                <td>
+                                    @if (Model.WorkOrders[i].PatientWorkOrders.Count == 0)
+                                    {
+                                        <span>/</span>
+                                    }
+                                    @for (int j = 0; j < Model.WorkOrders[i].PatientWorkOrders.Count; j++)
+                                    {
+
+                                        ParsekPublicHealthNurseInformationSystem.Models.PatientWorkOrder PWO =
+                                            Model.WorkOrders[i].PatientWorkOrders.ElementAt(j);
+
+                                        <span>@PWO.Patient.Name @PWO.Patient.Surname &nbsp;&nbsp;</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Podrobnosti", "Index", "WODetails", new { workorderId = WO.WorkOrderId }, new { @class = "btn btn-primary", @style = "color:white" })
+                                </td>
+                            </tr>
+                        }
+
+                        
+                             
+                </tbody>
+            </table>
+
+           
 
         </div>
 
