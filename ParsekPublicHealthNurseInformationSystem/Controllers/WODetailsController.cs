@@ -60,10 +60,26 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 if (wo.NurseReplacement != null) vm.NurseReplacement = wo.NurseReplacement.FullNameWithCode;
                 else vm.NurseReplacement = "/";
                 vm.Patients = new List<string>();
-                for (int i = 0; i < wo.PatientWorkOrders.Count; i++)
+
+                if (wo.PatientWorkOrders.Count == 0)
                 {
-                    vm.Patients.Add(wo.PatientWorkOrders.ElementAt(i).Patient.FullNameWithCode);
+                    if (wo.Patient != null)
+                    {
+                        vm.Patients.Add(wo.Patient.FullNameWithCode);
+                    }
+                    else
+                    {
+                        vm.Patients.Add("/");
+                    }
                 }
+                else
+                {
+                    for (int i = 0; i < wo.PatientWorkOrders.Count; i++)
+                    {
+                        vm.Patients.Add(wo.PatientWorkOrders.ElementAt(i).Patient.FullNameWithCode);
+                    }
+                }
+              
                 vm.Supervisor = wo.Issuer.FullNameWithCode;
                 vm.Visits = new List<string>();
 
