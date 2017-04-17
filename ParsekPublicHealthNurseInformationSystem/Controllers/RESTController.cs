@@ -40,5 +40,40 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetChildPatientsByPatientFullNameWithCode(string FullNameWithCode)
+        {
+            int[] ID = WorkOrderController.GetIdsFromString(FullNameWithCode);
+            if (ID.Length != 1)
+            {
+                var data = new
+                {
+                    count = 0,
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                int parentId = ID[0];
+                List<Patient> Patients = DB.Patients.Where(d => d.ParentPatientId == parentId).ToList();
+                List<string> Names = new List<string>();
+
+                for (int i = 0; i < Patients.Count; i++)
+                {
+                    Names.Add(Patients[i].FullNameWithCode);
+                }
+
+                var data = new
+                {
+                    count = Patients.Count,
+                    names = Names
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+
+            
+        }
     }
 }

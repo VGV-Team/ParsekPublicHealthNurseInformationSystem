@@ -39,13 +39,17 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 vm.EnterBloodSample = wo.Activity.RequiresBloodSample;
                 if (vm.EnterBloodSample)
                 {
-                    vm.BloodVialColor = wo.BloodSamples.First().BloodVialColor;
-                    vm.BloodVialCount = wo.BloodSamples.First().BloodVialCount;
+                    vm.BloodVialBlueCount = wo.BloodSamples.First().BloodVialBlueCount;
+                    vm.BloodVialGreenCount = wo.BloodSamples.First().BloodVialGreenCount;
+                    vm.BloodVialRedCount = wo.BloodSamples.First().BloodVialRedCount;
+                    vm.BloodVialYellowCount = wo.BloodSamples.First().BloodVialYellowCount;
                 }
                 else
                 {
-                    vm.BloodVialColor = "";
-                    vm.BloodVialCount = 0;
+                    vm.BloodVialBlueCount = 0;
+                    vm.BloodVialGreenCount = 0;
+                    vm.BloodVialRedCount = 0;
+                    vm.BloodVialYellowCount = 0;
                 }
                 vm.EnterMedicine = wo.Activity.RequiresMedicine;
                 if (vm.EnterMedicine)

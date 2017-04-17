@@ -18,7 +18,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public WorkOrderViewModel()
         {
             NumberOfVisits = 1;
-            AllPatients = DB.Patients.ToList(); // TODO: horrible fix!! Change this!
+            AllPatients = DB.Patients.Where(x => x.ParentPatient==null).ToList();
             AllMedicines = DB.Medicines.ToList();
         }
 
@@ -74,20 +74,32 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
 
         public List<Medicine> AllMedicines { get; set; }
-        public List<string> AllColors = new List<string> { "Rdeča", "Modra", "Rumena", "Zelena" };
 
         [Display(Name = "Seznam zdravil")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public string MedicineIds { get; set; }
 
-        [Display(Name = "Barva epruvete")]
-        [Required(ErrorMessage = "Polje je obvezno")]
-        public string BloodVialColor { get; set; }
 
-        [Display(Name = "Število epruvet")]
-        [Range(1, 30, ErrorMessage = "Število epruvet mora biti med 1 in 10.")]
+
+        [Display(Name = "Št. rdečih epruvet")]
+        [Range(0, 30, ErrorMessage = "Število epruvet mora biti med 0 in 10.")]
         [Required(ErrorMessage = "Polje je obvezno")]
-        public int BloodVialCount { get; set; }
+        public int BloodVialRedCount { get; set; }
+        [Display(Name = "Št. rdečih epruvet")]
+        [Range(0, 30, ErrorMessage = "Število epruvet mora biti med 0 in 10.")]
+        [Required(ErrorMessage = "Polje je obvezno")]
+        public int BloodVialBlueCount { get; set; }
+        [Display(Name = "Št. rdečih epruvet")]
+        [Range(0, 30, ErrorMessage = "Število epruvet mora biti med 0 in 10.")]
+        [Required(ErrorMessage = "Polje je obvezno")]
+        public int BloodVialYellowCount { get; set; }
+        [Display(Name = "Št. rdečih epruvet")]
+        [Range(0, 30, ErrorMessage = "Število epruvet mora biti med 0 in 10.")]
+        [Required(ErrorMessage = "Polje je obvezno")]
+        public int BloodVialGreenCount { get; set; }
+
+
+
 
         public bool EnterMedicine { get; set; }
         public bool EnterBloodSample { get; set; }

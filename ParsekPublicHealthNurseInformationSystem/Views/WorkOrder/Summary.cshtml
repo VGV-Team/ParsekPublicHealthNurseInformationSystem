@@ -82,8 +82,12 @@
         {
             <div>
                 Vzorec krvi:
-                    <span>@Model.BloodVialColor</span>
-                    <span>@Model.BloodVialCount</span>
+                <ul>
+                    <li>Modra: @Model.BloodVialBlueCount</li>
+                    <li>Zelena: @Model.BloodVialGreenCount</li>
+                    <li>Rdeča: @Model.BloodVialRedCount</li>
+                    <li>Rumena: @Model.BloodVialYellowCount</li>
+                </ul>
             </div>
         }
     </div>

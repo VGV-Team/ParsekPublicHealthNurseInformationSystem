@@ -39,11 +39,14 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Display(Name = "Bolezni")]
         public string Disease { get; set; }
 
-        [Display(Name = "Barva epruvet")]
-        public string BloodVialColor { get; set; }
-
-        [Display(Name = "Število epruvet")]
-        public int BloodVialCount { get; set; }
+        [Display(Name = "Št. rdečih epruvet")]
+        public int BloodVialRedCount { get; set; }
+        [Display(Name = "Št. modrih epruvet")]
+        public int BloodVialBlueCount { get; set; }
+        [Display(Name = "Št. rumenih epruvet")]
+        public int BloodVialYellowCount { get; set; }
+        [Display(Name = "Št. zelenih epruvet")]
+        public int BloodVialGreenCount { get; set; }
 
 
         public bool EnterMedicine { get; set; }

@@ -24,11 +24,9 @@
         </div>
     </div>
 
-    <!-- TODO: REST call -->
     @Html.HiddenFor(m => m.EnterPatients)
     if (Model.EnterPatients)
     {
-        @Html.Raw(Model.GenerateDropDown(Model.AllPatients, "PatientIds"))
         <div class="form-group">
             @Html.LabelFor(model => model.PatientIds, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -36,6 +34,76 @@
                 @Html.ValidationMessageFor(model => model.PatientIds, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <script>
+            var url = '@Url.Action("GetChildPatientsByPatientFullNameWithCode", "REST")';
+
+            var availableTags = [];
+
+            $('#PatientId').ready(function() {
+                if ($("#PatientIds").val() !== "") {
+                    $.getJSON(url,
+                        { FullNameWithCode: $("#PatientId").val() },
+                        function (response) {
+                            availableTags = [];
+                            for (var i = 0; i < response.count; i++) {
+                                availableTags.push(response.names[i]);
+                            }
+                        });
+                };
+
+            });
+            $('#PatientId').change(function () {
+                $("#PatientIds").val("");
+                $.getJSON(url,
+                    { FullNameWithCode: $("#PatientId").val() },
+                    function (response) {
+                        for (var i = 0; i < response.count; i++) {
+                            availableTags.push(response.names[i]);
+                        }
+                    });
+            });
+
+            function split(val) {
+                return val.split(/,\s*/);
+            }
+            function extractLast(term) {
+                return split(term).pop();
+            }
+
+            $("#PatientIds")
+                // don't navigate away from the field on tab when selecting an item
+                .on("keydown", function (event) {
+                    
+                    if (event.keyCode === $.ui.keyCode.TAB &&
+                        $(this).autocomplete("instance").menu.active) {
+                        event.preventDefault();
+                    }
+                })
+                .autocomplete({
+                    minLength: 0,
+                    source: function (request, response) {
+                        // delegate back to autocomplete, but extract the last term
+                        response($.ui.autocomplete.filter(
+                            availableTags, extractLast(request.term)));
+                    },
+                    focus: function () {
+                        // prevent value inserted on focus
+                        return false;
+                    },
+                    select: function (event, ui) {
+                        var terms = split(this.value);
+                        // remove the current input
+                        terms.pop();
+                        // add the selected item
+                        terms.push(ui.item.value);
+                        // add placeholder to get the comma-and-space at the end
+                        terms.push("");
+                        this.value = terms.join(", ");
+                        return false;
+                    }
+                });
+        </script>
     }
 
     <div class="form-group">
@@ -103,44 +171,44 @@
             </div>
         </div>
         <script>
-        $('#TimeType').on('change',
-            function () {
-                $(@WorkOrderViewModel.VisitTimeType.TimeInterval).hide();
-                $(@WorkOrderViewModel.VisitTimeType.TimeFrame).hide();
-                switch (this.value)
-                {
-                case "1":
-                    $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
-                    break;
-                case "2":
-                    $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
-                    break;
-                }
-            });
+            $('#TimeType').on('change',
+                function () {
+                    $(@WorkOrderViewModel.VisitTimeType.TimeInterval).hide();
+                    $(@WorkOrderViewModel.VisitTimeType.TimeFrame).hide();
+                    switch (this.value)
+                    {
+                    case "1":
+                        $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
+                        break;
+                    case "2":
+                        $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
+                        break;
+                    }
+                });
         </script>
 
 
         <script type="text/javascript">
-        if ($("#MultipleVisits").is(":checked")) {
-            $("#timeEntry").show();
-        }
+            if ($("#MultipleVisits").is(":checked")) {
+                $("#timeEntry").show();
+            }
 
-        if ($("#TimeType").val() == "1") {
-            $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
-        }
-        if ($("#TimeType").val() == "2") {
-            $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
-        }
+            if ($("#TimeType").val() == "1") {
+                $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
+            }
+            if ($("#TimeType").val() == "2") {
+                $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
+            }
 
-        $(function () {
-            $("#MultipleVisits").click(function () {
-                if ($(this).is(":checked")) {
-                    $("#timeEntry").show();
-                } else {
-                    $("#timeEntry").hide();
-                }
+            $(function () {
+                $("#MultipleVisits").click(function () {
+                    if ($(this).is(":checked")) {
+                        $("#timeEntry").show();
+                    } else {
+                        $("#timeEntry").hide();
+                    }
+                });
             });
-        });
         </script>
 
     </div>
@@ -167,20 +235,28 @@
             @Html.HiddenFor(m => m.EnterBloodSample)
             @if (Model.EnterBloodSample)
             {
-                @Html.LabelFor(model => model.BloodVialColor, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.BloodVialBlueCount, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(
-                    model => model.BloodVialColor,
-                    new SelectList(Model.AllColors),
-                    "-- Izberi --",
-                    htmlAttributes: new { @class = "form-control dropdown" })
-                    @Html.ValidationMessageFor(model => model.BloodVialColor, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.BloodVialBlueCount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BloodVialBlueCount, "", new { @class = "text-danger" })
                 </div>
 
-                @Html.LabelFor(model => model.BloodVialCount, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.BloodVialGreenCount, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.BloodVialCount, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.BloodVialCount, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.BloodVialGreenCount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BloodVialGreenCount, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.BloodVialRedCount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BloodVialRedCount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BloodVialRedCount, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.BloodVialYellowCount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BloodVialYellowCount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BloodVialYellowCount, "", new { @class = "text-danger" })
                 </div>
             }
 

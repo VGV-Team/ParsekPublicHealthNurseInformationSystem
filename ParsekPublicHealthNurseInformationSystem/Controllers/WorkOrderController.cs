@@ -81,7 +81,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     (wovm.TimeInterval > 30 || wovm.TimeInterval < 1)) ||
                 wovm.EnterMedicine && wovm.MedicineIds.IsNullOrWhiteSpace() ||
                 wovm.EnterBloodSample && 
-                    (wovm.BloodVialColor.IsNullOrWhiteSpace() || wovm.BloodVialCount < 1)
+                    (wovm.BloodVialBlueCount < 0 || wovm.BloodVialBlueCount > 30 ||
+                    wovm.BloodVialGreenCount < 0 || wovm.BloodVialGreenCount > 30 ||
+                    wovm.BloodVialRedCount < 0 || wovm.BloodVialRedCount > 30 ||
+                    wovm.BloodVialYellowCount < 0 || wovm.BloodVialYellowCount > 30)
             )
             {
                 return View("Create", wovm);
@@ -104,8 +107,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 wodvm.TimeType = wovm.TimeType;
                 wodvm.EnterMedicine = wovm.EnterMedicine;
                 wodvm.EnterBloodSample = wovm.EnterBloodSample;
-                wodvm.BloodVialColor = wovm.EnterBloodSample ? wovm.BloodVialColor : null;
-                wodvm.BloodVialCount = wovm.EnterBloodSample ? wovm.BloodVialCount : -1;
+                wodvm.BloodVialBlueCount = wovm.EnterBloodSample ? wovm.BloodVialBlueCount : 0;
+                wodvm.BloodVialGreenCount = wovm.EnterBloodSample ? wovm.BloodVialGreenCount : 0;
+                wodvm.BloodVialRedCount = wovm.EnterBloodSample ? wovm.BloodVialRedCount : 0;
+                wodvm.BloodVialYellowCount = wovm.EnterBloodSample ? wovm.BloodVialYellowCount : 0;
                 wodvm.EnterPatients = wovm.EnterPatients;
 
                 WorkOrderSummaryViewModel wosvm = new WorkOrderSummaryViewModel();
@@ -141,8 +146,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 if (wovm.EnterBloodSample)
                 {
-                    wosvm.BloodVialColor = wovm.BloodVialColor;
-                    wosvm.BloodVialCount = wovm.BloodVialCount;
+                    wosvm.BloodVialBlueCount = wovm.BloodVialBlueCount;
+                    wosvm.BloodVialGreenCount = wovm.BloodVialGreenCount;
+                    wosvm.BloodVialRedCount = wovm.BloodVialRedCount;
+                    wosvm.BloodVialYellowCount = wovm.BloodVialYellowCount;
                 }
                 
                 if (wovm.EnterPatients)
@@ -162,7 +169,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     }
                 }
 
-                Employee selectedNurse = DB.Employees.FirstOrDefault(x => x.EmployeeId == selectedPatient.District.DistrictId);
+                Employee selectedNurse = DB.Employees.FirstOrDefault(x => x.Title == Employee.JobTitle.HealthNurse && x.District.DistrictId == selectedPatient.District.DistrictId);
                 if(selectedNurse == null)
                 {
                     // TODO: error
@@ -280,8 +287,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             if (wodvm.EnterBloodSample)
             {
                 BloodSample bloodSample = new BloodSample();
-                bloodSample.BloodVialColor = wodvm.BloodVialColor;
-                bloodSample.BloodVialCount = wodvm.BloodVialCount;
+                bloodSample.BloodVialBlueCount = wodvm.BloodVialBlueCount;
+                bloodSample.BloodVialGreenCount = wodvm.BloodVialGreenCount;
+                bloodSample.BloodVialRedCount = wodvm.BloodVialRedCount;
+                bloodSample.BloodVialYellowCount = wodvm.BloodVialYellowCount;
+
                 bloodSample.WorkOrder = workOrder;
                 DB.BloodSamples.Add(bloodSample);
             }
@@ -323,7 +333,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private static int[] GetIdsFromString(string input)
+        public static int[] GetIdsFromString(string input)
         {
             string[] splits = input.Split(',');
             List<int> ids = new List<int>();

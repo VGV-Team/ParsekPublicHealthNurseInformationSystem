@@ -12,10 +12,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public int BloodSampleId { get; set; }
 
         [Required]
-        public int BloodVialCount { get; set; }
-
+        public int BloodVialRedCount { get; set; }
         [Required]
-        public string BloodVialColor { get; set; }
+        public int BloodVialBlueCount { get; set; }
+        [Required]
+        public int BloodVialYellowCount { get; set; }
+        [Required]
+        public int BloodVialGreenCount { get; set; }
 
         public virtual WorkOrder WorkOrder { get; set; }
     }

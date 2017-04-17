@@ -95,24 +95,37 @@
         @if (Model.EnterBloodSample)
         {
             <dt>
-                @Html.DisplayNameFor(model => model.BloodVialColor)
+                @Html.DisplayNameFor(model => model.BloodVialBlueCount)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.BloodVialColor)
+                @Html.DisplayFor(model => model.BloodVialBlueCount)
             </dd>
-
-            <br />
 
             <dt>
-                @Html.DisplayNameFor(model => model.BloodVialCount)
+                @Html.DisplayNameFor(model => model.BloodVialGreenCount)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.BloodVialCount)
+                @Html.DisplayFor(model => model.BloodVialGreenCount)
             </dd>
 
-            <br />
+            <dt>
+                @Html.DisplayNameFor(model => model.BloodVialRedCount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BloodVialRedCount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BloodVialYellowCount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BloodVialYellowCount)
+            </dd>
+
         }
 
 
