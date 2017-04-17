@@ -54,6 +54,7 @@
 
             });
             $('#PatientId').change(function () {
+                availableTags = [];
                 $("#PatientIds").val("");
                 $.getJSON(url,
                     { FullNameWithCode: $("#PatientId").val() },

@@ -85,15 +85,15 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Range(0, 30, ErrorMessage = "Število epruvet mora biti med 0 in 10.")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public int BloodVialRedCount { get; set; }
-        [Display(Name = "Št. rdečih epruvet")]
+        [Display(Name = "Št. modrih epruvet")]
         [Range(0, 30, ErrorMessage = "Število epruvet mora biti med 0 in 10.")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public int BloodVialBlueCount { get; set; }
-        [Display(Name = "Št. rdečih epruvet")]
+        [Display(Name = "Št. rumenih epruvet")]
         [Range(0, 30, ErrorMessage = "Število epruvet mora biti med 0 in 10.")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public int BloodVialYellowCount { get; set; }
-        [Display(Name = "Št. rdečih epruvet")]
+        [Display(Name = "Št. zelenih epruvet")]
         [Range(0, 30, ErrorMessage = "Število epruvet mora biti med 0 in 10.")]
         [Required(ErrorMessage = "Polje je obvezno")]
         public int BloodVialGreenCount { get; set; }

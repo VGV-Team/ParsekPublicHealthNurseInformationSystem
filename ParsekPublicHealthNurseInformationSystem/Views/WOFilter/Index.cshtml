@@ -163,24 +163,23 @@
 
                                 <td>
                                     <!-- CHENGE LATER IF WE NEED TO DISPLAY PARENT AND CHILD SEPARATELY -->
-                                    @if (Model.WorkOrders[i].PatientWorkOrders.Count == 0)
+                                    
+                                    @if (Model.WorkOrders[i].Patient != null)
                                     {
-                                        if (Model.WorkOrders[i].Patient != null)
-                                        {
-                                            <span>@WO.Patient.Name @WO.Patient.Surname</span>
-                                        }
-                                        else
-                                        {
-                                            <span>/</span>
-                                        }
+                                        <span>@WO.Patient.Name @WO.Patient.Surname</span>
                                     }
+                                    else
+                                    {
+                                        <span>/</span>
+                                    }
+                                    
                                     @for (int j = 0; j < Model.WorkOrders[i].PatientWorkOrders.Count; j++)
                                     {
 
                                         ParsekPublicHealthNurseInformationSystem.Models.PatientWorkOrder PWO =
                                             Model.WorkOrders[i].PatientWorkOrders.ElementAt(j);
 
-                                        <span>@PWO.Patient.Name @PWO.Patient.Surname &nbsp;&nbsp;</span>
+                                        <span>, @PWO.Patient.Name @PWO.Patient.Surname &nbsp;</span>
                                     }
                                 </td>
                                 <td>

@@ -69,17 +69,12 @@
                         <tr>
 
                             <td>@Model.Visits[j][i].WorkOrder.Name</td>
-                            @if (@Model.OptionalVisits[i].WorkOrder.PatientWorkOrders.Count > 0)
+                            
+                            @if (Model.Visits[j][i].WorkOrder.Patient != null)
                             {
-                                <td>@Model.OptionalVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</td>
+                                <td>@Model.Visits[j][i].WorkOrder.Patient.Address</td>
                             }
-                            else
-                            {
-                                if (Model.OptionalVisits[i].WorkOrder.Patient != null)
-                                {
-                                    <td>@Model.OptionalVisits[i].WorkOrder.Patient.Address</td>
-                                }
-                            }
+                            
 
                             @if (Model.Visits[j][i].Mandatory == false)
                             {
@@ -137,17 +132,12 @@
 
             <tr>
                 <td>@Model.OptionalVisits[i].WorkOrder.Name</td>
-                @if (@Model.OptionalVisits[i].WorkOrder.PatientWorkOrders.Count > 0)
+                
+                @if (Model.OptionalVisits[i].WorkOrder.Patient != null)
                 {
-                    <td>@Model.OptionalVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</td>
+                    <td>@Model.OptionalVisits[i].WorkOrder.Patient.Address</td>
                 }
-                else
-                {
-                    if (Model.OptionalVisits[i].WorkOrder.Patient != null)
-                    {
-                        <td>@Model.OptionalVisits[i].WorkOrder.Patient.Address</td>
-                    }
-                }
+                
                 
                 <td>@Model.OptionalVisits[i].Date.ToString("dd. MM. yyyy")</td>
                 <td>NE</td>
