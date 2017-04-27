@@ -92,9 +92,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             if (vm.VisitType != 0)
             {
                 if (vm.VisitType == WorkOrderFilterViewModel.VisitTypeEnum.Preventive)
-                    vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Activity.PreventiveVisit == true).ToList();
+                    vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Service.PreventiveVisit == true).ToList();
                 else
-                    vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Activity.PreventiveVisit == false).ToList();
+                    vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Service.PreventiveVisit == false).ToList();
             }
             if (vm.SelectedIssuerId > 0)
             {

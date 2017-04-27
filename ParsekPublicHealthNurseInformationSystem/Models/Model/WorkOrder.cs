@@ -22,7 +22,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual Contractor Contractor { get; set; }
         public virtual Disease Disease { get; set; }
-        public virtual Activity Activity { get; set; }
+        public virtual Service Service { get; set; }
 
         public virtual ICollection<Visit> Visits { get; set; }
         public virtual ICollection<PatientWorkOrder> PatientWorkOrders { get; set; }

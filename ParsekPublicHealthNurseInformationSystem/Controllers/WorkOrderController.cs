@@ -41,19 +41,19 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             User currentUser = (User)Session["user"];
             bool isDoctor = currentUser.Employee.Title == Employee.JobTitle.Doctor;
 
-            Activity activity = DB.Activities.FirstOrDefault(x => x.ActivityId == wovtvm.SelectedActivityId);
-            if (activity == null || !activity.PreventiveVisit && !isDoctor)
+            Service service = DB.Services.FirstOrDefault(x => x.ServiceId == wovtvm.SelectedServiceId);
+            if (service == null || !service.PreventiveVisit && !isDoctor)
             {
                 wovtvm.CreateWorkOrderVisitTypeViewModel(isDoctor);
                 return View("Index", wovtvm);
             }
 
             WorkOrderViewModel wovm = new WorkOrderViewModel();
-            wovm.SelectedActivityId = wovtvm.SelectedActivityId;
+            wovm.SelectedServiceId = wovtvm.SelectedServiceId;
 
-            wovm.EnterMedicine = activity.RequiresMedicine;
-            wovm.EnterBloodSample = activity.RequiresBloodSample;
-            wovm.EnterPatients = activity.RequiresPatients;
+            wovm.EnterMedicine = service.RequiresMedicine;
+            wovm.EnterBloodSample = service.RequiresBloodSample;
+            wovm.EnterPatients = service.RequiresPatients;
 
             return View("Create", wovm);
         }
@@ -97,7 +97,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 WorkOrderDataViewModel wodvm = new WorkOrderDataViewModel();
                 wodvm.SupervisorId = ((User)Session["user"]).Employee.EmployeeId;
                 wodvm.PatientId = selectedPatient.PatientId;
-                wodvm.SelectedActivityId = wovm.SelectedActivityId;
+                wodvm.SelectedServiceId = wovm.SelectedServiceId;
                 wodvm.DateTimeOfFirstVisit = wovm.DateTimeOfFirstVisit;
                 wodvm.MandatoryFirstVisit = wovm.MandatoryFirstVisit;
                 wodvm.NumberOfVisits = wovm.NumberOfVisits;
@@ -116,7 +116,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 WorkOrderSummaryViewModel wosvm = new WorkOrderSummaryViewModel();
                 wosvm.Patient = selectedPatient.FullName;
                 wosvm.Supervisor = ((User)Session["user"]).Employee.FullName;
-                wosvm.ActivityTitle = DB.Activities.FirstOrDefault(x => x.ActivityId == wovm.SelectedActivityId).ActivityTitle;
+                wosvm.ServiceTitle = DB.Services.FirstOrDefault(x => x.ServiceId == wovm.SelectedServiceId).ServiceTitle;
                 wosvm.DateTimeOfFirstVisit = wovm.DateTimeOfFirstVisit;
                 wosvm.MandatoryFirstVisit = wovm.MandatoryFirstVisit;
                 wosvm.NumberOfVisits = wovm.NumberOfVisits;
@@ -233,8 +233,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             WorkOrder workOrder = new WorkOrder();
             workOrder.Contractor = contractor;
             workOrder.Issuer = employee;
-            workOrder.Activity = DB.Activities.FirstOrDefault(x => x.ActivityId == wodvm.SelectedActivityId);
-            workOrder.Name = workOrder.Activity.ActivityTitle;
+            workOrder.Service = DB.Services.FirstOrDefault(x => x.ServiceId == wodvm.SelectedServiceId);
+            workOrder.Name = workOrder.Service.ServiceTitle;
             workOrder.Nurse = DB.Employees.FirstOrDefault(x => x.EmployeeId == wodvm.SelectedNurseId);
             workOrder.NurseReplacement = null;
             workOrder.Patient = DB.Patients.FirstOrDefault(x => x.PatientId == wodvm.PatientId);

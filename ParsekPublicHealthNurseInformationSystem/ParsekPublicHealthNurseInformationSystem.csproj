@@ -160,18 +160,18 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RESTController.cs" />
     <Compile Include="Controllers\VisitPlannerController.cs" />
+    <Compile Include="Controllers\VisitsController.cs" />
     <Compile Include="Controllers\WODetailsController.cs" />
     <Compile Include="Controllers\WOFilterController.cs" />
     <Compile Include="Controllers\WorkOrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704172014548_Initial.cs" />
-    <Compile Include="Migrations\201704172014548_Initial.Designer.cs">
-      <DependentUpon>201704172014548_Initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model\Activity.cs" />
+    <Compile Include="Models\Model\ActivityInput.cs" />
+    <Compile Include="Models\Model\ActivityInputWorkOrder.cs" />
+    <Compile Include="Models\Model\Service.cs" />
     <Compile Include="Models\Model\AuthorizationFilter.cs" />
     <Compile Include="Models\Model\IpLog.cs" />
     <Compile Include="Models\Model\BloodSample.cs" />
@@ -200,6 +200,7 @@
     <Compile Include="ViewModels\PatientActions\AddCarePatientViewModel.cs" />
     <Compile Include="ViewModels\Register\RegisterViewModel.cs" />
     <Compile Include="ViewModels\VisitPlanner\VisitPlannerViewModel.cs" />
+    <Compile Include="ViewModels\Visit\VisitViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderFilterViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderNurseSelectionViewModel.cs" />
@@ -262,6 +263,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Migrations\DataFiles\activities.xlsx" />
+    <Content Include="Migrations\DataFiles\activity inputs.xlsx" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -306,6 +309,7 @@
     <Content Include="Views\VisitPlanner\Index - Copy.cshtml" />
     <Content Include="Views\WODetails\Index.cshtml" />
     <Content Include="Views\VisitPlanner\Index - Copy %282%29.cshtml" />
+    <Content Include="Views\Visits\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -324,11 +328,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704172014548_Initial.resx">
-      <DependentUpon>201704172014548_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

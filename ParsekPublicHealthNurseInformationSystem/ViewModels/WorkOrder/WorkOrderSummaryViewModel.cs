@@ -8,7 +8,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
     public class WorkOrderSummaryViewModel
     {
         public string Supervisor { get; set; }
-        public string ActivityTitle { get; set; }
+        public string ServiceTitle { get; set; }
         public string Nurse { get; set; }
 
         public string Patient { get; set; }

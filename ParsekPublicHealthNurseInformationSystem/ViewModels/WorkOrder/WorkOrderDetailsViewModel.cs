@@ -12,7 +12,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public string Supervisor { get; set; }
 
         [Display(Name = "Aktivnost")]
-        public string ActivityTitle { get; set; }
+        public string ServiceTitle { get; set; }
 
         [Display(Name = "Zadolžena sestra")]
         public string Nurse { get; set; }
@@ -21,7 +21,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public string NurseReplacement { get; set; }
 
         [Display(Name = "Preventivni obisk")]
-        public string PreventiveActivity { get; set; }
+        public string PreventiveService { get; set; }
 
         [Display(Name = "Izvajalec")]
         public string ContractorName { get; set; }

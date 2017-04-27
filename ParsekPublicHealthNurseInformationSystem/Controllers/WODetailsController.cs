@@ -33,10 +33,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             if (wo != null)
             {
 
-                vm.ActivityTitle = wo.Activity.ActivityTitle;
+                vm.ServiceTitle = wo.Service.ServiceTitle;
                 vm.ContractorName = wo.Contractor.DisplayName;
                 vm.Disease = "/"; // TODO LATER STORY
-                vm.EnterBloodSample = wo.Activity.RequiresBloodSample;
+                vm.EnterBloodSample = wo.Service.RequiresBloodSample;
                 if (vm.EnterBloodSample)
                 {
                     vm.BloodVialBlueCount = wo.BloodSamples.First().BloodVialBlueCount;
@@ -51,7 +51,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     vm.BloodVialRedCount = 0;
                     vm.BloodVialYellowCount = 0;
                 }
-                vm.EnterMedicine = wo.Activity.RequiresMedicine;
+                vm.EnterMedicine = wo.Service.RequiresMedicine;
                 if (vm.EnterMedicine)
                 {
                     vm.Medicine = new List<string>();
@@ -115,13 +115,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         visitString += "okviren, ";
                     }
 
-                    if (wo.Activity.PreventiveVisit)
+                    if (wo.Service.PreventiveVisit)
                     {
-                        vm.PreventiveActivity = "Da";
+                        vm.PreventiveService = "Da";
                     }
                     else
                     {
-                        vm.PreventiveActivity = "Ne";
+                        vm.PreventiveService = "Ne";
                     }
 
                     vm.Visits.Add(visitString);

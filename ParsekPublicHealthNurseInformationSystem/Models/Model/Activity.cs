@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Security.Principal;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace ParsekPublicHealthNurseInformationSystem.Models
 {
@@ -12,32 +11,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Key]
         public int ActivityId { get; set; }
 
-        /*
         [Required]
-        public string ServiceCode { get; set; }
-        [Required]
-        public string ServiceTitle { get; set; }
-        */
-        
-        [Required]
-        public string ActivityCode { get; set; }
+        public int ActivityCode { get; set; }
         [Required]
         public string ActivityTitle { get; set; }
 
-        //public string Report { get; set; }
-        
+        public virtual Service Service { get; set; }
 
-        [Required]
-        public bool PreventiveVisit { get; set; }
-
-        public virtual ICollection<WorkOrder> WorkOrders { get; set; }
-
-
-        //public bool RequiresMedicine => (ServiceCode == "50" && ActivityCode == "10");
-        //public bool RequiresBloodSample => (ServiceCode == "60" && ActivityCode == "10");
-        public bool RequiresMedicine { get; set; }
-        public bool RequiresBloodSample { get; set; }
-
-        public bool RequiresPatients { get; set; }
+        public virtual ICollection<ActivityInput> ActivityInputs { get; set; }
     }
 }

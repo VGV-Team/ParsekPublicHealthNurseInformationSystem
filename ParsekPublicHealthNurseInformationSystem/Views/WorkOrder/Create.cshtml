@@ -12,7 +12,7 @@
 {
     @Html.AntiForgeryToken()
 
-    @Html.HiddenFor(m => m.SelectedActivityId)
+    @Html.HiddenFor(m => m.SelectedServiceId)
 
 
     @Html.Raw(Model.GenerateDropDown(Model.AllPatients, "PatientId", false))

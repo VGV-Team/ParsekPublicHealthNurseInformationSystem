@@ -39,7 +39,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public int SelectedNurseReplacementId { get; set; }
 
         // We have VisitType instead of this
-        //public List<Models.Activity> Activities { get; set; }
+        //public List<Models.Service> Services { get; set; }
 
         [Display(Name = "Delovni nalogi")]
         public List<Models.WorkOrder> WorkOrders { get; set; }

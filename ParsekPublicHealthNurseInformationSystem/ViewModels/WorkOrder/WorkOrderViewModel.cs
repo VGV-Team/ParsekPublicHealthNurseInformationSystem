@@ -35,7 +35,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public string PatientIds { get; set; }
 
         [Display(Name = "Tip obiska")]
-        public int SelectedActivityId { get; set; }
+        public int SelectedServiceId { get; set; }
 
         [Display(Name = "Datum prvega obiska")]
         [DataType(DataType.Date)]

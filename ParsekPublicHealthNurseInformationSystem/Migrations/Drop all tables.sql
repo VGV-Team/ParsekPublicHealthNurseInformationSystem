@@ -1,5 +1,5 @@
 ﻿DROP TABLE __MigrationHistory
-DROP TABLE dbo.BloodSamples
+DROP TABLE BloodSamples
 DROP TABLE MaterialWorkOrders
 DROP TABLE MedicineWorkOrders
 DROP TABLE PatientWorkOrders
@@ -16,5 +16,8 @@ DROP TABLE Districts
 DROP TABLE Contractors
 DROP TABLE Roles
 DROP TABLE PostOffices
+DROP TABLE ActivityInputWorkOrders
+DROP TABLE ActivityInputs
 DROP TABLE Activities
+DROP TABLE Services
 DROP TABLE IpLogs

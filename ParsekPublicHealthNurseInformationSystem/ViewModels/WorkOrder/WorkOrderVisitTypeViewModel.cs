@@ -12,15 +12,15 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         private EntityDataModel DB = new EntityDataModel();
 
         [Display(Name = "Seznam aktivnosti")]
-        public List<Activity> Activities { get; set; }
+        public List<Service> Services { get; set; }
 
         [Display(Name = "Tip obiska")]
         [Required(ErrorMessage = "Polje je obvezno")]
-        public int SelectedActivityId { get; set; }
+        public int SelectedServiceId { get; set; }
 
         public void CreateWorkOrderVisitTypeViewModel(bool isDoctor)
         {
-            Activities = isDoctor ? DB.Activities.ToList() : DB.Activities.Where(x => x.PreventiveVisit == true).ToList();
+            Services = isDoctor ? DB.Services.ToList() : DB.Services.Where(x => x.PreventiveVisit == true).ToList();
         }
     }
 }
