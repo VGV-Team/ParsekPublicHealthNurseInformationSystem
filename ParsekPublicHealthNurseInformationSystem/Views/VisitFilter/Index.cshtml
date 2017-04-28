@@ -1,0 +1,236 @@
+﻿@model ParsekPublicHealthNurseInformationSystem.ViewModels.VisitFilterViewModel
+
+@{
+    ViewBag.Title = "Izpis obiskov";
+}
+
+<h2>Pregled obiskov</h2>
+
+@using (Html.BeginForm("Filter", "VisitFilter", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="well">
+
+
+            <div class="btn-group">
+                <button onclick="return false;" class="btn btn-info form-control " data-toggle="collapse" data-target="#Filters">Filtriranje</button>
+            </div>
+
+            <br />
+
+            <div id="Filters" class="collapse">
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateStart, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DateStart, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateStartConfirmed, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DateStartConfirmed, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateEndConfirmed, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DateEndConfirmed, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Vrsta obiska", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.VisitType, "-- Vsi --", new { @class = "form-control dropdown", @id = "JobTitleDropdown" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Issuers, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @if (((ParsekPublicHealthNurseInformationSystem.Models.User)Session["user"]).Employee.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor)
+                        {
+                            @Html.DropDownListFor(model => model.SelectedIssuerId, new SelectList(Model.Issuers, "EmployeeId", "DisplayName"), htmlAttributes: new { @class = "form-control dropdown" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.SelectedIssuerId, new SelectList(Model.Issuers, "EmployeeId", "DisplayName"), "-- Vsi --", htmlAttributes: new { @class = "form-control dropdown" })
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Patients, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SelectedPatientId, new SelectList(Model.Patients, "PatientId", "DisplayName"), "-- Vsi --", htmlAttributes: new { @class = "form-control dropdown" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nurse, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @if (((ParsekPublicHealthNurseInformationSystem.Models.User)Session["user"]).Employee.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.HealthNurse)
+                        {
+                            @Html.DropDownListFor(model => model.SelectedNurseId, new SelectList(Model.Nurse, "EmployeeId", "DisplayName"), htmlAttributes: new { @class = "form-control dropdown" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.SelectedNurseId, new SelectList(Model.Nurse, "EmployeeId", "DisplayName"), "-- Vse --", htmlAttributes: new { @class = "form-control dropdown" })
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NurseReplacement, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @if (((ParsekPublicHealthNurseInformationSystem.Models.User)Session["user"]).Employee.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.HealthNurse)
+                        {
+                            @Html.DropDownListFor(model => model.SelectedNurseReplacementId, new SelectList(Model.NurseReplacement, "EmployeeId", "DisplayName"), htmlAttributes: new { @class = "form-control dropdown" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.SelectedNurseReplacementId, new SelectList(Model.NurseReplacement, "EmployeeId", "DisplayName"), "-- Vse --", htmlAttributes: new { @class = "form-control dropdown" })
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Opravljeni obiski", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.VisitDone, "-- Vsi --", new { @class = "form-control dropdown" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Filtriraj" class="btn btn-default" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="">
+
+            <h3>Obiski, ki ustrezajo filtrom: </h3>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Vrsta obiska</th>
+                        <th>Predviden datum</th>
+                        <th>Dejanski datum</th>
+                        <th>Izdajatelj</th>
+                        <th>Zadolžena sestra</th>
+                        <th>Nadomestna sestra</th>
+                        <th>Preventivni</th>
+                        <th>Pacient(i)</th>
+                        <th>Opravljen</th>
+                        <th>Podrobnosti</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.Visits.Count; i++)
+                    {
+                        <tr>
+                            @{
+
+
+                                ParsekPublicHealthNurseInformationSystem.Models.Visit v = Model.Visits[i];
+
+
+
+                                string WOIssuerTitle = v.WorkOrder.Issuer.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor ?
+                                "Doktor" : "Vodja";
+                            }
+
+
+                            <td>@v.WorkOrder.Name</td>
+                            <td>@v.Date.ToString("dd. MM. yyyy")</td>
+                            <td>@v.DateConfirmed.ToString("dd. MM. yyyy")</td>
+                            <td>@v.WorkOrder.Issuer.Name @v.WorkOrder.Issuer.Surname, @WOIssuerTitle</td>
+                            <td>@v.WorkOrder.Nurse.Name @v.WorkOrder.Nurse.Surname</td>
+                            @if (@v.WorkOrder.NurseReplacement != null)
+                            {
+                                <td>@v.WorkOrder.NurseReplacement.Name @v.WorkOrder.NurseReplacement.Surname</td>
+                            }
+                            else
+                            {
+                                <td>/</td>
+                            }
+                            @if (@v.WorkOrder.Service.PreventiveVisit)
+                            {
+                                <td>da</td>
+                            }
+                            else
+                            {
+                                <td>ne</td>
+                            }
+
+                            <td>
+                                <!-- CHENGE LATER IF WE NEED TO DISPLAY PARENT AND CHILD SEPARATELY -->
+
+                                @if (v.WorkOrder.Patient != null)
+                                {
+                                    <span>@v.WorkOrder.Patient.Name @v.WorkOrder.Patient.Surname</span>
+                                }
+                                else
+                                {
+                                    <span>/</span>
+                                }
+
+                                @for (int j = 0; j < v.WorkOrder.PatientWorkOrders.Count; j++)
+                                {
+
+                                    ParsekPublicHealthNurseInformationSystem.Models.PatientWorkOrder PWO =
+                                        v.WorkOrder.PatientWorkOrders.ElementAt(j);
+
+                                    <span>, @PWO.Patient.Name @PWO.Patient.Surname &nbsp;</span>
+                                }
+                            </td>
+
+                            @if (@v.DateConfirmed < DateTime.Now)
+                            {
+                                <td>da</td>
+                            }
+                            else
+                            {
+                                <td>ne</td>
+                            }
+
+                            <td>
+                                @Html.ActionLink("Podrobnosti", "Index", "VisitDetails", new { visitId = v.VisitId }, new { @class = "btn btn-primary", @style = "color:white" })
+                            </td>
+                        </tr>
+                                }
+
+
+
+                </tbody>
+            </table>
+
+
+
+        </div>
+
+    </div>
+                                }

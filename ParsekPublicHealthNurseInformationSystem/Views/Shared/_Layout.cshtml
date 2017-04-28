@@ -93,6 +93,7 @@
                     @if (IsNurse || IsHead || IsDoctor)
                     {
                         <li>@Html.ActionLink("Izpis DN", "Index", "WOFilter")</li>
+                        <li>@Html.ActionLink("Izpis obiskov", "Index", "VisitFilter")</li>
                     }
                     @if (IsHead || IsDoctor)
                     {
