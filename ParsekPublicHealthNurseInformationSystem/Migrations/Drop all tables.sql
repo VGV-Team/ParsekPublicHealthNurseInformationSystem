@@ -5,6 +5,9 @@ DROP TABLE MedicineWorkOrders
 DROP TABLE PatientWorkOrders
 DROP TABLE Materials
 DROP TABLE Medicines
+DROP TABLE ActivityInputDatas
+DROP TABLE ActivityInputs
+DROP TABLE Activities
 DROP TABLE Visits
 DROP TABLE WorkOrders
 DROP TABLE Employees
@@ -16,8 +19,5 @@ DROP TABLE Districts
 DROP TABLE Contractors
 DROP TABLE Roles
 DROP TABLE PostOffices
-DROP TABLE ActivityInputWorkOrders
-DROP TABLE ActivityInputs
-DROP TABLE Activities
-DROP TABLE Services
 DROP TABLE IpLogs
+DROP TABLE Services

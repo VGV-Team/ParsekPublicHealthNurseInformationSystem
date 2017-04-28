@@ -43,6 +43,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public virtual DbSet<BloodSample> BloodSamples { get; set; }
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<ActivityInput> ActivityInputs { get; set; }
+        public virtual DbSet<ActivityInputData> ActivityInputDatas { get; set; }
     }
 
     //public class MyEntity

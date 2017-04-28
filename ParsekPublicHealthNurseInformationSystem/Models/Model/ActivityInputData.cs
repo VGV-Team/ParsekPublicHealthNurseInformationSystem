@@ -6,10 +6,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ParsekPublicHealthNurseInformationSystem.Models
 {
-    public class ActivityInputWorkOrder
+    public class ActivityInputData
     {
         [Key]
-        public int ActivityInputWorkOrderId { get; set; }
+        public int ActivityInputDataId { get; set; }
 
         public string Value { get; set; }
 

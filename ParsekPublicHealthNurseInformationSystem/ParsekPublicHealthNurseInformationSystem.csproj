@@ -160,7 +160,7 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RESTController.cs" />
     <Compile Include="Controllers\VisitPlannerController.cs" />
-    <Compile Include="Controllers\VisitsController.cs" />
+    <Compile Include="Controllers\VisitController.cs" />
     <Compile Include="Controllers\WODetailsController.cs" />
     <Compile Include="Controllers\WOFilterController.cs" />
     <Compile Include="Controllers\WorkOrderController.cs" />
@@ -170,7 +170,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model\Activity.cs" />
     <Compile Include="Models\Model\ActivityInput.cs" />
-    <Compile Include="Models\Model\ActivityInputWorkOrder.cs" />
+    <Compile Include="Models\Model\ActivityInputData.cs" />
     <Compile Include="Models\Model\Service.cs" />
     <Compile Include="Models\Model\AuthorizationFilter.cs" />
     <Compile Include="Models\Model\IpLog.cs" />
@@ -309,7 +309,7 @@
     <Content Include="Views\VisitPlanner\Index - Copy.cshtml" />
     <Content Include="Views\WODetails\Index.cshtml" />
     <Content Include="Views\VisitPlanner\Index - Copy %282%29.cshtml" />
-    <Content Include="Views\Visits\Index.cshtml" />
+    <Content Include="Views\Visit\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,100 @@
+﻿@using ParsekPublicHealthNurseInformationSystem.ViewModels
+@model ParsekPublicHealthNurseInformationSystem.ViewModels.VisitViewModel
+
+@{
+    ViewBag.Title = "Obisk";
+}
+
+<h2>Nov delovni nalog</h2>
+
+@using (Html.BeginForm("EnterData", "Visit"))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.VisitId)
+
+
+    int count = 0;
+
+    for (int i = 0; i < Model.ActivityInputs.Count; i++)
+    {
+        <div>
+            @Model.ActivityInputs[i].ActivityTitle
+
+
+
+
+            @for (int j = 0; j < Model.ActivityInputs[i].ActivityInputDatas.Count; j++)
+            {
+                <div class="form-group">
+                    @Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputTitle
+                    
+                    @Html.HiddenFor(x => x.ActivityInputIds[count])
+                    
+                    @Html.TextBoxFor(x => x.ActivityInputValues[count])
+                </div>
+
+                //@Html.TextBoxFor(x => x.ActivityInputIds[count])
+                //<input type="text" id="ActivityInputValues_@count" value="text" />
+                //<input type="hidden" id="ActivityInputIds_@count" value="@Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputId" />
+
+
+
+                // ActivityInputId[count] = [i][j]
+                // input [count]
+
+                count++;
+            }
+
+        </div>
+    }
+
+    /*
+    foreach (var activityInput in Model.ActivityInputs)
+    {
+        <div>
+            @activityInput.ActivityTitle
+
+
+
+            @foreach (var activityInputData in activityInput.ActivityInputDatas)
+{
+                
+                //activityInputData.ActivityInputId;
+                //activityInputData.ActivityInputTitle;
+                //activityInputData.ActivityInputValue;
+                
+
+            <div class="form-group">
+                @activityInputData.ActivityInputTitle
+            </div>
+
+                
+                //<div class="form-group">
+                //    @Html.Label(activityInputData.ActivityInputTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                //    <div class="col-md-10">
+                //        @Html.Editor(activityInputData.ActivityInputValue, activityInputData.ActivityInputId.ToString(), new { htmlAttributes = new { @class = "form-control" } })
+                //        @Html.ValidationMessage(activityInputData.ActivityInputId.ToString(), "", new { @class = "text-danger" })
+                //    </div>
+                //</div>
+                
+            }
+        </div>
+    }
+    */
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Shrani" class="btn btn-default" />
+        </div>
+    </div>
+
+    /*
+    <div class="form-group">
+        @Html.LabelFor(model => model.InputData, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.InputData, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.InputData, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    */
+}

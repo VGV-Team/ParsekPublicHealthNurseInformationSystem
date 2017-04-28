@@ -18,7 +18,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual Activity Activity { get; set; }
 
-        public virtual ICollection<ActivityInputWorkOrder> Activities { get; set; }
+        public virtual ICollection<ActivityInputData> ActivityInputDatas { get; set; }
 
         // TODO: dropdown generation
     }

@@ -30,6 +30,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual WorkOrder WorkOrder { get; set; }
 
-        public virtual ICollection<ActivityInputWorkOrder> Activities { get; set; }
+        public virtual ICollection<ActivityInputData> ActivityInputDatas { get; set; }
     }
 }
