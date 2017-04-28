@@ -39,6 +39,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 return View("Index", lvm);
         }
 
+        public ActionResult Login()
+        {
+            return Index();
+        }
+
         [HttpPost]
         public ActionResult Login(LoginViewModel lvm)
         {
