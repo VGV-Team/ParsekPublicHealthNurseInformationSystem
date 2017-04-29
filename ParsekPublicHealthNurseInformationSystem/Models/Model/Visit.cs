@@ -24,7 +24,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public bool Confirmed { get; set; }
 
 
-        //public string InputData { get; set; }
 
 
         //public bool Completed { get; set; }
