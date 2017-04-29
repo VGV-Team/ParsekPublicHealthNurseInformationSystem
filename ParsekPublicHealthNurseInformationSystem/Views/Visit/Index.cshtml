@@ -31,7 +31,16 @@
                     
                     @Html.HiddenFor(x => x.ActivityInputIds[count])
                     
-                    @Html.TextBoxFor(x => x.ActivityInputValues[count])
+                    @if (Model.ActivityInputs[i].ActivityInputDatas[j].ReadOnly)
+                    {
+                        @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @readonly = "true" })
+                        <p>Vrednost prenešena iz prvega obiska</p>
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(x => x.ActivityInputValues[count])
+                    }
+
                 </div>
 
                 //@Html.TextBoxFor(x => x.ActivityInputIds[count])

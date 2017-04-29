@@ -35,7 +35,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vvm.ActivityInputValues = new List<string>();
 
 
-            List<Activity> activities = db.Activities.Where(x => x.Service.ServiceId == visit.VisitId).ToList();
+            List<Activity> activities = db.Activities.Where(x => x.Service.ServiceId == visit.WorkOrder.Service.ServiceId).ToList();
             for (int i = 0; i < activities.Count; i++)
             {
                 VisitViewModel.Input inputs = new VisitViewModel.Input();
@@ -44,19 +44,51 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 int activityId = activities[i].ActivityId;
                 List<ActivityInput> activityInputs = db.ActivityInputs.Where(x => x.Activity.ActivityId == activityId).ToList();
                 inputs.ActivityInputDatas = new List<VisitViewModel.Input.InputData>();
+
+                List<Visit> visits = visit.WorkOrder.Visits.ToList();
+                visits.Sort((x, y) => DateTime.Compare(y.DateConfirmed, x.DateConfirmed));
+                Visit firstVisit = visits.First();
+
                 foreach (var activityInput in activityInputs)
                 {
                     VisitViewModel.Input.InputData inputData = new VisitViewModel.Input.InputData();
                     inputData.ActivityInputId = activityInput.ActivityInputId;
                     inputData.ActivityInputTitle = activityInput.Title;
                     //inputData.ActivityInputValue = "";
+
+                    inputData.InputType = activityInput.InputType;
+                    inputData.Required = activityInput.Required;
+                    
+
+                    List<string> possibleValues = activityInput.PossibleValues.Split(new string[] { ";;" }, StringSplitOptions.None).ToList();
+                    inputData.PossibleValues = possibleValues;
+
+
+                    int correctVisitId; //correct = first or current
+
+                    inputData.ReadOnly = false;
+
+                    if (activityInput.OneTime)
+                    {
+                        correctVisitId = firstVisit.VisitId;
+                        if (visit.VisitId != correctVisitId)
+                            inputData.ReadOnly = true;
+                    }
+                    else
+                    {
+                        correctVisitId = visit.VisitId;
+                        
+                    }
+                    ActivityInputData input = db.ActivityInputDatas.FirstOrDefault(x => x.ActivityInput.ActivityInputId == inputData.ActivityInputId &&
+                                                                                                      x.Visit.VisitId == correctVisitId);
+                    vvm.ActivityInputValues.Add(input == null ? "" : input.Value);
+
+
                     inputs.ActivityInputDatas.Add(inputData);
 
                     vvm.ActivityInputIds.Add(activityInput.ActivityInputId);
 
-                    ActivityInputData input = db.ActivityInputDatas.FirstOrDefault(x => x.ActivityInput.ActivityInputId == inputData.ActivityInputId &&
-                                                                                                        x.Visit.VisitId == visit.VisitId);
-                    vvm.ActivityInputValues.Add(input == null ? "" : input.Value);
+                   
                 }
 
                 vvm.ActivityInputs.Add(inputs);

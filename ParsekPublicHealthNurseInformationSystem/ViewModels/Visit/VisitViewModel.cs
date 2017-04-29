@@ -31,6 +31,14 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
                 public int ActivityInputId;
                 public string ActivityInputTitle;
                 //public string ActivityInputValue;
+
+                public bool Required;
+                public bool ReadOnly;
+
+                public ActivityInput.InputTypeEnum InputType;
+
+                // Dropdown possible values
+                public List<string> PossibleValues;
             }
         }
     }
