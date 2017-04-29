@@ -152,7 +152,7 @@
         @for (int i = 0; i < Model.Visits.Count; i++)
         {
             <dd>
-                @Model.Visits.ElementAt(i) @Html.ActionLink("Podrobnosti", "Details", "VisitDetails", new { visitId = Model.VisitIds.ElementAt(i) })
+                @Model.Visits.ElementAt(i) @Html.ActionLink("Podrobnosti", "Index", "VisitDetails", new { visitId = @Model.VisitIds.ElementAt(i) }, new { @class = "btn btn-primary", @style = "color:white;" })
             </dd>
         }
 

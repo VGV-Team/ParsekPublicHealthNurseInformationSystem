@@ -1,0 +1,83 @@
+﻿@model ParsekPublicHealthNurseInformationSystem.ViewModels.VisitDetailsViewModel
+
+@{
+    ViewBag.Title = "Podrobnosti obiska";
+}
+
+<h2>Podrobnosti obiska</h2>
+<hr />
+
+<div>
+    
+
+    @if (Model.Visit == null)
+    {
+        <h3>Obisk ne obstaja</h3>
+    }
+    else
+    {
+
+        <h3>Splošno</h3>
+
+        <hr/>
+
+        <dl class="dl-horizontal">
+
+            <dt>Storitev</dt>
+            <dd>@Model.Visit.WorkOrder.Service.ServiceTitle [@Model.Visit.WorkOrder.Service.ServiceCode]</dd>
+
+            <dt>Predviden datum</dt>
+            <dd>@Model.Visit.Date.ToString("dd. MM. yyyy")</dd>
+
+            <dt>Dejanski datum</dt>
+            <dd>@Model.Visit.DateConfirmed.ToString("dd. MM. yyyy")</dd>
+
+            <dt>Pacient</dt>
+            @if (Model.Visit.WorkOrder.Patient != null)
+            {
+                <dd>@Model.Visit.WorkOrder.Patient.FullNameWithCode</dd>
+            }
+            else
+            {
+                <dd>@Model.Visit.WorkOrder.PatientWorkOrders.First().Patient.FullNameWithCode</dd>
+            }
+
+            <dt>Zadolžena sestra</dt>
+            @if (Model.Visit.WorkOrder.NurseReplacement != null)
+            {
+                <dd>@Model.Visit.WorkOrder.Nurse.FullName - nadomešča @Model.Visit.WorkOrder.NurseReplacement.FullName</dd>
+            }
+            else
+            {
+                <dd>@Model.Visit.WorkOrder.Nurse.FullName</dd>
+            }
+
+            <dt>Opravljen</dt>
+            @if (Model.Visit.DateConfirmed < DateTime.Now)
+            {
+                <dd>Da</dd>
+            }
+            else
+            {
+                <dd>Ne</dd>
+            }
+
+        </dl>
+
+        <h3>Meritve</h3>
+
+        <hr/>
+
+        <dl class="dl-horizontal">
+
+            @for (int i = 0; i < Model.Visit.ActivityInputDatas.Count; i++)
+            {
+                <dt>@Model.Visit.ActivityInputDatas.ElementAt(i).ActivityInput.Title</dt>
+                <dd>@Model.Visit.ActivityInputDatas.ElementAt(i).Value</dd>
+            }
+
+        </dl>
+    }
+
+    
+</div>

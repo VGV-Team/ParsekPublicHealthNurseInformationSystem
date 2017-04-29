@@ -12,21 +12,25 @@
 {
     @Html.AntiForgeryToken()
 
-    @Html.HiddenFor(m => m.SelectedServiceId)
+    <div class="form-horizontal">
+
+        <hr />
+
+        @Html.HiddenFor(m => m.SelectedServiceId)
 
 
-    @Html.Raw(Model.GenerateDropDown(Model.AllPatients, "PatientId", false))
-    <div class="form-group">
-        @Html.LabelFor(model => model.PatientId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PatientId, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+        @Html.Raw(Model.GenerateDropDown(Model.AllPatients, "PatientId", false))
+        <div class="form-group">
+            @Html.LabelFor(model => model.PatientId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PatientId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    @Html.HiddenFor(m => m.EnterPatients)
-    if (Model.EnterPatients)
-    {
+        @Html.HiddenFor(m => m.EnterPatients)
+        @if (Model.EnterPatients)
+        {
         <div class="form-group">
             @Html.LabelFor(model => model.PatientIds, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -40,7 +44,7 @@
 
             var availableTags = [];
 
-            $('#PatientId').ready(function() {
+            $('#PatientId').ready(function () {
                 if ($("#PatientIds").val() !== "") {
                     $.getJSON(url,
                         { FullNameWithCode: $("#PatientId").val() },
@@ -75,7 +79,7 @@
             $("#PatientIds")
                 // don't navigate away from the field on tab when selecting an item
                 .on("keydown", function (event) {
-                    
+
                     if (event.keyCode === $.ui.keyCode.TAB &&
                         $(this).autocomplete("instance").menu.active) {
                         event.preventDefault();
@@ -105,114 +109,113 @@
                     }
                 });
         </script>
-    }
+        }
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.DateTimeOfFirstVisit, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DateTimeOfFirstVisit, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DateTimeOfFirstVisit, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.MandatoryFirstVisit, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.MandatoryFirstVisit)
-                @Html.ValidationMessageFor(model => model.MandatoryFirstVisit, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.MultipleVisits, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.MultipleVisits)
-                @Html.ValidationMessageFor(model => model.MultipleVisits, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-
-    <div id="timeEntry" class="form-group" hidden>
         <div class="form-group">
-            @Html.LabelFor(model => model.NumberOfVisits, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DateTimeOfFirstVisit, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NumberOfVisits, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NumberOfVisits, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.DateTimeOfFirstVisit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateTimeOfFirstVisit, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TimeType, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.MandatoryFirstVisit, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(x => x.TimeType, "-- Izberi --", new { @class = "form-control dropdown" })
-                @Html.ValidationMessageFor(model => model.TimeType, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div id=@WorkOrderViewModel.VisitTimeType.TimeInterval style="display: none;">
-            <div class="form-group">
-                @Html.LabelFor(model => model.TimeInterval, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TimeInterval, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TimeInterval, "", new { @class = "text-danger" })
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.MandatoryFirstVisit)
+                    @Html.ValidationMessageFor(model => model.MandatoryFirstVisit, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div id=@WorkOrderViewModel.VisitTimeType.TimeFrame style="display: none;">
-            <div class="form-group">
-                @Html.LabelFor(model => model.TimeFrame, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TimeFrame, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TimeFrame, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MultipleVisits, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.MultipleVisits)
+                    @Html.ValidationMessageFor(model => model.MultipleVisits, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <script>
-            $('#TimeType').on('change',
-                function () {
-                    $(@WorkOrderViewModel.VisitTimeType.TimeInterval).hide();
-                    $(@WorkOrderViewModel.VisitTimeType.TimeFrame).hide();
-                    switch (this.value)
-                    {
-                    case "1":
-                        $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
-                        break;
-                    case "2":
-                        $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
-                        break;
-                    }
+
+
+        <div id="timeEntry" hidden>
+            <div class="form-group">
+                @Html.LabelFor(model => model.NumberOfVisits, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NumberOfVisits, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NumberOfVisits, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(x => x.TimeType, "-- Izberi --", new { @class = "form-control dropdown" })
+                    @Html.ValidationMessageFor(model => model.TimeType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div id=@WorkOrderViewModel.VisitTimeType.TimeInterval style="display: none;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TimeInterval, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TimeInterval, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TimeInterval, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div id=@WorkOrderViewModel.VisitTimeType.TimeFrame style="display: none;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TimeFrame, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TimeFrame, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TimeFrame, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <script>
+                $('#TimeType').on('change',
+                    function () {
+                        $(@WorkOrderViewModel.VisitTimeType.TimeInterval).hide();
+                        $(@WorkOrderViewModel.VisitTimeType.TimeFrame).hide();
+                        switch (this.value) {
+                            case "1":
+                                $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
+                                break;
+                            case "2":
+                                $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
+                                break;
+                        }
+                    });
+            </script>
+
+
+            <script type="text/javascript">
+                if ($("#MultipleVisits").is(":checked")) {
+                    $("#timeEntry").show();
+                }
+
+                if ($("#TimeType").val() == "1") {
+                    $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
+                }
+                if ($("#TimeType").val() == "2") {
+                    $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
+                }
+
+                $(function () {
+                    $("#MultipleVisits").click(function () {
+                        if ($(this).is(":checked")) {
+                            $("#timeEntry").show();
+                        } else {
+                            $("#timeEntry").hide();
+                        }
+                    });
                 });
-        </script>
+            </script>
 
-
-        <script type="text/javascript">
-            if ($("#MultipleVisits").is(":checked")) {
-                $("#timeEntry").show();
-            }
-
-            if ($("#TimeType").val() == "1") {
-                $(@WorkOrderViewModel.VisitTimeType.TimeFrame).show();
-            }
-            if ($("#TimeType").val() == "2") {
-                $(@WorkOrderViewModel.VisitTimeType.TimeInterval).show();
-            }
-
-            $(function () {
-                $("#MultipleVisits").click(function () {
-                    if ($(this).is(":checked")) {
-                        $("#timeEntry").show();
-                    } else {
-                        $("#timeEntry").hide();
-                    }
-                });
-            });
-        </script>
-
-    </div>
+        </div>
 
 
 
@@ -268,7 +271,8 @@
                 <input type="submit" value="Naprej" class="btn btn-default" />
             </div>
         </div>
-        }
+    </div>
+}
 
         <div>
             @Html.ActionLink("Prekliči", "Index", "Home")
