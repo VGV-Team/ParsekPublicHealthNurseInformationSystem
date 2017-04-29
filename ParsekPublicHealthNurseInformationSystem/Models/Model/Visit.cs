@@ -24,9 +24,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public bool Confirmed { get; set; }
 
 
-        public string InputData { get; set; }
-
-
 
         public virtual WorkOrder WorkOrder { get; set; }
 

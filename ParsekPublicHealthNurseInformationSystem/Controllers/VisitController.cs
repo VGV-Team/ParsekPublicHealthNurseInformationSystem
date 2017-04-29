@@ -18,79 +18,104 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         // GET: Visits
         public ActionResult Index(int id)
         {
-            // TODO: return correct visit
-            
+            // TODO: this should let user fill in general data, for patient specific data they should enter it on sperate page
+
             Visit visit = db.Visits.FirstOrDefault(x => x.VisitId == id);
+            if(visit != null)
+                return RedirectToAction("EnterData", "Visit", new { visitId = id, patientId = visit.WorkOrder.Patient.PatientId });
+            else
+                return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult EnterData(int visitId, int patientId)
+        {
+            // TODO: return correct visit
+
+            // Get correct visit
+            Visit visit = db.Visits.FirstOrDefault(x => x.VisitId == visitId);
+            if (visit == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Get correct patient
+            Patient patient = null;
+            if (visit.WorkOrder.Patient.PatientId == patientId)
+            {
+                patient = visit.WorkOrder.Patient;
+            }
+            else
+            {
+
+
+                // FIXIT: Problem with lazy loading...
+                //PatientWorkOrder pwo = db.PatientWorkOrders.FirstOrDefault(x => x.Patient.PatientId == patientId &&
+                //                                         x.WorkOrder.WorkOrderId == visit.WorkOrder.WorkOrderId);
+
+                patient = db.Patients.FirstOrDefault(x => x.PatientId == patientId && 
+                                                            x.PatientWorkOrders.FirstOrDefault(y => y.WorkOrder.WorkOrderId == visit.WorkOrder.WorkOrderId) != null);
+
+                if (patient == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
 
             // todo: select auto fill values
             // select all activities
             // select all visit inputs
+            // select activities for required patient
 
 
 
             VisitViewModel vvm = new VisitViewModel();
             vvm.VisitId = visit.VisitId;
+            vvm.PatientId = patient.PatientId;
             vvm.ActivityInputs = new List<VisitViewModel.Input>();
             vvm.ActivityInputIds = new List<int>();
             vvm.ActivityInputValues = new List<string>();
 
-
-            List<Activity> activities = db.Activities.Where(x => x.Service.ServiceId == visit.VisitId).ToList();
-            for (int i = 0; i < activities.Count; i++)
+            // Select all activities for selected service.
+            List<Activity> activities = db.Activities.Where(x => x.Service.ServiceId == visit.WorkOrder.Service.ServiceId).ToList();
+            foreach (Activity activity in activities)
             {
                 VisitViewModel.Input inputs = new VisitViewModel.Input();
-                inputs.ActivityTitle = activities[i].ActivityTitle;
+                inputs.ActivityTitle = activity.ActivityTitle;
 
-                int activityId = activities[i].ActivityId;
-                List<ActivityInput> activityInputs = db.ActivityInputs.Where(x => x.Activity.ActivityId == activityId).ToList();
+                // Select all inputs for selected activity.
+                List<ActivityInput> activityInputs = db.ActivityInputs.Where(x => x.Activity.ActivityId == activity.ActivityId).ToList();
                 inputs.ActivityInputDatas = new List<VisitViewModel.Input.InputData>();
+
+                // Generate list of input values and titles.
                 foreach (var activityInput in activityInputs)
                 {
                     VisitViewModel.Input.InputData inputData = new VisitViewModel.Input.InputData();
                     inputData.ActivityInputId = activityInput.ActivityInputId;
                     inputData.ActivityInputTitle = activityInput.Title;
-                    //inputData.ActivityInputValue = "";
                     inputs.ActivityInputDatas.Add(inputData);
 
                     vvm.ActivityInputIds.Add(activityInput.ActivityInputId);
 
-                    ActivityInputData input = db.ActivityInputDatas.FirstOrDefault(x => x.ActivityInput.ActivityInputId == inputData.ActivityInputId &&
-                                                                                                        x.Visit.VisitId == visit.VisitId);
+                    // Check database if any input already already exists.
+                    ActivityInputData input = db.ActivityInputDatas.FirstOrDefault(x => x.ActivityInput.ActivityInputId == activityInput.ActivityInputId &&
+                                                                                        x.Visit.VisitId == visit.VisitId &&
+                                                                                        x.Patient.PatientId == patient.PatientId);
                     vvm.ActivityInputValues.Add(input == null ? "" : input.Value);
+
                 }
 
                 vvm.ActivityInputs.Add(inputs);
-
             }
 
-
-            return View(vvm);
+            return View("Index", vvm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EnterData(VisitViewModel vvm)
+        public ActionResult SaveData(VisitViewModel vvm)
         {
-            // TODO: check if we can save only once instead of in loop
             // TODO: do validation
-
-            /*
-            for (int i = 0; i < vvm.ActivityInputs.Count; i++)
-            {
-                for (int j = 0; j < vvm.ActivityInputs[i].ActivityInputDatas.Count; j++)
-                {
-                    ActivityInputData aiwo = new ActivityInputData();
-
-                    aiwo.Value = vvm.ActivityInputs[i].ActivityInputDatas[j].ActivityInputValue;
-                    aiwo.Visit = db.Visits.FirstOrDefault(x => x.VisitId == vvm.VisitId);
-
-                    int activityInputId = vvm.ActivityInputs[i].ActivityInputDatas[j].ActivityInputId;
-                    aiwo.ActivityInput = db.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == activityInputId);
-
-                    db.ActivityInputDatas.Add(aiwo);
-                }
-            }
-            */
+            // TODO: multiple patients
 
             for (int i = 0; i < vvm.ActivityInputIds.Count; i++)
             {
@@ -103,17 +128,18 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     aiwo.Visit = db.Visits.FirstOrDefault(x => x.VisitId == vvm.VisitId);
                     aiwo.ActivityInput = db.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == activityInputId);
                     aiwo.Value = vvm.ActivityInputValues[i];
+                    aiwo.Patient = db.Patients.FirstOrDefault(x => x.PatientId == vvm.PatientId);
                     db.ActivityInputDatas.Add(aiwo);
-                    db.SaveChanges();
                 }
                 else
                 {
                     aiwo.Value = vvm.ActivityInputValues[i];
-                    db.SaveChanges();
                 }
             }
 
-            return RedirectToAction("Index", "Visit", new { id = vvm.VisitId } );
+            db.SaveChanges();
+
+            return RedirectToAction("EnterData", "Visit", new { visitId = vvm.VisitId, patientId = vvm.PatientId } );
         }
     }   
 }

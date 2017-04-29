@@ -2,10 +2,10 @@
 DROP TABLE BloodSamples
 DROP TABLE MaterialWorkOrders
 DROP TABLE MedicineWorkOrders
+DROP TABLE ActivityInputDatas
 DROP TABLE PatientWorkOrders
 DROP TABLE Materials
 DROP TABLE Medicines
-DROP TABLE ActivityInputDatas
 DROP TABLE ActivityInputs
 DROP TABLE Activities
 DROP TABLE Visits

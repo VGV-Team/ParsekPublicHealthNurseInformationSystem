@@ -7,12 +7,13 @@
 
 <h2>Nov delovni nalog</h2>
 
-@using (Html.BeginForm("EnterData", "Visit"))
+@using (Html.BeginForm("SaveData", "Visit"))
 {
     @Html.AntiForgeryToken()
 
     @Html.HiddenFor(m => m.VisitId)
 
+    @Html.HiddenFor(x => x.PatientId)
 
     int count = 0;
 
@@ -21,16 +22,13 @@
         <div>
             @Model.ActivityInputs[i].ActivityTitle
 
-
-
-
             @for (int j = 0; j < Model.ActivityInputs[i].ActivityInputDatas.Count; j++)
             {
                 <div class="form-group">
                     @Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputTitle
-                    
+
                     @Html.HiddenFor(x => x.ActivityInputIds[count])
-                    
+
                     @Html.TextBoxFor(x => x.ActivityInputValues[count])
                 </div>
 
