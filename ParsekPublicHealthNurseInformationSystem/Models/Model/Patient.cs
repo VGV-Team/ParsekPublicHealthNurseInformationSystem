@@ -38,7 +38,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public string ContactSurname { get; set; }
         public string ContactAddress { get; set; }
         public string ContactPhone { get; set; }
-        public Relationship ContactRelationship { get; set; }
+        public virtual Relationship ContactRelationship { get; set; }
         //
 
         public string FullName => $"{Surname} {Name}";

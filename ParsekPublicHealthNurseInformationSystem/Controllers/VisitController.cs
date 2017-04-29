@@ -49,15 +49,19 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
 
                 // FIXIT: Problem with lazy loading...
-                //PatientWorkOrder pwo = db.PatientWorkOrders.FirstOrDefault(x => x.Patient.PatientId == patientId &&
-                //                                         x.WorkOrder.WorkOrderId == visit.WorkOrder.WorkOrderId);
+                PatientWorkOrder pwo = db.PatientWorkOrders.FirstOrDefault(x => x.Patient.PatientId == patientId &&
+                                                         x.WorkOrder.WorkOrderId == visit.WorkOrder.WorkOrderId);
 
-                patient = db.Patients.FirstOrDefault(x => x.PatientId == patientId && 
-                                                            x.PatientWorkOrders.FirstOrDefault(y => y.WorkOrder.WorkOrderId == visit.WorkOrder.WorkOrderId) != null);
+                //patient = db.Patients.FirstOrDefault(x => x.PatientId == patientId && 
+                //                                            x.PatientWorkOrders.FirstOrDefault(y => y.WorkOrder.WorkOrderId == visit.WorkOrder.WorkOrderId) != null);
 
-                if (patient == null)
+                if (pwo == null)
                 {
                     return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    patient = pwo.Patient;
                 }
             }
 
