@@ -77,6 +77,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             // Select all activities for selected service.
             List<Activity> activities = db.Activities.Where(x => x.Service.ServiceId == visit.WorkOrder.Service.ServiceId).ToList();
+
+            List<Visit> visits = visit.WorkOrder.Visits.ToList();
+            //visits.Sort((x, y) => x.DateConfirmed.CompareTo(y.DateConfirmed));
+            visits = visits.OrderBy(v => v.DateConfirmed).ToList();
+            Visit firstVisit = visits.First();
+
             foreach (Activity activity in activities)
             {
                 VisitViewModel.Input inputs = new VisitViewModel.Input();
@@ -86,9 +92,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 List<ActivityInput> activityInputs = db.ActivityInputs.Where(x => x.Activity.ActivityId == activity.ActivityId).ToList();
                 inputs.ActivityInputDatas = new List<VisitViewModel.Input.InputData>();
 
-                List<Visit> visits = visit.WorkOrder.Visits.ToList();
-                visits.Sort((x, y) => DateTime.Compare(y.DateConfirmed, x.DateConfirmed));
-                Visit firstVisit = visits.First();
 
                 foreach (var activityInput in activityInputs)
                 {

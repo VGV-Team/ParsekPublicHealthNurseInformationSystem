@@ -32,7 +32,7 @@
                     @if (Model.ActivityInputs[i].ActivityInputDatas[j].ReadOnly)
                     {
                         @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @readonly = "true" })
-                        <p>Vrednost prenešena iz prvega obiska</p>
+                        <p style="color:mediumpurple;">Vrednost prenešena iz prvega obiska</p>
                     }
                     else
                     {

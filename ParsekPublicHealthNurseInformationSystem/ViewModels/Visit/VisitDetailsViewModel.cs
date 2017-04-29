@@ -8,5 +8,6 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
     public class VisitDetailsViewModel
     {
         public Models.Visit Visit { get; set; }
+        public List<Models.ActivityInput> ActivityInputs { get; set; }
     }
 }

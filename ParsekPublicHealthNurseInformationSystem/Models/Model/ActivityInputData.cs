@@ -13,7 +13,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public string Value { get; set; }
 
-        public ActivityInput ActivityInput { get; set; }
+        public virtual ActivityInput ActivityInput { get; set; }
 
         public Patient Patient { get; set; }
 
