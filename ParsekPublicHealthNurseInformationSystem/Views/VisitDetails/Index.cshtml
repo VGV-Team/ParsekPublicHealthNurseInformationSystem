@@ -68,19 +68,40 @@
 
         <hr/>
 
-        <dl class="dl-horizontal">
 
-            @for (int i = 0; i < Model.Visit.ActivityInputDatas.Count; i++)
-            {
 
-                <dt>@Model.Visit.ActivityInputDatas.ElementAt(i).ActivityInput.Title</dt>
-                if (@Model.Visit.ActivityInputDatas.ElementAt(i).Value != null)
-                {
-                    <dd>@Model.Visit.ActivityInputDatas.ElementAt(i).Value</dd>
+
+        int index = 0;
+        int counter = 0;
+
+
+        for (int i = 0; i < Model.Categories.Count; i++)
+        {
+            <h4>@Model.Categories.ElementAt(i)</h4>
+
+            <dl class="dl-horizontal">
+
+                @{ 
+                    counter = Model.CategoryItemCount.ElementAt(i);
                 }
-            }
 
-        </dl>
+                @for (int j = 0; j < counter; j++)
+                {
+                    <dt>
+                        @Model.ParsedDetailsTitles.ElementAt(index)
+                    </dt>
+                    <dd>
+                        @Model.ParsedDetails.ElementAt(index)
+                    </dd>
+
+                    index++;
+                }
+
+
+            </dl>
+        }
+
+       
     }
 
     

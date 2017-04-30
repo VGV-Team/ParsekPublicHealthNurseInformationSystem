@@ -17,23 +17,46 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         {
             VisitDetailsViewModel vm = new VisitDetailsViewModel();
 
+            vm.Categories = new List<string>();
+            vm.CategoryItemCount = new List<int>();
+            vm.ParsedDetails = new List<string>();
+            vm.ParsedDetailsTitles = new List<string>();
+
             if (visitId == null)
             {
-                vm.Visit = null;
-                vm.ActivityInputs = null;
+                //vm.Visit = null;
+                //vm.ActivityInputs = null;
             }
             else
             {
                 vm.Visit = DB.Visits.Find(visitId);
-                /*vm.ActivityInputs = new List<ActivityInput>();
-                for (int i = 0; i < vm.Visit.ActivityInputDatas.Count; i++)
+                Visit visit = vm.Visit;
+
+                visit.ActivityInputDatas.OrderBy(aid => aid.ActivityInput.Activity);
+
+                int oldId = -1;
+                int count = 0;
+                bool first = true;
+
+                for (int i = 0; i < visit.ActivityInputDatas.Count; i++)
                 {
-                    ActivityInputData AID = DB.ActivityInputDatas.Find(vm.Visit.ActivityInputDatas.ElementAt(i).ActivityInputDataId);
-                    vm.ActivityInputs.Add(AID.ActivityInput);
-                }*/
+                    if (oldId != visit.ActivityInputDatas.ElementAt(i).ActivityInput.Activity.ActivityId)
+                    {
+                        oldId = visit.ActivityInputDatas.ElementAt(i).ActivityInput.Activity.ActivityId;
+                        if (!first) vm.CategoryItemCount.Add(count);
+                        first = false;
+                        count = 0;
+                        vm.Categories.Add(visit.ActivityInputDatas.ElementAt(i).ActivityInput.Activity.ActivityTitle);
+                    }
+
+                    vm.ParsedDetailsTitles.Add(visit.ActivityInputDatas.ElementAt(i).ActivityInput.Title);
+                    vm.ParsedDetails.Add(visit.ActivityInputDatas.ElementAt(i).Value);
+                    count += 1;
+                }
+                vm.CategoryItemCount.Add(count);
             }
 
-            //ActivityInputData AI = DB.ActivityInputDatas.Find(1);
+            
            
             return View(vm);
         }
