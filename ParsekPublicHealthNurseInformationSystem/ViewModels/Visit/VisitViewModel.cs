@@ -9,11 +9,13 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
     public class VisitViewModel
     {
         // TODO: add date
-        // TODO: add required
 
         public int VisitId { get; set; }
 
         public int PatientId { get; set; }
+        
+        public Patient MainPatient { get; set; }
+        public List<Patient> ChildPatients { get; set; }
 
         public List<Input> ActivityInputs { get; set; }
 

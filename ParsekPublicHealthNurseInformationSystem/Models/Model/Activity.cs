@@ -16,6 +16,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public string ActivityTitle { get; set; }
 
+        [Required]
+        public bool GeneralActivity { get; set; }
+
         public virtual Service Service { get; set; }
 
         public virtual ICollection<ActivityInput> ActivityInputs { get; set; }

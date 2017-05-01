@@ -20,14 +20,18 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         {
             // TODO: this should let user fill in general data, for patient specific data they should enter it on sperate page
 
+            // generate all required fields
+            // get all required patients and generate url links
+
+
             Visit visit = db.Visits.FirstOrDefault(x => x.VisitId == id);
             if(visit != null)
-                return RedirectToAction("EnterData", "Visit", new { visitId = id, patientId = visit.WorkOrder.Patient.PatientId });
+                return RedirectToAction("EnterData", "Visit", new { visitId = id, generalOnly = true });
             else
                 return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult EnterData(int visitId, int patientId)
+        public ActionResult EnterData(int visitId, bool generalOnly = true, int? patientId = null)
         {
             // TODO: return correct visit
 
@@ -38,32 +42,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            // Get correct patient
-            Patient patient = null;
-            if (visit.WorkOrder.Patient.PatientId == patientId)
-            {
-                patient = visit.WorkOrder.Patient;
-            }
-            else
-            {
-
-
-                // FIXIT: Problem with lazy loading...
-                PatientWorkOrder pwo = db.PatientWorkOrders.FirstOrDefault(x => x.Patient.PatientId == patientId &&
-                                                         x.WorkOrder.WorkOrderId == visit.WorkOrder.WorkOrderId);
-
-                //patient = db.Patients.FirstOrDefault(x => x.PatientId == patientId && 
-                //                                            x.PatientWorkOrders.FirstOrDefault(y => y.WorkOrder.WorkOrderId == visit.WorkOrder.WorkOrderId) != null);
-
-                if (pwo == null)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    patient = pwo.Patient;
-                }
-            }
 
             // todo: select auto fill values
             // select all activities
@@ -74,10 +52,48 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             VisitViewModel vvm = new VisitViewModel();
             vvm.VisitId = visit.VisitId;
-            vvm.PatientId = patient.PatientId;
             vvm.ActivityInputs = new List<VisitViewModel.Input>();
             vvm.ActivityInputIds = new List<int>();
             vvm.ActivityInputValues = new List<string>();
+
+
+            if (!generalOnly)
+            {
+                // Get correct patient
+                Patient patient = null;
+                if (visit.WorkOrder.Patient.PatientId == patientId)
+                {
+                    patient = visit.WorkOrder.Patient;
+                }
+                else
+                {
+                    PatientWorkOrder pwo = db.PatientWorkOrders.FirstOrDefault(x => x.Patient.PatientId == patientId &&
+                                                             x.WorkOrder.WorkOrderId == visit.WorkOrder.WorkOrderId);
+
+                    if (pwo == null)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        patient = pwo.Patient;
+                    }
+                }
+                vvm.PatientId = patient.PatientId;
+            }
+            else
+            {
+                // Select all patients related to visit
+                vvm.MainPatient = db.Patients.FirstOrDefault(x => x.PatientId == visit.WorkOrder.Patient.PatientId);
+
+                List<Patient> patients = new List<Patient>();
+                foreach (var patientWorkOrders in visit.WorkOrder.PatientWorkOrders)
+                {
+                    patients.Add(patientWorkOrders.Patient);
+                }
+                vvm.ChildPatients = patients;
+
+            }
 
             // Select all activities for selected service.
             List<Activity> activities = db.Activities.Where(x => x.Service.ServiceId == visit.WorkOrder.Service.ServiceId).ToList();
@@ -89,6 +105,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             foreach (Activity activity in activities)
             {
+                if(generalOnly && !activity.GeneralActivity || !generalOnly && activity.GeneralActivity)
+                    continue;
+
                 VisitViewModel.Input inputs = new VisitViewModel.Input();
                 inputs.ActivityTitle = activity.ActivityTitle;
 

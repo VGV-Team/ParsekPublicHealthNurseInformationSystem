@@ -138,6 +138,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             #endregion
 
+            vm.Visits = vm.Visits.OrderBy(v => v.DateConfirmed).ToList();
+
             return View("Index", vm);
         }
 
