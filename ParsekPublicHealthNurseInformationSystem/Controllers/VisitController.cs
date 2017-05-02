@@ -11,6 +11,7 @@ using ParsekPublicHealthNurseInformationSystem.ViewModels;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
+    [AuthorizationFilter(Role.RoleEnum.Employee, Role.RoleEnum.Patient)]
     public class VisitController : Controller
     {
         private EntityDataModel db = new EntityDataModel();
@@ -18,17 +19,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         // GET: Visits
         public ActionResult Index(int id)
         {
-            // TODO: this should let user fill in general data, for patient specific data they should enter it on sperate page
-
-            // generate all required fields
-            // get all required patients and generate url links
-
-
-            Visit visit = db.Visits.FirstOrDefault(x => x.VisitId == id);
-            if(visit != null)
-                return RedirectToAction("EnterData", "Visit", new { visitId = id, generalOnly = true });
-            else
-                return RedirectToAction("Index", "Home");
+            return RedirectToAction("EnterData", "Visit", new { visitId = id, generalOnly = true });
         }
 
         public ActionResult EnterData(int visitId, bool generalOnly = true, int? patientId = null)
@@ -55,6 +46,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vvm.ActivityInputs = new List<VisitViewModel.Input>();
             vvm.ActivityInputIds = new List<int>();
             vvm.ActivityInputValues = new List<string>();
+            vvm.VisitDate = visit.DateConfirmed;
 
 
             if (!generalOnly)
