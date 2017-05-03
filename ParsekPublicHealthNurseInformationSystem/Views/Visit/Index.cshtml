@@ -6,7 +6,7 @@
     ViewBag.Title = "Obisk";
 }
 
-<h2>Urejanje obiska</h2>
+<h2>Podrobnosti obiska</h2>
 
 
 
@@ -35,30 +35,65 @@
         @Html.HiddenFor(m => m.VisitId)
         @Html.HiddenFor(m => m.PatientId)
 
+        if (Model.VisitDate.Date == DateTime.Now.AddDays(-1).Date)
+        {
+            <div>
+                <div class="form-group">
+                    Dejanski datum obiska:
+                    @Html.EditorFor(x => x.VisitDate, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        }
+        else if (Model.VisitDate.Date < DateTime.Now.AddDays(-1).Date)
+        {
+            <div>
+                <div class="form-group">
+                    Dejanski datum obiska:
+                    <span title="Čas za vnos podatkov je pretekel.">
+                        @Html.EditorFor(x => x.VisitDate, new { htmlAttributes = new { @class = "form-control", @disabled="disabled" } })
+                    </span>
+                </div>
+            </div>
+        }
+
         int count = 0;
 
         for (int i = 0; i < Model.ActivityInputs.Count; i++)
         {
             <div>
-                @Model.ActivityInputs[i].ActivityTitle
+                <label class="panel-title">@Model.ActivityInputs[i].ActivityTitle</label>
+                
 
                 @for (int j = 0; j < Model.ActivityInputs[i].ActivityInputDatas.Count; j++)
                 {
                     <div class="form-group">
-                        @Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputTitle
+
 
                         @Html.HiddenFor(x => x.ActivityInputIds[count])
-                    
-                        @if (Model.ActivityInputs[i].ActivityInputDatas[j].ReadOnly)
+
+
+
+                        @Html.Label(Model.ActivityInputIds[count].ToString(), Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputTitle, htmlAttributes: new {@class = "control-label col-md-2"})
+
+                        @if (Model.VisitDate.Date < DateTime.Now.AddDays(-1).Date)
                         {
-                            @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @readonly = "true" })
-                            <p style="color:mediumpurple;">Vrednost prenešena iz prvega obiska</p>
+                            <span title="Čas za vnos podatkov je pretekel.">
+                                @Html.TextBoxFor(x => x.ActivityInputValues[count], new {@class = "form-control", @disabled = "disabled"})
+                            </span>
+                        }
+                        else if (Model.ActivityInputs[i].ActivityInputDatas[j].ReadOnly)
+                        {
+                            @Html.TextBoxFor(x => x.ActivityInputValues[count], new {@class = "form-control", @readonly = "true"})
+                            <p style="color: mediumpurple;">Vrednost prenešena iz prvega obiska</p>
+                        }
+                        else if (Model.ActivityInputs[i].ActivityInputDatas[j].Required)
+                        {
+                            @Html.TextBoxFor(x => x.ActivityInputValues[count], new {@class = "form-control", @required = "true"})
                         }
                         else
                         {
-                            @Html.TextBoxFor(x => x.ActivityInputValues[count])
+                            @Html.TextBoxFor(x => x.ActivityInputValues[count], new {@class = "form-control"})
                         }
-
                     </div>
 
                     //@Html.TextBoxFor(x => x.ActivityInputIds[count])
@@ -72,15 +107,32 @@
 
                     count++;
                 }
+                <hr/>
 
             </div>
         }
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Shrani" class="btn btn-default" />
+        if (Model.VisitDate.Date < DateTime.Now.AddDays(-1).Date)
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <span title="Čas za vnos podatkov je pretekel.">
+                        <input type="button" value="Shrani" class="btn btn-default disabled" />
+                    </span>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Shrani" class="btn btn-default" />
+                </div>
+            </div>
+        }
+
+
+
 
     }
 }

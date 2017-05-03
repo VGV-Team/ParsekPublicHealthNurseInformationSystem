@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using ParsekPublicHealthNurseInformationSystem.Models;
@@ -11,6 +12,9 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         // TODO: add date
 
         public int VisitId { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime VisitDate { get; set; }
 
         public int PatientId { get; set; }
         
