@@ -64,13 +64,28 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     return View("Index", nrvm);
                 }
 
-                nrvm.ViewMessage = "qwe";
+                Employee Nurse1 = DB.Employees.Find(NurseId1[0]);
+                Employee Nurse2 = DB.Employees.Find(NurseId2[0]);
+                List<WorkOrder> WO = DB.WorkOrders.Where(x => x.Nurse.EmployeeId == Nurse1.EmployeeId).ToList();
+                //List<Visit> visits = new List<Visit>();
+                foreach (var workorder in WO)
+                {
+                    foreach (var visit in workorder.Visits)
+                    {
+                        if (visit.DateConfirmed >= nrvm.DateStart && visit.DateConfirmed <= nrvm.DateEnd)
+                            //visits.Add(visit);
+                            visit.NurseReplacement = Nurse2;
+                    }
+                }
+                DB.SaveChanges();
+                nrvm.ViewMessage = "Nadomestitev uspešna";
                 nrvm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
                 return View("Index", nrvm);
             }
             catch (Exception e)
             {
                 nrvm.ViewMessage = "Prišlo je do hujše napake!";
+                nrvm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
                 return View("Index", nrvm);
             }
         }
