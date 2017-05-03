@@ -40,8 +40,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     return View("Index", nrvm);
                 }
 
-                int[] NurseId1 = WorkOrderController.GetIdsFromString(nrvm.NurseId);
-                int[] NurseId2 = WorkOrderController.GetIdsFromString(nrvm.ReplacementNurseId);
+                int[] NurseId1 = Globals.GetIdsFromString(nrvm.NurseId);
+                int[] NurseId2 = Globals.GetIdsFromString(nrvm.ReplacementNurseId);
 
                 if (NurseId1 == null || NurseId2 == null || NurseId1.Length != 1 || NurseId2.Length != 1 || NurseId1[0] == NurseId2[0])
                 {

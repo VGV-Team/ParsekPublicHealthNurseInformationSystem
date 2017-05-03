@@ -43,7 +43,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
         public JsonResult GetChildPatientsByPatientFullNameWithCode(string FullNameWithCode)
         {
-            int[] ID = WorkOrderController.GetIdsFromString(FullNameWithCode);
+            int[] ID = Globals.GetIdsFromString(FullNameWithCode);
             if (ID.Length != 1)
             {
                 var data = new

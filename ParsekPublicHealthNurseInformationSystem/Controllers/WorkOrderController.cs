@@ -25,7 +25,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             Session["workorder"] = null; // Summaryviewmodel
             Session["workorder_DB"] = null; // workorder model
 
-            User currentUser = (User) Session["user"];
+            User currentUser = (User)Session["user"];
             bool isDoctor = currentUser.Employee.Title == Employee.JobTitle.Doctor;
 
             WorkOrderVisitTypeViewModel wovtvm = new WorkOrderVisitTypeViewModel();
@@ -62,7 +62,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SubmitWorkOrder(WorkOrderViewModel wovm)
         {
-            int[] temp = GetIdsFromString(wovm.PatientId);
+            int[] temp = Globals.GetIdsFromString(wovm.PatientId);
             Patient selectedPatient = temp.Length == 1 ? DB.Patients.FirstOrDefault(x => x.PatientId == temp.FirstOrDefault()) : null;
             if (selectedPatient == null ||
                 wovm.EnterPatients && wovm.PatientIds.IsNullOrWhiteSpace() ||
@@ -75,12 +75,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         (wovm.TimeFrame > DateTime.Now.AddMonths(6) ||
                          wovm.TimeFrame < DateTime.Now ||
                          wovm.TimeFrame < wovm.DateTimeOfFirstVisit ||
-                         (wovm.TimeFrame - wovm.DateTimeOfFirstVisit).Days < (wovm.NumberOfVisits-1) 
+                         (wovm.TimeFrame - wovm.DateTimeOfFirstVisit).Days < (wovm.NumberOfVisits - 1)
                          ) ||
                     wovm.TimeType == WorkOrderViewModel.VisitTimeType.TimeInterval &&
                     (wovm.TimeInterval > 30 || wovm.TimeInterval < 1)) ||
                 wovm.EnterMedicine && wovm.MedicineIds.IsNullOrWhiteSpace() ||
-                wovm.EnterBloodSample && 
+                wovm.EnterBloodSample &&
                     (wovm.BloodVialBlueCount < 0 || wovm.BloodVialBlueCount > 30 ||
                     wovm.BloodVialGreenCount < 0 || wovm.BloodVialGreenCount > 30 ||
                     wovm.BloodVialRedCount < 0 || wovm.BloodVialRedCount > 30 ||
@@ -133,7 +133,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     wodvm.MedicineIds = new List<int>();
                     wosvm.Medicine = new List<string>();
 
-                    int[] medicineIds = GetIdsFromString(wovm.MedicineIds);
+                    int[] medicineIds = Globals.GetIdsFromString(wovm.MedicineIds);
                     foreach (var medicine in DB.Medicines.Where(x => medicineIds.Contains(x.MedicineId)).ToList())
                     {
                         if (medicine != null)
@@ -151,13 +151,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     wosvm.BloodVialRedCount = wovm.BloodVialRedCount;
                     wosvm.BloodVialYellowCount = wovm.BloodVialYellowCount;
                 }
-                
+
                 if (wovm.EnterPatients)
                 {
                     wodvm.PatientIds = new List<int>();
                     wosvm.Patients = new List<string>();
 
-                    int[] ids = GetIdsFromString(wovm.PatientIds);
+                    int[] ids = Globals.GetIdsFromString(wovm.PatientIds);
                     foreach (var id in ids)
                     {
                         Patient patient = DB.Patients.FirstOrDefault(x => x.PatientId == id);
@@ -170,7 +170,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 }
 
                 Employee selectedNurse = DB.Employees.FirstOrDefault(x => x.Title == Employee.JobTitle.HealthNurse && x.District.DistrictId == selectedPatient.District.DistrictId);
-                if(selectedNurse == null)
+                if (selectedNurse == null)
                 {
                     // TODO: error
                 }
@@ -331,23 +331,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             Session["SavedWorkOrderSummary"] = null;
 
             return RedirectToAction("Index", "Home");
-        }
-
-        public static int[] GetIdsFromString(string input)
-        {
-            string[] splits = input.Split(',');
-            List<int> ids = new List<int>();
-            for (int i = 0; i < splits.Length; i++)
-            {
-                string idString = splits[i].Split('(').Last().Split(')').First();
-                int id;
-                if (int.TryParse(idString, out id) && id != 0)
-                {
-                    ids.Add(id);
-                }
-            }
-
-            return ids.ToArray().Distinct().ToArray();
         }
     }
 }

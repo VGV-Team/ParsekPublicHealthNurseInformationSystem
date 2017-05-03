@@ -1,4 +1,5 @@
 ﻿@using Microsoft.Ajax.Utilities
+@using ParsekPublicHealthNurseInformationSystem.Models
 @using ParsekPublicHealthNurseInformationSystem.ViewModels
 @model ParsekPublicHealthNurseInformationSystem.ViewModels.NurseReplacement.NurseReplacementViewModel
 
@@ -18,7 +19,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <h3>@Model.ViewMessage</h3>
 
-        @Html.Raw(WorkOrderViewModel.GenerateDropDown(Model.AllNurses, "NurseId", false))
+        @Html.Raw(Globals.GenerateDropDown(Model.AllNurses, "NurseId", false))
         <div class="form-group">
             @Html.LabelFor(model => model.NurseId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -27,7 +28,7 @@
             </div>
         </div>
 
-        @Html.Raw(WorkOrderViewModel.GenerateDropDown(Model.AllNurses, "ReplacementNurseId", false))
+        @Html.Raw(Globals.GenerateDropDown(Model.AllNurses, "ReplacementNurseId", false))
         <div class="form-group">
             @Html.LabelFor(model => model.ReplacementNurseId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

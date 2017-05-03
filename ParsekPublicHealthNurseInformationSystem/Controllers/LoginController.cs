@@ -27,8 +27,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             {
                 lvm = new LoginViewModel();
             }
-            if (TempData["email"] == null) ;
-            else
+            if (TempData["email"] != null)
             {
                 lvm.Email = TempData["email"].ToString();
                 TempData["Email"] = null;

@@ -1,4 +1,5 @@
 ﻿@using Microsoft.Ajax.Utilities
+@using ParsekPublicHealthNurseInformationSystem.Models
 @using ParsekPublicHealthNurseInformationSystem.ViewModels
 @model ParsekPublicHealthNurseInformationSystem.ViewModels.WorkOrderViewModel
 
@@ -19,7 +20,7 @@
         @Html.HiddenFor(m => m.SelectedServiceId)
 
 
-        @Html.Raw(WorkOrderViewModel.GenerateDropDown(Model.AllPatients, "PatientId", false))
+        @Html.Raw(Globals.GenerateDropDown(Model.AllPatients, "PatientId", false))
         <div class="form-group">
             @Html.LabelFor(model => model.PatientId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -226,7 +227,7 @@
             @Html.HiddenFor(m => m.EnterMedicine)
             @if (Model.EnterMedicine)
             {
-                @Html.Raw(WorkOrderViewModel.GenerateDropDown(Model.AllMedicines, "MedicineIds"))
+                @Html.Raw(Globals.GenerateDropDown(Model.AllMedicines, "MedicineIds"))
 
                 @Html.LabelFor(model => model.MedicineIds, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
