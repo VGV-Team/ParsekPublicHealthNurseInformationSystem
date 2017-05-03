@@ -156,6 +156,7 @@
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NurseReplacementController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RESTController.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="ViewModels\AdminConsole\AdminConsoleViewModel.cs" />
     <Compile Include="ViewModels\ChangePassword\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
+    <Compile Include="ViewModels\NurseReplacement\NurseReplacementViewModel.cs" />
     <Compile Include="ViewModels\PatientActions\AddCarePatientViewModel.cs" />
     <Compile Include="ViewModels\Register\RegisterViewModel.cs" />
     <Compile Include="ViewModels\VisitPlanner\VisitPlannerViewModel.cs" />
@@ -316,6 +318,7 @@
     <Content Include="Views\Visit\Index.cshtml" />
     <Content Include="Views\VisitFilter\Index.cshtml" />
     <Content Include="Views\VisitDetails\Index.cshtml" />
+    <Content Include="Views\NurseReplacement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

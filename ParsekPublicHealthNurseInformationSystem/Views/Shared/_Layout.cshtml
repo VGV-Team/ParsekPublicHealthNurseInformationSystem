@@ -99,6 +99,10 @@
                     {
                         <li>@Html.ActionLink("Kreiranje DN", "Index", "WorkOrder")</li>
                     }
+                    @if (IsHead)
+                    {
+                        <li>@Html.ActionLink("Nadomeščanje", "Index", "NurseReplacement")</li>
+                    }
                     @if (IsNurse)
                     {
                         <li>@Html.ActionLink("Planiranje obiskov", "Index", "VisitPlanner")</li>

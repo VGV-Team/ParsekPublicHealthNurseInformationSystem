@@ -127,7 +127,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         }
 
 
-        public string GenerateDropDown(List<Medicine> list, string id, bool multiChoice = true)
+        public static string GenerateDropDown(List<Medicine> list, string id, bool multiChoice = true)
         {
             List<string> converterToStrings = new List<string>();
             foreach (var medicine in list)
@@ -137,7 +137,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
             return GenerateDropDown(converterToStrings, id, multiChoice);
         }
 
-        public string GenerateDropDown(List<Patient> list, string id, bool multiChoice = true)
+        public static string GenerateDropDown(List<Patient> list, string id, bool multiChoice = true)
         {
             List<string> converterToStrings = new List<string>();
             foreach (var patient in list)
@@ -147,8 +147,18 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
             return GenerateDropDown(converterToStrings, id, multiChoice);
         }
 
+        public static string GenerateDropDown(List<Employee> list, string id, bool multiChoice = true)
+        {
+            List<string> converterToStrings = new List<string>();
+            foreach (var employee in list)
+            {
+                converterToStrings.Add(employee.FullNameWithCode);
+            }
+            return GenerateDropDown(converterToStrings, id, multiChoice);
+        }
 
-        public string GenerateDropDown(List<string> list, string id, bool multiChoice = true)
+
+        public static string GenerateDropDown(List<string> list, string id, bool multiChoice = true)
         {
             string str = "<script>\n" +
                          "$(function() {\n" +
