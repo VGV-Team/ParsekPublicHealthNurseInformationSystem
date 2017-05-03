@@ -1,0 +1,65 @@
+﻿@using Microsoft.Ajax.Utilities
+@using ParsekPublicHealthNurseInformationSystem.ViewModels
+@model ParsekPublicHealthNurseInformationSystem.ViewModels.NurseReplacement.NurseReplacementViewModel
+
+@{
+    ViewBag.Title = "Nadomeščanje";
+}
+
+<h2>Nadomeščanje</h2>
+
+
+@using (Html.BeginForm("NurseReplacement", "NurseReplacement", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <h3>@Model.ViewMessage</h3>
+
+        @Html.Raw(WorkOrderViewModel.GenerateDropDown(Model.AllNurses, "NurseId", false))
+        <div class="form-group">
+            @Html.LabelFor(model => model.NurseId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NurseId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NurseId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.Raw(WorkOrderViewModel.GenerateDropDown(Model.AllNurses, "ReplacementNurseId", false))
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReplacementNurseId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReplacementNurseId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReplacementNurseId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateStart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateStart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateStart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Nadomesti" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
