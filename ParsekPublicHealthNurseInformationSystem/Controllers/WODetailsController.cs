@@ -61,8 +61,15 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     }
                 }
                 vm.Nurse = wo.Nurse.FullNameWithCode;
-                if (wo.NurseReplacement != null) vm.NurseReplacement = wo.NurseReplacement.FullNameWithCode;
-                else vm.NurseReplacement = "/";
+
+                // We don't need this???
+
+                /*if (wo.NurseReplacement != null) vm.NurseReplacement = wo.NurseReplacement.FullNameWithCode;
+                else vm.NurseReplacement = "/";*/
+
+                // Do we need nursereplacemet here?
+                vm.NurseReplacement = "/";
+
                 vm.Patients = new List<string>();
 
                 if (wo.PatientWorkOrders.Count == 0)

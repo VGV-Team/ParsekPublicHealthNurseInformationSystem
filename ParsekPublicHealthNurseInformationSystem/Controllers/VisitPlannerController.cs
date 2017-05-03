@@ -84,7 +84,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             Employee CurrentNurse = (Session["user"] as Models.User).Employee;
 
             List<Visit> AllVisits = DB.Visits.Where(v => CurrentNurse.EmployeeId == v.WorkOrder.Nurse.EmployeeId || // Check if this nurse is assigned OR
-                                            (v.WorkOrder.NurseReplacement != null && v.WorkOrder.NurseReplacement.EmployeeId == CurrentNurse.EmployeeId)) //Check if nurse is replacement
+                                            (v.NurseReplacement != null && v.NurseReplacement.EmployeeId == CurrentNurse.EmployeeId)) //Check if nurse is replacement
                                             .ToList();
 
             DateTime dt = DateTime.Now.Date;

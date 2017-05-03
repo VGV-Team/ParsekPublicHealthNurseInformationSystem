@@ -28,7 +28,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         //public bool Completed { get; set; }
 
-
+        // Solution for replacement nurse
+        // no replacement: null
+        public virtual Employee NurseReplacement { get; set; }
 
         public virtual WorkOrder WorkOrder { get; set; }
 

@@ -236,7 +236,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             workOrder.Service = DB.Services.FirstOrDefault(x => x.ServiceId == wodvm.SelectedServiceId);
             workOrder.Name = workOrder.Service.ServiceTitle;
             workOrder.Nurse = DB.Employees.FirstOrDefault(x => x.EmployeeId == wodvm.SelectedNurseId);
-            workOrder.NurseReplacement = null;
+            //workOrder.NurseReplacement = null;
             workOrder.Patient = DB.Patients.FirstOrDefault(x => x.PatientId == wodvm.PatientId);
 
             Visit visit = new Visit();

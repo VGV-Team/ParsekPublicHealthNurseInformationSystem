@@ -169,9 +169,9 @@
                             <td>@v.DateConfirmed.ToString("dd. MM. yyyy")</td>
                             <td>@v.WorkOrder.Issuer.Name @v.WorkOrder.Issuer.Surname, @WOIssuerTitle</td>
                             <td>@v.WorkOrder.Nurse.Name @v.WorkOrder.Nurse.Surname</td>
-                            @if (@v.WorkOrder.NurseReplacement != null)
+                            @if (@v.NurseReplacement != null)
                             {
-                                <td>@v.WorkOrder.NurseReplacement.Name @v.WorkOrder.NurseReplacement.Surname</td>
+                                <td>@v.NurseReplacement.Name @v.NurseReplacement.Surname</td>
                             }
                             else
                             {

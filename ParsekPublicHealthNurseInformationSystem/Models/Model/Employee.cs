@@ -26,7 +26,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual User User { get; set; }
         public virtual District District { get; set; } // Only for HealthNurse
-        public virtual ICollection<WorkOrder> WorkOrders { get; set; }
+
+        //public virtual ICollection<WorkOrder> WorkOrders { get; set; }
+        public virtual ICollection<Visit> Visits { get; set; } //Only nurse
 
         public string DisplayName { get { return string.Format("{0} {1} [{2}]", Name, Surname, Number); } }
 

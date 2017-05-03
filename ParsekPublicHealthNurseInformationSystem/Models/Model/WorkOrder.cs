@@ -16,7 +16,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual Employee Issuer { get; set; }
         public virtual Employee Nurse { get; set; } 
-        public virtual Employee NurseReplacement { get; set; }
+        //public virtual Employee NurseReplacement { get; set; }
         public virtual Patient Patient { get; set; }
 
 

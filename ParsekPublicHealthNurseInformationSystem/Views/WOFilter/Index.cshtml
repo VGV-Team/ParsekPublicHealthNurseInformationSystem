@@ -144,14 +144,7 @@
                                 <td>@WO.Name</td>
                                 <td>@WO.Issuer.Name @WO.Issuer.Surname, @WOIssuerTitle</td>
                                 <td>@WO.Nurse.Name @WO.Nurse.Surname</td>
-                                @if (@WO.NurseReplacement != null)
-                                {
-                                <td>@WO.NurseReplacement.Name @WO.NurseReplacement.Surname</td>
-                                }
-                                else
-                                {
                                 <td>/</td>
-                                }
                                 @if (@WO.Service.PreventiveVisit)
                                 {
                                 <td>da</td>

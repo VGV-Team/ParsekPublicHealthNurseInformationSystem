@@ -43,9 +43,9 @@
             }
 
             <dt>Zadolžena sestra</dt>
-            @if (Model.Visit.WorkOrder.NurseReplacement != null)
+            @if (Model.Visit.NurseReplacement != null)
             {
-                <dd>@Model.Visit.WorkOrder.Nurse.FullName - nadomešča @Model.Visit.WorkOrder.NurseReplacement.FullName</dd>
+                <dd>@Model.Visit.WorkOrder.Nurse.FullName - nadomešča @Model.Visit.NurseReplacement.FullName</dd>
             }
             else
             {
