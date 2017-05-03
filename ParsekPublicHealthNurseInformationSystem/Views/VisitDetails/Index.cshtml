@@ -32,14 +32,24 @@
             <dt>Dejanski datum</dt>
             <dd>@Model.Visit.DateConfirmed.ToString("dd. MM. yyyy")</dd>
 
-            <dt>Pacient</dt>
-            @if (Model.Visit.WorkOrder.Patient != null)
+            
+            @if (Model.Visit.WorkOrder.PatientWorkOrders.Count <= 0)
             {
+                <dt>Pacient</dt>
                 <dd>@Model.Visit.WorkOrder.Patient.FullNameWithCode</dd>
             }
             else
             {
-                <dd>@Model.Visit.WorkOrder.PatientWorkOrders.First().Patient.FullNameWithCode</dd>
+                <dt>Pacienti</dt>
+                <dd>@Model.Visit.WorkOrder.Patient.FullNameWithCode</dd>
+                for (int j = 0; j < @Model.Visit.WorkOrder.PatientWorkOrders.Count; j++)
+                {
+
+                    ParsekPublicHealthNurseInformationSystem.Models.PatientWorkOrder PWO =
+                        @Model.Visit.WorkOrder.PatientWorkOrders.ElementAt(j);
+
+                    <dd>@PWO.Patient.FullNameWithCode</dd>
+                }
             }
 
             <dt>Zadolžena sestra</dt>

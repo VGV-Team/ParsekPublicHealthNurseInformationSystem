@@ -17,8 +17,8 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Display(Name = "Zadolžena sestra")]
         public string Nurse { get; set; }
 
-        [Display(Name = "Nadomestna sestra")]
-        public string NurseReplacement { get; set; }
+        //[Display(Name = "Nadomestna sestra")]
+        //public string NurseReplacement { get; set; }
 
         [Display(Name = "Preventivni obisk")]
         public string PreventiveService { get; set; }

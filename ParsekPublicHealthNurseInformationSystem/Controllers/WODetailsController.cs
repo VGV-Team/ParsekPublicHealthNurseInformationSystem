@@ -68,7 +68,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 else vm.NurseReplacement = "/";*/
 
                 // Do we need nursereplacemet here?
-                vm.NurseReplacement = "/";
+                // NO
+                //vm.NurseReplacement = "/";
 
                 vm.Patients = new List<string>();
 
