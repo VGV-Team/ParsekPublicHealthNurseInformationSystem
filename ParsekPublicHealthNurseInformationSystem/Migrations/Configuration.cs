@@ -166,16 +166,17 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             di1.Contractor = c1;
             di2.Contractor = c1;
 
-            di3.Contractor = c2;
-            di4.Contractor = c2;
+            di3.Contractor = c1;
+            di4.Contractor = c1;
 
-            di5.Contractor = c3;
+            /*di5.Contractor = c3;
             di6.Contractor = c3;
 
             di7.Contractor = c4;
-            di8.Contractor = c4;
+            di8.Contractor = c4;*/
 
-            context.Districts.AddOrUpdate(d => d.Name, di1, di2, di3, di4, di5, di6, di7, di8);
+            //context.Districts.AddOrUpdate(d => d.Name, di1, di2, di3, di4, di5, di6, di7, di8);
+            context.Districts.AddOrUpdate(d => d.Name, di1, di2, di3, di4);
             context.Contractors.AddOrUpdate(c => c.Number, c1, c2, c3, c4);
             // TODO: ...
 
@@ -197,13 +198,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
 
             Patient patient1 = new Patient();
             patient1.CardNumber = "65456";
-            patient1.Name = "Janez";
+            patient1.Name = "Janežina";
             patient1.Surname = "Novak";
             patient1.Address = "Žememlje 8";
             patient1.PostOffice = p1;
             patient1.District = di1;
             patient1.PhoneNumber = "1234566666";
-            patient1.Gender = Models.Patient.GenderEnum.Male;
+            patient1.Gender = Models.Patient.GenderEnum.Female;
             patient1.BirthDate = DateTime.Now.AddYears(-30);
             Patient patient2 = new Patient();
             patient2.CardNumber = "99878";
@@ -225,7 +226,18 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             patient3.PhoneNumber = "090888880";
             patient3.Gender = Models.Patient.GenderEnum.Female;
             patient3.BirthDate = DateTime.Now.AddYears(-40);
-            context.Patients.AddOrUpdate(y => y.CardNumber, patient1, patient2, patient3);
+            Patient patient1_1 = new Patient();
+            patient1_1.CardNumber = "88888";
+            patient1_1.Name = "Sif";
+            patient1_1.Surname = "Novak";
+            patient1_1.Address = "Žememlje 8";
+            patient1_1.PostOffice = p1;
+            patient1_1.District = di1;
+            patient1_1.PhoneNumber = "090888880";
+            patient1_1.Gender = Models.Patient.GenderEnum.Male;
+            patient1_1.BirthDate = DateTime.Now.AddYears(-50);
+            patient1_1.ParentPatient = patient1;
+            context.Patients.AddOrUpdate(y => y.CardNumber, patient1, patient2, patient3, patient1_1);
 
             User Admin = new User();
             Admin.Employee = null;
@@ -263,6 +275,24 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Nurse2.Active = true;
             Nurse2.LastLastLogin = DateTime.Now;
             Nurse2.LastLogin = DateTime.Now;
+            User Nurse3 = new User();
+            Nurse3.Employee = null;
+            Nurse3.Patient = null;
+            Nurse3.Role = EmployeeRole;
+            Nurse3.Email = "nurse3@parsek.si";
+            Nurse3.Password = "nurse3";
+            Nurse3.Active = true;
+            Nurse3.LastLastLogin = DateTime.Now;
+            Nurse3.LastLogin = DateTime.Now;
+            User Nurse4 = new User();
+            Nurse4.Employee = null;
+            Nurse4.Patient = null;
+            Nurse4.Role = EmployeeRole;
+            Nurse4.Email = "nurse4@parsek.si";
+            Nurse4.Password = "nurse4";
+            Nurse4.Active = true;
+            Nurse4.LastLastLogin = DateTime.Now;
+            Nurse4.LastLogin = DateTime.Now;
             User Patient1 = new User();
             Patient1.Employee = null;
             Patient1.Patient = null;
@@ -302,7 +332,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Head.Active = true;
             Head.LastLastLogin = DateTime.Now;
             Head.LastLogin = DateTime.Now;
-            context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse1, Nurse2, Patient1, Patient2, Patient3, Head);
+            context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse1, Nurse2, Nurse3, Nurse4, Patient1, Patient2, Patient3, Head);
 
 
             Employee DoctorEmployee = new Employee();
@@ -337,11 +367,29 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             NurseEmployee2.Name = "Katarina";
             NurseEmployee2.Surname = "Morales";
             NurseEmployee2.Contractor = c1;
-            NurseEmployee2.District = di1;
+            NurseEmployee2.District = di2;
             NurseEmployee2.Number = "78797";
             NurseEmployee2.PhoneNumber = "888777654";
             NurseEmployee2.Title = Employee.JobTitle.HealthNurse;
-            context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, NurseEmployee1, NurseEmployee2);
+            Employee NurseEmployee3 = new Employee();
+            NurseEmployee3.User = Nurse3;
+            NurseEmployee3.Name = "Anri";
+            NurseEmployee3.Surname = "Astora";
+            NurseEmployee3.Contractor = c1;
+            NurseEmployee3.District = di3;
+            NurseEmployee3.Number = "99999";
+            NurseEmployee3.PhoneNumber = "035897546";
+            NurseEmployee3.Title = Employee.JobTitle.HealthNurse;
+            Employee NurseEmployee4 = new Employee();
+            NurseEmployee4.User = Nurse2;
+            NurseEmployee4.Name = "Elizabeta";
+            NurseEmployee4.Surname = "Magdalena";
+            NurseEmployee4.Contractor = c1;
+            NurseEmployee4.District = di4;
+            NurseEmployee4.Number = "45455";
+            NurseEmployee4.PhoneNumber = "666444777";
+            NurseEmployee4.Title = Employee.JobTitle.HealthNurse;
+            context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, NurseEmployee1, NurseEmployee2, NurseEmployee3, NurseEmployee4);
 
             Service ac1 = new Service();
             ac1.ServiceCode = "10";

@@ -82,27 +82,59 @@
 
 
 
+        <div class="btn-group">
+            <button onclick="return false;" class="btn btn-info form-control " data-toggle="collapse" data-target="#Patient">@Model.PatientData.PatientName</button>
+        </div>
 
-        int index = 0;
+        <br/>
 
+        <div id="Patient" class="collapse well">
+            @FillData(Model.PatientData)
+        </div>
 
-        for (int i = 0; i < Model.Categories.Count; i++)
+        for (int i = 0; i < Model.ChildPatientData.Count; i++)
         {
-            <h4>@Model.Categories.ElementAt(i)</h4>
+            <br/>
+
+            <div class="btn-group">
+                <button onclick="return false;" class="btn btn-info form-control " data-toggle="collapse" data-target="#Patient_@i">@Model.ChildPatientData.ElementAt(i).PatientName</button>
+            </div>
+
+            <br />
+
+            <div id="Patient_@i" class="collapse well">
+                @FillData(Model.ChildPatientData.ElementAt(i))
+            </div>
+        }
+
+
+    }
+
+    
+</div>
+
+@helper FillData(ParsekPublicHealthNurseInformationSystem.ViewModels.VisitDetailsViewModel.ParsedData data)
+{
+    int index = 0;
+
+
+    for (int i = 0; i < data.Categories.Count; i++)
+    {
+        <h4>@data.Categories.ElementAt(i)</h4>
 
             <dl class="dl-horizontal">
 
                 @{
-                    var counter = Model.CategoryItemCount.ElementAt(i);
+                    var counter = data.CategoryItemCount.ElementAt(i);
                 }
 
                 @for (int j = 0; j < counter; j++)
                 {
                     <dt>
-                        @Model.ParsedDetailsTitles.ElementAt(index)
+                        @data.ParsedDetailsTitles.ElementAt(index)
                     </dt>
                     <dd>
-                        @Model.ParsedDetails.ElementAt(index)
+                        @data.ParsedDetails.ElementAt(index)
                     </dd>
 
                     index++;
@@ -110,11 +142,6 @@
 
 
             </dl>
-            <hr/>
-        }
-
-       
+            <hr />
     }
-
-    
-</div>
+}

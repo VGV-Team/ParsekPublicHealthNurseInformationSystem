@@ -17,10 +17,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         {
             VisitDetailsViewModel vm = new VisitDetailsViewModel();
 
-            vm.Categories = new List<string>();
-            vm.CategoryItemCount = new List<int>();
-            vm.ParsedDetails = new List<string>();
-            vm.ParsedDetailsTitles = new List<string>();
+            vm.PatientData = new VisitDetailsViewModel.ParsedData();
+            vm.ChildPatientData = new List<VisitDetailsViewModel.ParsedData>();
+
+            vm.PatientData.Categories = new List<string>();
+            vm.PatientData.CategoryItemCount = new List<int>();
+            vm.PatientData.ParsedDetails = new List<string>();
+            vm.PatientData.ParsedDetailsTitles = new List<string>();
 
             if (visitId == null)
             {
@@ -30,35 +33,54 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             else
             {
                 vm.Visit = DB.Visits.Find(visitId);
-                Visit visit = vm.Visit;
 
-                visit.ActivityInputDatas.OrderBy(aid => aid.ActivityInput.Activity);
+                vm.PatientData = FillData(vm.Visit, vm.Visit.WorkOrder.Patient.PatientId);
+                vm.PatientData.PatientName = vm.Visit.WorkOrder.Patient.FullNameWithCode;
 
-                int oldId = -1;
-                int count = 0;
-                bool first = true;
-
-                for (int i = 0; i < visit.ActivityInputDatas.Count; i++)
+                for (int i = 0; i < vm.Visit.WorkOrder.PatientWorkOrders.Count; i++)
                 {
-                    if (oldId != visit.ActivityInputDatas.ElementAt(i).ActivityInput.Activity.ActivityId)
-                    {
-                        oldId = visit.ActivityInputDatas.ElementAt(i).ActivityInput.Activity.ActivityId;
-                        if (!first) vm.CategoryItemCount.Add(count);
-                        first = false;
-                        count = 0;
-                        vm.Categories.Add(visit.ActivityInputDatas.ElementAt(i).ActivityInput.Activity.ActivityTitle);
-                    }
-
-                    vm.ParsedDetailsTitles.Add(visit.ActivityInputDatas.ElementAt(i).ActivityInput.Title);
-                    vm.ParsedDetails.Add(visit.ActivityInputDatas.ElementAt(i).Value);
-                    count += 1;
+                    VisitDetailsViewModel.ParsedData data = FillData(vm.Visit, vm.Visit.WorkOrder.PatientWorkOrders.ElementAt(i).Patient.PatientId);
+                    data.PatientName = vm.Visit.WorkOrder.PatientWorkOrders.ElementAt(i).Patient.FullNameWithCode;
+                    vm.ChildPatientData.Add(data);
                 }
-                vm.CategoryItemCount.Add(count);
+
             }
 
             
            
             return View(vm);
+        }
+
+        private VisitDetailsViewModel.ParsedData FillData(Visit visit, int patientId)
+        {
+            VisitDetailsViewModel.ParsedData data = new VisitDetailsViewModel.ParsedData();
+
+            List<ActivityInputData> inputData = visit.ActivityInputDatas.Where(aid => aid.Patient.PatientId == patientId).ToList();
+
+            int oldId = -1;
+            int count = 0;
+            bool first = true;
+
+            for (int i = 0; i < inputData.Count; i++)
+            {
+                if (oldId != inputData.ElementAt(i).ActivityInput.Activity.ActivityId)
+                {
+                    oldId = inputData.ElementAt(i).ActivityInput.Activity.ActivityId;
+                    if (!first) data.CategoryItemCount.Add(count);
+                    first = false;
+                    count = 0;
+                    data.Categories.Add(inputData.ElementAt(i).ActivityInput.Activity.ActivityTitle);
+                }
+
+                data.ParsedDetailsTitles.Add(inputData.ElementAt(i).ActivityInput.Title);
+                data.ParsedDetails.Add(inputData.ElementAt(i).Value);
+                count += 1;
+            }
+            data.CategoryItemCount.Add(count);
+
+
+            return data;
+
         }
     }
 }
