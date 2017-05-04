@@ -588,7 +588,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ActivityInput ai26 = new ActivityInput() { Activity = a23, Title = "kg ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
             ActivityInput ai27 = new ActivityInput() { Activity = a24, Title = "kg ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
             ActivityInput ai28 = new ActivityInput() { Activity = a25, Title = "Datum rojstva otroka", InputType = ActivityInput.InputTypeEnum.Date, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai29 = new ActivityInput() { Activity = a25, Title = "Porodna tea otroka (g)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = true };
+            ActivityInput ai29 = new ActivityInput() { Activity = a25, Title = "Porodna tea otroka (g)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
+            ActivityInput ai116 = new ActivityInput() { Activity = a25, Title = "Porodna višina otroka (cm)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
+            ActivityInput ai117 = new ActivityInput() { Activity = a25, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai30 = new ActivityInput() { Activity = a26, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai31 = new ActivityInput() { Activity = a27, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai32 = new ActivityInput() { Activity = a28, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
@@ -795,7 +797,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
              
              */
 
-            context.ActivityInputs.AddOrUpdate(y => y.ActivityInputId, ai1, ai2, ai3, ai4, ai5, ai6, ai7, ai8, ai9, ai10, ai11, ai12, ai13, ai14, ai15, ai16, ai17, ai18, ai19, ai20, ai21, ai22, ai23, ai24, ai25, ai26, ai27, ai28, ai29, ai30, ai31, ai32, ai33, ai34, ai35, ai36, ai37, ai38, ai39, ai40, ai41, ai42, ai43, ai44, ai45, ai46, ai47, ai48, ai49, ai50, ai51, ai52, ai53, ai54, ai55, ai56, ai57, ai58, ai59, ai60, ai61, ai62, ai63, ai64, ai65, ai66, ai67, ai68, ai69, ai70, ai71, ai72, ai73, ai74, ai75, ai76, ai77, ai78, ai79, ai80, ai81, ai82, ai83, ai84, ai85, ai86, ai87, ai88, ai89, ai90, ai91, ai92, ai93, ai94, ai95, ai96, ai97, ai98, ai99, ai100, ai101, ai102, ai103, ai104, ai105, ai106, ai107, ai108, ai109, ai110, ai111, ai112, ai113, ai114, ai115);
+            context.ActivityInputs.AddOrUpdate(y => y.ActivityInputId, ai1, ai2, ai3, ai4, ai5, ai6, ai7, ai8, ai9, ai10, ai11, ai12, ai13, ai14, ai15, ai16, ai17, ai18, ai19, ai20, ai21, ai22, ai23, ai24, ai25, ai26, ai27, ai28, ai29, ai30, ai31, ai32, ai33, ai34, ai35, ai36, ai37, ai38, ai39, ai40, ai41, ai42, ai43, ai44, ai45, ai46, ai47, ai48, ai49, ai50, ai51, ai52, ai53, ai54, ai55, ai56, ai57, ai58, ai59, ai60, ai61, ai62, ai63, ai64, ai65, ai66, ai67, ai68, ai69, ai70, ai71, ai72, ai73, ai74, ai75, ai76, ai77, ai78, ai79, ai80, ai81, ai82, ai83, ai84, ai85, ai86, ai87, ai88, ai89, ai90, ai91, ai92, ai93, ai94, ai95, ai96, ai97, ai98, ai99, ai100, ai101, ai102, ai103, ai104, ai105, ai106, ai107, ai108, ai109, ai110, ai111, ai112, ai113, ai114, ai115, ai116, ai117);
 
             #endregion
 

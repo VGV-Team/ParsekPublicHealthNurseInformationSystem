@@ -75,7 +75,16 @@
 
 
 
-                        @Html.Label(Model.ActivityInputIds[count].ToString(), Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputTitle, htmlAttributes: new {@class = "control-label col-md-2"})
+                        
+                        @if (Model.ActivityInputs[i].ActivityInputDatas[j].Required)
+                        { 
+                            @Html.Label(Model.ActivityInputIds[count].ToString(), Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputTitle + " *", htmlAttributes: new { @class = "control-label col-md-2" })
+                        }
+                        else
+                        {
+                            @Html.Label(Model.ActivityInputIds[count].ToString(), Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                        }
+
 
                         @FillData(i, j, count)
                         
@@ -200,7 +209,7 @@ else
         case ActivityInput.InputTypeEnum.Dropdown:
             if (Model.ActivityInputValues[count] == "")
             {
-                    @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues, ""), new { @class = "form-control", @required = "true", @type = "date" })
+                    @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues, ""), new { @class = "form-control", @required = "true", @type = "date" }) 
                 }
                 else
                 {
