@@ -17,9 +17,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         private EntityDataModel db = new EntityDataModel();
 
         // GET: Visits
-        public ActionResult Index(int id)
+        public ActionResult Index(int visitId)
         {
-            return RedirectToAction("EnterData", "Visit", new { visitId = id, generalOnly = true });
+            return RedirectToAction("EnterData", "Visit", new { visitId = visitId, generalOnly = true });
         }
 
         public ActionResult EnterData(int visitId, bool generalOnly = true, int? patientId = null)
@@ -173,9 +173,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 {
                     aiwo = new ActivityInputData();
                     aiwo.Visit = db.Visits.FirstOrDefault(x => x.VisitId == vvm.VisitId);
+                    aiwo.Visit.Confirmed = true;
                     aiwo.ActivityInput = db.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == activityInputId);
                     aiwo.Value = vvm.ActivityInputValues[i];
                     aiwo.Patient = db.Patients.FirstOrDefault(x => x.PatientId == vvm.PatientId);
+                    
                     db.ActivityInputDatas.Add(aiwo);
                 }
                 else

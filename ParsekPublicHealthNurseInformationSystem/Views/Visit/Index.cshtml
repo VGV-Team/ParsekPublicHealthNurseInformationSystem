@@ -122,9 +122,21 @@
     }
 }
 
-@Html.ActionLink("Nazaj", "Index", "VisitDetails",
+@if (Model.MainPatient != null)
+{
+    @Html.ActionLink("Nazaj", "Index", "VisitDetails",
         new { visitId = Model.VisitId },
         new { @class = "btn btn-info", @style = "color:white" })
+}
+else
+{
+    @Html.ActionLink("Nazaj", "Index", "Visit",
+        new { visitId = Model.VisitId },
+        new { @class = "btn btn-info", @style = "color:white" })
+}
+
+
+
 
 <!-- i: activityinputs, j: activityinputdatas, count: activityinputvalues -->
 @helper FillData(int i, int j, int count)
