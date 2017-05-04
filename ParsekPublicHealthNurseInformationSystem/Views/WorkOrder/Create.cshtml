@@ -7,6 +7,10 @@
     ViewBag.Title = "Nov DN";
 }
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
 <h2>Nov delovni nalog</h2>
 
 @using (Html.BeginForm("SubmitWorkOrder","WorkOrder"))
