@@ -25,6 +25,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.PatientData.ParsedDetails = new List<string>();
             vm.PatientData.ParsedDetailsTitles = new List<string>();
 
+            vm.GeneralData = new VisitDetailsViewModel.ParsedData();
+
             if (visitId == null)
             {
                 //vm.Visit = null;
@@ -44,6 +46,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     vm.ChildPatientData.Add(data);
                 }
 
+                vm.GeneralData = FillGeneralData(vm.Visit);
+
             }
 
             
@@ -55,7 +59,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         {
             VisitDetailsViewModel.ParsedData data = new VisitDetailsViewModel.ParsedData();
 
-            List<ActivityInputData> inputData = visit.ActivityInputDatas.Where(aid => aid.Patient.PatientId == patientId).ToList();
+            List<ActivityInputData> inputData = visit.ActivityInputDatas.Where(aid => aid.Patient != null && aid.Patient.PatientId == patientId).ToList();
 
             int oldId = -1;
             int count = 0;
@@ -90,5 +94,47 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             return data;
 
         }
+
+
+        private VisitDetailsViewModel.ParsedData FillGeneralData(Visit visit)
+        {
+            VisitDetailsViewModel.ParsedData data = new VisitDetailsViewModel.ParsedData();
+
+            List<ActivityInputData> inputData = visit.ActivityInputDatas.Where(aid => aid.Patient == null).ToList();
+
+            int oldId = -1;
+            int count = 0;
+            bool first = true;
+
+            for (int i = 0; i < inputData.Count; i++)
+            {
+                if (oldId != inputData.ElementAt(i).ActivityInput.Activity.ActivityId)
+                {
+                    oldId = inputData.ElementAt(i).ActivityInput.Activity.ActivityId;
+                    if (!first) data.CategoryItemCount.Add(count);
+                    first = false;
+                    count = 0;
+                    data.Categories.Add(inputData.ElementAt(i).ActivityInput.Activity.ActivityTitle);
+                }
+
+                data.ParsedDetailsTitles.Add(inputData.ElementAt(i).ActivityInput.Title);
+                if (inputData.ElementAt(i).ActivityInput.InputType == ActivityInput.InputTypeEnum.Date)
+                {
+                    DateTime dt = DateTime.Parse(inputData.ElementAt(i).Value);
+                    data.ParsedDetails.Add(dt.ToString("dd.MM.yyyy"));
+                }
+                else
+                {
+                    data.ParsedDetails.Add(inputData.ElementAt(i).Value);
+                }
+                count += 1;
+            }
+            data.CategoryItemCount.Add(count);
+
+
+            return data;
+
+        }
+
     }
 }

@@ -74,7 +74,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 // Select all patients related to visit
                 vvm.MainPatient = db.Patients.FirstOrDefault(x => x.PatientId == visit.WorkOrder.Patient.PatientId);
 
-                vvm.PatientId = vvm.MainPatient.PatientId;
+                //vvm.PatientId = vvm.MainPatient.PatientId;
                 //patientId = vvm.PatientId;
 
                 List<Patient> patients = new List<Patient>();

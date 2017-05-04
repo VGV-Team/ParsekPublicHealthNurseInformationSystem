@@ -13,6 +13,8 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public ParsedData PatientData { get; set; }
         public List<ParsedData> ChildPatientData { get; set; }
 
+        public ParsedData GeneralData { get; set; }
+
         public class ParsedData
         {
             public List<string> ParsedDetails;

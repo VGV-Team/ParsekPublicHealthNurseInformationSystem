@@ -74,6 +74,8 @@
 
         </dl>
 
+        @FillData(Model.GeneralData)
+
         <h3>
             Meritve
             @Html.ActionLink("Uredi", "Index", "Visit", new { visitId = Model.Visit.VisitId }, new { @class = "btn btn-primary", @style = "color:white" })
@@ -134,7 +136,14 @@
                         @data.ParsedDetailsTitles.ElementAt(index)
                     </dt>
                     <dd>
-                        @data.ParsedDetails.ElementAt(index)
+                        @if (@data.ParsedDetails.ElementAt(index) == "")
+                        {
+                            <span>/</span>
+                        }
+                        else
+                        {
+                            @data.ParsedDetails.ElementAt(index)
+                        }
                     </dd>
 
                     index++;
