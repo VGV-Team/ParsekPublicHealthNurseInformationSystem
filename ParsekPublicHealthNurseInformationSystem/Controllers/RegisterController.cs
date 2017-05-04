@@ -183,7 +183,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 DB.Users.Add(user);
                 DB.Patients.Add(patient);
-                DB.SaveChanges();
+                
 
 
                 #region Email Sending
@@ -226,6 +226,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 smtp.Send(mail);
 
                 #endregion
+
+                DB.SaveChanges();
 
                 rvm = new RegisterViewModel();
                 rvm.ViewMessage = "Registracija uspešna! Na Email vam bomo poslali kodo za aktivacijo računa.";

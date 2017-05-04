@@ -140,6 +140,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             catch (Exception e)
             {
                 lvm.ViewMessage = "Prišlo je do hujše napake!";
+                //lvm.ViewMessage = e.Message;
                 return Form(lvm);
             }
         }

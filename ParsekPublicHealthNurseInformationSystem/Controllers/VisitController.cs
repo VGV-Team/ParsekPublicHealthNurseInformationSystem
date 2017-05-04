@@ -48,7 +48,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vvm.ActivityInputValues = new List<string>();
             vvm.VisitDate = visit.DateConfirmed;
 
-
             if (!generalOnly)
             {
                 // Get correct patient

@@ -43,6 +43,7 @@
                     @Html.EditorFor(x => x.VisitDate, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
+            <hr />
         }
         else if (Model.VisitDate.Date < DateTime.Now.AddDays(-1).Date)
         {
@@ -54,6 +55,7 @@
                     </span>
                 </div>
             </div>
+            <hr />
         }
 
         int count = 0;

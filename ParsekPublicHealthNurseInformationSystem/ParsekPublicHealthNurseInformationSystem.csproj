@@ -272,6 +272,7 @@
     </Content>
     <Content Include="Migrations\DataFiles\activities.xlsx" />
     <Content Include="Migrations\DataFiles\activity inputs.xlsx" />
+    <None Include="Properties\PublishProfiles\ParsekPublicHealthNurseInformationSystem - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
