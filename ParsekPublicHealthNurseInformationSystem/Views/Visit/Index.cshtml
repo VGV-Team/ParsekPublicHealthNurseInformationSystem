@@ -196,11 +196,19 @@ else
         {
             case ActivityInput.InputTypeEnum.Date:
                 @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @required = "true", @type = "date" })
-                break;
-            case ActivityInput.InputTypeEnum.Dropdown:
-                @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues), Model.ActivityInputValues[count], new { @class = "form-control", @required = "true", @type = "date" })
-                break;
-            case ActivityInput.InputTypeEnum.Number:
+            break;
+        case ActivityInput.InputTypeEnum.Dropdown:
+            if (Model.ActivityInputValues[count] == "")
+            {
+                    @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues, ""), new { @class = "form-control", @required = "true", @type = "date" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues, Model.ActivityInputValues[count]), new { @class = "form-control", @required = "true", @type = "date" })
+                }
+
+            break;
+        case ActivityInput.InputTypeEnum.Number:
                 @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @required = "true", @type = "number" })
                 break;
             default:
