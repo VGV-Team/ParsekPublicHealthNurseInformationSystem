@@ -154,6 +154,7 @@
     <Compile Include="Controllers\AddPatientController.cs" />
     <Compile Include="Controllers\AdminConsoleController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
+    <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NurseReplacementController.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AdminConsole\AdminConsoleViewModel.cs" />
     <Compile Include="ViewModels\ChangePassword\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\ForgotPassword\ForgotPasswordViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="ViewModels\NurseReplacement\NurseReplacementViewModel.cs" />
     <Compile Include="ViewModels\PatientActions\AddCarePatientViewModel.cs" />
@@ -321,6 +323,7 @@
     <Content Include="Views\VisitFilter\Index.cshtml" />
     <Content Include="Views\VisitDetails\Index.cshtml" />
     <Content Include="Views\NurseReplacement\Index.cshtml" />
+    <Content Include="Views\ForgotPassword\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
