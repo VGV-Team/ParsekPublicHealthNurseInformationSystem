@@ -459,7 +459,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
 
             #region Activities
 
-            Activity a1 = new Activity() { ActivityCode = 10, GeneralActivity=false, ActivityTitle = "Seznanitev noseènice o normalnem poteku noseènosti in o spremembah na telesu.", Service = ac1 };
+            Activity a1 = new Activity() { ActivityCode = 10, GeneralActivity = false, ActivityTitle = "Seznanitev noseènice o normalnem poteku noseènosti in o spremembah na telesu.", Service = ac1 };
             Activity a2 = new Activity() { ActivityCode = 20, GeneralActivity = false, ActivityTitle = "Povabilo v šolo za starše.", Service = ac1 };
             Activity a3 = new Activity() { ActivityCode = 30, GeneralActivity = false, ActivityTitle = "Seznanitev o rednih ginekoloških pregledih.", Service = ac1 };
             Activity a4 = new Activity() { ActivityCode = 40, GeneralActivity = false, ActivityTitle = "Seznanitev z bližajoèim se porodom in pravoèasnim odhodom v porodnišnico. ", Service = ac1 };

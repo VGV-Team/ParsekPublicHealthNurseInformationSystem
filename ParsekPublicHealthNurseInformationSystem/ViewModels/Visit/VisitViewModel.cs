@@ -16,7 +16,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [DataType(DataType.Date)]
         public DateTime VisitDate { get; set; }
 
-        public int PatientId { get; set; }
+        public int? PatientId { get; set; }
         
         public Patient MainPatient { get; set; }
         public List<Patient> ChildPatients { get; set; }
