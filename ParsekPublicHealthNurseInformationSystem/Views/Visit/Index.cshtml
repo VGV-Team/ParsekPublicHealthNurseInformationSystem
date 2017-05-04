@@ -6,7 +6,7 @@
     ViewBag.Title = "Obisk";
 }
 
-<h2>Podrobnosti obiska</h2>
+<h2>Urejanje podrobnosti obiska</h2>
 
 
 
@@ -77,25 +77,8 @@
 
                         @Html.Label(Model.ActivityInputIds[count].ToString(), Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputTitle, htmlAttributes: new {@class = "control-label col-md-2"})
 
-                        @if (Model.VisitDate.Date < DateTime.Now.AddDays(-1).Date)
-                        {
-                            <span title="Čas za vnos podatkov je pretekel.">
-                                @Html.TextBoxFor(x => x.ActivityInputValues[count], new {@class = "form-control", @disabled = "disabled"})
-                            </span>
-                        }
-                        else if (Model.ActivityInputs[i].ActivityInputDatas[j].ReadOnly)
-                        {
-                            @Html.TextBoxFor(x => x.ActivityInputValues[count], new {@class = "form-control", @readonly = "true"})
-                            <p style="color: mediumpurple;">Vrednost prenešena iz prvega obiska</p>
-                        }
-                        else if (Model.ActivityInputs[i].ActivityInputDatas[j].Required)
-                        {
-                            @Html.TextBoxFor(x => x.ActivityInputValues[count], new {@class = "form-control", @required = "true"})
-                        }
-                        else
-                        {
-                            @Html.TextBoxFor(x => x.ActivityInputValues[count], new {@class = "form-control"})
-                        }
+                        @FillData(i, j, count)
+                        
                     </div>
 
                     //@Html.TextBoxFor(x => x.ActivityInputIds[count])
@@ -137,4 +120,102 @@
 
 
     }
+}
+
+@Html.ActionLink("Nazaj", "Index", "VisitDetails",
+        new { visitId = Model.VisitId },
+        new { @class = "btn btn-info", @style = "color:white" })
+
+<!-- i: activityinputs, j: activityinputdatas, count: activityinputvalues -->
+@helper FillData(int i, int j, int count)
+{
+
+     
+        ParsekPublicHealthNurseInformationSystem.ViewModels.VisitViewModel.Input.InputData AID = Model.ActivityInputs[i].ActivityInputDatas[j];
+    
+
+        if (Model.VisitDate.Date < DateTime.Now.AddDays(-1).Date)
+        {
+        <span title="Čas za vnos podatkov je pretekel.">
+           
+
+            @switch (AID.InputType)
+            {
+                case ActivityInput.InputTypeEnum.Date:
+                    @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @disabled = "disabled", @type="date" })
+                    break;
+                case ActivityInput.InputTypeEnum.Dropdown:
+                    @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues), Model.ActivityInputValues[count], new { @class = "form-control", @disabled = "disabled", @type = "date" })
+                    break;
+                case ActivityInput.InputTypeEnum.Number:
+                    @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @disabled = "disabled", @type = "number" })
+                    break;
+                default:
+                    @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @disabled = "disabled" })
+                    break;
+            }
+
+        </span>
+    }
+    else if (Model.ActivityInputs[i].ActivityInputDatas[j].ReadOnly)
+    {
+
+        switch (AID.InputType)
+        {
+            case ActivityInput.InputTypeEnum.Date:
+                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @readonly = "true", @type = "date" })
+                break;
+            case ActivityInput.InputTypeEnum.Dropdown:
+                @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues), Model.ActivityInputValues[count], new { @class = "form-control", @readonly = "true", @type = "date" })
+                break;
+            case ActivityInput.InputTypeEnum.Number:
+                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @readonly = "true", @type = "number" })
+                break;
+            default:
+                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @readonly = "true" })
+                break;
+        }
+        <p style="color: mediumpurple;">Vrednost prenešena iz prvega obiska</p>
+    }
+    else if (Model.ActivityInputs[i].ActivityInputDatas[j].Required)
+    {
+
+        switch (AID.InputType)
+        {
+            case ActivityInput.InputTypeEnum.Date:
+                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @required = "true", @type = "date" })
+                break;
+            case ActivityInput.InputTypeEnum.Dropdown:
+                @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues), Model.ActivityInputValues[count], new { @class = "form-control", @required = "true", @type = "date" })
+                break;
+            case ActivityInput.InputTypeEnum.Number:
+                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @required = "true", @type = "number" })
+                break;
+            default:
+                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @required = "true" })
+                break;
+        }
+
+    }
+    else
+    {
+
+        switch (AID.InputType)
+        {
+            case ActivityInput.InputTypeEnum.Date:
+                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @type = "date" })
+                break;
+            case ActivityInput.InputTypeEnum.Dropdown:
+                @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues), Model.ActivityInputValues[count], new { @class = "form-control", @type = "date" })
+                break;
+            case ActivityInput.InputTypeEnum.Number:
+                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @type = "number" })
+                break;
+            default:
+                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control" })
+                break;
+        }
+    }
+
+
 }

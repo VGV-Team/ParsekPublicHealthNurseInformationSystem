@@ -73,7 +73,15 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 }
 
                 data.ParsedDetailsTitles.Add(inputData.ElementAt(i).ActivityInput.Title);
-                data.ParsedDetails.Add(inputData.ElementAt(i).Value);
+                if (inputData.ElementAt(i).ActivityInput.InputType == ActivityInput.InputTypeEnum.Date)
+                {
+                    DateTime dt = DateTime.Parse(inputData.ElementAt(i).Value);
+                    data.ParsedDetails.Add(dt.ToString("dd.MM.yyyy"));
+                }
+                else
+                {
+                    data.ParsedDetails.Add(inputData.ElementAt(i).Value);
+                }
                 count += 1;
             }
             data.CategoryItemCount.Add(count);
