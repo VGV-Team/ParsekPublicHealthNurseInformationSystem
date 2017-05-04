@@ -145,7 +145,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             }
             if (vm.SelectedPatientId > 0)
             {
-                vm.WorkOrders = vm.WorkOrders.Where(wo => wo.PatientWorkOrders.Any(pwo => pwo.Patient.PatientId == vm.SelectedPatientId)).ToList();
+                vm.WorkOrders = vm.WorkOrders.Where(wo => wo.PatientWorkOrders.Any(pwo => pwo.Patient.PatientId == vm.SelectedPatientId) || wo.Patient.PatientId == vm.SelectedPatientId).ToList();
             }
             if (vm.SelectedNurseId > 0 && vm.SelectedNurseReplacementId > 0)
             {
