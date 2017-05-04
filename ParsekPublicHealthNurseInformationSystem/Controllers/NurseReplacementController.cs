@@ -77,6 +77,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                             visit.NurseReplacement = Nurse2;
                     }
                 }
+                List<Visit> visits = DB.Visits.Where(x => x.DateConfirmed >= nrvm.DateStart && x.DateConfirmed <= nrvm.DateEnd).ToList();
+                foreach(var visit in visits)
+                {
+                    visit.NurseReplacement = Nurse2;
+                }
                 DB.SaveChanges();
                 nrvm.ViewMessage = "Nadomestitev uspešna";
                 nrvm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
