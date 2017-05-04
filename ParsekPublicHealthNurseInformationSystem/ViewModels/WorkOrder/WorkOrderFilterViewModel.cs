@@ -43,6 +43,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         [Display(Name = "Delovni nalogi")]
         public List<Models.WorkOrder> WorkOrders { get; set; }
+        public List<bool> CanDelete { get; set; }
 
         public enum VisitTypeEnum
         {

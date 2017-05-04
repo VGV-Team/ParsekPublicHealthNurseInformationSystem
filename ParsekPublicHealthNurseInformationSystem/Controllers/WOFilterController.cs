@@ -28,7 +28,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.Title == Employee.JobTitle.HealthNurse).ToList();
 
             vm.WorkOrders = DB.WorkOrders.ToList();
-
+            vm.CanDelete = new List<bool>();
 
             CheckForRole(vm);
 
@@ -63,6 +63,48 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             }
         }
 
+        private void CheckForDelete(WorkOrderFilterViewModel vm)
+        {
+
+            Employee current = (Session["user"] as Models.User).Employee;
+
+            // IF doctor or head
+            if (current.Title == Employee.JobTitle.Doctor || current.Title == Employee.JobTitle.Head)
+            {
+                for (int i = 0; i < vm.WorkOrders.Count; i++)
+                {
+                    WorkOrder wo = vm.WorkOrders.ElementAt(i);
+                    // If I created this workroder
+                    if (wo.Issuer.EmployeeId == current.EmployeeId)
+                    {
+                        // If WO has any done vists
+                        if (wo.Visits.Any(v => v.DateConfirmed < DateTime.Now || v.Confirmed))
+                        {
+                            // Can't delete
+                            vm.CanDelete.Add(false);
+                        }
+                        else
+                        {
+                            // Can delete
+                            vm.CanDelete.Add(true);
+                        }
+                    }
+                    else
+                    {
+                        vm.CanDelete.Add(false);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < vm.WorkOrders.Count; i++)
+                {
+                    vm.CanDelete.Add(false);
+                }
+            }
+            
+        } 
+
         public ActionResult Filter(WorkOrderFilterViewModel vm)
         {
 
@@ -76,6 +118,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.Title == Employee.JobTitle.HealthNurse).ToList();
 
             vm.WorkOrders = DB.WorkOrders.ToList();
+            vm.CanDelete = new List<bool>();
 
             CheckForRole(vm);
 
@@ -117,12 +160,73 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Nurse.EmployeeId == vm.SelectedNurseId).ToList();
             }
 
-
-
             #endregion
+
+            CheckForDelete(vm);
 
             return View("Index", vm);
         }
 
+        public ActionResult Delete(int workorderId)
+        {
+
+            bool CanDelete = true;
+            Models.WorkOrder WO = DB.WorkOrders.Find(workorderId);
+
+            if (WO != null)
+            {
+                #region Check
+
+                Employee current = (Session["user"] as Models.User).Employee;
+
+                // IF doctor or head
+                if (current.Title == Employee.JobTitle.Doctor || current.Title == Employee.JobTitle.Head)
+                {
+
+                    // If I created this workroder
+                    if (WO.Issuer.EmployeeId == current.EmployeeId)
+                    {
+                        // If WO has any done vists
+                        if (WO.Visits.Any(v => v.DateConfirmed < DateTime.Now || v.Confirmed))
+                        {
+                            // Can't delete
+                            CanDelete = false;
+                        }
+                        else
+                        {
+                            // Can delete
+                            CanDelete = true;
+                        }
+                    }
+                    else
+                    {
+                        CanDelete = false;
+                    }
+
+                }
+                else
+                {
+                    CanDelete = false;
+                }
+
+                #endregion
+
+                if (CanDelete)
+                {
+                    DB.Visits.RemoveRange(WO.Visits);
+                    DB.PatientWorkOrders.RemoveRange(WO.PatientWorkOrders);
+                    DB.BloodSamples.RemoveRange(WO.BloodSamples);
+                    DB.MaterialWorkOrders.RemoveRange(WO.MaterialWorkOrders);
+                    DB.MedicineWorkOrders.RemoveRange(WO.MedicineWorkOrders);
+                    DB.WorkOrders.Remove(WO);
+                    DB.SaveChanges();
+                }
+            }
+
+            return Index(null);
+        }
+
     }
+
+    
 }

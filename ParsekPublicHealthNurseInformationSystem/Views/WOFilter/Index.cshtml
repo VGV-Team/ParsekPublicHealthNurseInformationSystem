@@ -121,7 +121,7 @@
                         <th>Nadomestna sestra</th>
                         <th>Preventivni</th>
                         <th>Pacient(i)</th>
-                        <th>Podrobnosti</th>
+                        <th>Možnosti</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -177,6 +177,10 @@
                                 </td>
                                 <td>
                                     @Html.ActionLink("Podrobnosti", "Index", "WODetails", new { workorderId = WO.WorkOrderId }, new { @class = "btn btn-primary", @style = "color:white" })
+                                    @if (Model.CanDelete.ElementAt(i))
+                                    {
+                                        @Html.ActionLink("Izbriši", "Delete", "WOFilter", new { workorderId = WO.WorkOrderId }, new { @class = "btn btn-danger", @style = "color:white" })
+                                    }
                                 </td>
                             </tr>
                         }
