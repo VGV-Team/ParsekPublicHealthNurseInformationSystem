@@ -25,6 +25,19 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public List<Models.Visit> OptionalVisits { get; set; }
         public List<Models.Visit> OverdueVisits { get; set; }
 
+        // Material list
+        
+        public List<List<MaterialList>> Materials { get; set; }
+
+        public struct MaterialList
+        {
+            public string MaterialName;
+            public int Count;
+        }
+
+        //////////////////////////
+        
+
         public string ViewMessage { get; set; }
 
     }

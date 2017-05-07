@@ -21,6 +21,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.MandatoryVisits = new List<Visit>();
             vm.OverdueVisits = new List<Visit>();
             vm.Visits = new List<List<Visit>>();
+            vm.Materials = new List<List<VisitPlannerViewModel.MaterialList>>();
             vm.VisitsDays = 7;
 
             if (vm == null)
@@ -30,6 +31,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 vm.MandatoryVisits = new List<Visit>();
                 vm.OverdueVisits = new List<Visit>();
                 vm.Visits = new List<List<Visit>>();
+                vm.Materials = new List<List<VisitPlannerViewModel.MaterialList>>();
                 vm.VisitsDays = 7;
                 FillViewModel(vm);
                 if (date != null)
@@ -60,6 +62,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     vm.MandatoryVisits = new List<Visit>();
                     vm.OverdueVisits = new List<Visit>();
                     vm.Visits = new List<List<Visit>>();
+                    vm.Materials = new List<List<VisitPlannerViewModel.MaterialList>>();
                     vm.VisitsDays = 7;
                 }
                 FillViewModel(vm);
@@ -75,6 +78,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.MandatoryVisits = new List<Visit>();
             vm.OverdueVisits = new List<Visit>();
             vm.Visits = new List<List<Visit>>();
+            vm.Materials = new List<List<VisitPlannerViewModel.MaterialList>>();
             vm.VisitsDays = 7;
             vm.ViewMessage = "Datum mora biti enak ali večji od današnjega.";
         }
@@ -95,6 +99,78 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 tmp = AllVisits.Where(v => v.DateConfirmed.Day == dt.Day && v.DateConfirmed.Month == dt.Month && v.DateConfirmed.Year == dt.Year && (v.Mandatory || v.Confirmed)).ToList();
                 vm.Visits.Add(tmp);
                 dt = dt.AddDays(1);
+
+                // Add materials
+                int numRedVials = 0;
+                int numBlueVials = 0;
+                int numGreenVials = 0;
+                int numYellowVials = 0;
+                List<VisitPlannerViewModel.MaterialList> materialList = new List<VisitPlannerViewModel.MaterialList>();
+                //List<Medicine> medicineList = DB.Medicines.OrderBy(m => m.MedicineId).ToList();
+                int[] medicineCounter = new int[DB.Medicines.Count() + 1];
+                for (int j = 0; j < tmp.Count; j++)
+                {
+                    WorkOrder wo = tmp[j].WorkOrder;
+
+                    // Blood vials
+                    if (wo.BloodSamples.Count > 0)
+                    {
+                        numRedVials += wo.BloodSamples.ElementAt(0).BloodVialRedCount;
+                        numBlueVials += wo.BloodSamples.ElementAt(0).BloodVialBlueCount;
+                        numGreenVials += wo.BloodSamples.ElementAt(0).BloodVialGreenCount;
+                        numYellowVials += wo.BloodSamples.ElementAt(0).BloodVialYellowCount;
+                    }
+
+                    // Medicine
+                    foreach (var med in wo.MedicineWorkOrders)
+                    {
+                        medicineCounter[med.Medicine.MedicineId]++;
+                    }
+                }
+
+                #region Add to meterials list
+                if (numRedVials > 0)
+                {
+                    VisitPlannerViewModel.MaterialList ml = new VisitPlannerViewModel.MaterialList();
+                    ml.MaterialName = "Odvzem krvi: rdeče epruvete";
+                    ml.Count = numRedVials;
+                    materialList.Add(ml);
+                }
+                if (numBlueVials > 0)
+                {
+                    VisitPlannerViewModel.MaterialList ml = new VisitPlannerViewModel.MaterialList();
+                    ml.MaterialName = "Odvzem krvi: modre epruvete";
+                    ml.Count = numBlueVials;
+                    materialList.Add(ml);
+                }
+                if (numGreenVials > 0)
+                {
+                    VisitPlannerViewModel.MaterialList ml = new VisitPlannerViewModel.MaterialList();
+                    ml.MaterialName = "Odvzem krvi: zelene epruvete";
+                    ml.Count = numGreenVials;
+                    materialList.Add(ml);
+                }
+                if (numYellowVials > 0)
+                {
+                    VisitPlannerViewModel.MaterialList ml = new VisitPlannerViewModel.MaterialList();
+                    ml.MaterialName = "Odvzem krvi: rumene epruvete";
+                    ml.Count = numYellowVials;
+                    materialList.Add(ml);
+                }
+                
+                for (int j = 1; j < medicineCounter.Length; j++)
+                {
+                    if (medicineCounter[j] > 0)
+                    {
+                        VisitPlannerViewModel.MaterialList ml = new VisitPlannerViewModel.MaterialList();
+                        ml.MaterialName = "Aplikacija injekcije: " + DB.Medicines.Find(j).FullName;
+                        ml.Count = medicineCounter[j];
+                        materialList.Add(ml);
+                    }
+                }
+                #endregion
+
+                vm.Materials.Add(materialList);
             }
 
             vm.OptionalVisits = AllVisits.Where(v => !v.Confirmed && !v.Mandatory &&

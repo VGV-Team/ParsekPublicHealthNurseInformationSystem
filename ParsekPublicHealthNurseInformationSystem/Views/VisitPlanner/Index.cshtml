@@ -99,6 +99,44 @@
 
                 </tbody>
             </table>
+
+
+            <div class="btn-group">
+            <button onclick="return false;" class="btn btn-default form-control" data-toggle="collapse" data-target="#material_@bId">Seznam materiala</button>
+            </div>
+
+            <br />
+
+            <div id="material_@bId" class="collapse">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th>Število</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @for (int i = 0; i < Model.Materials[j].Count; i++)
+                        {
+
+                            <tr>
+
+                                <td>@Model.Materials[j][i].MaterialName</td>
+                                <td>@Model.Materials[j][i].Count</td>
+                            
+                            </tr>
+
+
+
+
+                        }
+
+                    </tbody>
+                </table>
+           </div>
+
         </div>
         <div style="clear:both"></div>
         <hr />
