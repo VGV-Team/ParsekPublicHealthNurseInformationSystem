@@ -163,6 +163,7 @@
     <Compile Include="Controllers\RESTController.cs" />
     <Compile Include="Controllers\VisitDetailsController.cs" />
     <Compile Include="Controllers\VisitFilterController.cs" />
+    <Compile Include="Controllers\VisitPatientController.cs" />
     <Compile Include="Controllers\VisitPlannerController.cs" />
     <Compile Include="Controllers\VisitController.cs" />
     <Compile Include="Controllers\WODetailsController.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="ViewModels\VisitPlanner\VisitPlannerViewModel.cs" />
     <Compile Include="ViewModels\Visit\VisitDetailsViewModel.cs" />
     <Compile Include="ViewModels\Visit\VisitFilterViewModel.cs" />
+    <Compile Include="ViewModels\Visit\VisitPatientViewModel.cs" />
     <Compile Include="ViewModels\Visit\VisitViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\WorkOrder\WorkOrderFilterViewModel.cs" />
@@ -324,6 +326,7 @@
     <Content Include="Views\VisitDetails\Index.cshtml" />
     <Content Include="Views\NurseReplacement\Index.cshtml" />
     <Content Include="Views\ForgotPassword\Index.cshtml" />
+    <Content Include="Views\VisitPatient\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

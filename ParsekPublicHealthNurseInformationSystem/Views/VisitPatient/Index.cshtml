@@ -1,0 +1,139 @@
+﻿@model ParsekPublicHealthNurseInformationSystem.ViewModels.VisitPatientViewModel
+
+@{
+    ViewBag.Title = "Moji obiski";
+}
+
+<h2>Moji obiski</h2>
+
+
+
+
+    <div class="form-horizontal">
+
+        <hr />
+
+        <div class="">
+
+            
+            @CreateTable(Model.Visits)
+
+            @if (Model.MyPatientVisits.Count != 0)
+            {
+                <h2>Obiski mojih pacientov</h2>
+                <hr />
+            }
+
+            
+
+            @for (int i = 0; i < Model.MyPatientVisits.Count; i++)
+            {
+                
+
+                <div class="btn-group">
+                    <button onclick="return false;" class="btn btn-info form-control " data-toggle="collapse" data-target="#MyPatient_@i">@Model.MyPatientVisits.ElementAt(i).Patient.FullName</button>
+                </div>
+
+                <br />
+
+                <div id="MyPatient_@i" class="collapse">
+
+                    @CreateTable(Model.MyPatientVisits.ElementAt(i).Visits)
+
+                </div>
+            }
+
+
+        </div>
+
+    </div>
+       
+
+@helper CreateTable(List<ParsekPublicHealthNurseInformationSystem.Models.Visit> Visits)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Vrsta obiska</th>
+                <th>Predviden datum</th>
+                <th>Dejanski datum</th>
+                <th>Izdajatelj</th>
+                <th>Zadolžena sestra</th>
+                <th>Nadomestna sestra</th>
+                <th>Preventivni</th>
+                <th>Pacient(i)</th>
+                <th>Podrobnosti</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @for (int i = 0; i < Visits.Count; i++)
+            {
+                <tr>
+                    @{
+
+
+                        ParsekPublicHealthNurseInformationSystem.Models.Visit v = Visits[i];
+
+
+
+                        string WOIssuerTitle = v.WorkOrder.Issuer.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor ?
+                        "Doktor" : "Vodja";
+                    }
+
+
+                    <td>@v.WorkOrder.Name</td>
+                    <td>@v.Date.ToString("dd. MM. yyyy")</td>
+                    <td>@v.DateConfirmed.ToString("dd. MM. yyyy")</td>
+                    <td>@v.WorkOrder.Issuer.Name @v.WorkOrder.Issuer.Surname, @WOIssuerTitle</td>
+                    <td>@v.WorkOrder.Nurse.Name @v.WorkOrder.Nurse.Surname</td>
+                    @if (@v.NurseReplacement != null)
+                    {
+                        <td>@v.NurseReplacement.Name @v.NurseReplacement.Surname</td>
+                    }
+                    else
+                    {
+                        <td>/</td>
+                    }
+                    @if (@v.WorkOrder.Service.PreventiveVisit)
+                    {
+                        <td>da</td>
+                    }
+                    else
+                    {
+                        <td>ne</td>
+                    }
+
+                    <td>
+                        <!-- CHENGE LATER IF WE NEED TO DISPLAY PARENT AND CHILD SEPARATELY -->
+
+                        @if (v.WorkOrder.Patient != null)
+                        {
+                            <span>@v.WorkOrder.Patient.Name @v.WorkOrder.Patient.Surname</span>
+                        }
+                        else
+                        {
+                            <span>/</span>
+                        }
+
+                        @for (int j = 0; j < v.WorkOrder.PatientWorkOrders.Count; j++)
+                        {
+
+                            ParsekPublicHealthNurseInformationSystem.Models.PatientWorkOrder PWO =
+                                v.WorkOrder.PatientWorkOrders.ElementAt(j);
+
+                            <span>, @PWO.Patient.Name @PWO.Patient.Surname &nbsp;</span>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Podrobnosti", "Index", "VisitDetails", new { visitId = v.VisitId }, new { @class = "btn btn-primary", @style = "color:white" })
+                    </td>
+                </tr>
+                        }
+
+
+
+        </tbody>
+    </table>
+
+}                         

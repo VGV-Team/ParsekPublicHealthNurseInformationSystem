@@ -78,7 +78,12 @@
 
         <h3>
             Meritve
-            @Html.ActionLink("Uredi", "Index", "Visit", new { visitId = Model.Visit.VisitId }, new { @class = "btn btn-primary", @style = "color:white" })
+
+            @if ((Session["user"] as ParsekPublicHealthNurseInformationSystem.Models.User).Employee != null)
+            {
+                @Html.ActionLink("Uredi", "Index", "Visit", new { visitId = Model.Visit.VisitId }, new { @class = "btn btn-primary", @style = "color:white" })
+
+            }
         </h3>
         <hr/>
 
