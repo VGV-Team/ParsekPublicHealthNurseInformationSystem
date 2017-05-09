@@ -1,0 +1,41 @@
+﻿@model ParsekPublicHealthNurseInformationSystem.ViewModels.EndReplacementViewModel
+@using Microsoft.Ajax.Utilities
+@using ParsekPublicHealthNurseInformationSystem.Models
+@using ParsekPublicHealthNurseInformationSystem.ViewModels
+
+@{
+    ViewBag.Title = "Izpis nadomeščanj";
+}
+
+<h2>Izpis nadomeščanj</h2>
+
+
+@using (Html.BeginForm(Html.BeginForm("EndReplacement", "EndReplacement", FormMethod.Post))) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <h3>@Model.ViewMessage</h3>
+        @Html.Raw(Globals.GenerateDropDown(Model.AllNurses, "NurseId", false))
+        <div class="form-group">
+            @Html.LabelFor(model => model.NurseId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NurseId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NurseId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Konec nadomeščanja" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

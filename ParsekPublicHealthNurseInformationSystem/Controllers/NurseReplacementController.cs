@@ -50,7 +50,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     return View("Index", nrvm);
                 }
 
-                if (nrvm.DateStart < DateTime.Now || nrvm.DateEnd < DateTime.Now)
+                if (nrvm.DateStart < DateTime.Now.Date || nrvm.DateEnd < DateTime.Now.Date)
                 {
                     nrvm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
                     nrvm.ViewMessage = "Vsaj eden izmed datumov je preteklost";
@@ -66,6 +66,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 Employee Nurse1 = DB.Employees.Find(NurseId1[0]);
                 Employee Nurse2 = DB.Employees.Find(NurseId2[0]);
+                int tmpId = NurseId1[0];
                 List<WorkOrder> WO = DB.WorkOrders.Where(x => x.Nurse.EmployeeId == Nurse1.EmployeeId).ToList();
                 //List<Visit> visits = new List<Visit>();
                 foreach (var workorder in WO)
@@ -77,7 +78,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                             visit.NurseReplacement = Nurse2;
                     }
                 }
-                List<Visit> visits = DB.Visits.Where(x => x.DateConfirmed >= nrvm.DateStart && x.DateConfirmed <= nrvm.DateEnd).ToList();
+                List<Visit> visits = DB.Visits.Where(x => x.DateConfirmed >= nrvm.DateStart && x.DateConfirmed <= nrvm.DateEnd && x.NurseReplacement != null && x.NurseReplacement.EmployeeId == tmpId).ToList();
                 foreach(var visit in visits)
                 {
                     visit.NurseReplacement = Nurse2;

@@ -30,6 +30,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         //public virtual ICollection<WorkOrder> WorkOrders { get; set; }
         public virtual ICollection<Visit> Visits { get; set; } //Only nurse
 
+        public virtual ICollection<Absence> Absences { get; set; } //Only nurse
+
         public string DisplayName { get { return string.Format("{0} {1} [{2}]", Name, Surname, Number); } }
 
         //[Display(Name = "Tip zaposlenega")]
