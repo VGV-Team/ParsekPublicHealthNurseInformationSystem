@@ -381,7 +381,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             NurseEmployee3.PhoneNumber = "035897546";
             NurseEmployee3.Title = Employee.JobTitle.HealthNurse;
             Employee NurseEmployee4 = new Employee();
-            NurseEmployee4.User = Nurse2;
+            NurseEmployee4.User = Nurse4;
             NurseEmployee4.Name = "Elizabeta";
             NurseEmployee4.Surname = "Magdalena";
             NurseEmployee4.Contractor = c1;

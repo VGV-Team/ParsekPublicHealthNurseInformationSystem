@@ -30,10 +30,49 @@
         
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Konec nadomeščanja" class="btn btn-default" />
+                <input type="submit" value="Izpis odsotnosti" class="btn btn-default" />
             </div>
         </div>
-    </div>
+
+        <div class="">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Začetek odsotnosti</th>
+                        <th>Konec odsotnosti</th>
+                        <th>Odsotna sestra</th>
+                        <th>Možnosti</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.Absences.Count; i++)
+                    {
+                        
+                            ParsekPublicHealthNurseInformationSystem.Models.Absence AbsenceI = Model.Absences[i];
+                        
+                        <tr>
+                            <td>@AbsenceI.DateStart.ToString("dd. MM. yyyy")</td>
+                            <td>@AbsenceI.DateEnd.ToString("dd. MM. yyyy")</td>
+                            <td>@AbsenceI.AbsenceNurse.FullName</td>
+                            <td>
+                                @if (Model.CanDelete.ElementAt(i))
+                                {
+                                    @Html.ActionLink("Prekliči", "Delete", "EndReplacement", new { absenceId = AbsenceI.AbsenceId }, new { @class = "btn btn-danger", @style = "color:white" })
+                                }
+                                else
+                                { 
+                                    <span>/</span>
+                                }
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+                </table>
+</div>
+       </div>
 }
 
 @section Scripts {
