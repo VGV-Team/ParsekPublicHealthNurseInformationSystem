@@ -107,6 +107,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 acpvm = new AddCarePatientViewModel();
                 acpvm.ViewMessage = "Dodajanje uspešno.";
 
+
+                int userId = (Session["user"] as Models.User).UserId;
+                Session["user"] = DB.Users.Find(userId);
+
+
                 return Form(acpvm);
             }
             catch (Exception e)

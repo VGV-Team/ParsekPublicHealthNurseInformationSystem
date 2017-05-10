@@ -209,6 +209,7 @@
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="ViewModels\NurseReplacement\NurseReplacementViewModel.cs" />
     <Compile Include="ViewModels\PatientActions\AddCarePatientViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileViewModel.cs" />
     <Compile Include="ViewModels\Register\RegisterViewModel.cs" />
     <Compile Include="ViewModels\VisitPlanner\VisitPlannerViewModel.cs" />
     <Compile Include="ViewModels\Visit\VisitDetailsViewModel.cs" />
@@ -331,11 +332,10 @@
     <Content Include="Views\ForgotPassword\Index.cshtml" />
     <Content Include="Views\VisitPatient\Index.cshtml" />
     <Content Include="Views\EndReplacement\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\Profile\" />
-    <Folder Include="Views\Profile\" />
     <Folder Include="Views\REST\" />
   </ItemGroup>
   <ItemGroup>
