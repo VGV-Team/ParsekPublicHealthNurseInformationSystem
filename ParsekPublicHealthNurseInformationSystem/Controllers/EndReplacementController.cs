@@ -41,6 +41,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             }
 
             Employee Nurse = DB.Employees.Find(NurseId[0]);
+            Absence a = DB.Absences.Where(x => x.AbsenceNurse.EmployeeId == Nurse.EmployeeId).FirstOrDefault();
+            if (a == null)
+            {
+                ervm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
+                ervm.ViewMessage = "Izbrana sestra ni nikdar odsotna";
+                return View("Index", ervm);
+            }
+
             List<WorkOrder> WO = DB.WorkOrders.Where(x => x.Nurse.EmployeeId == Nurse.EmployeeId).ToList();
             for(int i = 0; i < WO.Count; i++)
             {
@@ -57,7 +65,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     }
                 }
             }
-
+            DB.Absences.Remove(a);
             DB.SaveChanges();
             ervm.ViewMessage = "Konec nadomeščanja uspešna";
             ervm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();

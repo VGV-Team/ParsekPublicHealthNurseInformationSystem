@@ -22,11 +22,11 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels.NurseReplacement
 
         [Display(Name = "Od")]
         [DataType(DataType.Date)]
-        public DateTime? DateStart { get; set; }
+        public DateTime DateStart { get; set; }
 
         [Display(Name = "Do")]
         [DataType(DataType.Date)]
-        public DateTime? DateEnd { get; set; }
+        public DateTime DateEnd { get; set; }
 
         public string ViewMessage { get; set; }
     }

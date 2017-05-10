@@ -83,6 +83,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 {
                     visit.NurseReplacement = Nurse2;
                 }
+                Absence a = new Absence();
+                a.AbsenceNurse = Nurse1;
+                a.DateStart = nrvm.DateStart;
+                a.DateEnd = nrvm.DateEnd;
+                DB.Absences.Add(a);
+
+
                 DB.SaveChanges();
                 nrvm.ViewMessage = "Nadomestitev uspešna";
                 nrvm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
