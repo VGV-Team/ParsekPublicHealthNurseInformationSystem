@@ -62,6 +62,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         [HttpPost]
         public ActionResult EndReplacement(EndReplacementViewModel ervm)
         {
+            ervm.Absences = new List<Absence>();
+            ervm.CanDelete = new List<bool>();
             if (ervm.NurseId.IsNullOrWhiteSpace())
             {
                 ervm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
