@@ -46,12 +46,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vvm.VisitDate = visit.DateConfirmed;
 
             Patient patient = null;
+            bool isMainPatientSelected = false;
             if (patientId != null) // If patientId is not null then we are requesting data for specific patient.
             {
                 // Get correct patient
                 if (visit.WorkOrder.Patient.PatientId == patientId)
                 {
                     patient = visit.WorkOrder.Patient;
+                    isMainPatientSelected = true;
                 }
                 else
                 {
@@ -65,9 +67,95 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     else
                     {
                         patient = pwo.Patient;
+                        isMainPatientSelected = false;
                     }
                 }
                 vvm.PatientId = patient.PatientId;
+
+                // Select all activities for selected service.
+                List<Activity> activities = db.Activities.Where(x => x.Service.ServiceId == visit.WorkOrder.Service.ServiceId
+                                                                    && ( x.ActivityInputFor == Activity.InputForType.All ||
+                                                                         x.ActivityInputFor == Activity.InputForType.ParentOnly && isMainPatientSelected ||
+                                                                         x.ActivityInputFor == Activity.InputForType.PatientOnly && !isMainPatientSelected
+                                                                       )).ToList();
+                List<Visit> visits = visit.WorkOrder.Visits.ToList();
+                visits = visits.OrderBy(v => v.DateConfirmed).ToList();
+                Visit firstVisit = visits.First();
+
+                foreach (Activity activity in activities)
+                {
+                    //if(patientId == null && !activity.ActivityInputFor || patientId != null && activity.ActivityInputFor) // Skip if activity is/is not general.
+                    //    continue;
+
+
+                    VisitViewModel.Input inputs = new VisitViewModel.Input();
+                    inputs.ActivityTitle = activity.ActivityTitle;
+
+                    // Select all inputs for selected activity.
+                    List<ActivityInput> activityInputs = db.ActivityInputs.Where(x => x.Activity.ActivityId == activity.ActivityId).ToList();
+                    inputs.ActivityInputDatas = new List<VisitViewModel.Input.InputData>();
+
+
+                    foreach (var activityInput in activityInputs)
+                    {
+                        VisitViewModel.Input.InputData inputData = new VisitViewModel.Input.InputData();
+                        inputData.ActivityInputId = activityInput.ActivityInputId;
+                        inputData.ActivityInputTitle = activityInput.Title;
+                        //inputData.ActivityInputValue = "";
+
+                        inputData.InputType = activityInput.InputType;
+                        inputData.Required = activityInput.Required;
+                    
+
+                        List<string> possibleValues = activityInput.PossibleValues.Split(new string[] { ";;" }, StringSplitOptions.None).ToList();
+                        inputData.PossibleValues = possibleValues;
+
+
+                        int correctVisitId; //correct = first or current
+
+                        inputData.ReadOnly = false;
+
+                        if (activityInput.OneTime)
+                        {
+                            correctVisitId = firstVisit.VisitId;
+                            if (visit.VisitId != correctVisitId)
+                                inputData.ReadOnly = true;
+                        }
+                        else
+                        {
+                            correctVisitId = visit.VisitId;
+                        
+                        }
+
+                        ActivityInputData input;
+                        if (patient == null)
+                        {
+                            input = db.ActivityInputDatas.FirstOrDefault(x => x.ActivityInput.ActivityInputId == inputData.ActivityInputId &&
+                                                                                                          x.Visit.VisitId == correctVisitId &&
+                                                                                                          x.Patient == null);
+
+                        }
+                        else
+                        {
+                            input = db.ActivityInputDatas.FirstOrDefault(x => x.ActivityInput.ActivityInputId == inputData.ActivityInputId &&
+                                                                                                          x.Visit.VisitId == correctVisitId &&
+                                                                                                          x.Patient.PatientId == patient.PatientId);
+
+                        }
+
+                        vvm.ActivityInputValues.Add(input == null ? "" : input.Value);
+
+
+                        inputs.ActivityInputDatas.Add(inputData);
+
+                        vvm.ActivityInputIds.Add(activityInput.ActivityInputId);
+
+                   
+                    }
+
+                    vvm.ActivityInputs.Add(inputs);
+                }
+
             }
             else // If patientId is null then we are requesting general data.
             {
@@ -83,86 +171,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     patients.Add(patientWorkOrders.Patient);
                 }
                 vvm.ChildPatients = patients;
-            }
-
-            // Select all activities for selected service.
-            List<Activity> activities = db.Activities.Where(x => x.Service.ServiceId == visit.WorkOrder.Service.ServiceId).ToList();
-
-            List<Visit> visits = visit.WorkOrder.Visits.ToList();
-            visits = visits.OrderBy(v => v.DateConfirmed).ToList();
-            Visit firstVisit = visits.First();
-
-            foreach (Activity activity in activities)
-            {
-                if(patientId == null && !activity.GeneralActivity || patientId != null && activity.GeneralActivity) // Skip if activity is/is not general.
-                    continue;
-
-                VisitViewModel.Input inputs = new VisitViewModel.Input();
-                inputs.ActivityTitle = activity.ActivityTitle;
-
-                // Select all inputs for selected activity.
-                List<ActivityInput> activityInputs = db.ActivityInputs.Where(x => x.Activity.ActivityId == activity.ActivityId).ToList();
-                inputs.ActivityInputDatas = new List<VisitViewModel.Input.InputData>();
-
-
-                foreach (var activityInput in activityInputs)
+                
+                if (patients.Count == 0)
                 {
-                    VisitViewModel.Input.InputData inputData = new VisitViewModel.Input.InputData();
-                    inputData.ActivityInputId = activityInput.ActivityInputId;
-                    inputData.ActivityInputTitle = activityInput.Title;
-                    //inputData.ActivityInputValue = "";
-
-                    inputData.InputType = activityInput.InputType;
-                    inputData.Required = activityInput.Required;
-                    
-
-                    List<string> possibleValues = activityInput.PossibleValues.Split(new string[] { ";;" }, StringSplitOptions.None).ToList();
-                    inputData.PossibleValues = possibleValues;
-
-
-                    int correctVisitId; //correct = first or current
-
-                    inputData.ReadOnly = false;
-
-                    if (activityInput.OneTime)
-                    {
-                        correctVisitId = firstVisit.VisitId;
-                        if (visit.VisitId != correctVisitId)
-                            inputData.ReadOnly = true;
-                    }
-                    else
-                    {
-                        correctVisitId = visit.VisitId;
-                        
-                    }
-
-                    ActivityInputData input;
-                    if (patient == null)
-                    {
-                        input = db.ActivityInputDatas.FirstOrDefault(x => x.ActivityInput.ActivityInputId == inputData.ActivityInputId &&
-                                                                                                      x.Visit.VisitId == correctVisitId &&
-                                                                                                      x.Patient == null);
-
-                    }
-                    else
-                    {
-                        input = db.ActivityInputDatas.FirstOrDefault(x => x.ActivityInput.ActivityInputId == inputData.ActivityInputId &&
-                                                                                                      x.Visit.VisitId == correctVisitId &&
-                                                                                                      x.Patient.PatientId == patient.PatientId);
-
-                    }
-
-                    vvm.ActivityInputValues.Add(input == null ? "" : input.Value);
-
-
-                    inputs.ActivityInputDatas.Add(inputData);
-
-                    vvm.ActivityInputIds.Add(activityInput.ActivityInputId);
-
-                   
+                //    return RedirectToAction("EnterData", "Visit", new { visitId = visitId, patientId = vvm.MainPatient } );
                 }
-
-                vvm.ActivityInputs.Add(inputs);
             }
 
             return View("Index", vvm);

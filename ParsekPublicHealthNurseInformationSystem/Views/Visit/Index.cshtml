@@ -8,35 +8,41 @@
 
 <h2>Urejanje podrobnosti obiska</h2>
 
-
-
-@if (Model.MainPatient != null)
+@if (Model.PatientId == null)
 {
-    @Html.ActionLink(Model.MainPatient.FullNameWithCode, "EnterData", "Visit", 
-        new { visitId = Model.VisitId, generalOnly = false, patientId = Model.MainPatient.PatientId }, 
+    if (Model.MainPatient != null)
+    {
+        @Html.ActionLink(Model.MainPatient.FullNameWithCode, "EnterData", "Visit",
+        new { visitId = Model.VisitId, generalOnly = false, patientId = Model.MainPatient.PatientId },
         new { @class = "btn btn-primary", @style = "color:white" })
-}
+    }
 
-@foreach (var childPatient in Model.ChildPatients ?? new List<Patient>())
-{
-    @Html.ActionLink(childPatient.FullNameWithCode, "EnterData", "Visit",
+    foreach (var childPatient in Model.ChildPatients ?? new List<Patient>())
+    {
+        @Html.ActionLink(childPatient.FullNameWithCode, "EnterData", "Visit",
         new { visitId = Model.VisitId, generalOnly = false, patientId = childPatient.PatientId },
         new { @class = "btn btn-primary", @style = "color:white" })
+    }
+
+    <hr />
+
+    @Html.ActionLink("Nazaj", "Index", "VisitDetails",
+        new { visitId = Model.VisitId },
+        new { @class = "btn btn-info", @style = "color:white" })
 }
-
-<hr/>
-
-@if (Model.ActivityInputs != null && Model.ActivityInputs.Count > 0)
+else
 {
-    using (Html.BeginForm("SaveData", "Visit"))
+    if (Model.ActivityInputs != null && Model.ActivityInputs.Count > 0)
     {
+        using (Html.BeginForm("SaveData", "Visit"))
+        {
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(m => m.VisitId)
         @Html.HiddenFor(m => m.PatientId)
 
-        if (Model.VisitDate.Date == DateTime.Now.AddDays(-1).Date)
-        {
+          if (Model.VisitDate.Date == DateTime.Now.AddDays(-1).Date)
+          {
             <div>
                 <div class="form-group">
                     Dejanski datum obiska:
@@ -44,27 +50,27 @@
                 </div>
             </div>
             <hr />
-        }
-        else if (Model.VisitDate.Date < DateTime.Now.AddDays(-1).Date)
-        {
+          }
+          else if (Model.VisitDate.Date < DateTime.Now.AddDays(-1).Date)
+          {
             <div>
                 <div class="form-group">
                     Dejanski datum obiska:
                     <span title="Čas za vnos podatkov je pretekel.">
-                        @Html.EditorFor(x => x.VisitDate, new { htmlAttributes = new { @class = "form-control", @disabled="disabled" } })
+                        @Html.EditorFor(x => x.VisitDate, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                     </span>
                 </div>
             </div>
             <hr />
-        }
+          }
 
-        int count = 0;
+          int count = 0;
 
-        for (int i = 0; i < Model.ActivityInputs.Count; i++)
-        {
+          for (int i = 0; i < Model.ActivityInputs.Count; i++)
+          {
             <div>
                 <label class="panel-title">@Model.ActivityInputs[i].ActivityTitle</label>
-                
+
 
                 @for (int j = 0; j < Model.ActivityInputs[i].ActivityInputDatas.Count; j++)
                 {
@@ -75,9 +81,9 @@
 
 
 
-                        
+
                         @if (Model.ActivityInputs[i].ActivityInputDatas[j].Required)
-                        { 
+                        {
                             @Html.Label(Model.ActivityInputIds[count].ToString(), Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputTitle + " *", htmlAttributes: new { @class = "control-label col-md-2" })
                         }
                         else
@@ -87,7 +93,7 @@
 
 
                         @FillData(i, j, count)
-                        
+
                     </div>
 
                     //@Html.TextBoxFor(x => x.ActivityInputIds[count])
@@ -101,13 +107,13 @@
 
                     count++;
                 }
-                <hr/>
+                <hr />
 
             </div>
-        }
+          }
 
-        if (Model.VisitDate.Date < DateTime.Now.AddDays(-1).Date)
-        {
+          if (Model.VisitDate.Date < DateTime.Now.AddDays(-1).Date)
+          {
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <span title="Čas za vnos podatkov je pretekel.">
@@ -115,36 +121,23 @@
                     </span>
                 </div>
             </div>
-        }
-        else
-        {
+          }
+          else
+          {
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Shrani" class="btn btn-default" />
                 </div>
             </div>
-        }
+          }
+      }
+  }
+    <hr />
 
-
-
-
-    }
-}
-
-@if (Model.MainPatient != null)
-{
-    @Html.ActionLink("Nazaj", "Index", "VisitDetails",
-        new { visitId = Model.VisitId },
-        new { @class = "btn btn-info", @style = "color:white" })
-}
-else
-{
     @Html.ActionLink("Nazaj", "Index", "Visit",
         new { visitId = Model.VisitId },
         new { @class = "btn btn-info", @style = "color:white" })
 }
-
-
 
 
 <!-- i: activityinputs, j: activityinputdatas, count: activityinputvalues -->

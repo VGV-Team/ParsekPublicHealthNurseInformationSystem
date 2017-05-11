@@ -1,4 +1,5 @@
 ﻿DROP TABLE __MigrationHistory
+DROP TABLE Absences
 DROP TABLE BloodSamples
 DROP TABLE MaterialWorkOrders
 DROP TABLE MedicineWorkOrders
