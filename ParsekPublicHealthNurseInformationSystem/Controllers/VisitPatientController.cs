@@ -50,7 +50,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 int thisPatientId = user.Patient.ChildPatients.ElementAt(i).PatientId;
                 VisitPatientViewModel.MyPatientVisit pv = new VisitPatientViewModel.MyPatientVisit();
                 pv.Patient = user.Patient.ChildPatients.ElementAt(i);
-                pv.Visits = DB.Visits.Where(v => v.WorkOrder.Patient.PatientId == thisPatientId &&
+                pv.Visits = DB.Visits.Where(v => v.WorkOrder.PatientWorkOrders.Any(pwo => pwo.Patient.PatientId == thisPatientId) &&
                 (v.Confirmed || v.DateConfirmed < DateTime.Now))
                 .OrderBy(v => v.DateConfirmed).ToList();
                 vm.MyPatientVisits.Add(pv);
