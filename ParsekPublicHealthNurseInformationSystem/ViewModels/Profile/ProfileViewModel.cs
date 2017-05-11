@@ -89,15 +89,15 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         {
             public override bool IsValid(object value)
             {
+                if (value == null) return true;
+
                 DateTime dt = (DateTime)value;
-                if (dt <= DateTime.UtcNow && dt >= DateTime.Parse("1/1/1900"))
+                if (dt < DateTime.UtcNow)
                 {
                     return true;
                 }
-
                 return false;
             }
-
         }
 
 

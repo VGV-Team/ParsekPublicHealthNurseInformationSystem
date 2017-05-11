@@ -108,7 +108,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 return Index(vm);
             }
 
-
+            if (vm.BirthDate >= DateTime.UtcNow.Date)
+            {
+                vm.ViewMessage = "Neustrezen datum rojstva!";
+                return Index(vm);
+            }
 
             try
             {
@@ -148,6 +152,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     )
                     {
                         vm.ViewMessage = "Ponovno preverite vnešene podatke!";
+                        return Index(vm);
+                    }
+
+                    if (vm.CarePatientDatas[i].BirthDate >= DateTime.UtcNow.Date)
+                    {
+                        vm.ViewMessage = "Neustrezen datum rojstva!";
                         return Index(vm);
                     }
 
