@@ -208,7 +208,7 @@
                                 }
                             </td>
 
-                            @if (@v.DateConfirmed < DateTime.Now)
+                            @if (@v.DateConfirmed < DateTime.Now || @v.Confirmed == true)
                             {
                                 <td>da</td>
                             }
