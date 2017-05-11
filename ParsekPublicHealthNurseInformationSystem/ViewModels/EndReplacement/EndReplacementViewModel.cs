@@ -18,5 +18,9 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public string NurseId { get; set; }
 
         public string ViewMessage { get; set; }
+
+        [Display(Name = "Delovni nalogi")]
+        public List<Models.Absence> Absences { get; set; }
+        public List<bool> CanDelete { get; set; }
     }
 }
