@@ -63,7 +63,7 @@
             }
 
             <dt>Opravljen</dt>
-            @if (Model.Visit.DateConfirmed < DateTime.Now)
+            @if (Model.Visit.DateConfirmed < DateTime.Now || Model.Visit.Confirmed)
             {
                 <dd>Da</dd>
             }

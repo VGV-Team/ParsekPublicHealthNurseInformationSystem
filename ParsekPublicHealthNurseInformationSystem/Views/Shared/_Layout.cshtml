@@ -93,11 +93,11 @@
                     @if (IsNurse || IsHead || IsDoctor)
                     {
                         <li>@Html.ActionLink("Izpis DN", "Index", "WOFilter")</li>
-                        <li>@Html.ActionLink("Izpis obiskov", "Index", "VisitFilter")</li>
+                        <li>@Html.ActionLink("Obiski", "Index", "VisitFilter")</li>
                     }
                     @if (IsHead || IsDoctor)
                     {
-                        <li>@Html.ActionLink("Kreiranje DN", "Index", "WorkOrder")</li>
+                        <li>@Html.ActionLink("Nov DN", "Index", "WorkOrder")</li>
                     }
                     @if (IsHead)
                     {
