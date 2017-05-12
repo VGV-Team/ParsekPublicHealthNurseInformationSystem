@@ -73,7 +73,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 {
                     foreach (var visit in workorder.Visits)
                     {
-                        if (visit.DateConfirmed >= nrvm.DateStart && visit.DateConfirmed <= nrvm.DateEnd)
+                        if (visit.DateConfirmed >= nrvm.DateStart && visit.DateConfirmed <= nrvm.DateEnd && visit.Confirmed == false)
                             //visits.Add(visit);
                             visit.NurseReplacement = Nurse2;
                     }
