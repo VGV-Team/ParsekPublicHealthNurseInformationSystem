@@ -580,16 +580,16 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ActivityInput ai18 = new ActivityInput() { Activity = a17, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai19 = new ActivityInput() { Activity = a18, Title = "Nizka/Srednja/Visoka", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Nizka;;Srednja;;Visoka", Required = true, OneTime = false };
             ActivityInput ai20 = new ActivityInput() { Activity = a18, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
-            ActivityInput ai21 = new ActivityInput() { Activity = a19, Title = "Sistolièni (mm Hg) ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai22 = new ActivityInput() { Activity = a19, Title = "Diastolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai23 = new ActivityInput() { Activity = a20, Title = "Udarci na minuto ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai24 = new ActivityInput() { Activity = a21, Title = "Vdihi na minuto ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai25 = new ActivityInput() { Activity = a22, Title = "st C ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai26 = new ActivityInput() { Activity = a23, Title = "kg ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai27 = new ActivityInput() { Activity = a24, Title = "kg ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
+            ActivityInput ai21 = new ActivityInput() { Activity = a19, Title = "Sistolièni (mm Hg) ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;300", Required = true, OneTime = false };
+            ActivityInput ai22 = new ActivityInput() { Activity = a19, Title = "Diastolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;300", Required = true, OneTime = false };
+            ActivityInput ai23 = new ActivityInput() { Activity = a20, Title = "Udarci na minuto ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "30;;150", Required = true, OneTime = false };
+            ActivityInput ai24 = new ActivityInput() { Activity = a21, Title = "Vdihi na minuto ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "10;;150", Required = true, OneTime = false };
+            ActivityInput ai25 = new ActivityInput() { Activity = a22, Title = "st C ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "30;;45", Required = true, OneTime = false };
+            ActivityInput ai26 = new ActivityInput() { Activity = a23, Title = "kg ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;500", Required = true, OneTime = false };
+            ActivityInput ai27 = new ActivityInput() { Activity = a24, Title = "kg ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;500", Required = true, OneTime = false };
             ActivityInput ai28 = new ActivityInput() { Activity = a25, Title = "Datum rojstva otroka", InputType = ActivityInput.InputTypeEnum.Date, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai29 = new ActivityInput() { Activity = a25, Title = "Porodna tea otroka (g)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai116 = new ActivityInput() { Activity = a25, Title = "Porodna višina otroka (cm)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
+            ActivityInput ai29 = new ActivityInput() { Activity = a25, Title = "Porodna tea otroka (g)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;20000", Required = true, OneTime = false };
+            ActivityInput ai116 = new ActivityInput() { Activity = a25, Title = "Porodna višina otroka (cm)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;100", Required = true, OneTime = false };
             ActivityInput ai117 = new ActivityInput() { Activity = a25, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai30 = new ActivityInput() { Activity = a26, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai31 = new ActivityInput() { Activity = a27, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
@@ -605,12 +605,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ActivityInput ai41 = new ActivityInput() { Activity = a37, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai42 = new ActivityInput() { Activity = a38, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai43 = new ActivityInput() { Activity = a39, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
-            ActivityInput ai44 = new ActivityInput() { Activity = a40, Title = "Sistolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai45 = new ActivityInput() { Activity = a40, Title = "Diastolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai46 = new ActivityInput() { Activity = a41, Title = "Udarci na minuto ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai47 = new ActivityInput() { Activity = a42, Title = "Vdihi na minuto ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai48 = new ActivityInput() { Activity = a43, Title = "st C ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai49 = new ActivityInput() { Activity = a44, Title = "kg ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
+            ActivityInput ai44 = new ActivityInput() { Activity = a40, Title = "Sistolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;300", Required = true, OneTime = false };
+            ActivityInput ai45 = new ActivityInput() { Activity = a40, Title = "Diastolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;300", Required = true, OneTime = false };
+            ActivityInput ai46 = new ActivityInput() { Activity = a41, Title = "Udarci na minuto ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "30;;150", Required = true, OneTime = false };
+            ActivityInput ai47 = new ActivityInput() { Activity = a42, Title = "Vdihi na minuto ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "10;;150", Required = true, OneTime = false };
+            ActivityInput ai48 = new ActivityInput() { Activity = a43, Title = "st C ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "30;;45", Required = true, OneTime = false };
+            ActivityInput ai49 = new ActivityInput() { Activity = a44, Title = "kg ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;500", Required = true, OneTime = false };
             ActivityInput ai50 = new ActivityInput() { Activity = a45, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = true, OneTime = false };
             ActivityInput ai51 = new ActivityInput() { Activity = a46, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = true, OneTime = false };
             ActivityInput ai52 = new ActivityInput() { Activity = a47, Title = "Moteno/Ni moteno", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Moteno;;Ni moteno", Required = true, OneTime = false };
@@ -622,8 +622,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ActivityInput ai58 = new ActivityInput() { Activity = a51, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai59 = new ActivityInput() { Activity = a52, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai60 = new ActivityInput() { Activity = a53, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
-            ActivityInput ai61 = new ActivityInput() { Activity = a54, Title = "g", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai62 = new ActivityInput() { Activity = a55, Title = "cm", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
+            ActivityInput ai61 = new ActivityInput() { Activity = a54, Title = "g", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "10;;20000", Required = true, OneTime = false };
+            ActivityInput ai62 = new ActivityInput() { Activity = a55, Title = "cm", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;300", Required = true, OneTime = false };
             ActivityInput ai63 = new ActivityInput() { Activity = a56, Title = "Da/Ne", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Da;;Ne", Required = true, OneTime = false };
             ActivityInput ai64 = new ActivityInput() { Activity = a56, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai65 = new ActivityInput() { Activity = a57, Title = "Da/Ne", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Da;;Ne", Required = true, OneTime = false };
@@ -636,12 +636,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ActivityInput ai72 = new ActivityInput() { Activity = a62, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai73 = new ActivityInput() { Activity = a63, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = true, OneTime = false };
             ActivityInput ai74 = new ActivityInput() { Activity = a64, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai75 = new ActivityInput() { Activity = a65, Title = "Sistolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai76 = new ActivityInput() { Activity = a65, Title = "Diastolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai77 = new ActivityInput() { Activity = a66, Title = "Udarci na minuto ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai78 = new ActivityInput() { Activity = a67, Title = "Vdihi na minuto ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai79 = new ActivityInput() { Activity = a68, Title = "st C ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai80 = new ActivityInput() { Activity = a69, Title = "kg ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
+            ActivityInput ai75 = new ActivityInput() { Activity = a65, Title = "Sistolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;300", Required = true, OneTime = false };
+            ActivityInput ai76 = new ActivityInput() { Activity = a65, Title = "Diastolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;300", Required = true, OneTime = false };
+            ActivityInput ai77 = new ActivityInput() { Activity = a66, Title = "Udarci na minuto ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "30;;150", Required = true, OneTime = false };
+            ActivityInput ai78 = new ActivityInput() { Activity = a67, Title = "Vdihi na minuto ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "10;;150", Required = true, OneTime = false };
+            ActivityInput ai79 = new ActivityInput() { Activity = a68, Title = "st C ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "30;;45", Required = true, OneTime = false };
+            ActivityInput ai80 = new ActivityInput() { Activity = a69, Title = "kg ", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;500", Required = true, OneTime = false };
             ActivityInput ai81 = new ActivityInput() { Activity = a70, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai82 = new ActivityInput() { Activity = a71, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai83 = new ActivityInput() { Activity = a72, Title = "Urin", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
@@ -659,19 +659,24 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ActivityInput ai95 = new ActivityInput() { Activity = a77, Title = "Pomoè: svojci, drugi", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai96 = new ActivityInput() { Activity = a78, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai97 = new ActivityInput() { Activity = a79, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
+            ActivityInput ai981 = new ActivityInput() { Activity = a80, Title = "Injekcije aplicirane", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Da;;Ne;;Delno", Required = true, OneTime = false };
             ActivityInput ai98 = new ActivityInput() { Activity = a80, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai99 = new ActivityInput() { Activity = a81, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
+            ActivityInput ai1001 = new ActivityInput() { Activity = a82, Title = "Št. rdeèih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10", Required = true, OneTime = false };
+            ActivityInput ai1002 = new ActivityInput() { Activity = a82, Title = "Št. modrih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10", Required = true, OneTime = false };
+            ActivityInput ai1003 = new ActivityInput() { Activity = a82, Title = "Št. rumenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10", Required = true, OneTime = false };
+            ActivityInput ai1004 = new ActivityInput() { Activity = a82, Title = "Št. zelenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10", Required = true, OneTime = false };
             ActivityInput ai100 = new ActivityInput() { Activity = a82, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai101 = new ActivityInput() { Activity = a83, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai102 = new ActivityInput() { Activity = a84, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
-            ActivityInput ai103 = new ActivityInput() { Activity = a85, Title = "Sistolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai104 = new ActivityInput() { Activity = a85, Title = "Diastolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai105 = new ActivityInput() { Activity = a86, Title = "Udarci na minuto", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai106 = new ActivityInput() { Activity = a87, Title = "Vdihi na minuto", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai107 = new ActivityInput() { Activity = a88, Title = "st C", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
-            ActivityInput ai108 = new ActivityInput() { Activity = a89, Title = "mmol/L", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
+            ActivityInput ai103 = new ActivityInput() { Activity = a85, Title = "Sistolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;300", Required = true, OneTime = false };
+            ActivityInput ai104 = new ActivityInput() { Activity = a85, Title = "Diastolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;300", Required = true, OneTime = false };
+            ActivityInput ai105 = new ActivityInput() { Activity = a86, Title = "Udarci na minuto", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "30;;150", Required = true, OneTime = false };
+            ActivityInput ai106 = new ActivityInput() { Activity = a87, Title = "Vdihi na minuto", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "10;;150", Required = true, OneTime = false };
+            ActivityInput ai107 = new ActivityInput() { Activity = a88, Title = "st C", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "35;;45", Required = true, OneTime = false };
+            ActivityInput ai108 = new ActivityInput() { Activity = a89, Title = "mmol/L", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;100", Required = true, OneTime = false };
             ActivityInput ai109 = new ActivityInput() { Activity = a89, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
-            ActivityInput ai110 = new ActivityInput() { Activity = a90, Title = "%", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "", Required = true, OneTime = false };
+            ActivityInput ai110 = new ActivityInput() { Activity = a90, Title = "%", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;100", Required = true, OneTime = false };
             ActivityInput ai111 = new ActivityInput() { Activity = a91, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Da;;Delno;;Ne", Required = true, OneTime = false };
             ActivityInput ai112 = new ActivityInput() { Activity = a91, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai113 = new ActivityInput() { Activity = a92, Title = "Prost vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
@@ -797,7 +802,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
              
              */
 
-            context.ActivityInputs.AddOrUpdate(y => y.ActivityInputId, ai1, ai2, ai3, ai4, ai5, ai6, ai7, ai8, ai9, ai10, ai11, ai12, ai13, ai14, ai15, ai16, ai17, ai18, ai19, ai20, ai21, ai22, ai23, ai24, ai25, ai26, ai27, ai28, ai29, ai30, ai31, ai32, ai33, ai34, ai35, ai36, ai37, ai38, ai39, ai40, ai41, ai42, ai43, ai44, ai45, ai46, ai47, ai48, ai49, ai50, ai51, ai52, ai53, ai54, ai55, ai56, ai57, ai58, ai59, ai60, ai61, ai62, ai63, ai64, ai65, ai66, ai67, ai68, ai69, ai70, ai71, ai72, ai73, ai74, ai75, ai76, ai77, ai78, ai79, ai80, ai81, ai82, ai83, ai84, ai85, ai86, ai87, ai88, ai89, ai90, ai91, ai92, ai93, ai94, ai95, ai96, ai97, ai98, ai99, ai100, ai101, ai102, ai103, ai104, ai105, ai106, ai107, ai108, ai109, ai110, ai111, ai112, ai113, ai114, ai115, ai116, ai117);
+            context.ActivityInputs.AddOrUpdate(y => y.ActivityInputId, ai981, ai1, ai2, ai3, ai4, ai5, ai6, ai7, ai8, ai9, ai10, ai11, ai12, ai13, ai14, ai15, ai16, ai17, ai18, ai19, ai20, ai21, ai22, ai23, ai24, ai25, ai26, ai27, ai28, ai29, ai30, ai31, ai32, ai33, ai34, ai35, ai36, ai37, ai38, ai39, ai40, ai41, ai42, ai43, ai44, ai45, ai46, ai47, ai48, ai49, ai50, ai51, ai52, ai53, ai54, ai55, ai56, ai57, ai58, ai59, ai60, ai61, ai62, ai63, ai64, ai65, ai66, ai67, ai68, ai69, ai70, ai71, ai72, ai73, ai74, ai75, ai76, ai77, ai78, ai79, ai80, ai81, ai82, ai83, ai84, ai85, ai86, ai87, ai88, ai89, ai90, ai91, ai92, ai93, ai94, ai95, ai96, ai97, ai98, ai99, ai100, ai101, ai102, ai103, ai104, ai105, ai106, ai107, ai108, ai109, ai110, ai111, ai112, ai113, ai114, ai115, ai116, ai117, ai1001, ai1002, ai1003, ai1004);
 
             #endregion
 

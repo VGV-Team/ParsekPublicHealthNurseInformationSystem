@@ -162,7 +162,7 @@ else
                     @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues), Model.ActivityInputValues[count], new { @class = "form-control", @disabled = "disabled", @type = "date" })
                     break;
                 case ActivityInput.InputTypeEnum.Number:
-                    @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @disabled = "disabled", @type = "number" })
+                    @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @disabled = "disabled", @type = "number", @step = "0.01" })
                     break;
                 default:
                     @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @disabled = "disabled" })
@@ -183,7 +183,7 @@ else
                 @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues), Model.ActivityInputValues[count], new { @class = "form-control", @readonly = "true", @type = "date" })
                 break;
             case ActivityInput.InputTypeEnum.Number:
-                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @readonly = "true", @type = "number" })
+                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @readonly = "true", @type = "number", @step = "0.01" })
                 break;
             default:
                 @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @readonly = "true" })
@@ -199,9 +199,9 @@ else
             case ActivityInput.InputTypeEnum.Date:
                 @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @required = "true", @type = "date" })
             break;
-        case ActivityInput.InputTypeEnum.Dropdown:
-            if (Model.ActivityInputValues[count] == "")
-            {
+            case ActivityInput.InputTypeEnum.Dropdown:
+                if (Model.ActivityInputValues[count] == "")
+                {
                     @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues, ""), new { @class = "form-control", @required = "true", @type = "date" }) 
                 }
                 else
@@ -209,11 +209,18 @@ else
                     @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues, Model.ActivityInputValues[count]), new { @class = "form-control", @required = "true", @type = "date" })
                 }
 
-            break;
-        case ActivityInput.InputTypeEnum.Number:
-                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @required = "true", @type = "number" })
                 break;
-            default:
+            case ActivityInput.InputTypeEnum.Number:
+                if (AID.PossibleValues.Count == 2)
+                {
+                    @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @required = "true", @type = "number", @step = "0.01", @min = AID.PossibleValues[0], @max = AID.PossibleValues[1] })
+                }
+                else
+                {
+                    @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @required = "true", @type = "number", @step = "0.01" })
+                }
+            break;
+        default:
                 @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @required = "true" })
                 break;
         }
@@ -229,11 +236,18 @@ else
                 break;
             case ActivityInput.InputTypeEnum.Dropdown:
                 @Html.DropDownListFor(x => x.ActivityInputValues[count], new SelectList(AID.PossibleValues), Model.ActivityInputValues[count], new { @class = "form-control", @type = "date" })
-                break;
+            break;
             case ActivityInput.InputTypeEnum.Number:
-                @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @type = "number" })
-                break;
-            default:
+                if (AID.PossibleValues.Count == 2)
+                {
+                        @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control", @type = "number", @step = "0.01", @min = AID.PossibleValues[0], @max = AID.PossibleValues[1] })
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control",@type = "number", @step = "0.01" })
+                }
+            break;
+        default:
                 @Html.TextBoxFor(x => x.ActivityInputValues[count], new { @class = "form-control" })
                 break;
         }
