@@ -104,10 +104,40 @@
         </div>
 
         @Html.HiddenFor(model => model.PatientId)
-        @Html.HiddenFor(model => model.HasContactPerson)
 
-        @if (Model.HasContactPerson)
-        {
+        <div class="form-group">
+            @Html.LabelFor(model => model.HasContactPerson, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.HasContactPerson)
+                    @Html.ValidationMessageFor(model => model.HasContactPerson, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <script>
+            
+            $(document).ready(function () {
+                $('#ContactPersonDiv').hide();
+
+
+                if ($('#HasContactPerson').prop('checked') == true) {
+                    $('#ContactPersonDiv').show();
+                }
+            });
+
+            $('#HasContactPerson').on('change',
+                function () {
+                    if (this.checked) {
+                        $("#ContactPersonDiv").show();
+                    } else {
+                        $("#ContactPersonDiv").hide();
+                    }
+                });
+        </script>
+
+        <div id="ContactPersonDiv">
+
             <div class="form-group">
                 @Html.LabelFor(model => model.ContactName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -140,17 +170,14 @@
                 </div>
             </div>
 
-
             <div class="form-group" id="DistrictDropdown">
                 @Html.LabelFor(model => model.SelectedRelationshipId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.SelectedRelationshipId, new SelectList(Model.Relationships, "RelationshipId", "Name"), htmlAttributes: new { @class = "form-control dropdown" })
+                    @Html.DropDownListFor(model => model.SelectedRelationshipId, new SelectList(Model.Relationships, "RelationshipId", "Name"), "-- Izberi --", htmlAttributes: new { @class = "form-control dropdown" })
                     @Html.ValidationMessageFor(model => model.SelectedRelationshipId, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-
-        }
+        </div>
 
         <h3>Moji pacienti</h3>
         <hr />
