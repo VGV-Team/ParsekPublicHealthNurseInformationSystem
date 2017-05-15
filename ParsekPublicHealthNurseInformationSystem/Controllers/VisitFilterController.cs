@@ -73,6 +73,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.Issuers = DB.Employees.Where(e => e.Title == Employee.JobTitle.Doctor || e.Title == Employee.JobTitle.Head).ToList();
             vm.Patients = DB.Patients.ToList();
             vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.Title == Employee.JobTitle.HealthNurse).ToList();
+            vm.Services = DB.Services.ToList();
 
             vm.Visits = DB.Visits.ToList();
 
@@ -96,12 +97,15 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             {
                 vm.Visits = vm.Visits.Where(v => v.DateConfirmed <= vm.DateEndConfirmed).ToList();
             }
-            if (vm.VisitType != 0)
+            if (vm.ServiceId != null)
             {
+                vm.Visits = vm.Visits.Where(v => v.WorkOrder.Service.ServiceId == vm.ServiceId).ToList();
+                /*
                 if (vm.VisitType == VisitFilterViewModel.VisitTypeEnum.Preventive)
                     vm.Visits = vm.Visits.Where(v => v.WorkOrder.Service.PreventiveVisit == true).ToList();
                 else
                     vm.Visits = vm.Visits.Where(v => v.WorkOrder.Service.PreventiveVisit == false).ToList();
+                */
             }
             if (vm.SelectedIssuerId > 0)
             {

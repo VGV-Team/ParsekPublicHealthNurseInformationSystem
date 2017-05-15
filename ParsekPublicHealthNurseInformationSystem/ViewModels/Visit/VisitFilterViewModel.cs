@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using ParsekPublicHealthNurseInformationSystem.Models;
 
 namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 {
@@ -26,7 +27,9 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public DateTime? DateEndConfirmed { get; set; }
 
         [Display(Name = "Vrsta obiska")]
-        public VisitTypeEnum VisitType { get; set; }
+        public List<Service> Services { get; set; }
+
+        public int? ServiceId { get; set; }
 
         [Display(Name = "Izdajatelj delovnega naloga")]
         public List<Models.Employee> Issuers { get; set; }
@@ -54,14 +57,6 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         [Display(Name = "Obiski")]
         public List<Models.Visit> Visits { get; set; }
-
-        public enum VisitTypeEnum
-        {
-            [Display(Name = "Preventivni")]
-            Preventive = 1,
-            [Display(Name = "Kurativni")]
-            Curative
-        }
 
         public enum VisitDoneEnum
         {

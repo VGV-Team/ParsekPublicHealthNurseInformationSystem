@@ -401,6 +401,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ac1.RequiresMedicine = false;
             ac1.RequiresBloodSample = false;
             ac1.RequiresPatients = false;
+            /*
             Service ac2 = new Service();
             ac2.ServiceCode = "20";
             ac2.ServiceTitle = "Obisk otroènice";
@@ -415,6 +416,15 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ac3.RequiresMedicine = false;
             ac3.RequiresBloodSample = false;
             ac3.RequiresPatients = true;
+            */
+            Service ac2 = new Service();
+            ac2.ServiceCode = "20";
+            ac2.ServiceTitle = "Obisk otroènice in novorojenèka";
+            ac2.PreventiveVisit = true;
+            ac2.RequiresMedicine = false;
+            ac2.RequiresBloodSample = false;
+            ac2.RequiresPatients = true;
+
             Service ac4 = new Service();
             ac4.ServiceCode = "40";
             ac4.ServiceTitle = "Obisk starostnika";
@@ -453,7 +463,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ac7.RequiresBloodSample = false;
             ac7.RequiresPatients = false;
 
-            context.Services.AddOrUpdate(y => y.ServiceId, ac1, ac2, ac3, ac4, ac5, ac6, ac7);
+            context.Services.AddOrUpdate(y => y.ServiceId, ac1, ac2, /*ac3,*/ ac4, ac5, ac6, ac7);
 
 
 
@@ -472,7 +482,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Activity a11 = new Activity() { ActivityCode = 110, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Odsvetovanje razvad kot so uživanje alkohola, kajenje, uživanje zdravil in drog. ", Service = ac1 };
             Activity a12 = new Activity() { ActivityCode = 120, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Seznanitev nosoènice z nevšeènostmi in svetovanje glede lajšanja težav zaradi nevšeènosti (slabosti, bruhanja, zaprtja, pogostih mikcij, nespeènosti, zgage, ...).", Service = ac1 };
             Activity a13 = new Activity() { ActivityCode = 130, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Seznanitev noseènice s pravicami do starševskega dopusta (porodniški dopust, pravica do dopusta za nego in varstvo otroka, pravica do oèetovskega dopusta) in o uveljavljanju pravic povezanih z rojstvom otroka (pravica do paketa, otroški dodatek, zdravstveno zavarovanje, rojstni list, ureditev oèetovstva).", Service = ac1 };
-            Activity a14 = new Activity() { ActivityCode = 140, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Prièakovan datum poroda", Service = ac1 };
+            Activity a14 = new Activity() { ActivityCode = 140, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Prièakovan datum poroda", Service = ac1 };
             Activity a15 = new Activity() { ActivityCode = 150, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Anamneza: poèutje, telesni znaki noseènosti.", Service = ac1 };
             Activity a16 = new Activity() { ActivityCode = 160, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Družinska anamneza: Odnosi v družini, odnos družine do okolja, bivalni pogoji, ekonomske razmere, zdravstveno stanje družinskih èlanov, zdravstvena prosvetljenost in vzgojenost.", Service = ac1 };
             Activity a17 = new Activity() { ActivityCode = 170, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Izražanje èustev", Service = ac1 };
@@ -481,8 +491,49 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Activity a20 = new Activity() { ActivityCode = 200, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Srèni utrip", Service = ac1 };
             Activity a21 = new Activity() { ActivityCode = 210, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Dihanje", Service = ac1 };
             Activity a22 = new Activity() { ActivityCode = 220, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Telesna temperatura", Service = ac1 };
-            Activity a23 = new Activity() { ActivityCode = 230, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Telesna teža pred noseènostjo", Service = ac1 };
+            Activity a23 = new Activity() { ActivityCode = 230, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Telesna teža pred noseènostjo", Service = ac1 };
             Activity a24 = new Activity() { ActivityCode = 240, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Trenutna telesna teža", Service = ac1 };
+
+            Activity a25 = new Activity() { ActivityCode = 10, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Pregled materinske knjižice in odpustnice iz porodnišnice. ", Service = ac2 };
+            Activity a26 = new Activity() { ActivityCode = 20, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Kontrola vitalnih funkcij.", Service = ac2 };
+            Activity a27 = new Activity() { ActivityCode = 30, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Opazovanje èišèe. ", Service = ac2 };
+            Activity a28 = new Activity() { ActivityCode = 40, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Nadzor nad izloèanjem blata in urina. ", Service = ac2 };
+            Activity a29 = new Activity() { ActivityCode = 50, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Zdravstveno vzgojno delo glede pravilnega rokovanja z novorojenèkom, uèenje tehnike nege novorojenèka", Service = ac2 };
+            Activity a30 = new Activity() { ActivityCode = 60, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Motivacija za dojenje. Nadzor in pomoè pri dojenju. ", Service = ac2 };
+            Activity a31 = new Activity() { ActivityCode = 70, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Svetovanje o èustveni podpori s strani partnerja.", Service = ac2 };
+            Activity a32 = new Activity() { ActivityCode = 80, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Seznanitev o otrokovih potrebah po toplini, nežnosti in varnosti.", Service = ac2 };
+            Activity a33 = new Activity() { ActivityCode = 90, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Svetovanje o spalnih potrebah otroènice, pravilni negi in higienskem režimu v poporodnem obdobju. ", Service = ac2 };
+            Activity a34 = new Activity() { ActivityCode = 100, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Svetovanje o pravilni prehrani, pitju ustreznih kolièin tekoèin", Service = ac2 };
+            Activity a35 = new Activity() { ActivityCode = 110, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Pouèitev o poporodni telovadbi.", Service = ac2 };
+            Activity a36 = new Activity() { ActivityCode = 120, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Sezananitev z nekaterimi obolenji.", Service = ac2 };
+            Activity a37 = new Activity() { ActivityCode = 130, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Napotitev na poporodni pregled.", Service = ac2 };
+            Activity a38 = new Activity() { ActivityCode = 140, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Seznanitev z metodami zašèite pred nezaželjno noseènostjo.", Service = ac2 };
+            Activity a39 = new Activity() { ActivityCode = 150, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Svetovanje o normalnem delu, življenju in spolnih odnosih. ", Service = ac2 };
+            Activity a40 = new Activity() { ActivityCode = 160, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Krvni pritisk", Service = ac2 };
+            Activity a41 = new Activity() { ActivityCode = 170, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Srèni utrip", Service = ac2 };
+            Activity a42 = new Activity() { ActivityCode = 180, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Dihanje", Service = ac2 };
+            Activity a43 = new Activity() { ActivityCode = 190, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Telesna temperatura", Service = ac2 };
+            Activity a44 = new Activity() { ActivityCode = 200, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Trenutna telesna teža", Service = ac2 };
+            Activity a45 = new Activity() { ActivityCode = 210, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Anamneza: poèutje, telesni znaki noseènosti.", Service = ac2 };
+            Activity a46 = new Activity() { ActivityCode = 220, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Družinska anamneza: odnosi v družini, odnos družine do okolja, bivalni pogoji, ekonomske razmere, zdravstveno stanje družinskih èlanov, zdravstvena prosvetljenost in vzgojenost.", Service = ac2 };
+            Activity a47 = new Activity() { ActivityCode = 230, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Izražanje èustev", Service = ac2 };
+            Activity a48 = new Activity() { ActivityCode = 240, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Fizièna obremenjenost", Service = ac2 };
+            Activity a49 = new Activity() { ActivityCode = 10, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Prikaz nege dojenèka", Service = ac2 };
+            Activity a50 = new Activity() { ActivityCode = 20, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Nega popokovne rane", Service = ac2 };
+            Activity a51 = new Activity() { ActivityCode = 30, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Nudenje pomoèi pri dojenju in seznanitev s tehnikami dojenja.", Service = ac2 };
+            Activity a52 = new Activity() { ActivityCode = 40, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Ureditev ležišèa.", Service = ac2 };
+            Activity a53 = new Activity() { ActivityCode = 50, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Svetovanje o povijanju, oblaèenju, slaèenju", Service = ac2 };
+            Activity a54 = new Activity() { ActivityCode = 60, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Trenutna telesna teža", Service = ac2 };
+            Activity a55 = new Activity() { ActivityCode = 70, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Trenutna telesna višina", Service = ac2 };
+            Activity a56 = new Activity() { ActivityCode = 80, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Dojenje", Service = ac2 };
+            Activity a57 = new Activity() { ActivityCode = 90, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Dodajanje adaptiranega mleka", Service = ac2 };
+            Activity a58 = new Activity() { ActivityCode = 100, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Izloèanje in odvajanje", Service = ac2 };
+            Activity a59 = new Activity() { ActivityCode = 110, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Ritem spanja", Service = ac2 };
+            Activity a60 = new Activity() { ActivityCode = 120, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Povišanje bilirubina (zlatenica)", Service = ac2 };
+            Activity a61 = new Activity() { ActivityCode = 130, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Kolki", Service = ac2 };
+            Activity a62 = new Activity() { ActivityCode = 140, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Posebnosti", Service = ac2 };
+
+            /*
             Activity a25 = new Activity() { ActivityCode = 10, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Pregled materinske knjižice in odpustnice iz porodnišnice. ", Service = ac2 };
             Activity a26 = new Activity() { ActivityCode = 20, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Kontrola vitalnih funkcij.", Service = ac2 };
             Activity a27 = new Activity() { ActivityCode = 30, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Opazovanje èišèe. ", Service = ac2 };
@@ -521,6 +572,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Activity a60 = new Activity() { ActivityCode = 120, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Povišanje bilirubina (zlatenica)", Service = ac3 };
             Activity a61 = new Activity() { ActivityCode = 130, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Kolki", Service = ac3 };
             Activity a62 = new Activity() { ActivityCode = 140, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Posebnosti", Service = ac3 };
+            */
             Activity a63 = new Activity() { ActivityCode = 10, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Anamneza", Service = ac4 };
             Activity a64 = new Activity() { ActivityCode = 20, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Družinska anamneza", Service = ac4 };
             Activity a65 = new Activity() { ActivityCode = 30, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Krvni pritisk: sistolièni, diastolièni", Service = ac4 };
