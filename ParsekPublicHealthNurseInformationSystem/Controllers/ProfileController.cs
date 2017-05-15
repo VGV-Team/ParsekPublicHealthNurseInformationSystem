@@ -56,6 +56,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             else
             {
                 vm.HasContactPerson = false;
+                vm.SelectedRelationshipId = 0;
             }
             vm.Surname = patient.Surname;
 
@@ -128,6 +129,15 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     p.ContactPhone = vm.ContactPhone;
                     p.ContactRelationship = DB.Relationships.Find(vm.SelectedRelationshipId);
                     p.ContactSurname = vm.ContactSurname;
+                }
+                else
+                {
+                    p.ContactAddress = null;
+                    p.ContactName = null;
+                    p.ContactPhone = null;
+                    var forceLoad = p.ContactRelationship;
+                    p.ContactRelationship = null; 
+                    p.ContactSurname = null;
                 }
                 p.District = DB.Districts.Find(vm.SelectedDistrictId);
                 p.Gender = (Patient.GenderEnum)vm.Gender;
