@@ -244,6 +244,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             visit.DateConfirmed = wodvm.DateTimeOfFirstVisit;
             visit.Mandatory = wodvm.MandatoryFirstVisit;
             visit.WorkOrder = workOrder;
+            visit.Done = false;
 
             // Check for single or multiple visits.
             if (wodvm.MultipleVisits && wodvm.NumberOfVisits > 1)

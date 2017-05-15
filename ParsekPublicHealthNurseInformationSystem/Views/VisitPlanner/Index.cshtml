@@ -78,17 +78,38 @@
 
                             @if (Model.Visits[j][i].Mandatory == false)
                             {
-                                <td>@Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</td>
-                                <td>@Model.Visits[j][i].DateConfirmed.ToString("dd. MM. yyyy")</td>
-                                <td>NE</td>
-                                <td>@Html.ActionLink("Odstrani iz plana", "DisconfirmVisit", "VisitPlanner", routeValues: new { date = Model.Visits[j][i].Date, DisconfirmedVisitId = Model.Visits[j][i].VisitId }, htmlAttributes: null)</td>
+                                if (Model.Visits[j][i].Done == false)
+                                {
+                                    <td>@Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</td>
+                                    <td>@Model.Visits[j][i].DateConfirmed.ToString("dd. MM. yyyy")</td>
+                                    <td>NE</td>
+                                    <td>@Html.ActionLink("Odstrani iz plana", "DisconfirmVisit", "VisitPlanner", routeValues: new { date = Model.Visits[j][i].Date, DisconfirmedVisitId = Model.Visits[j][i].VisitId }, htmlAttributes: null)</td>
+                                }
+                                else
+                                {
+                                    <td>@Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</td>
+                                    <td>@Model.Visits[j][i].DateConfirmed.ToString("dd. MM. yyyy")</td>
+                                    <td>NE</td>
+                                    <td><strong>Obisk je opravljen</strong></td>
+                                }
+
                             }
                             else
                             {
-                                <td>/</td>
-                                <td>@Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</td>
-                                <td>DA</td>
-                                <td>Datum je fiksen</td>
+                                if (Model.Visits[j][i].Done == false)
+                                {
+                                    <td>/</td>
+                                    <td>@Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</td>
+                                    <td>DA</td>
+                                    <td>Datum je fiksen</td>
+                                }
+                                else
+                                {
+                                    <td>/</td>
+                                    <td>@Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</td>
+                                    <td>DA</td>
+                                    <td><strong>Obisk je opravljen</strong></td>
+                                }
                             }
                         </tr>
 

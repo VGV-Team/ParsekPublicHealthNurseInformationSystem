@@ -226,6 +226,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             patient3.PhoneNumber = "090888880";
             patient3.Gender = Models.Patient.GenderEnum.Female;
             patient3.BirthDate = DateTime.Now.AddYears(-40);
+            context.Patients.AddOrUpdate(y => y.CardNumber, patient1, patient2, patient3);
             Patient patient1_1 = new Patient();
             patient1_1.CardNumber = "88888";
             patient1_1.Name = "Sif";
@@ -237,7 +238,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             patient1_1.Gender = Models.Patient.GenderEnum.Male;
             patient1_1.BirthDate = DateTime.Now.AddYears(-50);
             patient1_1.ParentPatient = patient1;
-            context.Patients.AddOrUpdate(y => y.CardNumber, patient1, patient2, patient3, patient1_1);
+            patient1_1.ParentPatientRelationship = rel1;
+            context.Patients.AddOrUpdate(y => y.CardNumber, patient1_1);
 
             User Admin = new User();
             Admin.Employee = null;

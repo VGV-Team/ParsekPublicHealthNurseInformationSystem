@@ -23,7 +23,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public bool Confirmed { get; set; }
 
-
+        [Required]
+        public bool Done { get; set; }
 
 
         //public bool Completed { get; set; }

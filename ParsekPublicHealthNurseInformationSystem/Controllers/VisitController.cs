@@ -216,7 +216,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 {
                     aiwo = new ActivityInputData();
                     aiwo.Visit = db.Visits.FirstOrDefault(x => x.VisitId == vvm.VisitId);
-                    aiwo.Visit.Confirmed = true;
+                    aiwo.Visit.Done = true;
                     aiwo.ActivityInput = db.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == activityInputId);
                     aiwo.Value = vvm.ActivityInputValues[i];
                     aiwo.Patient = patient;

@@ -37,7 +37,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 for (int j = 0; j < w.Visits.Count; j++)
                 {
                     Visit vi = DB.Visits.Find(w.Visits.ElementAt(j).VisitId);
-                    if (vi.DateConfirmed >= DateTime.Now && !vi.Confirmed && vi.DateConfirmed >= a.DateStart && vi.DateConfirmed <= a.DateEnd)
+                    if (vi.DateConfirmed >= DateTime.Now && !vi.Done && vi.DateConfirmed >= a.DateStart && vi.DateConfirmed <= a.DateEnd)
                     {
                         var forceLoad = vi.NurseReplacement; //Aleluja
                         vi.NurseReplacement = null; // Now EF knows something has changed

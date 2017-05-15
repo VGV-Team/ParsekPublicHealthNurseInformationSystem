@@ -129,9 +129,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 // TODO !!!!
                 // BOOL VISITDONE IN VISIT MODEL !! DONE!
                 if (vm.VisitDone == VisitFilterViewModel.VisitDoneEnum.Yes)
-                    vm.Visits = vm.Visits.Where(v => v.DateConfirmed < DateTime.Now || v.Confirmed).ToList();
+                    vm.Visits = vm.Visits.Where(v => v.Done).ToList();
                 else
-                    vm.Visits = vm.Visits.Where(v => v.DateConfirmed > DateTime.Now && v.Confirmed == false).ToList();
+                    vm.Visits = vm.Visits.Where(v => !v.Done).ToList();
             }
 
 

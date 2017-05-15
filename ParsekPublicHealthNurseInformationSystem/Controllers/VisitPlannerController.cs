@@ -87,7 +87,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         {
             Employee CurrentNurse = (Session["user"] as Models.User).Employee;
 
-            List<Visit> AllVisits = DB.Visits.Where(v => CurrentNurse.EmployeeId == v.WorkOrder.Nurse.EmployeeId || // Check if this nurse is assigned OR
+            List<Visit> AllVisits = DB.Visits.Where(v => (CurrentNurse.EmployeeId == v.WorkOrder.Nurse.EmployeeId && v.NurseReplacement == null) || // Check if this nurse is assigned OR
                                             (v.NurseReplacement != null && v.NurseReplacement.EmployeeId == CurrentNurse.EmployeeId)) //Check if nurse is replacement
                                             .ToList();
 
@@ -179,8 +179,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                                                 .OrderBy(v => v.Date)
                                                 .ToList();
 
-            vm.OverdueVisits = AllVisits.Where(v => v.Date.Date.Ticks < DateTime.Now.Date.Ticks && v.Confirmed == false)
-                                        .OrderBy(v => v.Date).ToList();
+            vm.OverdueVisits = AllVisits.Where(v => v.DateConfirmed.Date.Ticks < DateTime.Now.Date.Ticks && (v.Confirmed == false || v.Done == false))
+                                        .OrderBy(v => v.DateConfirmed).ToList();
             //OLD
             //
             /*List<Visit> TodayVisits = AllVisits.Where(v => (v.Date.Day == vm.PlanDate.Value.Day && v.Date.Month == vm.PlanDate.Value.Month && v.Date.Year == vm.PlanDate.Value.Year) ||

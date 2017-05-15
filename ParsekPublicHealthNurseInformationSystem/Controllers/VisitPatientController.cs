@@ -42,7 +42,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             int patientId = user.Patient.PatientId;
 
             vm.Visits = DB.Visits.Where(v => v.WorkOrder.Patient.PatientId == patientId && 
-                (v.Confirmed || v.DateConfirmed < DateTime.Now))
+                (v.Done))
                 .OrderBy(v => v.DateConfirmed).ToList();
 
             for (int i = 0; i < user.Patient.ChildPatients.Count; i++)
@@ -51,7 +51,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 VisitPatientViewModel.MyPatientVisit pv = new VisitPatientViewModel.MyPatientVisit();
                 pv.Patient = user.Patient.ChildPatients.ElementAt(i);
                 pv.Visits = DB.Visits.Where(v => v.WorkOrder.PatientWorkOrders.Any(pwo => pwo.Patient.PatientId == thisPatientId) &&
-                (v.Confirmed || v.DateConfirmed < DateTime.Now))
+                (v.Done))
                 .OrderBy(v => v.DateConfirmed).ToList();
                 vm.MyPatientVisits.Add(pv);
             }
@@ -80,7 +80,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     if (WO.Issuer.EmployeeId == current.EmployeeId)
                     {
                         // If WO has any done vists
-                        if (WO.Visits.Any(v => v.DateConfirmed < DateTime.Now || v.Confirmed))
+                        if (WO.Visits.Any(v => v.DateConfirmed < DateTime.Now || v.Done))
                         {
                             // Can't delete
                             CanDelete = false;

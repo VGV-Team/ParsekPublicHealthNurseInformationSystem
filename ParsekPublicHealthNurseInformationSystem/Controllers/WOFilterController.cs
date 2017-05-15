@@ -78,7 +78,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     if (wo.Issuer.EmployeeId == current.EmployeeId)
                     {
                         // If WO has any done vists
-                        if (wo.Visits.Any(v => v.DateConfirmed < DateTime.Now || v.Confirmed))
+                        if (wo.Visits.Any(v => v.Done))
                         {
                             // Can't delete
                             vm.CanDelete.Add(false);
@@ -187,7 +187,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     if (WO.Issuer.EmployeeId == current.EmployeeId)
                     {
                         // If WO has any done vists
-                        if (WO.Visits.Any(v => v.DateConfirmed < DateTime.Now || v.Confirmed))
+                        if (WO.Visits.Any(v => v.Done))
                         {
                             // Can't delete
                             CanDelete = false;

@@ -78,6 +78,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 cpd.PhoneNumber = patient.ChildPatients.ElementAt(i).PhoneNumber;
                 cpd.PostOffices = DB.PostOffices.ToList();
                 cpd.Relationships = DB.Relationships.ToList();
+                //var Rel = patient.ChildPatients.ElementAt(i).ParentPatientRelationship;
                 cpd.SelectedRelationshipId = patient.ChildPatients.ElementAt(i).ParentPatientRelationship.RelationshipId;
                 cpd.Surname = patient.ChildPatients.ElementAt(i).Surname;
                 cpd.SelectedDistrictId = patient.ChildPatients.ElementAt(i).District.DistrictId;

@@ -102,14 +102,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 {
                     Visit v = Visits.ElementAt(i);
                     string visitString = "";
-                    if (v.Confirmed && v.DateConfirmed.Date < DateTime.Now.Date)// TODO ADD UNCOMPLETED VISITS LATER (when we have a variable for that)
+                    if (v.Done)// TODO ADD UNCOMPLETED VISITS LATER (when we have a variable for that)
                     {
                         visitString = v.DateConfirmed.ToString("dd. MM. yyyy") + "(opravljeno), ";
                     }
-                    else if (!v.Confirmed && v.Date.Date < DateTime.Now.Date)
+                    /*else if (!v.Confirmed && v.Date.Date < DateTime.Now.Date)
                     {
                         visitString = v.Date.ToString("dd. MM. yyyy") + " (neopravljeno), ";
-                    }
+                    }*/
                     else
                     {
                         visitString = v.DateConfirmed.ToString("dd. MM. yyyy") + " (predvideno), ";
