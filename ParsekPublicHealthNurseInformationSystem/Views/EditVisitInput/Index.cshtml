@@ -1,0 +1,147 @@
+﻿@model ParsekPublicHealthNurseInformationSystem.ViewModels.EditVisitInputViewModel
+
+@{
+    ViewBag.Title = "Urejanje vnosa obiska";
+}
+
+<h2>Urejanje vnosnih polj obiskov</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <hr/>
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group" id="DistrictDropdown">
+            @Html.LabelFor(model => model.VisitTypesList, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SelectedVisitType, new SelectList(Model.VisitTypesList, "ServiceId", "ServiceTitle"), "-- Izberi --", htmlAttributes: new { @class = "form-control dropdown" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+
+        <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Naziv vnosa</th>
+                        <th>Kategorija</th>
+                        <th>Razpon</th>
+                        <th>Obvezen</th>
+                        <th>Možnosti</th>
+                    </tr>
+                </thead>
+            <tbody>
+
+            @for (int i = 0; i < Model.ActivityInputList.Count; i++)
+            {
+             
+                <tr>
+                    <td>@Model.ActivityInputList.ElementAt(i).Title</td>
+                    <td>@Model.ActivityInputList.ElementAt(i).Activity.ActivityTitle</td>
+                    @if (Model.ActivityInputList.ElementAt(i).PossibleValues == null)
+                    {
+                        <td>Karkoli</td>
+                    }
+                    else
+                    {
+
+                        string[] MinMax = Model.ActivityInputList.ElementAt(i).PossibleValues.Split(new string[] { ";;" }, StringSplitOptions.None);
+
+                        <td>[ @MinMax[0] ... @MinMax[1] ]</td>
+                    }
+                    @if (Model.ActivityInputList.ElementAt(i).Required)
+                    {
+                        <td>Da</td>
+                    }
+                    else
+                    {
+                        <td>Ne</td>
+                    }
+                    <td>@Html.ActionLink("Izbriši", "DeleteInput", "EditVisitInput", new { visitInputId = Model.ActivityInputList.ElementAt(i).ActivityInputId, serviceId = Model.SelectedVisitType }, new { @class = "btn btn-danger", @style = "color:white" })</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        
+    </div>
+}
+
+@if (Model.SelectedVisitType > 0)
+{
+    using (Html.BeginForm("AddInput", "EditVisitInput", FormMethod.Post))
+    {
+        
+
+        @Html.AntiForgeryToken()
+        <hr />
+
+        <h3>Dodaj nov vnos</h3>
+
+        <div class="well">
+
+            <div class="form-horizontal">
+
+                @Html.HiddenFor(model => model.SelectedVisitType);
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InputActivityList, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SelectedInputActivity, new SelectList(Model.InputActivityList, "ActivityId", "ActivityTitle"), "-- Izberi --", htmlAttributes: new { @class = "form-control dropdown" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InputTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.InputTitle, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.InputTitle, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InputMinValue, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.InputMinValue, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.InputMinValue, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InputMaxValue, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.InputMaxValue, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                        @Html.ValidationMessageFor(model => model.InputMaxValue, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InputRequired, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.InputRequired)
+                            @Html.ValidationMessageFor(model => model.InputRequired, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Dodaj vnos" class="btn btn-default" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    }
+}
+
+
