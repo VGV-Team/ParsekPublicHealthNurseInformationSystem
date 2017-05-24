@@ -1,0 +1,20 @@
+﻿@using ParsekPublicHealthNurseInformationSystem.ViewModels
+@model ParsekPublicHealthNurseInformationSystem.ViewModels.CodeTableViewModel
+
+@{
+    ViewBag.Title = "Urejanje šifrantov";
+}
+
+
+@if (Model?.Medicine != null)
+{
+    <div class="form-group">
+        <div class="col-md-10">
+            @Model.Medicine.FullNameWithCode
+        </div>
+    </div>
+}
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

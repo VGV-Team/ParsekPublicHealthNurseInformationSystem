@@ -1,0 +1,62 @@
+﻿@using ParsekPublicHealthNurseInformationSystem.ViewModels
+@model ParsekPublicHealthNurseInformationSystem.ViewModels.CodeTableViewModel
+
+@{
+    ViewBag.Title = "Urejanje šifrantov";
+}
+
+
+@using (Html.BeginForm("Index", "CodeTable", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SelectedCodeCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(model => model.SelectedCodeCategory, "-- Izberite--",  new { @class = "form-control dropdown" } )
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Izberi" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+
+
+@if (Model?.Medicines != null)
+{
+    <div class="form-group">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Title</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var medicine in Model.Medicines)
+                {
+                    <tr>
+                        <td>@medicine.Code</td>
+                        <td>@medicine.Title</td>
+                        <td>@Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId }, new { @class = "btn btn-primary", @style = "color:white" })</td>
+                        <td>@Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId }, new { @class = "btn btn-danger", @style = "color:white" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink("Novo", "New", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Medicine }, new { @class = "btn btn-primary", @style = "color:white" })
+    </div>
+}
+
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
