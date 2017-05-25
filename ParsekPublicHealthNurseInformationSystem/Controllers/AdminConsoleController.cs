@@ -143,5 +143,84 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             //return RedirectToAction("Index");
         }
+
+        public ActionResult ChangeProfile()
+        {
+            AdminConsoleViewModel acvm = new AdminConsoleViewModel();
+            acvm.AllEmployees = DB.Employees.ToList();
+            acvm.Contractors = DB.Contractors.ToList();
+            acvm.Districts = DB.Districts.ToList();
+            return View("ChangeProfile", acvm);
+        }
+
+
+        public ActionResult SelectEmployee(AdminConsoleViewModel acvm)
+        {
+            try
+            {
+                if (acvm.EmployeeId.IsNullOrWhiteSpace())
+                {
+                    acvm.AllEmployees = DB.Employees.ToList();
+                    acvm.Contractors = DB.Contractors.ToList();
+                    acvm.Districts = DB.Districts.ToList();
+                    acvm.ViewMessage = "Ponovno preverite vnešene podatke!";
+                    return View("ChangeProfile", acvm);
+                }
+
+                int[] EmployeeId = Globals.GetIdsFromString(acvm.EmployeeId);
+
+                if (EmployeeId == null || EmployeeId.Length != 1)
+                {
+                    acvm.AllEmployees = DB.Employees.ToList();
+                    acvm.Contractors = DB.Contractors.ToList();
+                    acvm.Districts = DB.Districts.ToList();
+                    acvm.ViewMessage = "Ponovno preverite vnešenega zaposlenega";
+                    return View("ChangeProfile", acvm);
+                }
+
+                Employee employee = DB.Employees.Find(EmployeeId[0]);
+                acvm.JobTitle = employee.Title;
+                acvm.Name = employee.Name;
+                acvm.Surname = employee.Surname;
+                acvm.Number = employee.Number;
+                acvm.Contractor = employee.Contractor.DisplayName;
+                if (employee.Title == Employee.JobTitle.HealthNurse)
+                {
+                    acvm.District = "Okoliš " + employee.District.DistrictId;
+                }
+                acvm.PhoneNumber = employee.PhoneNumber;
+                acvm.Email = employee.User.Email;
+                acvm.AllEmployees = DB.Employees.ToList();
+                acvm.Contractors = DB.Contractors.ToList();
+                acvm.Districts = DB.Districts.ToList();
+                ModelState.Clear();
+                return View("ChangeProfile", acvm);
+            }
+            catch (Exception e)
+            {
+                acvm.ViewMessage = "Prišlo je do hujše napake!";
+                return Form(acvm);
+            }
+        }
+
+        public ActionResult Edit(AdminConsoleViewModel acvm)
+        {
+            try
+            {
+                acvm.AllEmployees = DB.Employees.ToList();
+                acvm.Contractors = DB.Contractors.ToList();
+                acvm.Districts = DB.Districts.ToList();
+                acvm.ViewMessage = "qwe2";
+                return View("ChangeProfile", acvm);
+            }
+            catch (Exception e)
+            {
+                acvm.ViewMessage = "Prišlo je do hujše napake!";
+                return Form(acvm);
+            }
+
+        }
+
     }
+    
 }

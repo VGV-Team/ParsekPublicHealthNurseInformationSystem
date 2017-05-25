@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using ParsekPublicHealthNurseInformationSystem.Models;
 
 namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 {
@@ -62,6 +63,22 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public int SelectedContractorId { get; set; }
 
         public string ViewMessage { get; set; }
+
+        [Display(Name = "Zaposleni")]
+        [Required(ErrorMessage = "Polje je obvezno")]
+        public List<Employee> AllEmployees { get; set; }
+
+        [Display(Name = "Izbrani zaposleni")]
+        [Required(ErrorMessage = "Polje je obvezno")]
+        public string EmployeeId { get; set; }
+
+        [Display(Name = "Izvajalec")]
+        [Required(ErrorMessage = "Polje je obvezno")]
+        public string Contractor { get; set; }
+
+        [Display(Name = "Okoliš")]
+        [Required(ErrorMessage = "Polje je obvezno")]
+        public string District { get; set; }
 
     }
 }
