@@ -21,8 +21,6 @@
     </div>
 }
 
-
-
 @if (Model?.Medicines != null)
 {
     <div class="form-group">
@@ -47,7 +45,7 @@
                 }
             </tbody>
         </table>
-        @Html.ActionLink("Novo", "New", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Medicine }, new { @class = "btn btn-primary", @style = "color:white" })
+        @Html.ActionLink("Novo", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Medicine }, new { @class = "btn btn-primary", @style = "color:white" })
     </div>
 }
 
