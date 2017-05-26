@@ -8,13 +8,175 @@
 
 @if (Model?.Medicine != null)
 {
-    <div class="form-group">
-        <div class="col-md-10">
-            @Model.Medicine.FullNameWithCode
+    using (Html.BeginForm("Save", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.Medicine.MedicineId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Medicine.Code, "Koda", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Medicine.Code, new { htmlAttributes = new { @class = "form-control" } } )
+                @Html.ValidationMessageFor(model => model.Medicine.Code, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Medicine.Title, "Naziv", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Medicine.Title, new { htmlAttributes = new { @class = "form -control" } } )
+                @Html.ValidationMessageFor(model => model.Medicine.Title, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
         </div>
-    </div>
+    }
 }
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
+@if (Model?.Contractor != null)
+{
+    using (Html.BeginForm("Save", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.Contractor.ContractorId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Contractor.Number, "Številka", htmlAttributes: new { @class = "control -label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Contractor.Number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Contractor.Number, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Contractor.Title, "Naziv", htmlAttributes: new { @class = "control -label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Contractor.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Contractor.Title, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Contractor.Address, "Naslov", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Contractor.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Contractor.Address, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Contractor.PostOffice.PostOfficeId, "Pošta", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Contractor.PostOffice.PostOfficeId, new SelectList(Model.PostOffices, "PostOfficeId", "FullName"), "-- Izberi --", htmlAttributes: new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(model => model.Contractor.PostOffice.PostOfficeId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
     }
+}
+
+@if (Model?.Disease != null)
+{
+    using (Html.BeginForm("Save", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.Disease.DiseaseId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Disease.Code, "Koda", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Disease.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Disease.Code, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Disease.Description, "Opis", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Disease.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Disease.Description, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+}
+
+@if (Model?.Relationship != null)
+{
+    using (Html.BeginForm("Save", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.Relationship.RelationshipId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Relationship.Name, "Tip", htmlAttributes: new { @class = "control -label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Relationship.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Relationship.Name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+}
+
+@if (Model?.Service != null)
+{
+    using (Html.BeginForm("Save", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.Service.ServiceId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Service.ServiceCode, "Koda", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Service.ServiceCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Service.ServiceCode, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Service.ServiceTitle, "Naziv", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Service.ServiceTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Service.ServiceTitle, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.Service.PreventiveVisit, "Preventivni obisk", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Service.PreventiveVisit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Service.PreventiveVisit, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Service.RequiresMedicine, "Vnos zdravil", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Service.RequiresMedicine, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Service.RequiresMedicine, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Service.RequiresBloodSample, "Vnos krvnih vzorcev", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Service.RequiresBloodSample, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Service.RequiresBloodSample, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Service.RequiresPatients, "Potrebni podpacienti", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Service.RequiresPatients, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Service.RequiresPatients, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+}
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

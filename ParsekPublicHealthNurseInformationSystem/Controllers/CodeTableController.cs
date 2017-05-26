@@ -22,7 +22,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 return View("Index", ctvm);
             }
 
-            switch (ctvm.SelectedCodeCategory)
+            switch (ctvm.Category)
             {
                 case CodeTableViewModel.CodeCategory.Medicine:
                     ctvm.Medicines = DB.Medicines.ToList();
@@ -60,7 +60,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     if (id == null)
                         ctvm.Contractor = new Contractor();
                     else
-                        ctvm.Contractor = DB.Contractors.FirstOrDefault(x => x.ContractorId == id); // TODO: add possible post offices!!
+                        ctvm.Contractor = DB.Contractors.FirstOrDefault(x => x.ContractorId == id);
+                    ctvm.PostOffices = DB.PostOffices.ToList();
                     break;
                 case CodeTableViewModel.CodeCategory.Disease:
                     if (id == null)
@@ -81,7 +82,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         ctvm.Service = DB.Services.FirstOrDefault(x => x.ServiceId == id);
                     break;
             }
-            return View("Index", ctvm);
+            return View("Edit", ctvm);
         }
 
         public ActionResult Delete(CodeTableViewModel.CodeCategory category, int id)
@@ -90,31 +91,31 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             switch (category)
             {
                 case CodeTableViewModel.CodeCategory.Medicine:
-                    ctvm.SelectedCodeCategory = CodeTableViewModel.CodeCategory.Medicine;
+                    ctvm.Category = CodeTableViewModel.CodeCategory.Medicine;
                     Medicine medicine = DB.Medicines.FirstOrDefault(x => x.MedicineId == id);
                     if(medicine != null)
                         DB.Medicines.Remove(medicine);
                     break;
                 case CodeTableViewModel.CodeCategory.Contractor:
-                    ctvm.SelectedCodeCategory = CodeTableViewModel.CodeCategory.Contractor;
+                    ctvm.Category = CodeTableViewModel.CodeCategory.Contractor;
                     Contractor contractor = DB.Contractors.FirstOrDefault(x => x.ContractorId == id);
                     if (contractor != null)
                         DB.Contractors.Remove(contractor);
                     break;
                 case CodeTableViewModel.CodeCategory.Disease:
-                    ctvm.SelectedCodeCategory = CodeTableViewModel.CodeCategory.Disease;
+                    ctvm.Category = CodeTableViewModel.CodeCategory.Disease;
                     Disease disease = DB.Diseases.FirstOrDefault(x => x.DiseaseId == id);
                     if (disease != null)
                         DB.Diseases.Remove(disease);
                     break;
                 case CodeTableViewModel.CodeCategory.Relationship:
-                    ctvm.SelectedCodeCategory = CodeTableViewModel.CodeCategory.Relationship;
+                    ctvm.Category = CodeTableViewModel.CodeCategory.Relationship;
                     Relationship relationship = DB.Relationships.FirstOrDefault(x => x.RelationshipId == id);
                     if (relationship != null)
                         DB.Relationships.Remove(relationship);
                     break;
                 case CodeTableViewModel.CodeCategory.Service:
-                    ctvm.SelectedCodeCategory = CodeTableViewModel.CodeCategory.Service;
+                    ctvm.Category = CodeTableViewModel.CodeCategory.Service;
                     Service service = DB.Services.FirstOrDefault(x => x.ServiceId == id);
                     if (service != null)
                         DB.Services.Remove(service);
@@ -153,6 +154,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         Contractor contractor = DB.Contractors.FirstOrDefault(x => x.ContractorId == ctvm.Contractor.ContractorId);
                         if (contractor == null)
                         {
+                            ctvm.Contractor.PostOffice = DB.PostOffices.FirstOrDefault(x => x.PostOfficeId == ctvm.Contractor.PostOffice.PostOfficeId);
                             DB.Contractors.Add(ctvm.Contractor);
                         }
                         else
