@@ -49,6 +49,7 @@
             <h2>Podatki zaposlenega</h2>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(m => m.Id)
 
             <div class="form-group">
                 @Html.Label("Tip zaposlenega", htmlAttributes: new { @class = "control-label col-md-2" })

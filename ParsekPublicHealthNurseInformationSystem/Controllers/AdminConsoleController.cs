@@ -190,16 +190,19 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 }
                 acvm.PhoneNumber = employee.PhoneNumber;
                 acvm.Email = employee.User.Email;
+                ModelState.Clear();
                 acvm.AllEmployees = DB.Employees.ToList();
                 acvm.Contractors = DB.Contractors.ToList();
                 acvm.Districts = DB.Districts.ToList();
-                ModelState.Clear();
+
+                acvm.Id = EmployeeId[0];
+                acvm.EmployeeId = employee.FullNameWithCode;
                 return View("ChangeProfile", acvm);
             }
             catch (Exception e)
             {
                 acvm.ViewMessage = "Prišlo je do hujše napake!";
-                return Form(acvm);
+                return View("ChangeProfile", acvm);
             }
         }
 
@@ -207,16 +210,36 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         {
             try
             {
+                if(acvm.Name.IsNullOrWhiteSpace()||
+                    acvm.Surname.IsNullOrWhiteSpace() ||
+                    acvm.Number.IsNullOrWhiteSpace() ||
+                    acvm.PhoneNumber.IsNullOrWhiteSpace())
+                {
+                    acvm.AllEmployees = DB.Employees.ToList();
+                    acvm.Contractors = DB.Contractors.ToList();
+                    acvm.Districts = DB.Districts.ToList();
+                    acvm.ViewMessage = "Ponovno preverite vnešene podatke!";
+                    return View("ChangeProfile", acvm);
+                }
+                Employee employee = DB.Employees.Find(acvm.Id);
+                employee.Name = acvm.Name;
+                employee.Surname = acvm.Surname;
+                employee.Number = acvm.Number;
+                employee.PhoneNumber = acvm.PhoneNumber;
+                employee.Contractor = employee.Contractor;
+                DB.SaveChanges();
                 acvm.AllEmployees = DB.Employees.ToList();
                 acvm.Contractors = DB.Contractors.ToList();
                 acvm.Districts = DB.Districts.ToList();
-                acvm.ViewMessage = "qwe2";
+                acvm.EmployeeId = employee.FullNameWithCode;
+                ModelState.Clear();
+                acvm.ViewMessage = "Sprememba profila uspešna";
                 return View("ChangeProfile", acvm);
             }
             catch (Exception e)
             {
                 acvm.ViewMessage = "Prišlo je do hujše napake!";
-                return Form(acvm);
+                return View("ChangeProfile", acvm);
             }
 
         }

@@ -80,5 +80,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = "Polje je obvezno")]
         public string District { get; set; }
 
+        public int Id { get; set; }
+
     }
 }
