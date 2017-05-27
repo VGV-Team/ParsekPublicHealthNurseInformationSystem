@@ -1,5 +1,6 @@
 namespace ParsekPublicHealthNurseInformationSystem.Models
 {
+    using Model;
     using System;
     using System.Data.Entity;
     using System.Linq;
@@ -45,6 +46,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public virtual DbSet<ActivityInput> ActivityInputs { get; set; }
         public virtual DbSet<ActivityInputData> ActivityInputDatas { get; set; }
         public virtual DbSet<Absence> Absences { get; set; }
+
+        public virtual DbSet<ServiceActivity> ServiceActivities { get; set; }
     }
 
     //public class MyEntity

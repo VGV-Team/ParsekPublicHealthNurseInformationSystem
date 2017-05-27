@@ -31,9 +31,8 @@
                 <thead>
                     <tr>
                         <th>Naziv vnosa</th>
-                        <th>Kategorija</th>
-                        <th>Razpon</th>
-                        <th>Obvezen</th>
+                        <th>Kateri pacienti</th>
+                        <th>Število vnosov</th>
                         <th>Možnosti</th>
                     </tr>
                 </thead>
@@ -43,28 +42,21 @@
             {
              
                 <tr>
-                    <td>@Model.ActivityInputList.ElementAt(i).Title</td>
-                    <td>@Model.ActivityInputList.ElementAt(i).Activity.ActivityTitle</td>
-                    @if (Model.ActivityInputList.ElementAt(i).PossibleValues == null)
+                    <td>@Model.ActivityInputList.ElementAt(i).ActivityTitle</td>
+                    @if (Model.ActivityInputList.ElementAt(i).ActivityInputFor == ParsekPublicHealthNurseInformationSystem.Models.Activity.InputForType.All)
                     {
-                        <td>Karkoli</td>
+                        <td>Vsi na delovnem nalogu</td>
+                    }
+                    else if (Model.ActivityInputList.ElementAt(i).ActivityInputFor == ParsekPublicHealthNurseInformationSystem.Models.Activity.InputForType.ParentOnly)
+                    {
+                        <td>Samo starš na delovnem nalogu</td>
                     }
                     else
                     {
-
-                        string[] MinMax = Model.ActivityInputList.ElementAt(i).PossibleValues.Split(new string[] { ";;" }, StringSplitOptions.None);
-
-                        <td>[ @MinMax[0] ... @MinMax[1] ]</td>
+                        <td>Samo otroci na delovnem nalogu</td>
                     }
-                    @if (Model.ActivityInputList.ElementAt(i).Required)
-                    {
-                        <td>Da</td>
-                    }
-                    else
-                    {
-                        <td>Ne</td>
-                    }
-                    <td>@Html.ActionLink("Izbriši", "DeleteInput", "EditVisitInput", new { visitInputId = Model.ActivityInputList.ElementAt(i).ActivityInputId, serviceId = Model.SelectedVisitType }, new { @class = "btn btn-danger", @style = "color:white" })</td>
+                    <td>@Model.ActivityInputList.ElementAt(i).ActivityInputs.Count</td>
+                    <td>@Html.ActionLink("Izbriši", "DeleteInput", "EditVisitInput", new { visitInputId = Model.ActivityInputList.ElementAt(i).ActivityId, serviceId = Model.SelectedVisitType }, new { @class = "btn btn-danger", @style = "color:white" })</td>
                 </tr>
             }
             </tbody>
@@ -95,40 +87,6 @@
                     @Html.LabelFor(model => model.InputActivityList, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.DropDownListFor(model => model.SelectedInputActivity, new SelectList(Model.InputActivityList, "ActivityId", "ActivityTitle"), "-- Izberi --", htmlAttributes: new { @class = "form-control dropdown" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.InputTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.InputTitle, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.InputTitle, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.InputMinValue, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.InputMinValue, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
-                        @Html.ValidationMessageFor(model => model.InputMinValue, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.InputMaxValue, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.InputMaxValue, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
-                        @Html.ValidationMessageFor(model => model.InputMaxValue, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.InputRequired, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.EditorFor(model => model.InputRequired)
-                            @Html.ValidationMessageFor(model => model.InputRequired, "", new { @class = "text-danger" })
-                        </div>
                     </div>
                 </div>
 

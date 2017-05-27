@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ParsekPublicHealthNurseInformationSystem.Models;
 using ParsekPublicHealthNurseInformationSystem.ViewModels;
+using ParsekPublicHealthNurseInformationSystem.Models.Model;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
@@ -73,20 +74,35 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 vvm.PatientId = patient.PatientId;
 
                 // Select all activities for selected service.
-                List<Activity> activities = db.Activities.Where(x => x.Service.ServiceId == visit.WorkOrder.Service.ServiceId
+
+                //List<ServiceActivity> allact = db.Activities.Select(x => x.ServiceActivities).ToList();
+
+                List<Activity> activities = db.Activities.Where(x => x.ServiceActivities.Any(sa => sa.Service.ServiceId == visit.WorkOrder.Service.ServiceId && (sa.Active == true || db.ActivityInputDatas.Any(aid => aid.Visit.VisitId == visit.VisitId && aid.Value != null && aid.Value != "" && aid.ActivityInput.Activity.ActivityId == sa.Activity.ActivityId)))
                                                                     && ( x.ActivityInputFor == Activity.InputForType.All ||
                                                                          x.ActivityInputFor == Activity.InputForType.ParentOnly && isMainPatientSelected ||
                                                                          x.ActivityInputFor == Activity.InputForType.PatientOnly && !isMainPatientSelected
                                                                        )).ToList();
+                
+
+
+                activities = activities.OrderByDescending(a => a.ActivityInputs.Any(ai => ai.InputType == ActivityInput.InputTypeEnum.Number)).ToList();
+
+                
+
                 List<Visit> visits = visit.WorkOrder.Visits.ToList();
                 visits = visits.OrderBy(v => v.DateConfirmed).ToList();
                 Visit firstVisit = visits.First();
+                vvm.MeasurmentsCount = 0;
 
                 foreach (Activity activity in activities)
                 {
                     //if(patientId == null && !activity.ActivityInputFor || patientId != null && activity.ActivityInputFor) // Skip if activity is/is not general.
                     //    continue;
 
+                    if (activity.ActivityInputs.Any(ai => ai.InputType == ActivityInput.InputTypeEnum.Number) == true)
+                    {
+                        vvm.MeasurmentsCount += 1;
+                    }
 
                     VisitViewModel.Input inputs = new VisitViewModel.Input();
                     inputs.ActivityTitle = activity.ActivityTitle;

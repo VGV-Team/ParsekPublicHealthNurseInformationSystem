@@ -28,7 +28,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 return Index(vm, null);
             }
             
-            vm.ActivityInputList = new List<ActivityInput>();
+            vm.ActivityInputList = new List<Activity>();
             vm.InputActivityList = new List<Activity>();
 
             vm.VisitTypesList = DB.Services.ToList();
@@ -36,11 +36,19 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             
             if (vm.SelectedVisitType != null && vm.SelectedVisitType > 0)
             {
-                vm.ActivityInputList = DB.ActivityInputs.Where(ai => ai.Activity.Service.ServiceId == vm.SelectedVisitType &&
-                                                                     ai.InputType == ActivityInput.InputTypeEnum.Number)
-                                                                     .ToList();
+                //vm.ActivityInputList = DB.ActivityInputs.Where(ai => ai.Activity.ServiceActivities.Any(sa => sa.Service.ServiceId == vm.SelectedVisitType) &&
+                //                                                     ai.InputType == ActivityInput.InputTypeEnum.Number)
+                //                                                     .ToList();
 
-                vm.InputActivityList = DB.Services.Find(vm.SelectedVisitType).Activities.ToList();
+                vm.ActivityInputList = DB.Activities.Where(a => a.ServiceActivities.Any(sa => sa.Service.ServiceId == vm.SelectedVisitType && sa.Active && sa.Activity.ActivityInputs.Any(ai => ai.InputType == ActivityInput.InputTypeEnum.Number))).ToList();
+
+                //vm.InputActivityList = DB.Services.Find(vm.SelectedVisitType).Activities.ToList();
+
+                Service tmpService = DB.Services.Find(vm.SelectedVisitType);
+
+                vm.InputActivityList = DB.Activities.Where(a => a.ActivityInputs.Any(ai => ai.InputType == ActivityInput.InputTypeEnum.Number)).ToList();
+                vm.InputActivityList = vm.InputActivityList.Except(tmpService.ServiceActivities.Where(sa => sa.Active).Select(sa => sa.Activity)).ToList();
+
             }
 
 
@@ -54,18 +62,25 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             {
                 try
                 {
-                    Models.ActivityInput AI = DB.ActivityInputs.Find(visitInputId);
+                    //Models.ActivityInput AI = DB.ActivityInputs.Find(visitInputId);
+
 
                     // Do we need this?
-                    AI.Activity = null;
+                    //AI.Activity = null;
 
-                    for (int i = 0; i < AI.ActivityInputDatas.Count; i++)
-                    {
-                        DB.ActivityInputDatas.Remove(AI.ActivityInputDatas.ElementAt(i));
-                    }
-                    
+                    //for (int i = 0; i < AI.ActivityInputDatas.Count; i++)
+                    //{
+                    //    DB.ActivityInputDatas.Remove(AI.ActivityInputDatas.ElementAt(i));
+                    //}
 
-                    DB.ActivityInputs.Remove(AI);
+
+                    //DB.ActivityInputs.Remove(AI);
+
+                    Models.Activity Act = DB.Activities.Find(visitInputId);
+                    Models.ServiceActivity SA = DB.ServiceActivities.Where(sa => sa.Service.ServiceId == serviceId && sa.Activity.ActivityId == visitInputId).FirstOrDefault();
+
+                    SA.Active = false;
+
                     DB.SaveChanges();
                 }
                 catch (Exception e)
@@ -83,7 +98,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             {
                 if (vm.SelectedInputActivity > 0)
                 {
-                    Models.ActivityInput AI = new ActivityInput();
+                    /*Models.ActivityInput AI = new ActivityInput();
                     AI.Activity = DB.Activities.Find(vm.SelectedInputActivity);
                     AI.InputType = ActivityInput.InputTypeEnum.Number;
                     AI.OneTime = false;
@@ -92,6 +107,27 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     string possibleValues = vm.InputMinValue + ";;" + vm.InputMaxValue;
                     AI.PossibleValues = possibleValues;
                     DB.ActivityInputs.Add(AI);
+                    DB.SaveChanges();*/
+
+                    Models.Activity Act = DB.Activities.Find(vm.SelectedInputActivity);
+                    Models.Service Serv = DB.Services.Find(vm.SelectedVisitType);
+
+                    Models.ServiceActivity SA = DB.ServiceActivities.FirstOrDefault(sa => sa.Activity.ActivityId == Act.ActivityId && sa.Service.ServiceId == Serv.ServiceId && sa.Active == true);
+
+                    if (SA == null)
+                    {
+                        Models.ServiceActivity newSA = new ServiceActivity();
+                        newSA.Activity = Act;
+                        newSA.Service = Serv;
+                        newSA.Active = true;
+                        DB.ServiceActivities.Add(newSA);
+                        
+                    }
+                    else
+                    {
+                        SA.Active = true;
+                    }
+
                     DB.SaveChanges();
                 }
             }
@@ -102,10 +138,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             }
 
             vm.SelectedInputActivity = -1;
-            vm.InputMaxValue = 10000;
+            /*vm.InputMaxValue = 10000;
             vm.InputMinValue = 0;
             vm.InputRequired = false;
-            vm.InputTitle = "";
+            vm.InputTitle = "";*/
 
 
             return RedirectToAction("Index", new { serviceId = vm.SelectedVisitType });

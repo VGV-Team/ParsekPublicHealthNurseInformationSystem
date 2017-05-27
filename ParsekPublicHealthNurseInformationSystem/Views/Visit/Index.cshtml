@@ -65,9 +65,15 @@ else
           }
 
           int count = 0;
+          bool measurements = true;
 
-          for (int i = 0; i < Model.ActivityInputs.Count; i++)
+          <h3>Meritve</h3>
+
+          <div class="well">
+
+          @for (int i = 0; i < Model.MeasurmentsCount; i++)
           {
+
             <div>
                 <label class="panel-title">@Model.ActivityInputs[i].ActivityTitle</label>
 
@@ -107,10 +113,72 @@ else
 
                     count++;
                 }
-                <hr />
+               
 
             </div>
           }
+
+          </div>
+
+
+
+
+
+
+          <h3>Ostali podaki</h3>
+
+          <div class="well">
+
+          @for (int i = Model.MeasurmentsCount; i < Model.ActivityInputs.Count; i++)
+          {
+
+            <div>
+                <label class="panel-title">@Model.ActivityInputs[i].ActivityTitle</label>
+
+
+                @for (int j = 0; j < Model.ActivityInputs[i].ActivityInputDatas.Count; j++)
+                {
+                    <div class="form-group">
+
+
+                        @Html.HiddenFor(x => x.ActivityInputIds[count])
+
+
+
+
+                        @if (Model.ActivityInputs[i].ActivityInputDatas[j].Required)
+                        {
+                            @Html.Label(Model.ActivityInputIds[count].ToString(), Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputTitle + " *", htmlAttributes: new { @class = "control-label col-md-2" })
+                        }
+                        else
+                        {
+                            @Html.Label(Model.ActivityInputIds[count].ToString(), Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                        }
+
+
+                        @FillData(i, j, count)
+
+                    </div>
+
+                    //@Html.TextBoxFor(x => x.ActivityInputIds[count])
+                    //<input type="text" id="ActivityInputValues_@count" value="text" />
+                    //<input type="hidden" id="ActivityInputIds_@count" value="@Model.ActivityInputs[i].ActivityInputDatas[j].ActivityInputId" />
+
+
+
+                    // ActivityInputId[count] = [i][j]
+                    // input [count]
+
+                    count++;
+                }
+                
+
+            </div>
+          }
+
+          </div>
+
+
 
           if (Model.VisitDate.Date < DateTime.Now.AddDays(-1).Date)
           {

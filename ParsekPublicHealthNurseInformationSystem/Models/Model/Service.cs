@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParsekPublicHealthNurseInformationSystem.Models.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,7 +23,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual ICollection<WorkOrder> WorkOrders { get; set; }
 
-        public virtual ICollection<Activity> Activities { get; set; }
+        public virtual ICollection<ServiceActivity> ServiceActivities { get; set; }
+
+        //public virtual ICollection<Activity> Activities { get; set; }
 
         //public bool RequiresMedicine => (ServiceCode == "50" && ServiceCode == "10");
         //public bool RequiresBloodSample => (ServiceCode == "60" && ServiceCode == "10");

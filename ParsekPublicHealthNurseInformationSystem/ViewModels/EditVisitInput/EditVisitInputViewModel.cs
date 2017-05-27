@@ -13,16 +13,16 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public List<Models.Service> VisitTypesList { get; set; }
         public int SelectedVisitType { get; set; }
 
-        public List<Models.ActivityInput> ActivityInputList { get; set; }
+        public List<Models.Activity> ActivityInputList { get; set; }
 
 
 
         //new input
-        [Display(Name = "Izberi kategorijo vnosa")]
+        [Display(Name = "Izberi meritev")]
         public List<Models.Activity> InputActivityList { get; set; }
         public int SelectedInputActivity { get; set; }
 
-        [Display(Name = "Naziv vnosa")]
+        /*[Display(Name = "Naziv vnosa")]
         public string InputTitle { get; set; }
 
         [Display(Name = "Obvezen vnos")]
@@ -32,7 +32,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public int InputMinValue { get; set; }
 
         [Display(Name = "Najvišja vrednost")]
-        public int InputMaxValue { get; set; }
+        public int InputMaxValue { get; set; }*/
 
     }
 }

@@ -181,6 +181,7 @@
     <Compile Include="Models\Model\Activity.cs" />
     <Compile Include="Models\Model\ActivityInput.cs" />
     <Compile Include="Models\Model\ActivityInputData.cs" />
+    <Compile Include="Models\Model\Measurement.cs" />
     <Compile Include="Models\Model\Service.cs" />
     <Compile Include="Models\Model\AuthorizationFilter.cs" />
     <Compile Include="Models\Model\IpLog.cs" />
@@ -200,6 +201,8 @@
     <Compile Include="Models\Model\PostOffice.cs" />
     <Compile Include="Models\Model\Relationship.cs" />
     <Compile Include="Models\Model\Role.cs" />
+    <Compile Include="Models\Model\ServiceActivity.cs" />
+    <Compile Include="Models\Model\ServiceMeasurement.cs" />
     <Compile Include="Models\Model\User.cs" />
     <Compile Include="Models\Model\Visit.cs" />
     <Compile Include="Models\Model\WorkOrder.cs" />

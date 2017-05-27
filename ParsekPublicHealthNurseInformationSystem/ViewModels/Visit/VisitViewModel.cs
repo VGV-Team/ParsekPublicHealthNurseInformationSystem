@@ -27,6 +27,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public List<int> ActivityInputIds { get; set; }
         public List<string> ActivityInputValues { get; set; }
         
+        public int MeasurmentsCount { get; set; }
 
         public struct Input
         {
