@@ -10,7 +10,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
     public class CodeTableViewModel
     {
         [Display(Name = "Željena kategorija")]
-        public CodeCategory SelectedCodeCategory { get; set; }
+        public CodeCategory Category { get; set; }
 
         public List<Medicine> Medicines { get; set; }
         public List<Contractor> Contractors { get; set; }
@@ -25,7 +25,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public Service Service { get; set; }
 
 
-
+        public List<PostOffice> PostOffices { get; set; }
 
         public enum CodeCategory
         {

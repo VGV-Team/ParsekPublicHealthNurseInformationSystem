@@ -343,6 +343,7 @@
     <Content Include="Views\EditVisitInput\Index.cshtml" />
     <Content Include="Views\CodeTable\Index.cshtml" />
     <Content Include="Views\CodeTable\Edit.cshtml" />
+    <Content Include="Views\AdminConsole\ChangeProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

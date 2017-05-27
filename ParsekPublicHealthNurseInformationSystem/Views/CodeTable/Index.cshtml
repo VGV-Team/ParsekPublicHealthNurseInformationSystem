@@ -11,9 +11,10 @@
     @Html.AntiForgeryToken()
 
     <div class="form-group">
-        @Html.LabelFor(model => model.SelectedCodeCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EnumDropDownListFor(model => model.SelectedCodeCategory, "-- Izberite--",  new { @class = "form-control dropdown" } )
+            @Html.EnumDropDownListFor(model => model.Category, "-- Izberite--",  new { @class = "form-control dropdown" } )
+            @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
         </div>
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Izberi" class="btn btn-default" />
@@ -29,10 +30,9 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Code</th>
-                    <th>Title</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>Koda</th>
+                    <th>Naziv</th>
+                    <th>Možnosti</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,20 +41,142 @@
                     <tr>
                         <td>@medicine.Code</td>
                         <td>@medicine.Title</td>
-                        <td>@Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId }, new { @class = "btn btn-primary", @style = "color:white" })</td>
-                        <td>@Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId }, new { @class = "btn btn-danger", @style = "color:white" })</td>
+                        <td>
+                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId}, new {@class = "btn btn-primary", @style = "color:white"})
+                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId}, new {@class = "btn btn-danger", @style = "color:white"})
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
-        @Html.ActionLink("Novo", "New", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Medicine }, new { @class = "btn btn-primary", @style = "color:white" })
+        @Html.ActionLink("Novo", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Medicine }, new { @class = "btn btn-primary", @style = "color:white" })
     </div>
 }
 
+@if (Model?.Contractors != null)
+{
+    <div class="form-group">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Številka</th>
+                    <th>Naziv</th>
+                    <th>Naslov</th>
+                    <th>Pošta</th>
+                    <th>Možnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contractor in Model.Contractors)
+                {
+                    <tr>
+                        <td>@contractor.Number</td>
+                        <td>@contractor.Title</td>
+                        <td>@contractor.Address</td>
+                        <td>@contractor.PostOffice.FullName</td>
+                        <td>
+                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Contractor, id = contractor.ContractorId}, new {@class = "btn btn-primary", @style = "color:white"})
+                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Contractor, id = contractor.ContractorId}, new {@class = "btn btn-danger", @style = "color:white"})
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink("Novo", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Contractor }, new { @class = "btn btn-primary", @style = "color:white" })
+    </div>
+}
 
+@if (Model?.Diseases != null)
+{
+    <div class="form-group">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Koda</th>
+                    <th>Opis</th>
+                    <th>Možnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var disease in Model.Diseases)
+                {
+                    <tr>
+                        <td>@disease.Code</td>
+                        <td>@disease.Description</td>
+                        <td>
+                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Disease, id = disease.DiseaseId}, new {@class = "btn btn-primary", @style = "color:white"})
+                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Disease, id = disease.DiseaseId}, new {@class = "btn btn-danger", @style = "color:white"})
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink("Novo", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Disease }, new { @class = "btn btn-primary", @style = "color:white" })
+    </div>
+}
 
+@if (Model?.Relationships != null)
+{
+    <div class="form-group">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Tip</th>
+                    <th>Možnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var relationship in Model.Relationships)
+                {
+                    <tr>
+                    <td>@relationship.Name</td>
+                    <td>
+                        @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Disease, id = relationship.RelationshipId}, new {@class = "btn btn-primary", @style = "color:white"})
+                        @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Disease, id = relationship.RelationshipId }, new { @class = "btn btn-danger", @style = "color:white" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink("Novo", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Relationship }, new { @class = "btn btn-primary", @style = "color:white" })
+    </div>
+}
 
-
+@if (Model?.Services != null)
+{
+    <div class="form-group">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Koda</th>
+                    <th>Naziv</th>
+                    <th>Preventivni obisk</th>
+                    <th>Vnos zdravil</th>
+                    <th>Vnos krvnih vzorcev</th>
+                    <th>Potrebni podpacienti</th>
+                    <th>Možnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var service in Model.Services)
+                {
+                    <tr>
+                        <td>@service.ServiceCode</td>
+                        <td>@service.ServiceTitle</td>
+                        <td>@(service.PreventiveVisit?"Da":"Ne")</td>
+                        <td>@(service.RequiresMedicine ? "Da" : "Ne")</td>
+                        <td>@(service.RequiresBloodSample ? "Da" : "Ne")</td>
+                        <td>@(service.RequiresPatients ? "Da" : "Ne")</td>
+                        <td>
+                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Service, id = service.ServiceId}, new {@class = "btn btn-primary", @style = "color:white"})
+                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Service, id = service.ServiceId}, new {@class = "btn btn-danger", @style = "color:white"})
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink("Novo", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Service }, new { @class = "btn btn-primary", @style = "color:white" })
+    </div>
+}
 
 
 @section Scripts {
