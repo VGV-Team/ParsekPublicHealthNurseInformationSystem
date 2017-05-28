@@ -1,0 +1,158 @@
+﻿@model ParsekPublicHealthNurseInformationSystem.ViewModels.EditActivity.EditActivityViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Urejanje meritev</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <hr/>
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group" id="DistrictDropdown">
+            @Html.LabelFor(model => model.ActivityList, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SelectedActivity, new SelectList(Model.ActivityList, "ActivityId", "ActivityTitle"), "-- Izberi --", htmlAttributes: new { @class = "form-control dropdown" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Naziv vnosa</th>
+                    <th>Obvezen</th>
+                    <th>Kdo</th>
+                    <th>Enkratni vnos</th>
+                    <th>Možnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @for (int i = 0; i < Model.ActivityActivityInputList.Count; i++)
+                {
+
+                    <tr>
+                        <td>@Model.ActivityActivityInputList.ElementAt(i).ActivityInput.Title</td>
+                        @if (@Model.ActivityActivityInputList.ElementAt(i).Required)
+                        {
+                            <td>Da</td>
+                        }
+                        else
+                        {
+                            <td>Ne</td>
+                        }
+                        @if (@Model.ActivityActivityInputList.ElementAt(i).ActivityInputFor == ParsekPublicHealthNurseInformationSystem.Models.ActivityActivityInput.InputForType.All)
+                        {
+                            <td>Vsi</td>
+                        }
+                        else if (@Model.ActivityActivityInputList.ElementAt(i).ActivityInputFor == ParsekPublicHealthNurseInformationSystem.Models.ActivityActivityInput.InputForType.ParentOnly)
+                        {
+                            <td>Samo starš</td>
+                        }
+                        else
+                        {
+                            <td>Samo otroci</td>
+                        }
+                        @if (@Model.ActivityActivityInputList.ElementAt(i).OneTime)
+                        {
+                            <td>Da</td>
+                        }
+                        else
+                        {
+                            <td>Ne</td>
+                        }
+                        <td>@Html.ActionLink("Izbriši", "DeleteInput", "EditActivity", new { activityInputId = Model.ActivityActivityInputList.ElementAt(i).ActivityInput.ActivityInputId, activityId = Model.SelectedActivity }, new { @class = "btn btn-danger", @style = "color:white" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+    </div>
+}
+
+@if (Model.SelectedActivity > 0)
+{
+    using (Html.BeginForm("AddInput", "EditActivity", FormMethod.Post))
+    {
+
+        @Html.AntiForgeryToken()
+        <hr />
+
+        <h3>Dodaj nov vnos</h3>
+
+        <div class="well">
+
+            <div class="form-horizontal">
+
+                @Html.HiddenFor(model => model.SelectedActivity)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ActivityInputList, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.SelectedActivityInput, new SelectList(Model.ActivityInputList, "ActivityInputId", "Title"), "-- Izberi --", htmlAttributes: new { @class = "form-control dropdown" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Required, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Required)
+                            @Html.ValidationMessageFor(model => model.Required, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OneTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.OneTime)
+                            @Html.ValidationMessageFor(model => model.OneTime, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Kateri pacienti", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.ActivityInputFor, "-- Izberi --", new { @class = "form-control dropdown" })
+                        @Html.ValidationMessageFor(model => model.ActivityInputFor, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Dodaj" class="btn btn-default" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

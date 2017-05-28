@@ -155,6 +155,7 @@
     <Compile Include="Controllers\AdminConsoleController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\CodeTableController.cs" />
+    <Compile Include="Controllers\EditActivityController.cs" />
     <Compile Include="Controllers\EditVisitInputController.cs" />
     <Compile Include="Controllers\EndReplacementController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="ViewModels\AdminConsole\AdminConsoleViewModel.cs" />
     <Compile Include="ViewModels\ChangePassword\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\CodeTable\CodeTableViewModel.cs" />
+    <Compile Include="ViewModels\EditActivity\EditActivityViewModel.cs" />
     <Compile Include="ViewModels\EditVisitInput\EditVisitInputViewModel.cs" />
     <Compile Include="ViewModels\EndReplacement\EndReplacementViewModel.cs" />
     <Compile Include="ViewModels\ForgotPassword\ForgotPasswordViewModel.cs" />
@@ -348,6 +350,7 @@
     <Content Include="Views\CodeTable\Index.cshtml" />
     <Content Include="Views\CodeTable\Edit.cshtml" />
     <Content Include="Views\AdminConsole\ChangeProfile.cshtml" />
+    <Content Include="Views\EditActivity\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

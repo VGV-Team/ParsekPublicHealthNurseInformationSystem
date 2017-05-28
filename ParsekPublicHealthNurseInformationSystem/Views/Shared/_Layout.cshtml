@@ -87,9 +87,11 @@
                     
                     @if (IsAdmin)
                     {
-                        <li>@Html.ActionLink("Dodajanje zaposlenih", "", "AdminConsole")</li>
-                        <li>@Html.ActionLink("Urejanje vnosa obiskov", "", "EditVisitInput")</li>
-                        <li>@Html.ActionLink("Spremeni profil zaposlenih", "ChangeProfile", "AdminConsole")</li>
+                        <li>@Html.ActionLink("Nov zaposlen", "", "AdminConsole")</li>
+                        <li>@Html.ActionLink("Spremeni profil", "ChangeProfile", "AdminConsole")</li>
+                        <li>@Html.ActionLink("Urejanje meritev", "", "EditVisitInput")</li>
+                        <li>@Html.ActionLink("Urejanje vnosov", "", "EditActivity")</li>
+                        
                     }
 
                     @if (IsNurse || IsHead || IsDoctor)

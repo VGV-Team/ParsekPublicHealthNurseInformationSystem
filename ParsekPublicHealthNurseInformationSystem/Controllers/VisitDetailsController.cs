@@ -59,7 +59,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         {
             VisitDetailsViewModel.ParsedData data = new VisitDetailsViewModel.ParsedData();
 
-            List<ActivityInputData> inputData = visit.ActivityInputDatas.Where(aid => aid.Patient != null && aid.Patient.PatientId == patientId).ToList();
+            List<ActivityInputData> inputData = visit.ActivityInputDatas.Where(aid => aid.Patient != null && aid.Patient.PatientId == patientId && (aid.ActivityActivityInput.Active || (aid.Value != "" && aid.Value != null))).ToList();
 
             int oldId = -1;
             int count = 0;

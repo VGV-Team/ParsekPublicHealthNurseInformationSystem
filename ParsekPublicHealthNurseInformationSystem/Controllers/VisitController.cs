@@ -114,7 +114,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     inputs.ActivityTitle = activity.ActivityTitle;
 
                     // Select all inputs for selected activity.
-                    List<ActivityInput> activityInputs = db.ActivityInputs.Where(x => x.ActivityActivityInputs.Any(y => y.Activity.ActivityId == activity.ActivityId)).ToList();
+                    List<ActivityInput> activityInputs = db.ActivityInputs.Where(x => x.ActivityActivityInputs.Any(y => y.Activity.ActivityId == activity.ActivityId && (y.Active == true || db.ActivityInputDatas.Any(
+                                                                                                                                                                                            aid => aid.Visit.VisitId == visit.VisitId &&
+                                                                                                                                                                                                    aid.Value != null && aid.Value != "" &&
+                                                                                                                                                                                                    aid.ActivityActivityInput.Activity.ActivityId == y.Activity.ActivityId &&
+                                                                                                                                                                                                    aid.ActivityActivityInput.ActivityInput.ActivityInputId == y.ActivityInput.ActivityInputId)))).ToList();
                     inputs.ActivityInputDatas = new List<VisitViewModel.Input.InputData>();
 
 
