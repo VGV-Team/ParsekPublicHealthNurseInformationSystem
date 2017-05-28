@@ -42,6 +42,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vvm.VisitId = visit.VisitId;
             vvm.ActivityInputs = new List<VisitViewModel.Input>();
             vvm.ActivityInputIds = new List<int>();
+            vvm.ActivityIds = new List<int>();
             vvm.ActivityInputValues = new List<string>();
             vvm.VisitDate = visit.DateConfirmed;
 
@@ -154,6 +155,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         if (patient == null)
                         {
                             input = db.ActivityInputDatas.FirstOrDefault(x => x.ActivityActivityInput.ActivityInput.ActivityInputId == inputData.ActivityInputId &&
+                                                                                                          x.ActivityActivityInput.Activity.ActivityId == activity.ActivityId &&
                                                                                                           x.Visit.VisitId == correctVisitId &&
                                                                                                           x.Patient == null);
 
@@ -161,6 +163,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         else
                         {
                             input = db.ActivityInputDatas.FirstOrDefault(x => x.ActivityActivityInput.ActivityInput.ActivityInputId == inputData.ActivityInputId &&
+                                                                                                          x.ActivityActivityInput.Activity.ActivityId == activity.ActivityId &&
                                                                                                           x.Visit.VisitId == correctVisitId &&
                                                                                                           x.Patient.PatientId == patient.PatientId);
 
@@ -172,8 +175,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         inputs.ActivityInputDatas.Add(inputData);
 
                         vvm.ActivityInputIds.Add(activityInput.ActivityInputId);
+                        vvm.ActivityIds.Add(activity.ActivityId);
 
-                   
+
                     }
 
                     vvm.ActivityInputs.Add(inputs);
@@ -220,17 +224,22 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             for (int i = 0; i < vvm.ActivityInputIds.Count; i++)
             {
                 int activityInputId = vvm.ActivityInputIds[i];
+                int activityId = vvm.ActivityIds[i];
 
                 ActivityInputData aiwo;
                 if (patient == null)
                 {
+                    // TODO: ALSO CHECK ACTIVITY!
                     aiwo = db.ActivityInputDatas.FirstOrDefault(x => x.ActivityActivityInput.ActivityInput.ActivityInputId == activityInputId &&
+                                                                                                         x.ActivityActivityInput.Activity.ActivityId == activityId &&
                                                                                                          x.Visit.VisitId == vvm.VisitId &&
                                                                                                          x.Patient == null);
                 }
                 else
                 {
+                    // TODO: ALSO CHECK ACTIVITY!
                     aiwo = db.ActivityInputDatas.FirstOrDefault(x => x.ActivityActivityInput.ActivityInput.ActivityInputId == activityInputId &&
+                                                                                                         x.ActivityActivityInput.Activity.ActivityId == activityId &&
                                                                                                          x.Visit.VisitId == vvm.VisitId &&
                                                                                                          x.Patient.PatientId == patient.PatientId);
                 }
@@ -239,8 +248,16 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 {
                     aiwo = new ActivityInputData();
                     aiwo.Visit = db.Visits.FirstOrDefault(x => x.VisitId == vvm.VisitId);
+
+                    //HORRIBLE!
+                    //List<Activity> currentActivities = aiwo.Visit.WorkOrder.Service.ServiceActivities.Select(x => x.Activity).ToList();
+                    //List<ActivityActivityInput> aais = db.ActivityActivityInputs.Where(x => x.ActivityInput.ActivityInputId == activityInputId).ToList();
+                    //aiwo.ActivityActivityInput = aais.FirstOrDefault(x => currentActivities.Any(ca => ca.ActivityId == x.Activity.ActivityId));
+                    aiwo.ActivityActivityInput = db.ActivityActivityInputs.FirstOrDefault(x => x.ActivityInput.ActivityInputId == activityInputId && x.Activity.ActivityId == activityId);
+                    //aiwo.ActivityActivityInput.ActivityInput = db.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == activityInputId);
+
+
                     aiwo.Visit.Done = true;
-                    aiwo.ActivityActivityInput.ActivityInput = db.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == activityInputId);
                     aiwo.Value = vvm.ActivityInputValues[i];
                     aiwo.Patient = patient;
 

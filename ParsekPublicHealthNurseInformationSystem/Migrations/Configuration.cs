@@ -671,7 +671,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ActivityInput ai13 = new ActivityInput() { Title = "Porodna višina otroka (cm)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;100" };
             ActivityInput ai14 = new ActivityInput() { Title = "cm", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;300" };
             ActivityInput ai15 = new ActivityInput() { Title = "Da/Ne", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Da;;Ne" };
-            ActivityInput ai16 = new ActivityInput() { Title = "Izberite", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Ni posebnosti;;Mikcija;;Defekacija;;Napenjanje;;Kolike;;Polivanje;;Bruhanje" };
+            ActivityInput ai16 = new ActivityInput() { Title = "Prebava", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Ni posebnosti;;Mikcija;;Defekacija;;Napenjanje;;Kolike;;Polivanje;;Bruhanje" };
             ActivityInput ai17 = new ActivityInput() { Title = "Urin", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
             ActivityInput ai18 = new ActivityInput() { Title = "Blato", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
             ActivityInput ai19 = new ActivityInput() { Title = "Vid", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
@@ -686,6 +686,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ActivityInput ai28 = new ActivityInput() { Title = "mmol/L", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;100" };
             ActivityInput ai29 = new ActivityInput() { Title = "%", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;100" };
             ActivityInput ai30 = new ActivityInput() { Title = "Da/Delno/Ne", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Da;;Delno;;Ne" };
+            ActivityInput ai31 = new ActivityInput() { Title = "Neodvisnost", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Samostojen;;Delno odvisen;;Povsem odvisen" };
+            ActivityInput ai32 = new ActivityInput() { Title = "Pomoè", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Svojci;;Drugi" };
+
+
             #endregion
 
             #region ActivityActivityInput
@@ -767,8 +771,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ActivityActivityInput aai76 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai23, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
             ActivityActivityInput aai77 = new ActivityActivityInput() { Activity = a61, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
             ActivityActivityInput aai78 = new ActivityActivityInput() { Activity = a62, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai79 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai24, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai80 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai26, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai79 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai31, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai80 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai32, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
             ActivityActivityInput aai81 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
             ActivityActivityInput aai82 = new ActivityActivityInput() { Activity = a64, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
             ActivityActivityInput aai83 = new ActivityActivityInput() { Activity = a65, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
