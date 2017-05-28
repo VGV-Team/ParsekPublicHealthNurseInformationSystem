@@ -17,7 +17,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         public ActionResult Index()
         {
             NurseReplacementViewModel nrvm = new NurseReplacementViewModel();
-            nrvm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
+            nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
             return View("Index", nrvm);
         }
 
@@ -35,7 +35,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 nrvm.DateEnd == null
                 )
                 {
-                    nrvm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
+                    nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
                     nrvm.ViewMessage = "Ponovno preverite vnešene podatke!";
                     return View("Index", nrvm);
                 }
@@ -45,21 +45,21 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 if (NurseId1 == null || NurseId2 == null || NurseId1.Length != 1 || NurseId2.Length != 1 || NurseId1[0] == NurseId2[0])
                 {
-                    nrvm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
+                    nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
                     nrvm.ViewMessage = "Preverite sestri";
                     return View("Index", nrvm);
                 }
 
                 if (nrvm.DateStart < DateTime.Now.Date || nrvm.DateEnd < DateTime.Now.Date)
                 {
-                    nrvm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
+                    nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
                     nrvm.ViewMessage = "Vsaj eden izmed datumov je preteklost";
                     return View("Index", nrvm);
                 }
 
                 if(nrvm.DateEnd < nrvm.DateStart)
                 {
-                    nrvm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
+                    nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
                     nrvm.ViewMessage = "Datum konca je pred datumom začetka";
                     return View("Index", nrvm);
                 }
@@ -92,13 +92,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 DB.SaveChanges();
                 nrvm.ViewMessage = "Nadomestitev uspešna";
-                nrvm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
+                nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
                 return View("Index", nrvm);
             }
             catch (Exception e)
             {
                 nrvm.ViewMessage = "Prišlo je do hujše napake!";
-                nrvm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
+                nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
                 return View("Index", nrvm);
             }
         }

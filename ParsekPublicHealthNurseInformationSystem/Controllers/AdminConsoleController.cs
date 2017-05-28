@@ -9,7 +9,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
-    [AuthorizationFilter(Role.RoleEnum.Admin)]
+    [AuthorizationFilter(Role.Admin)]
     public class AdminConsoleController : Controller
     {
         private EntityDataModel DB = new EntityDataModel();
@@ -34,7 +34,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             if (acvm == null)
             {
                 acvm = new AdminConsoleViewModel();
-                acvm.JobTitle = Employee.JobTitle.Doctor;
+                acvm.JobTitle = JobTitle.Doctor;
             }
 
             
@@ -92,7 +92,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 }
                     
 
-                Models.Role role = DB.Roles.Where(r => r.Title == Role.RoleEnum.Employee).FirstOrDefault();
+                Models.Role role = DB.Roles.Where(r => r.Title == Role.Employee).FirstOrDefault();
 
                 Models.User user = new Models.User();
                 user.Email = acvm.Email;
@@ -105,7 +105,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 Models.Employee employee = new Models.Employee();
                 employee.Contractor = DB.Contractors.Find(acvm.SelectedContractorId);
-                if (acvm.JobTitle == Employee.JobTitle.HealthNurse)
+                if (acvm.JobTitle == JobTitle.HealthNurse)
                 {
                     if (acvm.SelectedDistrictId <= 0)
                     {
@@ -118,7 +118,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 employee.Number = acvm.Number;
                 employee.PhoneNumber = acvm.PhoneNumber;
                 employee.Surname = acvm.Surname;
-                employee.Title = acvm.JobTitle;
+                employee.JobTitle = new JobTitle() { Title = acvm.JobTitle };
                 employee.User = user;
 
                 user.Employee = employee;
@@ -179,12 +179,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 }
 
                 Employee employee = DB.Employees.Find(EmployeeId[0]);
-                acvm.JobTitle = employee.Title;
+                acvm.JobTitle = employee.JobTitle.Title;
                 acvm.Name = employee.Name;
                 acvm.Surname = employee.Surname;
                 acvm.Number = employee.Number;
                 acvm.Contractor = employee.Contractor.DisplayName;
-                if (employee.Title == Employee.JobTitle.HealthNurse)
+                if (employee.JobTitle.Title == JobTitle.HealthNurse)
                 {
                     acvm.District = "Okoliš " + employee.District.DistrictId;
                 }

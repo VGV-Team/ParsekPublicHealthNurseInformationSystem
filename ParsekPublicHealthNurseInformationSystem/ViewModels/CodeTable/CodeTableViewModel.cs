@@ -19,6 +19,9 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public List<Service> Services { get; set; }
         public List<Activity> Activities { get; set; }
         public List<ActivityInput> ActivityInputs { get; set; }
+        public List<Role> Roles { get; set; }
+        public List<JobTitle> JobTitles { get; set; }
+
 
         public Medicine Medicine { get; set; }
         public Contractor Contractor { get; set; }
@@ -27,7 +30,8 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public Service Service { get; set; }
         public Activity Activity { get; set; }
         public ActivityInput ActivityInput { get; set; }
-
+        public Role Role { get; set; }
+        public JobTitle JobTitle { get; set; }
 
         public List<PostOffice> PostOffices { get; set; }
 
@@ -46,19 +50,11 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
             [Display(Name = "Šifranti aktivnosti")]
             Activity,
             [Display(Name = "Šifranti vnosov")]
-            ActivityInput
+            ActivityInput,
+            [Display(Name = "Šifranti vlog")]
+            Role,
+            [Display(Name = "Šifranti zdravstvenih delavcev")]
+            JobTitle
         }
-        /*
-        
-         /šifrant vrst obiskov, 
-         šifrant možnih uporabniških vlog, 
-         /šifrant sorodstvenih razmerij, 
-         /šifrant bolezni, 
-         /šifrant zdravil, 
-         šifrant meritev, 
-         šifrant zdravstvenih delavcev (zdravnikov in patronažnih sester) in 
-         /šifrant izvajalcev zdravstvene dejavnosti
-
-        */
     }
 }

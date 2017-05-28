@@ -19,7 +19,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public string Surname { get; set; }
         [Required]
-        public JobTitle Title { get; set; }
+        public virtual JobTitle JobTitle { get; set; }
         [Required]
         public virtual Contractor Contractor { get; set; }
         public string PhoneNumber { get; set; }
@@ -32,22 +32,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual ICollection<Absence> Absences { get; set; } //Only nurse
 
-        public string DisplayName { get { return string.Format("{0} {1} [{2}]", Name, Surname, Number); } }
+        public string DisplayName => $"{Name} {Surname} [{Number}]";
 
-        //[Display(Name = "Tip zaposlenega")]
-        public enum JobTitle
-        {
-            [Display(Name = "Doktor")]
-            Doctor = 1, //Doktor
-            [Display(Name = "Vodja")]
-            Head, // Vodja
-            [Display(Name = "Patronažna sestra")]
-            HealthNurse, // PS
-            [Display(Name = "Sodelavec")]
-            Coworker // Sodelavec
-        };
-
-        public string FullNameWithCode => $"{Surname} {Name} - ({EmployeeId})" + (Title == JobTitle.HealthNurse ? $" - {District.Name}" : "");
+        public string FullNameWithCode => $"{Surname} {Name} - ({EmployeeId})" + (JobTitle.Title == JobTitle.HealthNurse ? $" - {District.Name}" : "");
 
         public string FullName => $"{Surname} {Name}";
     }

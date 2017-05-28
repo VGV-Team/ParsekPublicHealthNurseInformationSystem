@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
-    [AuthorizationFilter(Employee.JobTitle.HealthNurse)]
+    [AuthorizationFilter(JobTitle.HealthNurse)]
     public class VisitPlannerController : Controller
     {
         private EntityDataModel DB = new EntityDataModel();

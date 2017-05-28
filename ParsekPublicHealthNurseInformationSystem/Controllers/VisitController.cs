@@ -11,7 +11,7 @@ using ParsekPublicHealthNurseInformationSystem.ViewModels;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
-    [AuthorizationFilter(Role.RoleEnum.Employee)]
+    [AuthorizationFilter(Role.Employee)]
     public class VisitController : Controller
     {
         private EntityDataModel db = new EntityDataModel();

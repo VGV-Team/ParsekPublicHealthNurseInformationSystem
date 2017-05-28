@@ -21,6 +21,7 @@ DROP TABLE Relationships
 DROP TABLE Districts
 DROP TABLE Contractors
 DROP TABLE Roles
+DROP TABLE JobTitles
 DROP TABLE PostOffices
 DROP TABLE IpLogs
 DROP TABLE Services

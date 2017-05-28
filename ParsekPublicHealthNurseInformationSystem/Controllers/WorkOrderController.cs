@@ -13,8 +13,7 @@ using WebGrease.Css.Ast.Selectors;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
-    [AuthorizationFilter(Role.RoleEnum.Employee)]
-    [AuthorizationFilter(Employee.JobTitle.Doctor, Employee.JobTitle.Head)]
+    [AuthorizationFilter(Role.Employee, JobTitle.Doctor, JobTitle.Head)]
     public class WorkOrderController : Controller
     {
         private EntityDataModel DB = new EntityDataModel();
@@ -26,7 +25,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             Session["workorder_DB"] = null; // workorder model
 
             User currentUser = (User)Session["user"];
-            bool isDoctor = currentUser.Employee.Title == Employee.JobTitle.Doctor;
+            bool isDoctor = currentUser.Employee.JobTitle.Title == JobTitle.Doctor;
 
             WorkOrderVisitTypeViewModel wovtvm = new WorkOrderVisitTypeViewModel();
             wovtvm.CreateWorkOrderVisitTypeViewModel(isDoctor);
@@ -39,7 +38,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         public ActionResult CreateWorkOrder(WorkOrderVisitTypeViewModel wovtvm)
         {
             User currentUser = (User)Session["user"];
-            bool isDoctor = currentUser.Employee.Title == Employee.JobTitle.Doctor;
+            bool isDoctor = currentUser.Employee.JobTitle.Title == JobTitle.Doctor;
 
             Service service = DB.Services.FirstOrDefault(x => x.ServiceId == wovtvm.SelectedServiceId);
             if (service == null || !service.PreventiveVisit && !isDoctor)
@@ -169,7 +168,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     }
                 }
 
-                Employee selectedNurse = DB.Employees.FirstOrDefault(x => x.Title == Employee.JobTitle.HealthNurse && x.District.DistrictId == selectedPatient.District.DistrictId);
+                Employee selectedNurse = DB.Employees.FirstOrDefault(x => x.JobTitle.Title == JobTitle.HealthNurse && x.District.DistrictId == selectedPatient.District.DistrictId);
                 if (selectedNurse == null)
                 {
                     // TODO: error

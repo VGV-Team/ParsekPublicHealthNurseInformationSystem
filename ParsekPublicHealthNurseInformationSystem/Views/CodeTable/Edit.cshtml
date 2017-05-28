@@ -23,7 +23,7 @@
             </div>
             @Html.LabelFor(model => model.Medicine.Title, "Naziv", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Medicine.Title, new { htmlAttributes = new { @class = "form -control" } } )
+                @Html.EditorFor(model => model.Medicine.Title, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Medicine.Title, "", new { @class = "text-danger" })
             </div>
 
@@ -110,7 +110,7 @@
         @Html.HiddenFor(m => m.Relationship.RelationshipId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Relationship.Name, "Tip", htmlAttributes: new { @class = "control -label col-md-2" })
+            @Html.LabelFor(model => model.Relationship.Name, "Tip", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Relationship.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Relationship.Name, "", new { @class = "text-danger" })
@@ -233,7 +233,51 @@
     }
 }
 
+@if (Model?.Role != null)
+{
+    using (Html.BeginForm("Save", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
 
+        @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.Role.RoleId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Role.Title, "Naziv", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Role.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Role.Title, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+}
+
+@if (Model?.JobTitle != null)
+{
+    using (Html.BeginForm("Save", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.JobTitle.JobTitleId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobTitle.Title, "Naziv", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JobTitle.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JobTitle.Title, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

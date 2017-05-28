@@ -18,30 +18,33 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
                 return;
             }
 
-            User user = (User)HttpContext.Current.Session["user"];
-            if(user != null)
+            if (Allowed == null)
             {
-                Role.RoleEnum userRole = user.Role.Title;
-                if (RolesEnum != null)
-                {
-                    // Check if roles match.
-                    foreach (var role in RolesEnum)
-                    {
-                        if (userRole == role)
-                        {
-                            return;
-                        }
-                    }
+                return;
+            }
 
+            User user = (User)HttpContext.Current.Session["user"];
+            if (user != null)
+            {
+                string userRole = user.Role.Title;
+
+                // Check if roles match.
+                foreach (var role in Allowed)
+                {
+                    if (userRole == role)
+                    {
+                        return;
+                    }
                 }
 
-                Employee.JobTitle userTitle = user.Employee.Title;
-                if (TitlesEnum != null)
+                if (user.Employee != null)
                 {
-                    // Check if titles match.
-                    foreach (var title in TitlesEnum)
+                    string userJobTitle = user.Employee.JobTitle.Title;
+
+                    // Check if job title match.
+                    foreach (var jobTitle in Allowed)
                     {
-                        if (userTitle == title)
+                        if (userJobTitle == jobTitle)
                         {
                             return;
                         }
@@ -57,19 +60,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         }
 
         
-        private Role.RoleEnum[] RolesEnum { get; set; }
-        private Employee.JobTitle[] TitlesEnum { get; set; }
+        private string[] Allowed { get; set; }
 
-        public AuthorizationFilter(params Role.RoleEnum[] rolesRequired)
+        public AuthorizationFilter(params string[] rolesRequired)
         {
-            RolesEnum = rolesRequired;
+            Allowed = rolesRequired;
         }
-
-        public AuthorizationFilter(params Employee.JobTitle[] titlesRequired)
-        {
-            TitlesEnum = titlesRequired;
-        }
-
 
     }
 }

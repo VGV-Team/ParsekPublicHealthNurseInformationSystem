@@ -52,7 +52,7 @@
                 <div class="form-group" id="DistrictDropdown">
                     @Html.LabelFor(model => model.Issuers, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @if (((ParsekPublicHealthNurseInformationSystem.Models.User)Session["user"]).Employee.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor)
+                        @if (((ParsekPublicHealthNurseInformationSystem.Models.User)Session["user"]).Employee.JobTitle.Title == ParsekPublicHealthNurseInformationSystem.Models.JobTitle.Doctor)
                         {
                             @Html.DropDownListFor(model => model.SelectedIssuerId, new SelectList(Model.Issuers, "EmployeeId", "DisplayName"), htmlAttributes: new { @class = "form-control dropdown" })
                         }
@@ -73,7 +73,7 @@
                 <div class="form-group" id="DistrictDropdown">
                     @Html.LabelFor(model => model.Nurse, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @if (((ParsekPublicHealthNurseInformationSystem.Models.User)Session["user"]).Employee.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.HealthNurse)
+                        @if (((ParsekPublicHealthNurseInformationSystem.Models.User)Session["user"]).Employee.JobTitle.Title == ParsekPublicHealthNurseInformationSystem.Models.JobTitle.HealthNurse)
                         {
                             @Html.DropDownListFor(model => model.SelectedNurseId, new SelectList(Model.Nurse, "EmployeeId", "DisplayName"), htmlAttributes: new { @class = "form-control dropdown" })
                         }
@@ -87,7 +87,7 @@
                 <div class="form-group" id="DistrictDropdown">
                     @Html.LabelFor(model => model.NurseReplacement, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @if (((ParsekPublicHealthNurseInformationSystem.Models.User)Session["user"]).Employee.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.HealthNurse)
+                        @if (((ParsekPublicHealthNurseInformationSystem.Models.User)Session["user"]).Employee.JobTitle.Title == ParsekPublicHealthNurseInformationSystem.Models.JobTitle.HealthNurse)
                         {
                             @Html.DropDownListFor(model => model.SelectedNurseReplacementId, new SelectList(Model.NurseReplacement, "EmployeeId", "DisplayName"), htmlAttributes: new { @class = "form-control dropdown" })
                         }
@@ -136,7 +136,7 @@
 
 
 
-                                    string WOIssuerTitle = WO.Issuer.Title == ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor ?
+                                    string WOIssuerTitle = WO.Issuer.JobTitle.Title == ParsekPublicHealthNurseInformationSystem.Models.JobTitle.Doctor ?
                                     "Doktor" : "Vodja";
                                 }
 

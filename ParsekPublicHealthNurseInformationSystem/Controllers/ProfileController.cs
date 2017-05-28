@@ -9,7 +9,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
-    [AuthorizationFilter(Role.RoleEnum.Patient)]
+    [AuthorizationFilter(Role.Patient)]
     public class ProfileController : Controller
     {
 

@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
-    [AuthorizationFilter(Employee.JobTitle.Doctor, Employee.JobTitle.Head, Employee.JobTitle.HealthNurse)]
+    [AuthorizationFilter(JobTitle.Doctor, JobTitle.Head, JobTitle.HealthNurse)]
     public class VisitFilterController : Controller
     {
         
@@ -46,14 +46,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 if (sessionUser.Employee != null)
                 {
-                    if (sessionUser.Employee.Title == Employee.JobTitle.HealthNurse)
+                    if (sessionUser.Employee.JobTitle.Title == JobTitle.HealthNurse)
                     {
                         vm.SelectedNurseId = vm.SelectedNurseReplacementId = sessionUser.Employee.EmployeeId;
                         vm.SelectedNurseReplacementId = vm.SelectedNurseId;
                         vm.Nurse = vm.Nurse.Where(n => n.EmployeeId == vm.SelectedNurseId).ToList();
                         vm.NurseReplacement = vm.NurseReplacement.Where(n => n.EmployeeId == vm.SelectedNurseReplacementId).ToList();
                     }
-                    else if (sessionUser.Employee.Title == Employee.JobTitle.Doctor)
+                    else if (sessionUser.Employee.JobTitle.Title == JobTitle.Doctor)
                     {
                         vm.SelectedIssuerId = sessionUser.Employee.EmployeeId;
                         vm.Issuers = vm.Issuers.Where(i => i.EmployeeId == vm.SelectedIssuerId).ToList();
@@ -70,9 +70,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 vm = new VisitFilterViewModel();
             }
 
-            vm.Issuers = DB.Employees.Where(e => e.Title == Employee.JobTitle.Doctor || e.Title == Employee.JobTitle.Head).ToList();
+            vm.Issuers = DB.Employees.Where(e => e.JobTitle.Title == JobTitle.Doctor || e.JobTitle.Title == JobTitle.Head).ToList();
             vm.Patients = DB.Patients.ToList();
-            vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.Title == Employee.JobTitle.HealthNurse).ToList();
+            vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.JobTitle.Title == JobTitle.HealthNurse).ToList();
             vm.Services = DB.Services.ToList();
 
             vm.Visits = DB.Visits.ToList();

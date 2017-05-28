@@ -47,6 +47,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public virtual DbSet<Absence> Absences { get; set; }
         public virtual DbSet<ServiceActivity> ServiceActivities { get; set; }
         public virtual DbSet<ActivityActivityInput> ActivityActivityInputs { get; set; }
+        public virtual DbSet<JobTitle> JobTitles { get; set; }
     }
 
     //public class MyEntity

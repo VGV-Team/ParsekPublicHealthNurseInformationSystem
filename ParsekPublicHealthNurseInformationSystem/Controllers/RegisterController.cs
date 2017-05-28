@@ -130,7 +130,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 }
 
 
-                Models.Role role = DB.Roles.Where(r => r.Title == Role.RoleEnum.Patient).FirstOrDefault();
+                Models.Role role = DB.Roles.Where(r => r.Title == Role.Patient).FirstOrDefault();
 
                 Models.User user = new Models.User();
                 user.Email = rvm.Email;

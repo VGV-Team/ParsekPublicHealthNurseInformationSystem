@@ -129,6 +129,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 }
                 user.LastLastLogin = user.LastLogin;
                 user.LastLogin = DateTime.Now;
+
                 Session["user"] = user;
                 lvm.ViewMessage = "qwe";
                 //return Redirect(Request.Url.Authority);

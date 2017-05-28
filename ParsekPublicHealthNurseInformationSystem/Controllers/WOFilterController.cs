@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
-    [AuthorizationFilter(Employee.JobTitle.Doctor, Employee.JobTitle.Head, Employee.JobTitle.HealthNurse)]
+    [AuthorizationFilter(JobTitle.Doctor, JobTitle.Head, JobTitle.HealthNurse)]
     public class WOFilterController : Controller
     {
         private EntityDataModel DB = new EntityDataModel();
@@ -23,9 +23,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 vm = new WorkOrderFilterViewModel();
             }
 
-            vm.Issuers = DB.Employees.Where(e => e.Title == Employee.JobTitle.Doctor || e.Title == Employee.JobTitle.Head).ToList();
+            vm.Issuers = DB.Employees.Where(e => e.JobTitle.Title == JobTitle.Doctor || e.JobTitle.Title == JobTitle.Head).ToList();
             vm.Patients = DB.Patients.ToList();
-            vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.Title == Employee.JobTitle.HealthNurse).ToList();
+            vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.JobTitle.Title == JobTitle.HealthNurse).ToList();
 
             vm.WorkOrders = DB.WorkOrders.ToList();
             vm.CanDelete = new List<bool>();
@@ -47,14 +47,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 if (sessionUser.Employee != null)
                 {
-                    if (sessionUser.Employee.Title == Employee.JobTitle.HealthNurse)
+                    if (sessionUser.Employee.JobTitle.Title == JobTitle.HealthNurse)
                     {
                         vm.SelectedNurseId = vm.SelectedNurseReplacementId = sessionUser.Employee.EmployeeId;
                         vm.SelectedNurseReplacementId = vm.SelectedNurseId;
                         vm.Nurse = vm.Nurse.Where(n => n.EmployeeId == vm.SelectedNurseId).ToList();
                         vm.NurseReplacement = vm.NurseReplacement.Where(n => n.EmployeeId == vm.SelectedNurseReplacementId).ToList();
                     }
-                    else if (sessionUser.Employee.Title == Employee.JobTitle.Doctor)
+                    else if (sessionUser.Employee.JobTitle.Title == JobTitle.Doctor)
                     {
                         vm.SelectedIssuerId = sessionUser.Employee.EmployeeId;
                         vm.Issuers = vm.Issuers.Where(i => i.EmployeeId == vm.SelectedIssuerId).ToList();
@@ -69,7 +69,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             Employee current = (Session["user"] as Models.User).Employee;
 
             // IF doctor or head
-            if (current.Title == Employee.JobTitle.Doctor || current.Title == Employee.JobTitle.Head)
+            if (current.JobTitle.Title == JobTitle.Doctor || current.JobTitle.Title == JobTitle.Head)
             {
                 for (int i = 0; i < vm.WorkOrders.Count; i++)
                 {
@@ -113,9 +113,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 vm = new WorkOrderFilterViewModel();
             }
 
-            vm.Issuers = DB.Employees.Where(e => e.Title == Employee.JobTitle.Doctor || e.Title == Employee.JobTitle.Head).ToList();
+            vm.Issuers = DB.Employees.Where(e => e.JobTitle.Title == JobTitle.Doctor || e.JobTitle.Title == JobTitle.Head).ToList();
             vm.Patients = DB.Patients.ToList();
-            vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.Title == Employee.JobTitle.HealthNurse).ToList();
+            vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.JobTitle.Title == JobTitle.HealthNurse).ToList();
 
             vm.WorkOrders = DB.WorkOrders.ToList();
             vm.CanDelete = new List<bool>();
@@ -180,7 +180,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 Employee current = (Session["user"] as Models.User).Employee;
 
                 // IF doctor or head
-                if (current.Title == Employee.JobTitle.Doctor || current.Title == Employee.JobTitle.Head)
+                if (current.JobTitle.Title == JobTitle.Doctor || current.JobTitle.Title == JobTitle.Head)
                 {
 
                     // If I created this workroder

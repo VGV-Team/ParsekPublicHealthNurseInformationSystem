@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
-    [AuthorizationFilter(Role.RoleEnum.Employee, Role.RoleEnum.Patient)]
+    [AuthorizationFilter(Role.Employee, Role.Patient)]
     public class VisitDetailsController : Controller
     {
         private EntityDataModel DB = new EntityDataModel();

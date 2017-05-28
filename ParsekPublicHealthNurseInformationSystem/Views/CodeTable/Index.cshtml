@@ -132,8 +132,8 @@
                     <tr>
                     <td>@relationship.Name</td>
                     <td>
-                        @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Disease, id = relationship.RelationshipId}, new {@class = "btn btn-primary", @style = "color:white"})
-                        @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Disease, id = relationship.RelationshipId }, new { @class = "btn btn-danger", @style = "color:white" })</td>
+                        @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Relationship, id = relationship.RelationshipId}, new {@class = "btn btn-primary", @style = "color:white"})
+                        @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Relationship, id = relationship.RelationshipId }, new { @class = "btn btn-danger", @style = "color:white" })</td>
                     </tr>
                 }
             </tbody>
@@ -254,6 +254,60 @@
             </tbody>
         </table>
         @Html.ActionLink("Novo", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.ActivityInput }, new { @class = "btn btn-primary", @style = "color:white" })
+    </div>
+}
+
+@if (Model?.Roles != null)
+{
+    <div class="form-group">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Naziv</th>
+                    <th>Možnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model.Roles)
+                {
+                    <tr>
+                        <td>@role.Title</td>
+                        <td>
+                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Role, id = role.RoleId }, new { @class = "btn btn-primary", @style = "color:white" })
+                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Role, id = role.RoleId }, new { @class = "btn btn-danger", @style = "color:white" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink("Novo", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Role }, new { @class = "btn btn-primary", @style = "color:white" })
+    </div>
+}
+
+@if (Model?.JobTitles != null)
+{
+    <div class="form-group">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Naziv</th>
+                    <th>Možnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var jobTitle in Model.JobTitles)
+                {
+                    <tr>
+                        <td>@jobTitle.Title</td>
+                        <td>
+                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.JobTitle, id = jobTitle.JobTitleId }, new { @class = "btn btn-primary", @style = "color:white" })
+                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.JobTitle, id = jobTitle.JobTitleId }, new { @class = "btn btn-danger", @style = "color:white" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink("Novo", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.JobTitle }, new { @class = "btn btn-primary", @style = "color:white" })
     </div>
 }
 

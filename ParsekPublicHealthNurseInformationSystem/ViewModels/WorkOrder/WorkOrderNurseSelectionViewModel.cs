@@ -28,7 +28,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         {
             if(districts != null)
                 Districts = districts;
-            PossibleNursesReplacement = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
+            PossibleNursesReplacement = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
             PossibleNurses = PossibleNursesReplacement.Where(x => Districts.Contains(x.District.DistrictId)).ToList();
             if (PossibleNurses == null || PossibleNurses.Count == 0)
                 PossibleNurses = PossibleNursesReplacement;

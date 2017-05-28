@@ -10,6 +10,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
     {
         [Key]
         public int RoleId { get; set; }
+
+        [Required]
+        public string Title { get; set; }
+
+        public virtual ICollection<User> Users { get; set; }
+
+        /*
         [Required]
         public RoleEnum Title { get; set; }
 
@@ -21,5 +28,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
             Employee,
             Patient
         }
+        */
+
+        public const string Admin = "Admin";
+        public const string Employee = "Employee";
+        public const string Patient = "Patient";
     }
 }

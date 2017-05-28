@@ -28,15 +28,28 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             //    );
             //
 
-            Role AdminRole = new Role { Title = Role.RoleEnum.Admin };
-            Role EmployeeRole = new Role { Title = Role.RoleEnum.Employee };
-            Role PatientRole = new Role { Title = Role.RoleEnum.Patient };
+            Role AdminRole = new Role { Title = Role.Admin };
+            Role EmployeeRole = new Role { Title = Role.Employee };
+            Role PatientRole = new Role { Title = Role.Patient };
 
             context.Roles.AddOrUpdate(
                 r => r.Title,
                 AdminRole,
                 EmployeeRole,
                 PatientRole
+            );
+
+            JobTitle DoctorJobTitle = new JobTitle { Title = JobTitle.Doctor };
+            JobTitle HeadJobTitle = new JobTitle { Title = JobTitle.Head };
+            JobTitle HealthNurseJobTitle = new JobTitle { Title = JobTitle.HealthNurse };
+            JobTitle CoworkerJobTitle = new JobTitle { Title = JobTitle.Coworker };
+
+            context.JobTitles.AddOrUpdate(
+                r => r.Title,
+                DoctorJobTitle,
+                HeadJobTitle,
+                HealthNurseJobTitle,
+                CoworkerJobTitle
             );
 
 
@@ -344,7 +357,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             DoctorEmployee.Contractor = c1;
             DoctorEmployee.Number = "78989";
             DoctorEmployee.PhoneNumber = "081579856";
-            DoctorEmployee.Title = Employee.JobTitle.Doctor;
+            DoctorEmployee.JobTitle = DoctorJobTitle;
             Employee HeadEmployee = new Employee();
             HeadEmployee.User = Head;
             HeadEmployee.Name = "Head";
@@ -352,7 +365,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             HeadEmployee.Contractor = c1;
             HeadEmployee.Number = "89795";
             HeadEmployee.PhoneNumber = "055555666";
-            HeadEmployee.Title = Employee.JobTitle.Head;
+            HeadEmployee.JobTitle = HeadJobTitle;
             context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, HeadEmployee);
 
             Employee NurseEmployee1 = new Employee();
@@ -363,7 +376,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             NurseEmployee1.District = di1;
             NurseEmployee1.Number = "44646";
             NurseEmployee1.PhoneNumber = "222333444";
-            NurseEmployee1.Title = Employee.JobTitle.HealthNurse;
+            NurseEmployee1.JobTitle = HealthNurseJobTitle;
             Employee NurseEmployee2 = new Employee();
             NurseEmployee2.User = Nurse2;
             NurseEmployee2.Name = "Katarina";
@@ -372,7 +385,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             NurseEmployee2.District = di2;
             NurseEmployee2.Number = "78797";
             NurseEmployee2.PhoneNumber = "888777654";
-            NurseEmployee2.Title = Employee.JobTitle.HealthNurse;
+            NurseEmployee2.JobTitle = HealthNurseJobTitle;
             Employee NurseEmployee3 = new Employee();
             NurseEmployee3.User = Nurse3;
             NurseEmployee3.Name = "Anri";
@@ -381,7 +394,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             NurseEmployee3.District = di3;
             NurseEmployee3.Number = "99999";
             NurseEmployee3.PhoneNumber = "035897546";
-            NurseEmployee3.Title = Employee.JobTitle.HealthNurse;
+            NurseEmployee3.JobTitle = HealthNurseJobTitle;
             Employee NurseEmployee4 = new Employee();
             NurseEmployee4.User = Nurse4;
             NurseEmployee4.Name = "Elizabeta";
@@ -390,7 +403,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             NurseEmployee4.District = di4;
             NurseEmployee4.Number = "45455";
             NurseEmployee4.PhoneNumber = "666444777";
-            NurseEmployee4.Title = Employee.JobTitle.HealthNurse;
+            NurseEmployee4.JobTitle = HealthNurseJobTitle;
             context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, NurseEmployee1, NurseEmployee2, NurseEmployee3, NurseEmployee4);
 
             Service ac1 = new Service();

@@ -175,6 +175,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705280400049_Initial.cs" />
+    <Compile Include="Migrations\201705280400049_Initial.Designer.cs">
+      <DependentUpon>201705280400049_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Globals.cs" />
     <Compile Include="Models\Model\Absence.cs" />
@@ -182,6 +186,7 @@
     <Compile Include="Models\Model\ActivityActivityInput.cs" />
     <Compile Include="Models\Model\ActivityInput.cs" />
     <Compile Include="Models\Model\ActivityInputData.cs" />
+    <Compile Include="Models\Model\JobTitle.cs" />
     <Compile Include="Models\Model\Service.cs" />
     <Compile Include="Models\Model\AuthorizationFilter.cs" />
     <Compile Include="Models\Model\IpLog.cs" />
@@ -359,6 +364,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705280400049_Initial.resx">
+      <DependentUpon>201705280400049_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

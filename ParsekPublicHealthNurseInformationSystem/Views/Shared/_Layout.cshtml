@@ -3,7 +3,7 @@
         (ParsekPublicHealthNurseInformationSystem.Models.User) Session["user"];
 
     bool IsLoggedIn = false;
-    int Role = -1;
+    string Role = "";
     bool IsAdmin = false;
     bool IsPatient = false;
     bool IsEmployee = false;
@@ -22,28 +22,28 @@
     if (SessionUser != null)
     {
         IsLoggedIn = true;
-        Role = (int) SessionUser.Role.Title;
-        if (Role == 1)
+        Role = SessionUser.Role.Title;
+        if (Role == ParsekPublicHealthNurseInformationSystem.Models.Role.Admin)
         {
             IsAdmin = true;
             DisplayName = "Admin";
             RoleString = "admin";
         }
-        else if (Role == 2)
+        else if (Role == ParsekPublicHealthNurseInformationSystem.Models.Role.Employee)
         {
             IsEmployee = true;
             DisplayName = SessionUser.Employee.Name;
 
-            switch (SessionUser.Employee.Title)
+            switch (SessionUser.Employee.JobTitle.Title)
             {
-                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Coworker: IsCoworker = true; RoleString = "sodelavec"; break;
-                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Doctor: IsDoctor = true; RoleString = "zdravnik"; break;
-                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.Head: IsHead = true; RoleString = "vodja"; break;
-                case ParsekPublicHealthNurseInformationSystem.Models.Employee.JobTitle.HealthNurse: IsNurse = true; RoleString = "sestra"; break;
+                case ParsekPublicHealthNurseInformationSystem.Models.JobTitle.Coworker: IsCoworker = true; RoleString = "sodelavec"; break;
+                case ParsekPublicHealthNurseInformationSystem.Models.JobTitle.Doctor: IsDoctor = true; RoleString = "zdravnik"; break;
+                case ParsekPublicHealthNurseInformationSystem.Models.JobTitle.Head: IsHead = true; RoleString = "vodja"; break;
+                case ParsekPublicHealthNurseInformationSystem.Models.JobTitle.HealthNurse: IsNurse = true; RoleString = "sestra"; break;
                 default: break;
             }
         }
-        else if (Role == 3)
+        else if (Role == ParsekPublicHealthNurseInformationSystem.Models.Role.Patient)
         {
             IsPatient = true;
             DisplayName = SessionUser.Patient.Name;

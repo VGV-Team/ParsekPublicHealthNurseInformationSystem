@@ -16,13 +16,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         // GET: CodeTable
         public ActionResult Index(CodeTableViewModel ctvm)
         {
-            if (ctvm == null)
-            {
-                ctvm = new CodeTableViewModel();
-                return View("Index", ctvm);
-            }
+            CodeTableViewModel.CodeCategory? category = ctvm.Category;
+            ctvm = new CodeTableViewModel();
 
-            switch (ctvm.Category)
+            switch (category)
             {
                 case CodeTableViewModel.CodeCategory.Medicine:
                     ctvm.Medicines = DB.Medicines.ToList();
@@ -45,8 +42,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 case CodeTableViewModel.CodeCategory.ActivityInput:
                     ctvm.ActivityInputs = DB.ActivityInputs.ToList();
                     break;
-                default:
-                    return View("Index", ctvm);
+                case CodeTableViewModel.CodeCategory.Role:
+                    ctvm.Roles = DB.Roles.ToList();
+                    break;
+                case CodeTableViewModel.CodeCategory.JobTitle:
+                    ctvm.JobTitles = DB.JobTitles.ToList();
+                    break;
             }
             return View("Index", ctvm);
         }
@@ -94,7 +95,22 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         ctvm.Activity = DB.Activities.FirstOrDefault(x => x.ActivityId == id);
                     break;
                 case CodeTableViewModel.CodeCategory.ActivityInput:
+                    if (id == null)
+                        ctvm.ActivityInput = new ActivityInput();
+                    else
                         ctvm.ActivityInput = DB.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == id);
+                    break;
+                case CodeTableViewModel.CodeCategory.Role:
+                    if (id == null)
+                        ctvm.Role = new Role();
+                    else
+                        ctvm.Role = DB.Roles.FirstOrDefault(x => x.RoleId == id);
+                    break;
+                case CodeTableViewModel.CodeCategory.JobTitle:
+                    if (id == null)
+                        ctvm.JobTitle = new JobTitle();
+                    else
+                        ctvm.JobTitle = DB.JobTitles.FirstOrDefault(x => x.JobTitleId == id);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(category), category, null);
@@ -104,55 +120,59 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
         public ActionResult Delete(CodeTableViewModel.CodeCategory category, int id)
         {
-            CodeTableViewModel ctvm = new CodeTableViewModel();
             switch (category)
             {
                 case CodeTableViewModel.CodeCategory.Medicine:
-                    ctvm.Category = CodeTableViewModel.CodeCategory.Medicine;
                     Medicine medicine = DB.Medicines.FirstOrDefault(x => x.MedicineId == id);
                     if(medicine != null)
                         DB.Medicines.Remove(medicine);
                     break;
                 case CodeTableViewModel.CodeCategory.Contractor:
-                    ctvm.Category = CodeTableViewModel.CodeCategory.Contractor;
                     Contractor contractor = DB.Contractors.FirstOrDefault(x => x.ContractorId == id);
                     if (contractor != null)
                         DB.Contractors.Remove(contractor);
                     break;
                 case CodeTableViewModel.CodeCategory.Disease:
-                    ctvm.Category = CodeTableViewModel.CodeCategory.Disease;
                     Disease disease = DB.Diseases.FirstOrDefault(x => x.DiseaseId == id);
                     if (disease != null)
                         DB.Diseases.Remove(disease);
                     break;
                 case CodeTableViewModel.CodeCategory.Relationship:
-                    ctvm.Category = CodeTableViewModel.CodeCategory.Relationship;
                     Relationship relationship = DB.Relationships.FirstOrDefault(x => x.RelationshipId == id);
                     if (relationship != null)
                         DB.Relationships.Remove(relationship);
                     break;
                 case CodeTableViewModel.CodeCategory.Service:
-                    ctvm.Category = CodeTableViewModel.CodeCategory.Service;
                     Service service = DB.Services.FirstOrDefault(x => x.ServiceId == id);
                     if (service != null)
                         DB.Services.Remove(service);
                     break;
                 case CodeTableViewModel.CodeCategory.Activity:
-                    ctvm.Category = CodeTableViewModel.CodeCategory.Activity;
                     Activity activity = DB.Activities.FirstOrDefault(x => x.ActivityId == id);
                     if (activity != null)
                         DB.Activities.Remove(activity);
                     break;
                 case CodeTableViewModel.CodeCategory.ActivityInput:
-                    ctvm.Category = CodeTableViewModel.CodeCategory.ActivityInput;
                     ActivityInput activityInput = DB.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == id);
                     if (activityInput != null)
                         DB.ActivityInputs.Remove(activityInput);
+                    break;
+                case CodeTableViewModel.CodeCategory.Role:
+                    Role role = DB.Roles.FirstOrDefault(x => x.RoleId == id);
+                    if (role != null)
+                        DB.Roles.Remove(role);
+                    break;
+                case CodeTableViewModel.CodeCategory.JobTitle:
+                    JobTitle jobTitle = DB.JobTitles.FirstOrDefault(x => x.JobTitleId == id);
+                    if (jobTitle != null)
+                        DB.JobTitles.Remove(jobTitle);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(category), category, null);
             }
             DB.SaveChanges();
+            CodeTableViewModel ctvm = new CodeTableViewModel();
+            ctvm.Category = category;
             return RedirectToAction("Index", ctvm);
         }
 
@@ -277,10 +297,36 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     }
                     DB.SaveChanges();
                     break;
+                case CodeTableViewModel.CodeCategory.Role:
+                    Role role = DB.Roles.FirstOrDefault(x => x.RoleId == ctvm.Role.RoleId);
+                    if (role == null)
+                    {
+                        DB.Roles.Add(ctvm.Role);
+                    }
+                    else
+                    {
+                        role.Title = ctvm.Role.Title;
+                    }
+                    DB.SaveChanges();
+                    break;
+                case CodeTableViewModel.CodeCategory.JobTitle:
+                    JobTitle jobTitle = DB.JobTitles.FirstOrDefault(x => x.JobTitleId == ctvm.JobTitle.JobTitleId);
+                    if (jobTitle == null)
+                    {
+                        DB.JobTitles.Add(ctvm.JobTitle);
+                    }
+                    else
+                    {
+                        jobTitle.Title = ctvm.JobTitle.Title;
+                    }
+                    DB.SaveChanges();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(category), category, null);
             }
             DB.SaveChanges();
+            ctvm = new CodeTableViewModel();
+            ctvm.Category = category;
             return RedirectToAction("Index", ctvm);
         }
     }

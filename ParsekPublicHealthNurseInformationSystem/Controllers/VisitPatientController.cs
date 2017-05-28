@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
-    [AuthorizationFilter(Role.RoleEnum.Patient)]
+    [AuthorizationFilter(Role.Patient)]
     public class VisitPatientController : Controller
     {
         private EntityDataModel DB = new EntityDataModel();
@@ -73,7 +73,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 Employee current = (Session["user"] as Models.User).Employee;
 
                 // IF doctor or head
-                if (current.Title == Employee.JobTitle.Doctor || current.Title == Employee.JobTitle.Head)
+                if (current.JobTitle.Title == JobTitle.Doctor || current.JobTitle.Title == JobTitle.Head)
                 {
 
                     // If I created this workroder

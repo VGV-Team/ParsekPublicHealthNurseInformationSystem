@@ -9,8 +9,8 @@ using System.Web.Mvc;
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
 
-    [AuthorizationFilter(Role.RoleEnum.Employee)]
-    [AuthorizationFilter(Employee.JobTitle.Doctor, Employee.JobTitle.Head, Employee.JobTitle.HealthNurse)]
+    [AuthorizationFilter(Role.Employee)]
+    [AuthorizationFilter(JobTitle.Doctor, JobTitle.Head, JobTitle.HealthNurse)]
     public class WODetailsController : Controller
     {
 
