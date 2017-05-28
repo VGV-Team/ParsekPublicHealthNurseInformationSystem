@@ -12,7 +12,9 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         [Display(Name = "Tip zaposlenega")]
         [Required(ErrorMessage = "Polje je obvezno")]
-        public string JobTitle { get; set; }
+        public List<JobTitle> JobTitleList { get; set; }
+
+        public int SelectedJobTitleId { get; set; }
 
         [Display(Name = "Ime")]
         [Required(ErrorMessage = "Polje je obvezno")]

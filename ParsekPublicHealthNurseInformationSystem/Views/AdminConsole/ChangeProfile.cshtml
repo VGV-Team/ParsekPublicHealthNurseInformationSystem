@@ -52,13 +52,12 @@
             @Html.HiddenFor(m => m.Id)
 
             <div class="form-group">
-                @Html.Label("Tip zaposlenega", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.JobTitleList, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.JobTitle, "-- Izberi --", new { @class = "form-control dropdown", @id = "JobTitleDropdown", @readonly = true })
-                    @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(model => model.SelectedJobTitleId, new SelectList(Model.JobTitleList, "JobTitleId", "Title"), "-- Izberi --", htmlAttributes: new { @class = "form-control dropdown", @id = "JobTitleDropdown", @readonly = true, @disabled = true })
+                    @Html.ValidationMessageFor(model => model.JobTitleList, "", new { @class = "text-danger" })
                 </div>
             </div>
-
 
 
             <div class="form-group">
@@ -93,7 +92,7 @@
                 </div>
             </div>
             
-            @if (Model.JobTitle == JobTitle.HealthNurse)
+            @if (Model.SelectedJobTitleId == 3)
             {
                 <div class="form-group">
                     @Html.LabelFor(model => model.District, htmlAttributes: new { @class = "control-label col-md-2" })

@@ -16,10 +16,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual ICollection<Employee> Employees { get; set; }
 
-        public const string Doctor = "Doctor";
-        public const string Head = "Head";
-        public const string HealthNurse = "HealthNurse";
-        public const string Coworker = "Coworker";
+        public const string Doctor = "Doktor";
+        public const string Head = "Vodja";
+        public const string HealthNurse = "Sestra";
+        public const string Coworker = "Sodelavec";
 
         /*
         //[Display(Name = "Tip zaposlenega")]
