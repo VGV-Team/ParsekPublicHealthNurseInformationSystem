@@ -39,6 +39,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 case CodeTableViewModel.CodeCategory.Service:
                     ctvm.Services = DB.Services.ToList();
                     break;
+                case CodeTableViewModel.CodeCategory.Activity:
+                    ctvm.Activities = DB.Activities.ToList();
+                    break;
+                case CodeTableViewModel.CodeCategory.ActivityInput:
+                    ctvm.ActivityInputs = DB.ActivityInputs.ToList();
+                    break;
                 default:
                     return View("Index", ctvm);
             }
@@ -81,6 +87,17 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     else
                         ctvm.Service = DB.Services.FirstOrDefault(x => x.ServiceId == id);
                     break;
+                case CodeTableViewModel.CodeCategory.Activity:
+                    if (id == null)
+                        ctvm.Activity = new Activity();
+                    else
+                        ctvm.Activity = DB.Activities.FirstOrDefault(x => x.ActivityId == id);
+                    break;
+                case CodeTableViewModel.CodeCategory.ActivityInput:
+                        ctvm.ActivityInput = DB.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == id);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(category), category, null);
             }
             return View("Edit", ctvm);
         }
@@ -120,6 +137,20 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     if (service != null)
                         DB.Services.Remove(service);
                     break;
+                case CodeTableViewModel.CodeCategory.Activity:
+                    ctvm.Category = CodeTableViewModel.CodeCategory.Activity;
+                    Activity activity = DB.Activities.FirstOrDefault(x => x.ActivityId == id);
+                    if (activity != null)
+                        DB.Activities.Remove(activity);
+                    break;
+                case CodeTableViewModel.CodeCategory.ActivityInput:
+                    ctvm.Category = CodeTableViewModel.CodeCategory.ActivityInput;
+                    ActivityInput activityInput = DB.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == id);
+                    if (activityInput != null)
+                        DB.ActivityInputs.Remove(activityInput);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(category), category, null);
             }
             DB.SaveChanges();
             return RedirectToAction("Index", ctvm);
@@ -218,6 +249,36 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         DB.SaveChanges();
                     }
                     break;
+                case CodeTableViewModel.CodeCategory.Activity:
+                    Activity activity = DB.Activities.FirstOrDefault(x => x.ActivityId == ctvm.Activity.ActivityId);
+                    if (activity == null)
+                    {
+                        DB.Activities.Add(ctvm.Activity);
+                    }
+                    else
+                    {
+                        activity.ActivityCode = ctvm.Activity.ActivityCode;
+                        activity.ActivityTitle = ctvm.Activity.ActivityTitle;
+                        //activity.ActivityInputFor = ctvm.Activity.ActivityInputFor;
+                    }
+                    DB.SaveChanges();
+                    break;
+                case CodeTableViewModel.CodeCategory.ActivityInput:
+                    ActivityInput activityInput = DB.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == ctvm.ActivityInput.ActivityInputId);
+                    if (activityInput == null)
+                    {
+                        DB.ActivityInputs.Add(ctvm.ActivityInput);
+                    }
+                    else
+                    {
+                        activityInput.Title = ctvm.ActivityInput.Title;
+                        activityInput.InputType = ctvm.ActivityInput.InputType;
+                        activityInput.PossibleValues = ctvm.ActivityInput.PossibleValues;
+                    }
+                    DB.SaveChanges();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(category), category, null);
             }
             DB.SaveChanges();
             return RedirectToAction("Index", ctvm);

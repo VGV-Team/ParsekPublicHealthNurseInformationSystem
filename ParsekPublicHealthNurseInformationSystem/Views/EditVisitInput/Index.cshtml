@@ -43,11 +43,11 @@
              
                 <tr>
                     <td>@Model.ActivityInputList.ElementAt(i).ActivityTitle</td>
-                    @if (Model.ActivityInputList.ElementAt(i).ActivityInputFor == ParsekPublicHealthNurseInformationSystem.Models.Activity.InputForType.All)
+                    @if (Model.ActivityInputList.ElementAt(i).ActivityInputFor == ParsekPublicHealthNurseInformationSystem.Models.ActivityActivityInput.InputForType.All)
                     {
                         <td>Vsi na delovnem nalogu</td>
                     }
-                    else if (Model.ActivityInputList.ElementAt(i).ActivityInputFor == ParsekPublicHealthNurseInformationSystem.Models.Activity.InputForType.ParentOnly)
+                    else if (Model.ActivityInputList.ElementAt(i).ActivityInputFor == ParsekPublicHealthNurseInformationSystem.Models.ActivityActivityInput.InputForType.ParentOnly)
                     {
                         <td>Samo starš na delovnem nalogu</td>
                     }

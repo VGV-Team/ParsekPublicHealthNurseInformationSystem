@@ -172,8 +172,66 @@
     }
 }
 
+@if (Model?.Activity != null)
+{
+    using (Html.BeginForm("Save", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
 
+        @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.Activity.ActivityId)
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.Activity.ActivityCode, "Koda", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Activity.ActivityCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Activity.ActivityCode, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Activity.ActivityTitle, "Naziv", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Activity.ActivityTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Activity.ActivityTitle, "", new { @class = "text-danger" })
+            </div>
+            
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+}
+
+@if (Model?.ActivityInput != null)
+{
+    using (Html.BeginForm("Save", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.ActivityInput.ActivityInputId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ActivityInput.Title, "Naziv", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ActivityInput.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ActivityInput.Title, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.ActivityInput.InputType, "Tip vnosa", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.ActivityInput.InputType, new { @class = "form-control dropdown" })
+                @Html.ValidationMessageFor(model => model.ActivityInput.InputType, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.ActivityInput.PossibleValues, "Možne vrednosti", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ActivityInput.PossibleValues, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ActivityInput.PossibleValues, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+}
 
 
 

@@ -4,6 +4,8 @@ DROP TABLE BloodSamples
 DROP TABLE MaterialWorkOrders
 DROP TABLE MedicineWorkOrders
 DROP TABLE ActivityInputDatas
+DROP TABLE ActivityActivityInputs
+DROP TABLE ServiceActivities
 DROP TABLE PatientWorkOrders
 DROP TABLE Materials
 DROP TABLE Medicines

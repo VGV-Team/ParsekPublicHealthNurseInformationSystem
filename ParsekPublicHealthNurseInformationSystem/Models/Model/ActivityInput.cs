@@ -10,9 +10,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
     {
         [Key]
         public int ActivityInputId { get; set; }
-
-        public bool Required { get; set; }
-
+        
         public string Title { get; set; }
 
         public InputTypeEnum InputType { get; set; }
@@ -20,23 +18,20 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         // For dropdown only
         public string PossibleValues { get; set; }
 
-        // Only for first visit
-        public bool OneTime { get; set; }
-
-
-        public virtual Activity Activity { get; set; }
-
-        public virtual ICollection<ActivityInputData> ActivityInputDatas { get; set; }
+        public virtual ICollection<ActivityActivityInput> ActivityActivityInputs { get; set; }
 
         // TODO: dropdown generation -- DONE?
 
         public enum InputTypeEnum
         {
+            [Display(Name = "Besedilo")]
             Free = 1,
+            [Display(Name = "Datum")]
             Date,
+            [Display(Name = "Seznam")]
             Dropdown,
+            [Display(Name = "Številka")]
             Number
         }
-
     }
 }

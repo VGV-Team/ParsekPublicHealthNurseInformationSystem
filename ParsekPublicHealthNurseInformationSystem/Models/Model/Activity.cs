@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
-using ParsekPublicHealthNurseInformationSystem.Models.Model;
 
 namespace ParsekPublicHealthNurseInformationSystem.Models
 {
@@ -17,20 +16,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public string ActivityTitle { get; set; }
 
-        [Required]
-        public InputForType ActivityInputFor { get; set; }
-
         //public virtual Service Service { get; set; }
 
         public virtual ICollection<ServiceActivity> ServiceActivities { get; set; }
 
-        public virtual ICollection<ActivityInput> ActivityInputs { get; set; }
+        public virtual ICollection<ActivityActivityInput> ActivityActivityInputs { get; set; }
 
-        public enum InputForType
-        {
-            All = 0,
-            ParentOnly = 1,
-            PatientOnly = 2
-        }
+        
     }
 }

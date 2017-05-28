@@ -67,17 +67,17 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             for (int i = 0; i < inputData.Count; i++)
             {
-                if (oldId != inputData.ElementAt(i).ActivityInput.Activity.ActivityId)
+                if (oldId != inputData.ElementAt(i).ActivityActivityInput.Activity.ActivityId)
                 {
-                    oldId = inputData.ElementAt(i).ActivityInput.Activity.ActivityId;
+                    oldId = inputData.ElementAt(i).ActivityActivityInput.Activity.ActivityId;
                     if (!first) data.CategoryItemCount.Add(count);
                     first = false;
                     count = 0;
-                    data.Categories.Add(inputData.ElementAt(i).ActivityInput.Activity.ActivityTitle);
+                    data.Categories.Add(inputData.ElementAt(i).ActivityActivityInput.Activity.ActivityTitle);
                 }
 
-                data.ParsedDetailsTitles.Add(inputData.ElementAt(i).ActivityInput.Title);
-                if (inputData.ElementAt(i).ActivityInput.InputType == ActivityInput.InputTypeEnum.Date)
+                data.ParsedDetailsTitles.Add(inputData.ElementAt(i).ActivityActivityInput.ActivityInput.Title);
+                if (inputData.ElementAt(i).ActivityActivityInput.ActivityInput.InputType == ActivityInput.InputTypeEnum.Date)
                 {
                     DateTime dt = DateTime.Parse(inputData.ElementAt(i).Value);
                     data.ParsedDetails.Add(dt.ToString("dd.MM.yyyy"));
@@ -108,17 +108,17 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             for (int i = 0; i < inputData.Count; i++)
             {
-                if (oldId != inputData.ElementAt(i).ActivityInput.Activity.ActivityId)
+                if (oldId != inputData.ElementAt(i).ActivityActivityInput.Activity.ActivityId)
                 {
-                    oldId = inputData.ElementAt(i).ActivityInput.Activity.ActivityId;
+                    oldId = inputData.ElementAt(i).ActivityActivityInput.Activity.ActivityId;
                     if (!first) data.CategoryItemCount.Add(count);
                     first = false;
                     count = 0;
-                    data.Categories.Add(inputData.ElementAt(i).ActivityInput.Activity.ActivityTitle);
+                    data.Categories.Add(inputData.ElementAt(i).ActivityActivityInput.Activity.ActivityTitle);
                 }
 
-                data.ParsedDetailsTitles.Add(inputData.ElementAt(i).ActivityInput.Title);
-                if (inputData.ElementAt(i).ActivityInput.InputType == ActivityInput.InputTypeEnum.Date)
+                data.ParsedDetailsTitles.Add(inputData.ElementAt(i).ActivityActivityInput.ActivityInput.Title);
+                if (inputData.ElementAt(i).ActivityActivityInput.ActivityInput.InputType == ActivityInput.InputTypeEnum.Date)
                 {
                     DateTime dt = DateTime.Parse(inputData.ElementAt(i).Value);
                     data.ParsedDetails.Add(dt.ToString("dd.MM.yyyy"));

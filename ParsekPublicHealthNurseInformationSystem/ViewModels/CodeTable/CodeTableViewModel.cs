@@ -17,12 +17,16 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public List<Disease> Diseases { get; set; }
         public List<Relationship> Relationships { get; set; }
         public List<Service> Services { get; set; }
+        public List<Activity> Activities { get; set; }
+        public List<ActivityInput> ActivityInputs { get; set; }
 
         public Medicine Medicine { get; set; }
         public Contractor Contractor { get; set; }
         public Disease Disease { get; set; }
         public Relationship Relationship { get; set; }
         public Service Service { get; set; }
+        public Activity Activity { get; set; }
+        public ActivityInput ActivityInput { get; set; }
 
 
         public List<PostOffice> PostOffices { get; set; }
@@ -38,7 +42,11 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
             [Display(Name = "Šifranti sorodstvenih razmerij")]
             Relationship,
             [Display(Name = "Šifranti storitev")]
-            Service
+            Service,
+            [Display(Name = "Šifranti aktivnosti")]
+            Activity,
+            [Display(Name = "Šifranti vnosov")]
+            ActivityInput
         }
         /*
         

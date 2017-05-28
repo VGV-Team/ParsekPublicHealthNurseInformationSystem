@@ -1,4 +1,5 @@
-﻿@using ParsekPublicHealthNurseInformationSystem.ViewModels
+﻿@using ParsekPublicHealthNurseInformationSystem.Models
+@using ParsekPublicHealthNurseInformationSystem.ViewModels
 @model ParsekPublicHealthNurseInformationSystem.ViewModels.CodeTableViewModel
 
 @{
@@ -178,6 +179,83 @@
     </div>
 }
 
+@if (Model?.Activities != null)
+{
+    <div class="form-group">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Koda</th>
+                    <th>Naziv</th>
+                    <th>Možnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var activity in Model.Activities)
+                {
+                    <tr>
+                        <td>@activity.ActivityCode</td>
+                        <td>@activity.ActivityTitle</td>
+                        <td>
+                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Activity, id = activity.ActivityId }, new { @class = "btn btn-primary", @style = "color:white" })
+                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Activity, id = activity.ActivityId }, new { @class = "btn btn-danger", @style = "color:white" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink("Novo", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Activity }, new { @class = "btn btn-primary", @style = "color:white" })
+    </div>
+}
+
+@if (Model?.ActivityInputs != null)
+{
+    <div class="form-group">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Naziv</th>
+                    <th>Tip</th>
+                    <td>Možne vrednosti</td>
+                    <th>Možnosti</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var activityInput in Model.ActivityInputs)
+                {
+                    <tr>
+                        <td>@activityInput.Title</td>
+                        <td>
+                            @switch (activityInput.InputType)
+                            {
+                                case ActivityInput.InputTypeEnum.Free:
+                                    @Html.Raw("Besedilo")
+                                    break;
+                                case ActivityInput.InputTypeEnum.Date:
+                                    @Html.Raw("Datum")
+                                    break;
+                                case ActivityInput.InputTypeEnum.Dropdown:
+                                    @Html.Raw("Seznam")
+                                    break;
+                                case ActivityInput.InputTypeEnum.Number:
+                                    @Html.Raw("Številka")
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
+                        </td>
+                        <td>@activityInput.PossibleValues</td>
+                        <td>
+                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.ActivityInput, id = activityInput.ActivityInputId }, new { @class = "btn btn-primary", @style = "color:white" })
+                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.ActivityInput, id = activityInput.ActivityInputId }, new { @class = "btn btn-danger", @style = "color:white" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink("Novo", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.ActivityInput }, new { @class = "btn btn-primary", @style = "color:white" })
+    </div>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

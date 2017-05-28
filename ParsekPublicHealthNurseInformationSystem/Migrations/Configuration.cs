@@ -1,7 +1,6 @@
 namespace ParsekPublicHealthNurseInformationSystem.Migrations
 {
     using Models;
-    using Models.Model;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -472,80 +471,82 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
 
             #region Activities
 
+            #region Activity
+            Activity a1 = new Activity() { ActivityCode = 10, ActivityTitle = "Seznanitev noseènice o normalnem poteku noseènosti in o spremembah na telesu." };
+            Activity a2 = new Activity() { ActivityCode = 20, ActivityTitle = "Povabilo v šolo za starše." };
+            Activity a3 = new Activity() { ActivityCode = 30, ActivityTitle = "Seznanitev o rednih ginekoloških pregledih." };
+            Activity a4 = new Activity() { ActivityCode = 40, ActivityTitle = "Seznanitev z bliajoèim se porodom in pravoèasnim odhodom v porodnišnico. " };
+            Activity a5 = new Activity() { ActivityCode = 50, ActivityTitle = "Pogovor in vkljuèevanje partnerja v noseènost in porod ter po prihodu domov. " };
+            Activity a6 = new Activity() { ActivityCode = 60, ActivityTitle = "Svetovanje o pripomoèkih, ki jih bo potrebovala v porodnišnici. " };
+            Activity a7 = new Activity() { ActivityCode = 70, ActivityTitle = "Seznanitev noseènice o štetju in beleenju plodovih gibov. " };
+            Activity a8 = new Activity() { ActivityCode = 80, ActivityTitle = "Svetovanje glede opreme za novorojenca in primerno leišèe. " };
+            Activity a9 = new Activity() { ActivityCode = 90, ActivityTitle = "Svetovanje o pravilni prehrani, ustrezni izbiri obleke in obutve." };
+            Activity a10 = new Activity() { ActivityCode = 100, ActivityTitle = "Svetovanje o primernem reim ivljenja, telesne vaje, gibanje na sveem zraku." };
+            Activity a11 = new Activity() { ActivityCode = 110, ActivityTitle = "Odsvetovanje razvad kot so uivanje alkohola, kajenje, uivanje zdravil in drog. " };
+            Activity a12 = new Activity() { ActivityCode = 120, ActivityTitle = "Seznanitev nosoènice z nevšeènostmi in svetovanje glede lajšanja teav zaradi nevšeènosti (slabosti, bruhanja, zaprtja, pogostih mikcij, nespeènosti, zgage, ...)." };
+            Activity a13 = new Activity() { ActivityCode = 130, ActivityTitle = "Seznanitev noseènice s pravicami do starševskega dopusta (porodniški dopust, pravica do dopusta za nego in varstvo otroka, pravica do oèetovskega dopusta) in o uveljavljanju pravic povezanih z rojstvom otroka (pravica do paketa, otroški dodatek, zdravstveno zavarovanje, rojstni list, ureditev oèetovstva)." };
+            Activity a14 = new Activity() { ActivityCode = 140, ActivityTitle = "Prièakovan datum poroda" };
+            Activity a15 = new Activity() { ActivityCode = 150, ActivityTitle = "Anamneza: poèutje, telesni znaki noseènosti." };
+            Activity a16 = new Activity() { ActivityCode = 160, ActivityTitle = "Druinska anamneza: Odnosi v druini, odnos druine do okolja, bivalni pogoji, ekonomske razmere, zdravstveno stanje druinskih èlanov, zdravstvena prosvetljenost in vzgojenost." };
+            Activity a17 = new Activity() { ActivityCode = 170, ActivityTitle = "Izraanje èustev" };
+            Activity a18 = new Activity() { ActivityCode = 180, ActivityTitle = "Fizièna obremenjenost" };
+            Activity a19 = new Activity() { ActivityCode = 190, ActivityTitle = "Krvni pritisk: sistolièni, diastolièni" };
+            Activity a20 = new Activity() { ActivityCode = 200, ActivityTitle = "Srèni utrip" };
+            Activity a21 = new Activity() { ActivityCode = 210, ActivityTitle = "Dihanje" };
+            Activity a22 = new Activity() { ActivityCode = 220, ActivityTitle = "Telesna temperatura" };
+            Activity a23 = new Activity() { ActivityCode = 230, ActivityTitle = "Telesna tea pred noseènostjo" };
+            Activity a24 = new Activity() { ActivityCode = 240, ActivityTitle = "Trenutna telesna tea" };
+            Activity a25 = new Activity() { ActivityCode = 250, ActivityTitle = "Pregled materinske knjiice in odpustnice iz porodnišnice. " };
+            Activity a26 = new Activity() { ActivityCode = 260, ActivityTitle = "Kontrola vitalnih funkcij." };
+            Activity a27 = new Activity() { ActivityCode = 270, ActivityTitle = "Opazovanje èišèe. " };
+            Activity a28 = new Activity() { ActivityCode = 280, ActivityTitle = "Nadzor nad izloèanjem blata in urina. " };
+            Activity a29 = new Activity() { ActivityCode = 290, ActivityTitle = "Zdravstveno vzgojno delo glede pravilnega rokovanja z novorojenèkom, uèenje tehnike nege novorojenèka" };
+            Activity a30 = new Activity() { ActivityCode = 300, ActivityTitle = "Motivacija za dojenje. Nadzor in pomoè pri dojenju. " };
+            Activity a31 = new Activity() { ActivityCode = 310, ActivityTitle = "Svetovanje o èustveni podpori s strani partnerja." };
+            Activity a32 = new Activity() { ActivityCode = 320, ActivityTitle = "Seznanitev o otrokovih potrebah po toplini, nenosti in varnosti." };
+            Activity a33 = new Activity() { ActivityCode = 330, ActivityTitle = "Svetovanje o spalnih potrebah otroènice, pravilni negi in higienskem reimu v poporodnem obdobju. " };
+            Activity a34 = new Activity() { ActivityCode = 340, ActivityTitle = "Svetovanje o pravilni prehrani, pitju ustreznih kolièin tekoèin" };
+            Activity a35 = new Activity() { ActivityCode = 350, ActivityTitle = "Pouèitev o poporodni telovadbi." };
+            Activity a36 = new Activity() { ActivityCode = 360, ActivityTitle = "Sezananitev z nekaterimi obolenji." };
+            Activity a37 = new Activity() { ActivityCode = 370, ActivityTitle = "Napotitev na poporodni pregled." };
+            Activity a38 = new Activity() { ActivityCode = 380, ActivityTitle = "Seznanitev z metodami zašèite pred nezaeljno noseènostjo." };
+            Activity a39 = new Activity() { ActivityCode = 390, ActivityTitle = "Svetovanje o normalnem delu, ivljenju in spolnih odnosih. " };
+            Activity a40 = new Activity() { ActivityCode = 400, ActivityTitle = "Krvni pritisk otroènice" };
+            Activity a41 = new Activity() { ActivityCode = 410, ActivityTitle = "Prikaz nege dojenèka" };
+            Activity a42 = new Activity() { ActivityCode = 420, ActivityTitle = "Nega popokovne rane" };
+            Activity a43 = new Activity() { ActivityCode = 430, ActivityTitle = "Nudenje pomoèi pri dojenju in seznanitev s tehnikami dojenja." };
+            Activity a44 = new Activity() { ActivityCode = 440, ActivityTitle = "Ureditev leišèa." };
+            Activity a45 = new Activity() { ActivityCode = 450, ActivityTitle = "Svetovanje o povijanju, oblaèenju, slaèenju" };
+            Activity a46 = new Activity() { ActivityCode = 460, ActivityTitle = "Trenutna telesna višina" };
+            Activity a47 = new Activity() { ActivityCode = 470, ActivityTitle = "Dojenje" };
+            Activity a48 = new Activity() { ActivityCode = 480, ActivityTitle = "Dodajanje adaptiranega mleka" };
+            Activity a49 = new Activity() { ActivityCode = 490, ActivityTitle = "Izloèanje in odvajanje" };
+            Activity a50 = new Activity() { ActivityCode = 500, ActivityTitle = "Ritem spanja" };
+            Activity a51 = new Activity() { ActivityCode = 510, ActivityTitle = "Povišanje bilirubina (zlatenica)" };
+            Activity a52 = new Activity() { ActivityCode = 520, ActivityTitle = "Kolki" };
+            Activity a53 = new Activity() { ActivityCode = 530, ActivityTitle = "Posebnosti" };
+            Activity a54 = new Activity() { ActivityCode = 540, ActivityTitle = "Anamneza" };
+            Activity a55 = new Activity() { ActivityCode = 550, ActivityTitle = "Druinska anamneza" };
+            Activity a56 = new Activity() { ActivityCode = 560, ActivityTitle = "Telesna tea" };
+            Activity a57 = new Activity() { ActivityCode = 570, ActivityTitle = "Osebna higiena" };
+            Activity a58 = new Activity() { ActivityCode = 580, ActivityTitle = "Prehranjevanje in pitje" };
+            Activity a59 = new Activity() { ActivityCode = 590, ActivityTitle = "Gibanje" };
+            Activity a60 = new Activity() { ActivityCode = 600, ActivityTitle = "Èutila in obèutki" };
+            Activity a61 = new Activity() { ActivityCode = 610, ActivityTitle = "Spanje in poèitek" };
+            Activity a62 = new Activity() { ActivityCode = 620, ActivityTitle = "Duševno stanje: izraanje èustev in potreb, komunikacija" };
+            Activity a63 = new Activity() { ActivityCode = 630, ActivityTitle = "Stanje neodvisnosti" };
+            Activity a64 = new Activity() { ActivityCode = 640, ActivityTitle = "Pregled predpisanih terapij" };
+            Activity a65 = new Activity() { ActivityCode = 650, ActivityTitle = "Pogovor, nasvet in vzpodbuda." };
+            Activity a66 = new Activity() { ActivityCode = 660, ActivityTitle = "Aplikacija injekcije" };
+            Activity a67 = new Activity() { ActivityCode = 670, ActivityTitle = "Odvzem krvi" };
+            Activity a68 = new Activity() { ActivityCode = 680, ActivityTitle = "Krvni sladkor" };
+            Activity a69 = new Activity() { ActivityCode = 690, ActivityTitle = "Oksigenacija SpO2" };
+            Activity a70 = new Activity() { ActivityCode = 700, ActivityTitle = "Upoštevanje terapije" };
+            Activity a71 = new Activity() { ActivityCode = 710, ActivityTitle = "Pregled terapije" };
+            Activity a72 = new Activity() { ActivityCode = 720, ActivityTitle = "Navodila za terapijo do naslednjega obiska" };
+            #endregion
 
-            Activity a1 = new Activity() { ActivityCode = 10, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Seznanitev noseènice o normalnem poteku noseènosti in o spremembah na telesu." };
-            Activity a2 = new Activity() { ActivityCode = 20, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Povabilo v šolo za starše." };
-            Activity a3 = new Activity() { ActivityCode = 30, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Seznanitev o rednih ginekoloških pregledih." };
-            Activity a4 = new Activity() { ActivityCode = 40, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Seznanitev z bliajoèim se porodom in pravoèasnim odhodom v porodnišnico. " };
-            Activity a5 = new Activity() { ActivityCode = 50, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Pogovor in vkljuèevanje partnerja v noseènost in porod ter po prihodu domov. " };
-            Activity a6 = new Activity() { ActivityCode = 60, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Svetovanje o pripomoèkih, ki jih bo potrebovala v porodnišnici. " };
-            Activity a7 = new Activity() { ActivityCode = 70, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Seznanitev noseènice o štetju in beleenju plodovih gibov. " };
-            Activity a8 = new Activity() { ActivityCode = 80, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Svetovanje glede opreme za novorojenca in primerno leišèe. " };
-            Activity a9 = new Activity() { ActivityCode = 90, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Svetovanje o pravilni prehrani, ustrezni izbiri obleke in obutve." };
-            Activity a10 = new Activity() { ActivityCode = 100, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Svetovanje o primernem reim ivljenja, telesne vaje, gibanje na sveem zraku." };
-            Activity a11 = new Activity() { ActivityCode = 110, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Odsvetovanje razvad kot so uivanje alkohola, kajenje, uivanje zdravil in drog. " };
-            Activity a12 = new Activity() { ActivityCode = 120, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Seznanitev nosoènice z nevšeènostmi in svetovanje glede lajšanja teav zaradi nevšeènosti (slabosti, bruhanja, zaprtja, pogostih mikcij, nespeènosti, zgage, ...)." };
-            Activity a13 = new Activity() { ActivityCode = 130, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Seznanitev noseènice s pravicami do starševskega dopusta (porodniški dopust, pravica do dopusta za nego in varstvo otroka, pravica do oèetovskega dopusta) in o uveljavljanju pravic povezanih z rojstvom otroka (pravica do paketa, otroški dodatek, zdravstveno zavarovanje, rojstni list, ureditev oèetovstva)." };
-            Activity a14 = new Activity() { ActivityCode = 140, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Prièakovan datum poroda" };
-            Activity a15 = new Activity() { ActivityCode = 150, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Anamneza: poèutje, telesni znaki noseènosti." };
-            Activity a16 = new Activity() { ActivityCode = 160, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Druinska anamneza: Odnosi v druini, odnos druine do okolja, bivalni pogoji, ekonomske razmere, zdravstveno stanje druinskih èlanov, zdravstvena prosvetljenost in vzgojenost." };
-            Activity a17 = new Activity() { ActivityCode = 170, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Izraanje èustev" };
-            Activity a18 = new Activity() { ActivityCode = 180, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Fizièna obremenjenost" };
-            Activity a19 = new Activity() { ActivityCode = 190, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Krvni pritisk: sistolièni, diastolièni" };
-            Activity a20 = new Activity() { ActivityCode = 200, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Srèni utrip" };
-            Activity a21 = new Activity() { ActivityCode = 210, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Dihanje" };
-            Activity a22 = new Activity() { ActivityCode = 220, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Telesna temperatura" };
-            Activity a23 = new Activity() { ActivityCode = 230, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Telesna tea pred noseènostjo" };
-            Activity a24 = new Activity() { ActivityCode = 240, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Trenutna telesna tea" };
-            Activity a25 = new Activity() { ActivityCode = 250, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Pregled materinske knjiice in odpustnice iz porodnišnice. " };
-            Activity a26 = new Activity() { ActivityCode = 260, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Kontrola vitalnih funkcij." };
-            Activity a27 = new Activity() { ActivityCode = 270, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Opazovanje èišèe. " };
-            Activity a28 = new Activity() { ActivityCode = 280, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Nadzor nad izloèanjem blata in urina. " };
-            Activity a29 = new Activity() { ActivityCode = 290, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Zdravstveno vzgojno delo glede pravilnega rokovanja z novorojenèkom, uèenje tehnike nege novorojenèka" };
-            Activity a30 = new Activity() { ActivityCode = 300, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Motivacija za dojenje. Nadzor in pomoè pri dojenju. " };
-            Activity a31 = new Activity() { ActivityCode = 310, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Svetovanje o èustveni podpori s strani partnerja." };
-            Activity a32 = new Activity() { ActivityCode = 320, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Seznanitev o otrokovih potrebah po toplini, nenosti in varnosti." };
-            Activity a33 = new Activity() { ActivityCode = 330, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Svetovanje o spalnih potrebah otroènice, pravilni negi in higienskem reimu v poporodnem obdobju. " };
-            Activity a34 = new Activity() { ActivityCode = 340, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Svetovanje o pravilni prehrani, pitju ustreznih kolièin tekoèin" };
-            Activity a35 = new Activity() { ActivityCode = 350, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Pouèitev o poporodni telovadbi." };
-            Activity a36 = new Activity() { ActivityCode = 360, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Sezananitev z nekaterimi obolenji." };
-            Activity a37 = new Activity() { ActivityCode = 370, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Napotitev na poporodni pregled." };
-            Activity a38 = new Activity() { ActivityCode = 380, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Seznanitev z metodami zašèite pred nezaeljno noseènostjo." };
-            Activity a39 = new Activity() { ActivityCode = 390, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Svetovanje o normalnem delu, ivljenju in spolnih odnosih. " };
-            Activity a40 = new Activity() { ActivityCode = 400, ActivityInputFor = Activity.InputForType.ParentOnly, ActivityTitle = "Krvni pritisk otroènice" };
-            Activity a41 = new Activity() { ActivityCode = 410, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Prikaz nege dojenèka" };
-            Activity a42 = new Activity() { ActivityCode = 420, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Nega popokovne rane" };
-            Activity a43 = new Activity() { ActivityCode = 430, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Nudenje pomoèi pri dojenju in seznanitev s tehnikami dojenja." };
-            Activity a44 = new Activity() { ActivityCode = 440, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Ureditev leišèa." };
-            Activity a45 = new Activity() { ActivityCode = 450, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Svetovanje o povijanju, oblaèenju, slaèenju" };
-            Activity a46 = new Activity() { ActivityCode = 460, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Trenutna telesna višina" };
-            Activity a47 = new Activity() { ActivityCode = 470, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Dojenje" };
-            Activity a48 = new Activity() { ActivityCode = 480, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Dodajanje adaptiranega mleka" };
-            Activity a49 = new Activity() { ActivityCode = 490, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Izloèanje in odvajanje" };
-            Activity a50 = new Activity() { ActivityCode = 500, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Ritem spanja" };
-            Activity a51 = new Activity() { ActivityCode = 510, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Povišanje bilirubina (zlatenica)" };
-            Activity a52 = new Activity() { ActivityCode = 520, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Kolki" };
-            Activity a53 = new Activity() { ActivityCode = 530, ActivityInputFor = Activity.InputForType.PatientOnly, ActivityTitle = "Posebnosti" };
-            Activity a54 = new Activity() { ActivityCode = 540, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Anamneza" };
-            Activity a55 = new Activity() { ActivityCode = 550, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Druinska anamneza" };
-            Activity a56 = new Activity() { ActivityCode = 560, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Telesna tea" };
-            Activity a57 = new Activity() { ActivityCode = 570, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Osebna higiena" };
-            Activity a58 = new Activity() { ActivityCode = 580, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Prehranjevanje in pitje" };
-            Activity a59 = new Activity() { ActivityCode = 590, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Gibanje" };
-            Activity a60 = new Activity() { ActivityCode = 600, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Èutila in obèutki" };
-            Activity a61 = new Activity() { ActivityCode = 610, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Spanje in poèitek" };
-            Activity a62 = new Activity() { ActivityCode = 620, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Duševno stanje: izraanje èustev in potreb, komunikacija" };
-            Activity a63 = new Activity() { ActivityCode = 630, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Stanje neodvisnosti" };
-            Activity a64 = new Activity() { ActivityCode = 640, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Pregled predpisanih terapij" };
-            Activity a65 = new Activity() { ActivityCode = 650, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Pogovor, nasvet in vzpodbuda." };
-            Activity a66 = new Activity() { ActivityCode = 660, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Aplikacija injekcije" };
-            Activity a67 = new Activity() { ActivityCode = 670, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Odvzem krvi" };
-            Activity a68 = new Activity() { ActivityCode = 680, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Krvni sladkor" };
-            Activity a69 = new Activity() { ActivityCode = 690, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Oksigenacija SpO2" };
-            Activity a70 = new Activity() { ActivityCode = 700, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Upoštevanje terapije" };
-            Activity a71 = new Activity() { ActivityCode = 710, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Pregled terapije" };
-            Activity a72 = new Activity() { ActivityCode = 720, ActivityInputFor = Activity.InputForType.All, ActivityTitle = "Navodila za terapijo do naslednjega obiska" };
-
+            #region ServiceActivity
             ServiceActivity sa1 = new ServiceActivity() { Activity = a1, Service = ac1, Active = true };
             ServiceActivity sa2 = new ServiceActivity() { Activity = a2, Service = ac1, Active = true };
             ServiceActivity sa3 = new ServiceActivity() { Activity = a3, Service = ac1, Active = true };
@@ -639,9 +640,153 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ServiceActivity sa91 = new ServiceActivity() { Activity = a70, Service = ac7, Active = true };
             ServiceActivity sa92 = new ServiceActivity() { Activity = a71, Service = ac7, Active = true };
             ServiceActivity sa93 = new ServiceActivity() { Activity = a72, Service = ac7, Active = true };
+            #endregion
+
+            #region ActivityInput
+            ActivityInput ai1 = new ActivityInput() { Title = "Prosti vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = ""};
+            ActivityInput ai2 = new ActivityInput() { Title = "Datum ", InputType = ActivityInput.InputTypeEnum.Date, PossibleValues = ""};
+            ActivityInput ai3 = new ActivityInput() { Title = "Moteno/Ni moteno ", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Moteno;;Ni moteno"};
+            ActivityInput ai4 = new ActivityInput() { Title = "Nizka/Srednja/Visoka", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Nizka;;Srednja;;Visoka" };
+            ActivityInput ai5 = new ActivityInput() { Title = "Sistolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;300" };
+            ActivityInput ai6 = new ActivityInput() { Title = "Diastolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;300" };
+            ActivityInput ai7 = new ActivityInput() { Title = "Udarci na minuto", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "30;;150" };
+            ActivityInput ai8 = new ActivityInput() { Title = "Vdihi na minuto", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "10;;150" };
+            ActivityInput ai9 = new ActivityInput() { Title = "st C", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "30;;45" };
+            ActivityInput ai10 = new ActivityInput() { Title = "kg", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;500" };
+            ActivityInput ai11 = new ActivityInput() { Title = "Datum rojstva otroka", InputType = ActivityInput.InputTypeEnum.Date, PossibleValues = "" };
+            ActivityInput ai12 = new ActivityInput() { Title = "Porodna tea otroka (g)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;20000" };
+            ActivityInput ai13 = new ActivityInput() { Title = "Porodna višina otroka (cm)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;100" };
+            ActivityInput ai14 = new ActivityInput() { Title = "cm", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;300" };
+            ActivityInput ai15 = new ActivityInput() { Title = "Da/Ne", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Da;;Ne" };
+            ActivityInput ai16 = new ActivityInput() { Title = "Izberite", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Ni posebnosti;;Mikcija;;Defekacija;;Napenjanje;;Kolike;;Polivanje;;Bruhanje" };
+            ActivityInput ai17 = new ActivityInput() { Title = "Urin", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
+            ActivityInput ai18 = new ActivityInput() { Title = "Blato", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
+            ActivityInput ai19 = new ActivityInput() { Title = "Vid", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
+            ActivityInput ai20 = new ActivityInput() { Title = "Vonj", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
+            ActivityInput ai21 = new ActivityInput() { Title = "Sluh", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
+            ActivityInput ai22 = new ActivityInput() { Title = "Okus", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
+            ActivityInput ai23 = new ActivityInput() { Title = "Otip", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
+            ActivityInput ai24 = new ActivityInput() { Title = "Št. rdeèih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10" };
+            ActivityInput ai25 = new ActivityInput() { Title = "Št. modrih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10" };
+            ActivityInput ai26 = new ActivityInput() { Title = "Št. rumenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10" };
+            ActivityInput ai27 = new ActivityInput() { Title = "Št. zelenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10" };
+            ActivityInput ai28 = new ActivityInput() { Title = "mmol/L", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;100" };
+            ActivityInput ai29 = new ActivityInput() { Title = "%", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;100" };
+            ActivityInput ai30 = new ActivityInput() { Title = "Da/Delno/Ne", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Da;;Delno;;Ne" };
+            #endregion
+
+            #region ActivityActivityInput
+            ActivityActivityInput aai1 = new ActivityActivityInput() { Activity = a1, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai2 = new ActivityActivityInput() { Activity = a2, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai3 = new ActivityActivityInput() { Activity = a3, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai4 = new ActivityActivityInput() { Activity = a4, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai5 = new ActivityActivityInput() { Activity = a5, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai6 = new ActivityActivityInput() { Activity = a6, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai7 = new ActivityActivityInput() { Activity = a7, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai8 = new ActivityActivityInput() { Activity = a8, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai9 = new ActivityActivityInput() { Activity = a9, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai10 = new ActivityActivityInput() { Activity = a10, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai11 = new ActivityActivityInput() { Activity = a11, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai12 = new ActivityActivityInput() { Activity = a12, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai13 = new ActivityActivityInput() { Activity = a13, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai14 = new ActivityActivityInput() { Activity = a14, ActivityInput = ai2, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai15 = new ActivityActivityInput() { Activity = a15, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai16 = new ActivityActivityInput() { Activity = a16, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai17 = new ActivityActivityInput() { Activity = a17, ActivityInput = ai3, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai18 = new ActivityActivityInput() { Activity = a17, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai19 = new ActivityActivityInput() { Activity = a18, ActivityInput = ai4, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai20 = new ActivityActivityInput() { Activity = a18, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai21 = new ActivityActivityInput() { Activity = a19, ActivityInput = ai5, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai22 = new ActivityActivityInput() { Activity = a19, ActivityInput = ai6, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai23 = new ActivityActivityInput() { Activity = a20, ActivityInput = ai7, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai24 = new ActivityActivityInput() { Activity = a21, ActivityInput = ai8, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai25 = new ActivityActivityInput() { Activity = a22, ActivityInput = ai9, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai26 = new ActivityActivityInput() { Activity = a23, ActivityInput = ai10, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai27 = new ActivityActivityInput() { Activity = a24, ActivityInput = ai10, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai28 = new ActivityActivityInput() { Activity = a25, ActivityInput = ai11, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai29 = new ActivityActivityInput() { Activity = a25, ActivityInput = ai12, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai30 = new ActivityActivityInput() { Activity = a25, ActivityInput = ai13, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai31 = new ActivityActivityInput() { Activity = a25, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai32 = new ActivityActivityInput() { Activity = a26, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai33 = new ActivityActivityInput() { Activity = a27, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai34 = new ActivityActivityInput() { Activity = a28, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai35 = new ActivityActivityInput() { Activity = a29, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai36 = new ActivityActivityInput() { Activity = a30, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai37 = new ActivityActivityInput() { Activity = a31, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai38 = new ActivityActivityInput() { Activity = a32, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai39 = new ActivityActivityInput() { Activity = a33, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai40 = new ActivityActivityInput() { Activity = a34, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai41 = new ActivityActivityInput() { Activity = a35, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai42 = new ActivityActivityInput() { Activity = a36, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai43 = new ActivityActivityInput() { Activity = a37, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai44 = new ActivityActivityInput() { Activity = a38, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai45 = new ActivityActivityInput() { Activity = a39, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai46 = new ActivityActivityInput() { Activity = a40, ActivityInput = ai5, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai47 = new ActivityActivityInput() { Activity = a40, ActivityInput = ai6, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
+            ActivityActivityInput aai48 = new ActivityActivityInput() { Activity = a41, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai49 = new ActivityActivityInput() { Activity = a42, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai50 = new ActivityActivityInput() { Activity = a43, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai51 = new ActivityActivityInput() { Activity = a44, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai52 = new ActivityActivityInput() { Activity = a45, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai53 = new ActivityActivityInput() { Activity = a46, ActivityInput = ai14, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai54 = new ActivityActivityInput() { Activity = a47, ActivityInput = ai15, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai55 = new ActivityActivityInput() { Activity = a47, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai56 = new ActivityActivityInput() { Activity = a48, ActivityInput = ai15, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai57 = new ActivityActivityInput() { Activity = a48, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai58 = new ActivityActivityInput() { Activity = a49, ActivityInput = ai16, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai59 = new ActivityActivityInput() { Activity = a49, ActivityInput = ai17, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai60 = new ActivityActivityInput() { Activity = a49, ActivityInput = ai18, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai61 = new ActivityActivityInput() { Activity = a49, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai62 = new ActivityActivityInput() { Activity = a50, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai63 = new ActivityActivityInput() { Activity = a51, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai64 = new ActivityActivityInput() { Activity = a52, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai65 = new ActivityActivityInput() { Activity = a53, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
+            ActivityActivityInput aai66 = new ActivityActivityInput() { Activity = a54, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai67 = new ActivityActivityInput() { Activity = a55, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai68 = new ActivityActivityInput() { Activity = a56, ActivityInput = ai10, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai69 = new ActivityActivityInput() { Activity = a57, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai70 = new ActivityActivityInput() { Activity = a58, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai71 = new ActivityActivityInput() { Activity = a59, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai72 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai19, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai73 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai20, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai74 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai21, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai75 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai22, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai76 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai23, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai77 = new ActivityActivityInput() { Activity = a61, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai78 = new ActivityActivityInput() { Activity = a62, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai79 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai24, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai80 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai26, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai81 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai82 = new ActivityActivityInput() { Activity = a64, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai83 = new ActivityActivityInput() { Activity = a65, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai84 = new ActivityActivityInput() { Activity = a66, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai85 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai24, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai86 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai25, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai87 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai26, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai88 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai27, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai89 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai90 = new ActivityActivityInput() { Activity = a68, ActivityInput = ai28, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai91 = new ActivityActivityInput() { Activity = a68, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai92 = new ActivityActivityInput() { Activity = a69, ActivityInput = ai29, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai93 = new ActivityActivityInput() { Activity = a70, ActivityInput = ai30, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai94 = new ActivityActivityInput() { Activity = a70, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai95 = new ActivityActivityInput() { Activity = a71, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai96 = new ActivityActivityInput() { Activity = a72, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            #endregion
 
 
-            ActivityInput ai1 = new ActivityInput() { Activity = a1, Title = "Prosti vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
+            context.ServiceActivities.AddOrUpdate(x => x.ServiceActivityId, sa1, sa2, sa3, sa4, sa5, sa6, sa7, sa8, sa9, sa10, sa11, sa12, sa13, sa14, sa15, sa16, sa17, sa18, sa19, sa20, sa21, sa22, sa23, sa24, sa25, sa26, sa27, sa28, sa29, sa30, sa31, sa32, sa33, sa34, sa35, sa36, sa37, sa38, sa39, sa40, sa41, sa42, sa43, sa44, sa45, sa46, sa47, sa48, sa49, sa50, sa51, sa52, sa53, sa54, sa55, sa56, sa57, sa58, sa59, sa60, sa61, sa62, sa63, sa64, sa65, sa66, sa67, sa68, sa69, sa70, sa71, sa72, sa73, sa74, sa75, sa76, sa77, sa78, sa79, sa80, sa81, sa82, sa83, sa84, sa85, sa86, sa87, sa88, sa89, sa90, sa91, sa92, sa93);
+
+            context.Activities.AddOrUpdate(x => x.ActivityId, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51, a52, a53, a54, a55, a56, a57, a58, a59, a60, a61, a62, a63, a64, a65, a66, a67, a68, a69, a70, a71, a72);
+
+            context.ActivityInputs.AddOrUpdate(y => y.ActivityInputId, ai1, ai2, ai3, ai4, ai5, ai6, ai7, ai8, ai9, ai10, ai11, ai12, ai13, ai14, ai15, ai16, ai17, ai18, ai19, ai20, ai21, ai22, ai23, ai24, ai25, ai26, ai27, ai28, ai29, ai30);
+
+            context.ActivityActivityInputs.AddOrUpdate(x => x.ActivityActivityInputId, aai1, aai2, aai3, aai4, aai5, aai6, aai7, aai8, aai9, aai10, aai11, aai12, aai13, aai14, aai15, aai16, aai17, aai18, aai19, aai20, aai21, aai22, aai23, aai24, aai25, aai26, aai27, aai28, aai29, aai30, aai31, aai32, aai33, aai34, aai35, aai36, aai37, aai38, aai39, aai40, aai41, aai42, aai43, aai44, aai45, aai46, aai47, aai48, aai49, aai50, aai51, aai52, aai53, aai54, aai55, aai56, aai57, aai58, aai59, aai60, aai61, aai62, aai63, aai64, aai65, aai66, aai67, aai68, aai69, aai70, aai71, aai72, aai73, aai74, aai75, aai76, aai77, aai78, aai79, aai80, aai81, aai82, aai83, aai84, aai85, aai86, aai87, aai88, aai89, aai90, aai91, aai92, aai93, aai94, aai95, aai96);
+
+            #endregion
+
+            /*
+                        ActivityInput ai1 = new ActivityInput() { Activity = a1, Title = "Prosti vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai2 = new ActivityInput() { Activity = a2, Title = "Prosti vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai3 = new ActivityInput() { Activity = a3, Title = "Prosti vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai4 = new ActivityInput() { Activity = a4, Title = "Prosti vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
@@ -738,18 +883,18 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ActivityInput ai1003 = new ActivityInput() { Activity = a67, Title = "Št. rumenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10", Required = true, OneTime = false };
             ActivityInput ai1004 = new ActivityInput() { Activity = a67, Title = "Št. zelenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10", Required = true, OneTime = false };
 
+ 
 
 
-            context.ServiceActivities.AddOrUpdate(x => x.ServiceActivityId, sa1, sa2, sa3, sa4, sa5, sa6, sa7, sa8, sa9, sa10, sa11, sa12, sa13, sa14, sa15, sa16, sa17, sa18, sa19, sa20, sa21, sa22, sa23, sa24, sa25, sa26, sa27, sa28, sa29, sa30, sa31, sa32, sa33, sa34, sa35, sa36, sa37, sa38, sa39, sa40, sa41, sa42, sa43, sa44, sa45, sa46, sa47, sa48, sa49, sa50, sa51, sa52, sa53, sa54, sa55, sa56, sa57, sa58, sa59, sa60, sa61, sa62, sa63, sa64, sa65, sa66, sa67, sa68, sa69, sa70, sa71, sa72, sa73, sa74, sa75, sa76, sa77, sa78, sa79, sa80, sa81, sa82, sa83, sa84, sa85, sa86, sa87, sa88, sa89, sa90, sa91, sa92, sa93);
 
-            context.Activities.AddOrUpdate(x => x.ActivityId, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51, a52, a53, a54, a55, a56, a57, a58, a59, a60, a61, a62, a63, a64, a65, a66, a67, a68, a69, a70, a71, a72);
 
-            context.ActivityInputs.AddOrUpdate(y => y.ActivityInputId, ai1, ai2, ai3, ai4, ai5, ai6, ai7, ai8, ai9, ai10, ai11, ai12, ai13, ai14, ai15, ai16, ai17, ai18, ai19, ai20, ai21, ai22, ai23, ai24, ai25, ai26, ai27, ai28, ai29, ai30, ai31, ai32, ai33, ai34, ai35, ai36, ai37, ai38, ai39, ai40, ai41, ai42, ai43, ai44, ai45, ai57, ai58, ai59, ai60, ai61, ai62, ai63, ai64, ai65, ai66, ai67, ai68, ai69, ai70, ai71, ai72, ai73, ai74, ai80, ai81, ai82, ai83, ai84, ai85, ai86, ai87, ai88, ai89, ai90, ai91, ai92, ai93, ai94, ai95, ai96, ai97, ai98, ai100, ai108, ai109, ai110, ai111, ai112, ai113, ai114, ai116, ai117, ai1001, ai1002, ai1003, ai1004);
 
-            #endregion
 
-            /*
-             
+
+
+
+
+
              
               ActivityInput ai1 = new ActivityInput() { Activity = a1, Title = "Prosti vnos", Required = false };
             ActivityInput ai2 = new ActivityInput() { Activity = a2, Title = "Prosti vnos", Required = false };
