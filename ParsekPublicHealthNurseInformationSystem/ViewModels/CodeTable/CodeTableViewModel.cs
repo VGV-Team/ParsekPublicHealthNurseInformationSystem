@@ -33,6 +33,9 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public Role Role { get; set; }
         public JobTitle JobTitle { get; set; }
 
+        [Display(Name = "Iskanje:")]
+        public string SelectedId { get; set; }
+
         public List<PostOffice> PostOffices { get; set; }
 
         public enum CodeCategory

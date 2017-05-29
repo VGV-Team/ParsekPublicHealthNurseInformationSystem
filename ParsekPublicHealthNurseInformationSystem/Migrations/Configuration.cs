@@ -28,9 +28,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             //    );
             //
 
-            Role AdminRole = new Role { Title = Role.Admin };
-            Role EmployeeRole = new Role { Title = Role.Employee };
-            Role PatientRole = new Role { Title = Role.Patient };
+            Role AdminRole = new Role { Title = Role.Admin, Active = true };
+            Role EmployeeRole = new Role { Title = Role.Employee, Active = true };
+            Role PatientRole = new Role { Title = Role.Patient, Active = true };
 
             context.Roles.AddOrUpdate(
                 r => r.Title,
@@ -39,10 +39,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 PatientRole
             );
 
-            JobTitle DoctorJobTitle = new JobTitle { Title = JobTitle.Doctor };
-            JobTitle HeadJobTitle = new JobTitle { Title = JobTitle.Head };
-            JobTitle HealthNurseJobTitle = new JobTitle { Title = JobTitle.HealthNurse };
-            JobTitle CoworkerJobTitle = new JobTitle { Title = JobTitle.Coworker };
+            JobTitle DoctorJobTitle = new JobTitle { Title = JobTitle.Doctor, Active = true };
+            JobTitle HeadJobTitle = new JobTitle { Title = JobTitle.Head, Active = true };
+            JobTitle HealthNurseJobTitle = new JobTitle { Title = JobTitle.HealthNurse, Active = true };
+            JobTitle CoworkerJobTitle = new JobTitle { Title = JobTitle.Coworker, Active = true };
 
             context.JobTitles.AddOrUpdate(
                 r => r.Title,
@@ -54,133 +54,52 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
 
 
             // Relationships
-            Relationship rel1, rel2, rel3, rel4;
-            rel1 = new Relationship();
-            rel1.Name = "Starš - otrok";
-            rel2 = new Relationship();
-            rel2.Name = "Ožji družinski krog";
-            rel3 = new Relationship();
-            rel3.Name = "Širši družinski krog";
-            rel4 = new Relationship();
-            rel4.Name = "Ni v sorodu";
+            var rel1 = new Relationship {Name = "Starš - otrok", Active = true };
+            var rel2 = new Relationship {Name = "Ožji družinski krog", Active = true };
+            var rel3 = new Relationship {Name = "Širši družinski krog", Active = true };
+            var rel4 = new Relationship {Name = "Ni v sorodu", Active = true };
             context.Relationships.AddOrUpdate(rel => rel.Name, rel1, rel2, rel3, rel4);
 
             // Diseases
-            Disease d1, d2, d3, d4;
-            d1 = new Disease();
-            d2 = new Disease();
-            d3 = new Disease();
-            d4 = new Disease();
-            d1.Code = "Z34.0";
-            d1.Description = "Nadzor nad normalno prvo noseènostjo";
-            d2.Code = "Z34.8";
-            d2.Description = "Nadzor nad drugimi normalnimi noseènostmi";
-            d3.Code = "Z34.9";
-            d3.Description = "Nadzor nad normalno noseènostjo, neopredeljen";
-            d4.Code = "Z35.0";
-            d4.Description = "Nadzor nad noseènostjo z anamnezo infertilnosti";
+            var d1 = new Disease {Code = "Z34.0", Description = "Nadzor nad normalno prvo noseènostjo", Active = true };
+            var d2 = new Disease { Code = "Z34.8", Description = "Nadzor nad drugimi normalnimi noseènostmi", Active = true };
+            var d3 = new Disease { Code = "Z34.9", Description = "Nadzor nad normalno noseènostjo, neopredeljen", Active = true };
+            var d4 = new Disease { Code = "Z35.0", Description = "Nadzor nad noseènostjo z anamnezo infertilnosti", Active = true };
             context.Diseases.AddOrUpdate(d => d.Code, d1, d2, d3, d4);
             // TODO: ...
 
             // Medicine
-            Medicine m1, m2, m3, m4;
-            m1 = new Medicine();
-            m2 = new Medicine();
-            m3 = new Medicine();
-            m4 = new Medicine();
-            m1.Code = "13300";
-            m1.Title = "Abseamed 8.000 i.e./0,8 ml raztopina za inj";
-            m2.Code = "13692";
-            m2.Title = "Acidum nitricum C30 kroglice";
-            m3.Code = "02504";
-            m3.Title = "Acipan 40 mg prašek za raztopino za injicir";
-            m4.Code = "21550";
-            m4.Title = "Aconitum napellus C200 kroglice";
+            var m1 = new Medicine {Code = "13300", Title = "Abseamed 8.000 i.e./0,8 ml raztopina za inj", Active = true };
+            var m2 = new Medicine { Code = "13692", Title = "Acidum nitricum C30 kroglice", Active = true };
+            var m3 = new Medicine { Code = "02504", Title = "Acipan 40 mg prašek za raztopino za injicir", Active = true };
+            var m4 = new Medicine { Code = "21550", Title = "Aconitum napellus C200 kroglice", Active = true };
             context.Medicines.AddOrUpdate(m => m.Code, m1, m2, m3, m4);
             // TODO: ...
 
             // Post Office
-            PostOffice p1, p2, p3, p4;
-            p1 = new PostOffice();
-            p1.Title = "Ajdovšèina";
-            p1.Number = "5270";
-            p2 = new PostOffice();
-            p2.Title = "Bled"; // kremšnite
-            p2.Number = "4260";
-            p3 = new PostOffice();
-            p3.Title = "Litija";
-            p3.Number = "1270";
-            p4 = new PostOffice();
-            p4.Title = "Ljubljana";
-            p4.Number = "1000";
+            var p1 = new PostOffice { Title = "Ajdovšèina", Number = "5270" };
+            var p2 = new PostOffice { Title = "Bled", Number = "4260" }; // kremšnite
+            var p3 = new PostOffice { Title = "Litija", Number = "1270" };
+            var p4 = new PostOffice { Title = "Ljubljana", Number = "1000" };
             context.PostOffices.AddOrUpdate(p => p.Number, p1, p2, p3, p4);
             // TODO: ...
 
             // Contractors
-            Contractor c1, c2, c3, c4;
-            c1 = new Contractor();
-            c1.Title = "ZDRAVSTVENI DOM AJDOVŠÈINA";
-            c1.Number = "00130";
-            c1.Address = "TOVARNIŠKA CESTA 3";
-            c1.PostOffice = p1;
-            c2 = new Contractor();
-            c2.Title = "COR MEDICO ZAVOD";
-            c2.Number = "55022";
-            c2.Address = "KOMENSKEGA ULICA 32";
-            c2.PostOffice = p4;
-            c3 = new Contractor();
-            c3.Title = "FIZIO CENTER PLUS D.O.O.";
-            c3.Number = "55021";
-            c3.Address = "ULICA MIRE PREGLJEVE 1";
-            c3.PostOffice = p3;
-            c4 = new Contractor();
-            c4.Title = "DIAGNOSTIÈNI CENTER BLED D.O.O.";
-            c4.Number = "04970";
-            c4.Address = "POD SKALO 4";
-            c4.PostOffice = p2;
-            
+            var c1 = new Contractor {Title = "ZDRAVSTVENI DOM AJDOVŠÈINA", Number = "00130", Address = "TOVARNIŠKA CESTA 3", PostOffice = p1, Active = true };
+            var c2 = new Contractor { Title = "COR MEDICO ZAVOD", Number = "55022", Address = "KOMENSKEGA ULICA 32", PostOffice = p4, Active = true };
+            var c3 = new Contractor { Title = "FIZIO CENTER PLUS D.O.O.", Number = "55021", Address = "ULICA MIRE PREGLJEVE 1", PostOffice = p3, Active = true };
+            var c4 = new Contractor { Title = "DIAGNOSTIÈNI CENTER BLED D.O.O.", Number = "04970", Address = "POD SKALO 4", PostOffice = p2, Active = true };
             // TODO: ...
 
             // Districts
-            District di1, di2, di3, di4, di5, di6, di7, di8;
-            di1 = new District();
-            di1.Name = "Okoliš 1";
-            di1.Lat = (decimal)100.0;
-            di1.Lon = (decimal)100.0;
-            di2 = new District();
-            di2.Name = "Okoliš 2";
-            di2.Lat = (decimal)200.0;
-            di2.Lon = (decimal)200.0;
-            di3 = new District();
-            di3.Name = "Okoliš 3";
-            di3.Lat = (decimal)300.0;
-            di3.Lon = (decimal)300.0;
-            di4 = new District();
-            di4.Name = "Okoliš 4";
-            di4.Lat = (decimal)400.0;
-            di4.Lon = (decimal)999.0;
-            di5 = new District();
-            di5.Name = "Okoliš 5";
-            di5.Lat = (decimal)400.0;
-            di5.Lon = (decimal)999.0;
-            di6 = new District();
-            di6.Name = "Okoliš 6";
-            di6.Lat = (decimal)400.0;
-            di6.Lon = (decimal)999.0;
-            di7 = new District();
-            di7.Name = "Okoliš 7";
-            di7.Lat = (decimal)400.0;
-            di7.Lon = (decimal)999.0;
-            di8 = new District();
-            di8.Name = "Okoliš 8";
-            di8.Lat = (decimal)400.0;
-            di8.Lon = (decimal)999.0;
-
-            di1.Contractor = c1;
-            di2.Contractor = c1;
-
-            di3.Contractor = c1;
-            di4.Contractor = c1;
+            var di1 = new District { Name = "Okoliš 1", Lat = (decimal)100.0, Lon = (decimal)100.0, Contractor = c1 };
+            var di2 = new District { Name = "Okoliš 2", Lat = (decimal)200.0, Lon = (decimal)200.0, Contractor = c1 };
+            var di3 = new District { Name = "Okoliš 3", Lat = (decimal)300.0, Lon = (decimal)300.0, Contractor = c1 };
+            var di4 = new District { Name = "Okoliš 4", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c1 };
+            var di5 = new District { Name = "Okoliš 5", Lat = (decimal)400.0, Lon = (decimal)999.0 };
+            var di6 = new District { Name = "Okoliš 6", Lat = (decimal)400.0, Lon = (decimal)999.0 };
+            var di7 = new District { Name = "Okoliš 7", Lat = (decimal)400.0, Lon = (decimal)999.0 };
+            var di8 = new District { Name = "Okoliš 8", Lat = (decimal)400.0, Lon = (decimal)999.0 };
 
             /*di5.Contractor = c3;
             di6.Contractor = c3;
@@ -193,121 +112,132 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             context.Contractors.AddOrUpdate(c => c.Number, c1, c2, c3, c4);
             // TODO: ...
 
-            Material mat1, mat2, mat3, mat4;
-            mat1 = new Material();
-            mat1.Title = "Epruveta";
-            mat1.Description = "Splošno uporabna epruveta";
-            mat2 = new Material();
-            mat2.Title = "Injekcija";
-            mat2.Description = "Splošno uporabna injekcija";
-            mat3 = new Material();
-            mat3.Title = "Radijeva sol";
-            mat3.Description = "Za boljše poèutje";
-            mat4 = new Material();
-            mat4.Title = "Svinènik";
-            mat4.Description = "Za zapisovanje";
+            var mat1 = new Material { Title = "Epruveta", Description = "Splošno uporabna epruveta", Active = true };
+            var mat2 = new Material { Title = "Injekcija", Description = "Splošno uporabna injekcija", Active = true };
+            var mat3 = new Material { Title = "Radijeva sol", Description = "Za boljše poèutje", Active = true };
+            var mat4 = new Material { Title = "Svinènik", Description = "Za zapisovanje", Active = true };
             context.Materials.AddOrUpdate(m => m.Title, mat1, mat2, mat3, mat4);
             // TODO: ...
 
-            Patient patient1 = new Patient();
-            patient1.CardNumber = "65456";
-            patient1.Name = "Janežina";
-            patient1.Surname = "Novak";
-            patient1.Address = "Žememlje 8";
-            patient1.PostOffice = p1;
-            patient1.District = di1;
-            patient1.PhoneNumber = "1234566666";
-            patient1.Gender = Models.Patient.GenderEnum.Female;
-            patient1.BirthDate = DateTime.Now.AddYears(-30);
-            Patient patient2 = new Patient();
-            patient2.CardNumber = "99878";
-            patient2.Name = "Francelj";
-            patient2.Surname = "Horvat";
-            patient2.Address = "Partizanska 99";
-            patient2.PostOffice = p2;
-            patient2.District = di2;
-            patient2.PhoneNumber = "090999999";
-            patient2.Gender = Models.Patient.GenderEnum.Male;
-            patient2.BirthDate = DateTime.Now.AddYears(-50);
-            Patient patient3 = new Patient();
-            patient3.CardNumber = "78879";
-            patient3.Name = "Joža";
-            patient3.Surname = "Boža";
-            patient3.Address = "Domobranska 11";
-            patient3.PostOffice = p3;
-            patient3.District = di1;
-            patient3.PhoneNumber = "090888880";
-            patient3.Gender = Models.Patient.GenderEnum.Female;
-            patient3.BirthDate = DateTime.Now.AddYears(-40);
+            Patient patient1 = new Patient
+            {
+                CardNumber = "65456",
+                Name = "Janežina",
+                Surname = "Novak",
+                Address = "Žememlje 8",
+                PostOffice = p1,
+                District = di1,
+                PhoneNumber = "1234566666",
+                Gender = Models.Patient.GenderEnum.Female,
+                BirthDate = DateTime.Now.AddYears(-30),
+            };
+            Patient patient2 = new Patient
+            {
+                CardNumber = "99878",
+                Name = "Francelj",
+                Surname = "Horvat",
+                Address = "Partizanska 99",
+                PostOffice = p2,
+                District = di2,
+                PhoneNumber = "090999999",
+                Gender = Models.Patient.GenderEnum.Male,
+                BirthDate = DateTime.Now.AddYears(-50)
+            };
+            Patient patient3 = new Patient
+            {
+                CardNumber = "78879",
+                Name = "Joža",
+                Surname = "Boža",
+                Address = "Domobranska 11",
+                PostOffice = p3,
+                District = di1,
+                PhoneNumber = "090888880",
+                Gender = Models.Patient.GenderEnum.Female,
+                BirthDate = DateTime.Now.AddYears(-40)
+            };
             context.Patients.AddOrUpdate(y => y.CardNumber, patient1, patient2, patient3);
-            Patient patient1_1 = new Patient();
-            patient1_1.CardNumber = "88888";
-            patient1_1.Name = "Sif";
-            patient1_1.Surname = "Novak";
-            patient1_1.Address = "Žememlje 8";
-            patient1_1.PostOffice = p1;
-            patient1_1.District = di1;
-            patient1_1.PhoneNumber = "090888880";
-            patient1_1.Gender = Models.Patient.GenderEnum.Male;
-            patient1_1.BirthDate = DateTime.Now.AddYears(-50);
-            patient1_1.ParentPatient = patient1;
-            patient1_1.ParentPatientRelationship = rel1;
+            Patient patient1_1 = new Patient
+            {
+                CardNumber = "88888",
+                Name = "Sif",
+                Surname = "Novak",
+                Address = "Žememlje 8",
+                PostOffice = p1,
+                District = di1,
+                PhoneNumber = "090888880",
+                Gender = Patient.GenderEnum.Male,
+                BirthDate = DateTime.Now.AddYears(-50),
+                ParentPatient = patient1,
+                ParentPatientRelationship = rel1
+            };
             context.Patients.AddOrUpdate(y => y.CardNumber, patient1_1);
 
-            User Admin = new User();
-            Admin.Employee = null;
-            Admin.Patient = null;
-            Admin.Role = AdminRole;
-            Admin.Email = "admin@parsek.si";
-            Admin.Password = "admin";
-            Admin.Active = true;
-            Admin.LastLastLogin = DateTime.Now;
-            Admin.LastLogin = DateTime.Now;
-            User Doctor = new User();
-            Doctor.Employee = null;
-            Doctor.Patient = null;
-            Doctor.Role = EmployeeRole;
-            Doctor.Email = "doctor@parsek.si";
-            Doctor.Password = "doctor";
-            Doctor.Active = true;
-            Doctor.LastLastLogin = DateTime.Now;
-            Doctor.LastLogin = DateTime.Now;
-            User Nurse1 = new User();
-            Nurse1.Employee = null;
-            Nurse1.Patient = null;
-            Nurse1.Role = EmployeeRole;
-            Nurse1.Email = "nurse1@parsek.si";
-            Nurse1.Password = "nurse1";
-            Nurse1.Active = true;
-            Nurse1.LastLastLogin = DateTime.Now;
-            Nurse1.LastLogin = DateTime.Now;
-            User Nurse2 = new User();
-            Nurse2.Employee = null;
-            Nurse2.Patient = null;
-            Nurse2.Role = EmployeeRole;
-            Nurse2.Email = "nurse2@parsek.si";
-            Nurse2.Password = "nurse2";
-            Nurse2.Active = true;
-            Nurse2.LastLastLogin = DateTime.Now;
-            Nurse2.LastLogin = DateTime.Now;
-            User Nurse3 = new User();
-            Nurse3.Employee = null;
-            Nurse3.Patient = null;
-            Nurse3.Role = EmployeeRole;
-            Nurse3.Email = "nurse3@parsek.si";
-            Nurse3.Password = "nurse3";
-            Nurse3.Active = true;
-            Nurse3.LastLastLogin = DateTime.Now;
-            Nurse3.LastLogin = DateTime.Now;
-            User Nurse4 = new User();
-            Nurse4.Employee = null;
-            Nurse4.Patient = null;
-            Nurse4.Role = EmployeeRole;
-            Nurse4.Email = "nurse4@parsek.si";
-            Nurse4.Password = "nurse4";
-            Nurse4.Active = true;
-            Nurse4.LastLastLogin = DateTime.Now;
-            Nurse4.LastLogin = DateTime.Now;
+            User Admin = new User
+            {
+                Employee = null,
+                Patient = null,
+                Role = AdminRole,
+                Email = "admin@parsek.si",
+                Password = "admin",
+                Active = true,
+                LastLastLogin = DateTime.Now,
+                LastLogin = DateTime.Now
+            };
+            User Doctor = new User
+            {
+                Employee = null,
+                Patient = null,
+                Role = EmployeeRole,
+                Email = "doctor@parsek.si",
+                Password = "doctor",
+                Active = true,
+                LastLastLogin = DateTime.Now,
+                LastLogin = DateTime.Now
+            };
+            User Nurse1 = new User
+            {
+                Employee = null,
+                Patient = null,
+                Role = EmployeeRole,
+                Email = "nurse1@parsek.si",
+                Password = "nurse1",
+                Active = true,
+                LastLastLogin = DateTime.Now,
+                LastLogin = DateTime.Now
+            };
+            User Nurse2 = new User
+            {
+                Employee = null,
+                Patient = null,
+                Role = EmployeeRole,
+                Email = "nurse2@parsek.si",
+                Password = "nurse2",
+                Active = true,
+                LastLastLogin = DateTime.Now,
+                LastLogin = DateTime.Now
+            };
+            User Nurse3 = new User
+            {
+                Employee = null,
+                Patient = null,
+                Role = EmployeeRole,
+                Email = "nurse3@parsek.si",
+                Password = "nurse3",
+                Active = true,
+                LastLastLogin = DateTime.Now,
+                LastLogin = DateTime.Now
+            };
+            User Nurse4 = new User
+            {
+                Employee = null,
+                Patient = null,
+                Role = EmployeeRole,
+                Email = "nurse4@parsek.si",
+                Password = "nurse4",
+                Active = true,
+                LastLastLogin = DateTime.Now,
+                LastLogin = DateTime.Now
+            };
             User Patient1 = new User();
             Patient1.Employee = null;
             Patient1.Patient = null;
@@ -406,77 +336,96 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             NurseEmployee4.JobTitle = HealthNurseJobTitle;
             context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, NurseEmployee1, NurseEmployee2, NurseEmployee3, NurseEmployee4);
 
-            Service ac1 = new Service();
-            ac1.ServiceCode = "10";
-            ac1.ServiceTitle = "Obisk noseènice";
+            Service ac1 = new Service
+            {
+                ServiceCode = "10",
+                ServiceTitle = "Obisk noseènice",
+                PreventiveVisit = true,
+                RequiresMedicine = false,
+                RequiresBloodSample = false,
+                RequiresPatients = false,
+                Active = true
+            };
             //ac1.ServiceCode = "10";
             //ac1.ServiceTitle = "Seznanitev noseènice o normalnem poteku noseènosti in o spremembah na telesu.";
             //ac1.Report = "Prosti vnos";
-            ac1.PreventiveVisit = true;
-            ac1.RequiresMedicine = false;
-            ac1.RequiresBloodSample = false;
-            ac1.RequiresPatients = false;
             /*
-            Service ac2 = new Service();
-            ac2.ServiceCode = "20";
-            ac2.ServiceTitle = "Obisk otroènice";
-            ac2.PreventiveVisit = true;
-            ac2.RequiresMedicine = false;
-            ac2.RequiresBloodSample = false;
-            ac2.RequiresPatients = true;
-            Service ac3 = new Service();
-            ac3.ServiceCode = "30";
-            ac3.ServiceTitle = "Obisk novorojenèka";
-            ac3.PreventiveVisit = true;
-            ac3.RequiresMedicine = false;
-            ac3.RequiresBloodSample = false;
-            ac3.RequiresPatients = true;
-            */
-            Service ac2 = new Service();
-            ac2.ServiceCode = "20";
-            ac2.ServiceTitle = "Obisk otroènice in novorojenèka";
-            ac2.PreventiveVisit = true;
-            ac2.RequiresMedicine = false;
-            ac2.RequiresBloodSample = false;
-            ac2.RequiresPatients = true;
+Service ac2 = new Service();
+ac2.ServiceCode = "20";
+ac2.ServiceTitle = "Obisk otroènice";
+ac2.PreventiveVisit = true;
+ac2.RequiresMedicine = false;
+ac2.RequiresBloodSample = false;
+ac2.RequiresPatients = true;
+Service ac3 = new Service();
+ac3.ServiceCode = "30";
+ac3.ServiceTitle = "Obisk novorojenèka";
+ac3.PreventiveVisit = true;
+ac3.RequiresMedicine = false;
+ac3.RequiresBloodSample = false;
+ac3.RequiresPatients = true;
+*/
+            Service ac2 = new Service
+            {
+                ServiceCode = "20",
+                ServiceTitle = "Obisk otroènice in novorojenèka",
+                PreventiveVisit = true,
+                RequiresMedicine = false,
+                RequiresBloodSample = false,
+                RequiresPatients = true,
+                Active = true
+            };
 
-            Service ac4 = new Service();
-            ac4.ServiceCode = "40";
-            ac4.ServiceTitle = "Obisk starostnika";
-            ac4.PreventiveVisit = true;
-            ac4.RequiresMedicine = false;
-            ac4.RequiresBloodSample = false;
-            ac4.RequiresPatients = false; // Was in requirements!
-            Service ac5 = new Service();
-            ac5.ServiceCode = "50";
-            ac5.ServiceTitle = "Aplikacija injekcij";
+            Service ac4 = new Service
+            {
+                ServiceCode = "40",
+                ServiceTitle = "Obisk starostnika",
+                PreventiveVisit = true,
+                RequiresMedicine = false,
+                RequiresBloodSample = false,
+                RequiresPatients = false,
+                Active = true
+            };
+            // Was in requirements!
+            Service ac5 = new Service
+            {
+                ServiceCode = "50",
+                ServiceTitle = "Aplikacija injekcij",
+                PreventiveVisit = false,
+                RequiresMedicine = true,
+                RequiresBloodSample = false,
+                RequiresPatients = false,
+                Active = true
+            };
             //ac5.ServiceCode = "10";
             //ac5.ServiceTitle = "Aplikacija injekcije";
             //ac5.Report = "";
-            ac5.PreventiveVisit = false;
-            ac5.RequiresMedicine = true;
-            ac5.RequiresBloodSample = false;
-            ac5.RequiresPatients = false;
-            Service ac6 = new Service();
-            ac6.ServiceCode = "60";
-            ac6.ServiceTitle = "Odvzem krvi";
+            Service ac6 = new Service
+            {
+                ServiceCode = "60",
+                ServiceTitle = "Odvzem krvi",
+                PreventiveVisit = false,
+                RequiresMedicine = false,
+                RequiresBloodSample = true,
+                RequiresPatients = false,
+                Active = true
+            };
             //ac6.ServiceCode = "10";
             //ac6.ServiceTitle = "Odvzem krvi";
             //ac6.Report = "";
-            ac6.PreventiveVisit = false;
-            ac6.RequiresMedicine = false;
-            ac6.RequiresBloodSample = true;
-            ac6.RequiresPatients = false;
-            Service ac7 = new Service();
-            ac7.ServiceCode = "70";
-            ac7.ServiceTitle = "Kontrola zdravstvenega stanja";
+            Service ac7 = new Service
+            {
+                ServiceCode = "70",
+                ServiceTitle = "Kontrola zdravstvenega stanja",
+                PreventiveVisit = false,
+                RequiresMedicine = false,
+                RequiresBloodSample = false,
+                RequiresPatients = false,
+                Active = true
+            };
             //ac7.ServiceCode = "20";
             //ac7.ServiceTitle = "Krvni pritisk: sistolièni, diastolièni";
             //ac7.Report = "Sistolièni (mm Hg) * Diastolièni(mm Hg) *";
-            ac7.PreventiveVisit = false;
-            ac7.RequiresMedicine = false;
-            ac7.RequiresBloodSample = false;
-            ac7.RequiresPatients = false;
 
             context.Services.AddOrUpdate(y => y.ServiceId, ac1, ac2, /*ac3,*/ ac4, ac5, ac6, ac7);
 
@@ -485,78 +434,78 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             #region Activities
 
             #region Activity
-            Activity a1 = new Activity() { ActivityCode = 10, ActivityTitle = "Seznanitev noseènice o normalnem poteku noseènosti in o spremembah na telesu." };
-            Activity a2 = new Activity() { ActivityCode = 20, ActivityTitle = "Povabilo v šolo za starše." };
-            Activity a3 = new Activity() { ActivityCode = 30, ActivityTitle = "Seznanitev o rednih ginekoloških pregledih." };
-            Activity a4 = new Activity() { ActivityCode = 40, ActivityTitle = "Seznanitev z bližajoèim se porodom in pravoèasnim odhodom v porodnišnico. " };
-            Activity a5 = new Activity() { ActivityCode = 50, ActivityTitle = "Pogovor in vkljuèevanje partnerja v noseènost in porod ter po prihodu domov. " };
-            Activity a6 = new Activity() { ActivityCode = 60, ActivityTitle = "Svetovanje o pripomoèkih, ki jih bo potrebovala v porodnišnici. " };
-            Activity a7 = new Activity() { ActivityCode = 70, ActivityTitle = "Seznanitev noseènice o štetju in beleženju plodovih gibov. " };
-            Activity a8 = new Activity() { ActivityCode = 80, ActivityTitle = "Svetovanje glede opreme za novorojenca in primerno ležišèe. " };
-            Activity a9 = new Activity() { ActivityCode = 90, ActivityTitle = "Svetovanje o pravilni prehrani, ustrezni izbiri obleke in obutve." };
-            Activity a10 = new Activity() { ActivityCode = 100, ActivityTitle = "Svetovanje o primernem režim življenja, telesne vaje, gibanje na svežem zraku." };
-            Activity a11 = new Activity() { ActivityCode = 110, ActivityTitle = "Odsvetovanje razvad kot so uživanje alkohola, kajenje, uživanje zdravil in drog. " };
-            Activity a12 = new Activity() { ActivityCode = 120, ActivityTitle = "Seznanitev nosoènice z nevšeènostmi in svetovanje glede lajšanja težav zaradi nevšeènosti (slabosti, bruhanja, zaprtja, pogostih mikcij, nespeènosti, zgage, ...)." };
-            Activity a13 = new Activity() { ActivityCode = 130, ActivityTitle = "Seznanitev noseènice s pravicami do starševskega dopusta (porodniški dopust, pravica do dopusta za nego in varstvo otroka, pravica do oèetovskega dopusta) in o uveljavljanju pravic povezanih z rojstvom otroka (pravica do paketa, otroški dodatek, zdravstveno zavarovanje, rojstni list, ureditev oèetovstva)." };
-            Activity a14 = new Activity() { ActivityCode = 140, ActivityTitle = "Prièakovan datum poroda" };
-            Activity a15 = new Activity() { ActivityCode = 150, ActivityTitle = "Anamneza: poèutje, telesni znaki noseènosti." };
-            Activity a16 = new Activity() { ActivityCode = 160, ActivityTitle = "Družinska anamneza: Odnosi v družini, odnos družine do okolja, bivalni pogoji, ekonomske razmere, zdravstveno stanje družinskih èlanov, zdravstvena prosvetljenost in vzgojenost." };
-            Activity a17 = new Activity() { ActivityCode = 170, ActivityTitle = "Izražanje èustev" };
-            Activity a18 = new Activity() { ActivityCode = 180, ActivityTitle = "Fizièna obremenjenost" };
-            Activity a19 = new Activity() { ActivityCode = 190, ActivityTitle = "Krvni pritisk: sistolièni, diastolièni" };
-            Activity a20 = new Activity() { ActivityCode = 200, ActivityTitle = "Srèni utrip" };
-            Activity a21 = new Activity() { ActivityCode = 210, ActivityTitle = "Dihanje" };
-            Activity a22 = new Activity() { ActivityCode = 220, ActivityTitle = "Telesna temperatura" };
-            Activity a23 = new Activity() { ActivityCode = 230, ActivityTitle = "Telesna teža pred noseènostjo" };
-            Activity a24 = new Activity() { ActivityCode = 240, ActivityTitle = "Trenutna telesna teža" };
-            Activity a25 = new Activity() { ActivityCode = 250, ActivityTitle = "Pregled materinske knjižice in odpustnice iz porodnišnice. " };
-            Activity a26 = new Activity() { ActivityCode = 260, ActivityTitle = "Kontrola vitalnih funkcij." };
-            Activity a27 = new Activity() { ActivityCode = 270, ActivityTitle = "Opazovanje èišèe. " };
-            Activity a28 = new Activity() { ActivityCode = 280, ActivityTitle = "Nadzor nad izloèanjem blata in urina. " };
-            Activity a29 = new Activity() { ActivityCode = 290, ActivityTitle = "Zdravstveno vzgojno delo glede pravilnega rokovanja z novorojenèkom, uèenje tehnike nege novorojenèka" };
-            Activity a30 = new Activity() { ActivityCode = 300, ActivityTitle = "Motivacija za dojenje. Nadzor in pomoè pri dojenju. " };
-            Activity a31 = new Activity() { ActivityCode = 310, ActivityTitle = "Svetovanje o èustveni podpori s strani partnerja." };
-            Activity a32 = new Activity() { ActivityCode = 320, ActivityTitle = "Seznanitev o otrokovih potrebah po toplini, nežnosti in varnosti." };
-            Activity a33 = new Activity() { ActivityCode = 330, ActivityTitle = "Svetovanje o spalnih potrebah otroènice, pravilni negi in higienskem režimu v poporodnem obdobju. " };
-            Activity a34 = new Activity() { ActivityCode = 340, ActivityTitle = "Svetovanje o pravilni prehrani, pitju ustreznih kolièin tekoèin" };
-            Activity a35 = new Activity() { ActivityCode = 350, ActivityTitle = "Pouèitev o poporodni telovadbi." };
-            Activity a36 = new Activity() { ActivityCode = 360, ActivityTitle = "Sezananitev z nekaterimi obolenji." };
-            Activity a37 = new Activity() { ActivityCode = 370, ActivityTitle = "Napotitev na poporodni pregled." };
-            Activity a38 = new Activity() { ActivityCode = 380, ActivityTitle = "Seznanitev z metodami zašèite pred nezaželjno noseènostjo." };
-            Activity a39 = new Activity() { ActivityCode = 390, ActivityTitle = "Svetovanje o normalnem delu, življenju in spolnih odnosih. " };
-            Activity a40 = new Activity() { ActivityCode = 400, ActivityTitle = "Krvni pritisk otroènice" };
-            Activity a41 = new Activity() { ActivityCode = 410, ActivityTitle = "Prikaz nege dojenèka" };
-            Activity a42 = new Activity() { ActivityCode = 420, ActivityTitle = "Nega popokovne rane" };
-            Activity a43 = new Activity() { ActivityCode = 430, ActivityTitle = "Nudenje pomoèi pri dojenju in seznanitev s tehnikami dojenja." };
-            Activity a44 = new Activity() { ActivityCode = 440, ActivityTitle = "Ureditev ležišèa." };
-            Activity a45 = new Activity() { ActivityCode = 450, ActivityTitle = "Svetovanje o povijanju, oblaèenju, slaèenju" };
-            Activity a46 = new Activity() { ActivityCode = 460, ActivityTitle = "Trenutna telesna višina" };
-            Activity a47 = new Activity() { ActivityCode = 470, ActivityTitle = "Dojenje" };
-            Activity a48 = new Activity() { ActivityCode = 480, ActivityTitle = "Dodajanje adaptiranega mleka" };
-            Activity a49 = new Activity() { ActivityCode = 490, ActivityTitle = "Izloèanje in odvajanje" };
-            Activity a50 = new Activity() { ActivityCode = 500, ActivityTitle = "Ritem spanja" };
-            Activity a51 = new Activity() { ActivityCode = 510, ActivityTitle = "Povišanje bilirubina (zlatenica)" };
-            Activity a52 = new Activity() { ActivityCode = 520, ActivityTitle = "Kolki" };
-            Activity a53 = new Activity() { ActivityCode = 530, ActivityTitle = "Posebnosti" };
-            Activity a54 = new Activity() { ActivityCode = 540, ActivityTitle = "Anamneza" };
-            Activity a55 = new Activity() { ActivityCode = 550, ActivityTitle = "Družinska anamneza" };
-            Activity a56 = new Activity() { ActivityCode = 560, ActivityTitle = "Telesna teža" };
-            Activity a57 = new Activity() { ActivityCode = 570, ActivityTitle = "Osebna higiena" };
-            Activity a58 = new Activity() { ActivityCode = 580, ActivityTitle = "Prehranjevanje in pitje" };
-            Activity a59 = new Activity() { ActivityCode = 590, ActivityTitle = "Gibanje" };
-            Activity a60 = new Activity() { ActivityCode = 600, ActivityTitle = "Èutila in obèutki" };
-            Activity a61 = new Activity() { ActivityCode = 610, ActivityTitle = "Spanje in poèitek" };
-            Activity a62 = new Activity() { ActivityCode = 620, ActivityTitle = "Duševno stanje: izražanje èustev in potreb, komunikacija" };
-            Activity a63 = new Activity() { ActivityCode = 630, ActivityTitle = "Stanje neodvisnosti" };
-            Activity a64 = new Activity() { ActivityCode = 640, ActivityTitle = "Pregled predpisanih terapij" };
-            Activity a65 = new Activity() { ActivityCode = 650, ActivityTitle = "Pogovor, nasvet in vzpodbuda." };
-            Activity a66 = new Activity() { ActivityCode = 660, ActivityTitle = "Aplikacija injekcije" };
-            Activity a67 = new Activity() { ActivityCode = 670, ActivityTitle = "Odvzem krvi" };
-            Activity a68 = new Activity() { ActivityCode = 680, ActivityTitle = "Krvni sladkor" };
-            Activity a69 = new Activity() { ActivityCode = 690, ActivityTitle = "Oksigenacija SpO2" };
-            Activity a70 = new Activity() { ActivityCode = 700, ActivityTitle = "Upoštevanje terapije" };
-            Activity a71 = new Activity() { ActivityCode = 710, ActivityTitle = "Pregled terapije" };
-            Activity a72 = new Activity() { ActivityCode = 720, ActivityTitle = "Navodila za terapijo do naslednjega obiska" };
+            Activity a1 = new Activity() { ActivityCode = 10, Active = true, ActivityTitle = "Seznanitev noseènice o normalnem poteku noseènosti in o spremembah na telesu." };
+            Activity a2 = new Activity() { ActivityCode = 20, Active = true, ActivityTitle = "Povabilo v šolo za starše." };
+            Activity a3 = new Activity() { ActivityCode = 30, Active = true, ActivityTitle = "Seznanitev o rednih ginekoloških pregledih." };
+            Activity a4 = new Activity() { ActivityCode = 40, Active = true, ActivityTitle = "Seznanitev z bližajoèim se porodom in pravoèasnim odhodom v porodnišnico. " };
+            Activity a5 = new Activity() { ActivityCode = 50, Active = true, ActivityTitle = "Pogovor in vkljuèevanje partnerja v noseènost in porod ter po prihodu domov. " };
+            Activity a6 = new Activity() { ActivityCode = 60, Active = true, ActivityTitle = "Svetovanje o pripomoèkih, ki jih bo potrebovala v porodnišnici. " };
+            Activity a7 = new Activity() { ActivityCode = 70, Active = true, ActivityTitle = "Seznanitev noseènice o štetju in beleženju plodovih gibov. " };
+            Activity a8 = new Activity() { ActivityCode = 80, Active = true, ActivityTitle = "Svetovanje glede opreme za novorojenca in primerno ležišèe. " };
+            Activity a9 = new Activity() { ActivityCode = 90, Active = true, ActivityTitle = "Svetovanje o pravilni prehrani, ustrezni izbiri obleke in obutve." };
+            Activity a10 = new Activity() { ActivityCode = 100, Active = true, ActivityTitle = "Svetovanje o primernem režim življenja, telesne vaje, gibanje na svežem zraku." };
+            Activity a11 = new Activity() { ActivityCode = 110, Active = true, ActivityTitle = "Odsvetovanje razvad kot so uživanje alkohola, kajenje, uživanje zdravil in drog. " };
+            Activity a12 = new Activity() { ActivityCode = 120, Active = true, ActivityTitle = "Seznanitev nosoènice z nevšeènostmi in svetovanje glede lajšanja težav zaradi nevšeènosti (slabosti, bruhanja, zaprtja, pogostih mikcij, nespeènosti, zgage, ...)." };
+            Activity a13 = new Activity() { ActivityCode = 130, Active = true, ActivityTitle = "Seznanitev noseènice s pravicami do starševskega dopusta (porodniški dopust, pravica do dopusta za nego in varstvo otroka, pravica do oèetovskega dopusta) in o uveljavljanju pravic povezanih z rojstvom otroka (pravica do paketa, otroški dodatek, zdravstveno zavarovanje, rojstni list, ureditev oèetovstva)." };
+            Activity a14 = new Activity() { ActivityCode = 140, Active = true, ActivityTitle = "Prièakovan datum poroda" };
+            Activity a15 = new Activity() { ActivityCode = 150, Active = true, ActivityTitle = "Anamneza: poèutje, telesni znaki noseènosti." };
+            Activity a16 = new Activity() { ActivityCode = 160, Active = true, ActivityTitle = "Družinska anamneza: Odnosi v družini, odnos družine do okolja, bivalni pogoji, ekonomske razmere, zdravstveno stanje družinskih èlanov, zdravstvena prosvetljenost in vzgojenost." };
+            Activity a17 = new Activity() { ActivityCode = 170, Active = true, ActivityTitle = "Izražanje èustev" };
+            Activity a18 = new Activity() { ActivityCode = 180, Active = true, ActivityTitle = "Fizièna obremenjenost" };
+            Activity a19 = new Activity() { ActivityCode = 190, Active = true, ActivityTitle = "Krvni pritisk: sistolièni, diastolièni" };
+            Activity a20 = new Activity() { ActivityCode = 200, Active = true, ActivityTitle = "Srèni utrip" };
+            Activity a21 = new Activity() { ActivityCode = 210, Active = true, ActivityTitle = "Dihanje" };
+            Activity a22 = new Activity() { ActivityCode = 220, Active = true, ActivityTitle = "Telesna temperatura" };
+            Activity a23 = new Activity() { ActivityCode = 230, Active = true, ActivityTitle = "Telesna teža pred noseènostjo" };
+            Activity a24 = new Activity() { ActivityCode = 240, Active = true, ActivityTitle = "Trenutna telesna teža" };
+            Activity a25 = new Activity() { ActivityCode = 250, Active = true, ActivityTitle = "Pregled materinske knjižice in odpustnice iz porodnišnice. " };
+            Activity a26 = new Activity() { ActivityCode = 260, Active = true, ActivityTitle = "Kontrola vitalnih funkcij." };
+            Activity a27 = new Activity() { ActivityCode = 270, Active = true, ActivityTitle = "Opazovanje èišèe. " };
+            Activity a28 = new Activity() { ActivityCode = 280, Active = true, ActivityTitle = "Nadzor nad izloèanjem blata in urina. " };
+            Activity a29 = new Activity() { ActivityCode = 290, Active = true, ActivityTitle = "Zdravstveno vzgojno delo glede pravilnega rokovanja z novorojenèkom, uèenje tehnike nege novorojenèka" };
+            Activity a30 = new Activity() { ActivityCode = 300, Active = true, ActivityTitle = "Motivacija za dojenje. Nadzor in pomoè pri dojenju. " };
+            Activity a31 = new Activity() { ActivityCode = 310, Active = true, ActivityTitle = "Svetovanje o èustveni podpori s strani partnerja." };
+            Activity a32 = new Activity() { ActivityCode = 320, Active = true, ActivityTitle = "Seznanitev o otrokovih potrebah po toplini, nežnosti in varnosti." };
+            Activity a33 = new Activity() { ActivityCode = 330, Active = true, ActivityTitle = "Svetovanje o spalnih potrebah otroènice, pravilni negi in higienskem režimu v poporodnem obdobju. " };
+            Activity a34 = new Activity() { ActivityCode = 340, Active = true, ActivityTitle = "Svetovanje o pravilni prehrani, pitju ustreznih kolièin tekoèin" };
+            Activity a35 = new Activity() { ActivityCode = 350, Active = true, ActivityTitle = "Pouèitev o poporodni telovadbi." };
+            Activity a36 = new Activity() { ActivityCode = 360, Active = true, ActivityTitle = "Sezananitev z nekaterimi obolenji." };
+            Activity a37 = new Activity() { ActivityCode = 370, Active = true, ActivityTitle = "Napotitev na poporodni pregled." };
+            Activity a38 = new Activity() { ActivityCode = 380, Active = true, ActivityTitle = "Seznanitev z metodami zašèite pred nezaželjno noseènostjo." };
+            Activity a39 = new Activity() { ActivityCode = 390, Active = true, ActivityTitle = "Svetovanje o normalnem delu, življenju in spolnih odnosih. " };
+            Activity a40 = new Activity() { ActivityCode = 400, Active = true, ActivityTitle = "Krvni pritisk otroènice" };
+            Activity a41 = new Activity() { ActivityCode = 410, Active = true, ActivityTitle = "Prikaz nege dojenèka" };
+            Activity a42 = new Activity() { ActivityCode = 420, Active = true, ActivityTitle = "Nega popokovne rane" };
+            Activity a43 = new Activity() { ActivityCode = 430, Active = true, ActivityTitle = "Nudenje pomoèi pri dojenju in seznanitev s tehnikami dojenja." };
+            Activity a44 = new Activity() { ActivityCode = 440, Active = true, ActivityTitle = "Ureditev ležišèa." };
+            Activity a45 = new Activity() { ActivityCode = 450, Active = true, ActivityTitle = "Svetovanje o povijanju, oblaèenju, slaèenju" };
+            Activity a46 = new Activity() { ActivityCode = 460, Active = true, ActivityTitle = "Trenutna telesna višina" };
+            Activity a47 = new Activity() { ActivityCode = 470, Active = true, ActivityTitle = "Dojenje" };
+            Activity a48 = new Activity() { ActivityCode = 480, Active = true, ActivityTitle = "Dodajanje adaptiranega mleka" };
+            Activity a49 = new Activity() { ActivityCode = 490, Active = true, ActivityTitle = "Izloèanje in odvajanje" };
+            Activity a50 = new Activity() { ActivityCode = 500, Active = true, ActivityTitle = "Ritem spanja" };
+            Activity a51 = new Activity() { ActivityCode = 510, Active = true, ActivityTitle = "Povišanje bilirubina (zlatenica)" };
+            Activity a52 = new Activity() { ActivityCode = 520, Active = true, ActivityTitle = "Kolki" };
+            Activity a53 = new Activity() { ActivityCode = 530, Active = true, ActivityTitle = "Posebnosti" };
+            Activity a54 = new Activity() { ActivityCode = 540, Active = true, ActivityTitle = "Anamneza" };
+            Activity a55 = new Activity() { ActivityCode = 550, Active = true, ActivityTitle = "Družinska anamneza" };
+            Activity a56 = new Activity() { ActivityCode = 560, Active = true, ActivityTitle = "Telesna teža" };
+            Activity a57 = new Activity() { ActivityCode = 570, Active = true, ActivityTitle = "Osebna higiena" };
+            Activity a58 = new Activity() { ActivityCode = 580, Active = true, ActivityTitle = "Prehranjevanje in pitje" };
+            Activity a59 = new Activity() { ActivityCode = 590, Active = true, ActivityTitle = "Gibanje" };
+            Activity a60 = new Activity() { ActivityCode = 600, Active = true, ActivityTitle = "Èutila in obèutki" };
+            Activity a61 = new Activity() { ActivityCode = 610, Active = true, ActivityTitle = "Spanje in poèitek" };
+            Activity a62 = new Activity() { ActivityCode = 620, Active = true, ActivityTitle = "Duševno stanje: izražanje èustev in potreb, komunikacija" };
+            Activity a63 = new Activity() { ActivityCode = 630, Active = true, ActivityTitle = "Stanje neodvisnosti" };
+            Activity a64 = new Activity() { ActivityCode = 640, Active = true, ActivityTitle = "Pregled predpisanih terapij" };
+            Activity a65 = new Activity() { ActivityCode = 650, Active = true, ActivityTitle = "Pogovor, nasvet in vzpodbuda." };
+            Activity a66 = new Activity() { ActivityCode = 660, Active = true, ActivityTitle = "Aplikacija injekcije" };
+            Activity a67 = new Activity() { ActivityCode = 670, Active = true, ActivityTitle = "Odvzem krvi" };
+            Activity a68 = new Activity() { ActivityCode = 680, Active = true, ActivityTitle = "Krvni sladkor" };
+            Activity a69 = new Activity() { ActivityCode = 690, Active = true, ActivityTitle = "Oksigenacija SpO2" };
+            Activity a70 = new Activity() { ActivityCode = 700, Active = true, ActivityTitle = "Upoštevanje terapije" };
+            Activity a71 = new Activity() { ActivityCode = 710, Active = true, ActivityTitle = "Pregled terapije" };
+            Activity a72 = new Activity() { ActivityCode = 720, Active = true, ActivityTitle = "Navodila za terapijo do naslednjega obiska" };
             #endregion
 
             #region ServiceActivity
@@ -656,40 +605,38 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             #endregion
 
             #region ActivityInput
-            ActivityInput ai1 = new ActivityInput() { Title = "Prosti vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = ""};
-            ActivityInput ai2 = new ActivityInput() { Title = "Datum ", InputType = ActivityInput.InputTypeEnum.Date, PossibleValues = ""};
-            ActivityInput ai3 = new ActivityInput() { Title = "Moteno/Ni moteno ", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Moteno;;Ni moteno"};
-            ActivityInput ai4 = new ActivityInput() { Title = "Nizka/Srednja/Visoka", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Nizka;;Srednja;;Visoka" };
-            ActivityInput ai5 = new ActivityInput() { Title = "Sistolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;300" };
-            ActivityInput ai6 = new ActivityInput() { Title = "Diastolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;300" };
-            ActivityInput ai7 = new ActivityInput() { Title = "Udarci na minuto", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "30;;150" };
-            ActivityInput ai8 = new ActivityInput() { Title = "Vdihi na minuto", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "10;;150" };
-            ActivityInput ai9 = new ActivityInput() { Title = "st C", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "30;;45" };
-            ActivityInput ai10 = new ActivityInput() { Title = "kg", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;500" };
-            ActivityInput ai11 = new ActivityInput() { Title = "Datum rojstva otroka", InputType = ActivityInput.InputTypeEnum.Date, PossibleValues = "" };
-            ActivityInput ai12 = new ActivityInput() { Title = "Porodna teža otroka (g)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "100;;20000" };
-            ActivityInput ai13 = new ActivityInput() { Title = "Porodna višina otroka (cm)", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;100" };
-            ActivityInput ai14 = new ActivityInput() { Title = "cm", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "20;;300" };
-            ActivityInput ai15 = new ActivityInput() { Title = "Da/Ne", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Da;;Ne" };
-            ActivityInput ai16 = new ActivityInput() { Title = "Prebava", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Ni posebnosti;;Mikcija;;Defekacija;;Napenjanje;;Kolike;;Polivanje;;Bruhanje" };
-            ActivityInput ai17 = new ActivityInput() { Title = "Urin", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
-            ActivityInput ai18 = new ActivityInput() { Title = "Blato", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
-            ActivityInput ai19 = new ActivityInput() { Title = "Vid", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
-            ActivityInput ai20 = new ActivityInput() { Title = "Vonj", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
-            ActivityInput ai21 = new ActivityInput() { Title = "Sluh", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
-            ActivityInput ai22 = new ActivityInput() { Title = "Okus", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
-            ActivityInput ai23 = new ActivityInput() { Title = "Otip", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "" };
-            ActivityInput ai24 = new ActivityInput() { Title = "Št. rdeèih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10" };
-            ActivityInput ai25 = new ActivityInput() { Title = "Št. modrih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10" };
-            ActivityInput ai26 = new ActivityInput() { Title = "Št. rumenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10" };
-            ActivityInput ai27 = new ActivityInput() { Title = "Št. zelenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10" };
-            ActivityInput ai28 = new ActivityInput() { Title = "mmol/L", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;100" };
-            ActivityInput ai29 = new ActivityInput() { Title = "%", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;100" };
-            ActivityInput ai30 = new ActivityInput() { Title = "Da/Delno/Ne", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Da;;Delno;;Ne" };
-            ActivityInput ai31 = new ActivityInput() { Title = "Neodvisnost", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Samostojen;;Delno odvisen;;Povsem odvisen" };
-            ActivityInput ai32 = new ActivityInput() { Title = "Pomoè", InputType = ActivityInput.InputTypeEnum.Dropdown, PossibleValues = "Svojci;;Drugi" };
-
-
+            ActivityInput ai1 = new ActivityInput() { Title = "Prosti vnos", InputType = ActivityInput.InputTypeEnum.Free, Active = true, PossibleValues = ""};
+            ActivityInput ai2 = new ActivityInput() { Title = "Datum ", InputType = ActivityInput.InputTypeEnum.Date, Active = true, PossibleValues = "" };
+            ActivityInput ai3 = new ActivityInput() { Title = "Moteno/Ni moteno ", InputType = ActivityInput.InputTypeEnum.Dropdown, Active = true, PossibleValues = "Moteno;;Ni moteno" };
+            ActivityInput ai4 = new ActivityInput() { Title = "Nizka/Srednja/Visoka", InputType = ActivityInput.InputTypeEnum.Dropdown, Active = true, PossibleValues = "Nizka;;Srednja;;Visoka" };
+            ActivityInput ai5 = new ActivityInput() { Title = "Sistolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "100;;300" };
+            ActivityInput ai6 = new ActivityInput() { Title = "Diastolièni (mm Hg)", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "100;;300" };
+            ActivityInput ai7 = new ActivityInput() { Title = "Udarci na minuto", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "30;;150" };
+            ActivityInput ai8 = new ActivityInput() { Title = "Vdihi na minuto", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "10;;150" };
+            ActivityInput ai9 = new ActivityInput() { Title = "st C", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "30;;45" };
+            ActivityInput ai10 = new ActivityInput() { Title = "kg", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "20;;500" };
+            ActivityInput ai11 = new ActivityInput() { Title = "Datum rojstva otroka", InputType = ActivityInput.InputTypeEnum.Date, Active = true, PossibleValues = "" };
+            ActivityInput ai12 = new ActivityInput() { Title = "Porodna teža otroka (g)", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "100;;20000" };
+            ActivityInput ai13 = new ActivityInput() { Title = "Porodna višina otroka (cm)", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "20;;100" };
+            ActivityInput ai14 = new ActivityInput() { Title = "cm", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "20;;300" };
+            ActivityInput ai15 = new ActivityInput() { Title = "Da/Ne", InputType = ActivityInput.InputTypeEnum.Dropdown, Active = true, PossibleValues = "Da;;Ne" };
+            ActivityInput ai16 = new ActivityInput() { Title = "Prebava", InputType = ActivityInput.InputTypeEnum.Dropdown, Active = true, PossibleValues = "Ni posebnosti;;Mikcija;;Defekacija;;Napenjanje;;Kolike;;Polivanje;;Bruhanje" };
+            ActivityInput ai17 = new ActivityInput() { Title = "Urin", InputType = ActivityInput.InputTypeEnum.Free, Active = true, PossibleValues = "" };
+            ActivityInput ai18 = new ActivityInput() { Title = "Blato", InputType = ActivityInput.InputTypeEnum.Free, Active = true, PossibleValues = "" };
+            ActivityInput ai19 = new ActivityInput() { Title = "Vid", InputType = ActivityInput.InputTypeEnum.Free, Active = true, PossibleValues = "" };
+            ActivityInput ai20 = new ActivityInput() { Title = "Vonj", InputType = ActivityInput.InputTypeEnum.Free, Active = true, PossibleValues = "" };
+            ActivityInput ai21 = new ActivityInput() { Title = "Sluh", InputType = ActivityInput.InputTypeEnum.Free, Active = true, PossibleValues = "" };
+            ActivityInput ai22 = new ActivityInput() { Title = "Okus", InputType = ActivityInput.InputTypeEnum.Free, Active = true, PossibleValues = "" };
+            ActivityInput ai23 = new ActivityInput() { Title = "Otip", InputType = ActivityInput.InputTypeEnum.Free, Active = true, PossibleValues = "" };
+            ActivityInput ai24 = new ActivityInput() { Title = "Št. rdeèih epruvet", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "0;;10" };
+            ActivityInput ai25 = new ActivityInput() { Title = "Št. modrih epruvet", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "0;;10" };
+            ActivityInput ai26 = new ActivityInput() { Title = "Št. rumenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "0;;10" };
+            ActivityInput ai27 = new ActivityInput() { Title = "Št. zelenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "0;;10" };
+            ActivityInput ai28 = new ActivityInput() { Title = "mmol/L", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "0;;100" };
+            ActivityInput ai29 = new ActivityInput() { Title = "%", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "0;;100" };
+            ActivityInput ai30 = new ActivityInput() { Title = "Da/Delno/Ne", InputType = ActivityInput.InputTypeEnum.Dropdown, Active = true, PossibleValues = "Da;;Delno;;Ne" };
+            ActivityInput ai31 = new ActivityInput() { Title = "Neodvisnost", InputType = ActivityInput.InputTypeEnum.Dropdown, Active = true, PossibleValues = "Samostojen;;Delno odvisen;;Povsem odvisen" };
+            ActivityInput ai32 = new ActivityInput() { Title = "Pomoè", InputType = ActivityInput.InputTypeEnum.Dropdown, Active = true, PossibleValues = "Svojci;;Drugi" };
             #endregion
 
             #region ActivityActivityInput
@@ -802,6 +749,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
 
             #endregion
 
+            #region Commented
+
             /*
                         ActivityInput ai1 = new ActivityInput() { Activity = a1, Title = "Prosti vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
             ActivityInput ai2 = new ActivityInput() { Activity = a2, Title = "Prosti vnos", InputType = ActivityInput.InputTypeEnum.Free, PossibleValues = "", Required = false, OneTime = false };
@@ -900,19 +849,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ActivityInput ai1003 = new ActivityInput() { Activity = a67, Title = "Št. rumenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10", Required = true, OneTime = false };
             ActivityInput ai1004 = new ActivityInput() { Activity = a67, Title = "Št. zelenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10", Required = true, OneTime = false };
 
- 
-
-
-
-
-
-
-
-
-
-
-
-             
               ActivityInput ai1 = new ActivityInput() { Activity = a1, Title = "Prosti vnos", Required = false };
             ActivityInput ai2 = new ActivityInput() { Activity = a2, Title = "Prosti vnos", Required = false };
             ActivityInput ai3 = new ActivityInput() { Activity = a3, Title = "Prosti vnos", Required = false };
@@ -1009,9 +945,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             ActivityInput ai1002 = new ActivityInput() { Activity = a67, Title = "Št. modrih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10", Required = true, OneTime = false };
             ActivityInput ai1003 = new ActivityInput() { Activity = a67, Title = "Št. rumenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10", Required = true, OneTime = false };
             ActivityInput ai1004 = new ActivityInput() { Activity = a67, Title = "Št. zelenih epruvet", InputType = ActivityInput.InputTypeEnum.Number, PossibleValues = "0;;10", Required = true, OneTime = false };
-
-             
              */
+
+            #endregion
 
         }
     }

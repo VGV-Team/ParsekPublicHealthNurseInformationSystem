@@ -34,6 +34,87 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
             return GenerateDropDown(converterToStrings, id, multiChoice);
         }
 
+        public static string GenerateDropDown(List<Contractor> list, string id, bool multiChoice = true)
+        {
+            List<string> converterToStrings = new List<string>();
+            foreach (var contractor in list)
+            {
+                converterToStrings.Add(contractor.FullNameWithCode);
+            }
+            return GenerateDropDown(converterToStrings, id, multiChoice);
+        }
+
+        public static string GenerateDropDown(List<Disease> list, string id, bool multiChoice = true)
+        {
+            List<string> converterToStrings = new List<string>();
+            foreach (var disease in list)
+            {
+                converterToStrings.Add(disease.FullNameWithCode);
+            }
+            return GenerateDropDown(converterToStrings, id, multiChoice);
+        }
+
+        public static string GenerateDropDown(List<Relationship> list, string id, bool multiChoice = true)
+        {
+            List<string> converterToStrings = new List<string>();
+            foreach (var relationship in list)
+            {
+                converterToStrings.Add(relationship.FullNameWithCode);
+            }
+            return GenerateDropDown(converterToStrings, id, multiChoice);
+        }
+
+        public static string GenerateDropDown(List<Service> list, string id, bool multiChoice = true)
+        {
+            List<string> converterToStrings = new List<string>();
+            foreach (var service in list)
+            {
+                converterToStrings.Add(service.FullNameWithCode);
+            }
+            return GenerateDropDown(converterToStrings, id, multiChoice);
+        }
+
+        public static string GenerateDropDown(List<Activity> list, string id, bool multiChoice = true)
+        {
+            List<string> converterToStrings = new List<string>();
+            foreach (var activity in list)
+            {
+                converterToStrings.Add(activity.FullNameWithCode);
+            }
+            return GenerateDropDown(converterToStrings, id, multiChoice);
+        }
+
+        public static string GenerateDropDown(List<ActivityInput> list, string id, bool multiChoice = true)
+        {
+            List<string> converterToStrings = new List<string>();
+            foreach (var activityInput in list)
+            {
+                converterToStrings.Add(activityInput.FullNameWithCode);
+            }
+            return GenerateDropDown(converterToStrings, id, multiChoice);
+        }
+
+        public static string GenerateDropDown(List<Role> list, string id, bool multiChoice = true)
+        {
+            List<string> converterToStrings = new List<string>();
+            foreach (var role in list)
+            {
+                converterToStrings.Add(role.FullNameWithCode);
+            }
+            return GenerateDropDown(converterToStrings, id, multiChoice);
+        }
+
+        public static string GenerateDropDown(List<JobTitle> list, string id, bool multiChoice = true)
+        {
+            List<string> converterToStrings = new List<string>();
+            foreach (var jobTitle in list)
+            {
+                converterToStrings.Add(jobTitle.FullNameWithCode);
+            }
+            return GenerateDropDown(converterToStrings, id, multiChoice);
+        }
+
+
         public static string GenerateDropDown(List<Patient> list, string id, bool multiChoice = true)
         {
             List<string> converterToStrings = new List<string>();

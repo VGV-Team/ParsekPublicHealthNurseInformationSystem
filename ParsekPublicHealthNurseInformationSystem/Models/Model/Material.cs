@@ -18,5 +18,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
 
         //public virtual ICollection<MaterialWorkOrder> MaterialWorkOrders { get; set; }
+
+        public bool Active { get; set; }
     }
 }

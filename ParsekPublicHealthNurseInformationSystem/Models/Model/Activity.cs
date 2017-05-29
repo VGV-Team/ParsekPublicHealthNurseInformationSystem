@@ -18,10 +18,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         //public virtual Service Service { get; set; }
 
+        public string FullNameWithCode => $"{ActivityTitle}  [{ActivityCode}] ({ActivityId})";
+
         public virtual ICollection<ServiceActivity> ServiceActivities { get; set; }
 
         public virtual ICollection<ActivityActivityInput> ActivityActivityInputs { get; set; }
 
-        
+        public bool Active { get; set; }
     }
 }

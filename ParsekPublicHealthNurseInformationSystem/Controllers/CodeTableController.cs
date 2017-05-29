@@ -52,6 +52,19 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             return View("Index", ctvm);
         }
 
+        public ActionResult SelectById(CodeTableViewModel.CodeCategory category, string SelectedId)
+        {
+            int[] ids = Globals.GetIdsFromString(SelectedId);
+            if (ids == null || ids.Length != 1)
+            {
+                CodeTableViewModel ctvm = new CodeTableViewModel();
+                ctvm.Category = category;
+                return RedirectToAction("Index", new { ctvm = ctvm});
+            }
+            
+            return RedirectToAction("Edit", new { category = category, id = ids.FirstOrDefault() });
+        }
+
         public ActionResult Edit(CodeTableViewModel.CodeCategory category, int? id)
         {
             CodeTableViewModel ctvm = new CodeTableViewModel();
@@ -124,48 +137,57 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             {
                 case CodeTableViewModel.CodeCategory.Medicine:
                     Medicine medicine = DB.Medicines.FirstOrDefault(x => x.MedicineId == id);
-                    if(medicine != null)
-                        DB.Medicines.Remove(medicine);
+                    if (medicine != null)
+                        medicine.Active = false;
+                        //DB.Medicines.Remove(medicine);
                     break;
                 case CodeTableViewModel.CodeCategory.Contractor:
                     Contractor contractor = DB.Contractors.FirstOrDefault(x => x.ContractorId == id);
                     if (contractor != null)
-                        DB.Contractors.Remove(contractor);
+                        contractor.Active = false;
+                        //DB.Contractors.Remove(contractor);
                     break;
                 case CodeTableViewModel.CodeCategory.Disease:
                     Disease disease = DB.Diseases.FirstOrDefault(x => x.DiseaseId == id);
                     if (disease != null)
-                        DB.Diseases.Remove(disease);
+                        disease.Active = false;
+                        //DB.Diseases.Remove(disease);
                     break;
                 case CodeTableViewModel.CodeCategory.Relationship:
                     Relationship relationship = DB.Relationships.FirstOrDefault(x => x.RelationshipId == id);
                     if (relationship != null)
-                        DB.Relationships.Remove(relationship);
+                        relationship.Active = false;
+                        //DB.Relationships.Remove(relationship);
                     break;
                 case CodeTableViewModel.CodeCategory.Service:
                     Service service = DB.Services.FirstOrDefault(x => x.ServiceId == id);
                     if (service != null)
-                        DB.Services.Remove(service);
+                        service.Active = false;
+                        //DB.Services.Remove(service);
                     break;
                 case CodeTableViewModel.CodeCategory.Activity:
                     Activity activity = DB.Activities.FirstOrDefault(x => x.ActivityId == id);
                     if (activity != null)
-                        DB.Activities.Remove(activity);
+                        activity.Active = false;
+                        //DB.Activities.Remove(activity);
                     break;
                 case CodeTableViewModel.CodeCategory.ActivityInput:
                     ActivityInput activityInput = DB.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == id);
                     if (activityInput != null)
-                        DB.ActivityInputs.Remove(activityInput);
+                        activityInput.Active = false;
+                        //DB.ActivityInputs.Remove(activityInput);
                     break;
                 case CodeTableViewModel.CodeCategory.Role:
                     Role role = DB.Roles.FirstOrDefault(x => x.RoleId == id);
                     if (role != null)
-                        DB.Roles.Remove(role);
+                        role.Active = false;
+                        //DB.Roles.Remove(role);
                     break;
                 case CodeTableViewModel.CodeCategory.JobTitle:
                     JobTitle jobTitle = DB.JobTitles.FirstOrDefault(x => x.JobTitleId == id);
                     if (jobTitle != null)
-                        DB.JobTitles.Remove(jobTitle);
+                        jobTitle.Active = false;
+                        //DB.JobTitles.Remove(jobTitle);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(category), category, null);

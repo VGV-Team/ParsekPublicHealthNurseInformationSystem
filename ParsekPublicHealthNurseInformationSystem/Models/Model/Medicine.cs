@@ -21,5 +21,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public string FullName => $"{Code}; {Title}";
 
         //public virtual ICollection<MedicineWorkOrder> MedicineWorkOrders { get; set; }
+
+        public bool Active { get; set; }
     }
 }

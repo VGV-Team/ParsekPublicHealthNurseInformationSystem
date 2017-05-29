@@ -13,12 +13,15 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         
         public string Title { get; set; }
 
+        public string FullNameWithCode => $"{Title} ({ActivityInputId})";
+
         public InputTypeEnum InputType { get; set; }
 
         // For dropdown only
         public string PossibleValues { get; set; }
 
-        public virtual ICollection<ActivityActivityInput> ActivityActivityInputs { get; set; }
+        public virtual ICollection<ActivityActivityInput> ActivityActivityInputs { get; set; } 
+
 
         // TODO: dropdown generation -- DONE?
 
@@ -33,5 +36,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
             [Display(Name = "Številka")]
             Number
         }
+
+        public bool Active { get; set; }
     }
 }

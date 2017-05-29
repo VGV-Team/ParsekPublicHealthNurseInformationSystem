@@ -27,6 +27,25 @@
 
 @if (Model?.Medicines != null)
 {
+    using (Html.BeginForm("SelectById", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Category)
+        <div class="form-group">
+            @Html.Raw(Globals.GenerateDropDown(Model.Medicines, "SelectedId", false))
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SelectedId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SelectedId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
     <div class="form-group">
         <table class="table table-hover">
             <thead>
@@ -56,6 +75,25 @@
 
 @if (Model?.Contractors != null)
 {
+    using (Html.BeginForm("SelectById", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Category)
+        <div class="form-group">
+            @Html.Raw(Globals.GenerateDropDown(Model.Contractors, "SelectedId", false))
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SelectedId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SelectedId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
     <div class="form-group">
         <table class="table table-hover">
             <thead>
@@ -89,6 +127,25 @@
 
 @if (Model?.Diseases != null)
 {
+    using (Html.BeginForm("SelectById", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Category)
+        <div class="form-group">
+            @Html.Raw(Globals.GenerateDropDown(Model.Diseases, "SelectedId", false))
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SelectedId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SelectedId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
     <div class="form-group">
         <table class="table table-hover">
             <thead>
@@ -118,6 +175,25 @@
 
 @if (Model?.Relationships != null)
 {
+    using (Html.BeginForm("SelectById", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Category)
+        <div class="form-group">
+            @Html.Raw(Globals.GenerateDropDown(Model.Relationships, "SelectedId", false))
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SelectedId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SelectedId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
     <div class="form-group">
         <table class="table table-hover">
             <thead>
@@ -144,6 +220,25 @@
 
 @if (Model?.Services != null)
 {
+    using (Html.BeginForm("SelectById", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Category)
+        <div class="form-group">
+            @Html.Raw(Globals.GenerateDropDown(Model.Services, "SelectedId", false))
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SelectedId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SelectedId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
     <div class="form-group">
         <table class="table table-hover">
             <thead>
@@ -181,6 +276,25 @@
 
 @if (Model?.Activities != null)
 {
+    using (Html.BeginForm("SelectById", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Category)
+        <div class="form-group">
+            @Html.Raw(Globals.GenerateDropDown(Model.Activities, "SelectedId", false))
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SelectedId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SelectedId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
     <div class="form-group">
         <table class="table table-hover">
             <thead>
@@ -210,13 +324,32 @@
 
 @if (Model?.ActivityInputs != null)
 {
+    using (Html.BeginForm("SelectById", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Category)
+        <div class="form-group">
+            @Html.Raw(Globals.GenerateDropDown(Model.ActivityInputs, "SelectedId", false))
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SelectedId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SelectedId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
     <div class="form-group">
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Naziv</th>
                     <th>Tip</th>
-                    <td>Možne vrednosti</td>
+                    <th>Možne vrednosti</th>
                     <th>Možnosti</th>
                 </tr>
             </thead>
@@ -259,6 +392,25 @@
 
 @if (Model?.Roles != null)
 {
+    using (Html.BeginForm("SelectById", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Category)
+        <div class="form-group">
+            @Html.Raw(Globals.GenerateDropDown(Model.Roles, "SelectedId", false))
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SelectedId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SelectedId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
     <div class="form-group">
         <table class="table table-hover">
             <thead>
@@ -286,6 +438,25 @@
 
 @if (Model?.JobTitles != null)
 {
+    using (Html.BeginForm("SelectById", "CodeTable", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Category)
+        <div class="form-group">
+            @Html.Raw(Globals.GenerateDropDown(Model.JobTitles, "SelectedId", false))
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SelectedId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SelectedId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
     <div class="form-group">
         <table class="table table-hover">
             <thead>

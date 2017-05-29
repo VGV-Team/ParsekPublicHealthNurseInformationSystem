@@ -14,6 +14,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public string Title { get; set; }
 
+        public string FullNameWithCode => $"{Title} ({JobTitleId})";
+
         public virtual ICollection<Employee> Employees { get; set; }
 
         public const string Doctor = "Doktor";
@@ -35,5 +37,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
             Coworker // Sodelavec
         };
         */
+
+        public bool Active { get; set; }
     }
 }

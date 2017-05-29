@@ -13,6 +13,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public string Name { get; set; }
 
+        public string FullNameWithCode => $"{Name} ({RelationshipId})";
+
         public virtual ICollection<Patient> Patients { get; set; }
+
+        public bool Active { get; set; }
     }
 }
