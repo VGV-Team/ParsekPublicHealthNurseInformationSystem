@@ -127,6 +127,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     lvm.ViewMessage = "E-mail ni aktiviran";
                     return Form(lvm);
                 }
+
+                if(user.Deleted == true)
+                {
+                    lvm.ViewMessage = "Uporabnik je izbrisan";
+                    return Form(lvm);
+                }
+
                 user.LastLastLogin = user.LastLogin;
                 user.LastLogin = DateTime.Now;
 

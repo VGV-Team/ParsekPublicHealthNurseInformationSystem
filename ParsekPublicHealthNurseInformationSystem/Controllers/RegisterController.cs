@@ -145,6 +145,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 user.EmailExpire = emailExpire;
                 user.LastLastLogin = DateTime.Now;
                 user.LastLogin = DateTime.Now;
+                user.Deleted = false;
 
                 Models.Patient patient = new Models.Patient();
                 /*if (rvm.JobTitle == Employee.JobTitle.HealthNurse)

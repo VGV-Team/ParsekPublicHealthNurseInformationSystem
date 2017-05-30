@@ -28,6 +28,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [DataType(DataType.Date)]
         public DateTime LastLogin { get; set; }
 
+        public bool Deleted { get; set; }
 
         public virtual Role Role { get; set; }
 

@@ -60,9 +60,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             }
             vm.Surname = patient.Surname;
 
-            vm.Districts = DB.Districts.ToList();
-            vm.Relationships = DB.Relationships.ToList();
-            vm.PostOffices = DB.PostOffices.ToList();
+            vm.Districts = DB.Districts.Where(x => x.Active).ToList();
+            vm.Relationships = DB.Relationships.Where(x => x.Active).ToList();
+            vm.PostOffices = DB.PostOffices.Where(x => x.Active).ToList();
 
 
             for (int i = 0; i < patient.ChildPatients.Count; i++)
@@ -71,13 +71,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 cpd.PatientId = patient.ChildPatients.ElementAt(i).PatientId;
                 cpd.Address = patient.ChildPatients.ElementAt(i).Address;
                 cpd.BirthDate = patient.ChildPatients.ElementAt(i).BirthDate;
-                cpd.Districts = DB.Districts.ToList();
+                cpd.Districts = DB.Districts.Where(x => x.Active || x.DistrictId == patient.ChildPatients.ElementAt(i).District.DistrictId).ToList();
                 cpd.Gender = patient.ChildPatients.ElementAt(i).Gender;
                 cpd.Name = patient.ChildPatients.ElementAt(i).Name;
                 cpd.Number = patient.ChildPatients.ElementAt(i).CardNumber;
                 cpd.PhoneNumber = patient.ChildPatients.ElementAt(i).PhoneNumber;
-                cpd.PostOffices = DB.PostOffices.ToList();
-                cpd.Relationships = DB.Relationships.ToList();
+                cpd.PostOffices = DB.PostOffices.Where(x => x.Active || x.PostOfficeId == patient.ChildPatients.ElementAt(i).PostOffice.PostOfficeId).ToList();
+                cpd.Relationships = DB.Relationships.Where(x => x.Active || x.RelationshipId == patient.ChildPatients.ElementAt(i).ParentPatientRelationship.RelationshipId).ToList();
                 //var Rel = patient.ChildPatients.ElementAt(i).ParentPatientRelationship;
                 cpd.SelectedRelationshipId = patient.ChildPatients.ElementAt(i).ParentPatientRelationship.RelationshipId;
                 cpd.Surname = patient.ChildPatients.ElementAt(i).Surname;
@@ -202,6 +202,27 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             
             return Index(vm);
+        }
+
+
+        public ActionResult DeletePatient(int? patientId)
+        {
+            if (patientId != null && patientId > 0)
+            {
+                try
+                {
+                    DB.Patients.Find(patientId).User.FirstOrDefault().Deleted = true;
+                    DB.SaveChanges();
+
+                    Session["user"] = null;
+                }
+                catch(Exception e)
+                {
+                    //ERROR
+                }
+            }
+
+            return Redirect("/");
         }
 
         

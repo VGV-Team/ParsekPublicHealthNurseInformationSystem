@@ -177,7 +177,14 @@
                     @Html.ValidationMessageFor(model => model.SelectedRelationshipId, "", new { @class = "text-danger" })
                 </div>
             </div>
+
         </div>
+
+
+        <div class="form-group">
+            <span class="control-label col-md-2">@Html.ActionLink("Izbriši račun", "DeletePatient", new { patientId = Model.PatientId })</span>
+        </div>
+        
 
         <h3>Moji pacienti</h3>
         <hr />

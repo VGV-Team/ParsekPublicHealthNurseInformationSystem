@@ -17,7 +17,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         public ActionResult Index()
         {
             NurseReplacementViewModel nrvm = new NurseReplacementViewModel();
-            nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
+            nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse && x.User.Active == true).ToList();
             return View("Index", nrvm);
         }
 
@@ -92,13 +92,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 DB.SaveChanges();
                 nrvm.ViewMessage = "Nadomestitev uspešna";
-                nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
+                nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse && x.User.Active == true).ToList();
                 return View("Index", nrvm);
             }
             catch (Exception e)
             {
                 nrvm.ViewMessage = "Prišlo je do hujše napake!";
-                nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
+                nrvm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse && x.User.Active == true).ToList();
                 return View("Index", nrvm);
             }
         }

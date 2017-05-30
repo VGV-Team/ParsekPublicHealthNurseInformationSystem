@@ -21,7 +21,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public bool PreventiveVisit { get; set; }
 
-        public string FullNameWithCode => $"{ServiceTitle}  [{ServiceCode}] ({ServiceId})";
+        public string FullNameWithCode => Active ? $"{ServiceTitle}  [{ServiceCode}] ({ServiceId})" : $"{ServiceTitle}  [{ServiceCode} IZBRISANO] ({ServiceId})";
 
         public virtual ICollection<WorkOrder> WorkOrders { get; set; }
 

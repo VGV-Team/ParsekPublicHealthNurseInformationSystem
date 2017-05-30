@@ -176,10 +176,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705301047490_Initial.cs" />
-    <Compile Include="Migrations\201705301047490_Initial.Designer.cs">
-      <DependentUpon>201705301047490_Initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Globals.cs" />
     <Compile Include="Models\Model\Absence.cs" />
@@ -367,11 +363,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705301047490_Initial.resx">
-      <DependentUpon>201705301047490_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

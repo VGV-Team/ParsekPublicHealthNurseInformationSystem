@@ -77,10 +77,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             // TODO: ...
 
             // Post Office
-            var p1 = new PostOffice { Title = "Ajdovšèina", Number = "5270" };
-            var p2 = new PostOffice { Title = "Bled", Number = "4260" }; // kremšnite
-            var p3 = new PostOffice { Title = "Litija", Number = "1270" };
-            var p4 = new PostOffice { Title = "Ljubljana", Number = "1000" };
+            var p1 = new PostOffice { Title = "Ajdovšèina", Number = "5270", Active = true };
+            var p2 = new PostOffice { Title = "Bled", Number = "4260", Active = true }; // kremšnite
+            var p3 = new PostOffice { Title = "Litija", Number = "1270", Active = true };
+            var p4 = new PostOffice { Title = "Ljubljana", Number = "1000", Active = true };
             context.PostOffices.AddOrUpdate(p => p.Number, p1, p2, p3, p4);
             // TODO: ...
 
@@ -92,14 +92,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             // TODO: ...
 
             // Districts
-            var di1 = new District { Name = "Okoliš 1", Lat = (decimal)100.0, Lon = (decimal)100.0, Contractor = c1 };
-            var di2 = new District { Name = "Okoliš 2", Lat = (decimal)200.0, Lon = (decimal)200.0, Contractor = c1 };
-            var di3 = new District { Name = "Okoliš 3", Lat = (decimal)300.0, Lon = (decimal)300.0, Contractor = c1 };
-            var di4 = new District { Name = "Okoliš 4", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c1 };
-            var di5 = new District { Name = "Okoliš 5", Lat = (decimal)400.0, Lon = (decimal)999.0 };
-            var di6 = new District { Name = "Okoliš 6", Lat = (decimal)400.0, Lon = (decimal)999.0 };
-            var di7 = new District { Name = "Okoliš 7", Lat = (decimal)400.0, Lon = (decimal)999.0 };
-            var di8 = new District { Name = "Okoliš 8", Lat = (decimal)400.0, Lon = (decimal)999.0 };
+            var di1 = new District { Name = "Okoliš 1", Lat = (decimal)100.0, Lon = (decimal)100.0, Contractor = c1, Active = true };
+            var di2 = new District { Name = "Okoliš 2", Lat = (decimal)200.0, Lon = (decimal)200.0, Contractor = c1, Active = true };
+            var di3 = new District { Name = "Okoliš 3", Lat = (decimal)300.0, Lon = (decimal)300.0, Contractor = c1, Active = true };
+            var di4 = new District { Name = "Okoliš 4", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c1, Active = true };
+            var di5 = new District { Name = "Okoliš 5", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c2, Active = true };
+            var di6 = new District { Name = "Okoliš 6", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c2, Active = true };
+            var di7 = new District { Name = "Okoliš 7", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c2, Active = true };
+            var di8 = new District { Name = "Okoliš 8", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c2, Active = true };
 
             /*di5.Contractor = c3;
             di6.Contractor = c3;
@@ -181,7 +181,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Password = "admin",
                 Active = true,
                 LastLastLogin = DateTime.Now,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                Deleted = false
             };
             User Doctor = new User
             {
@@ -192,7 +193,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Password = "doctor",
                 Active = true,
                 LastLastLogin = DateTime.Now,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                Deleted = false
             };
             User Nurse1 = new User
             {
@@ -203,7 +205,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Password = "nurse1",
                 Active = true,
                 LastLastLogin = DateTime.Now,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                Deleted = false
             };
             User Nurse2 = new User
             {
@@ -214,7 +217,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Password = "nurse2",
                 Active = true,
                 LastLastLogin = DateTime.Now,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                Deleted = false
             };
             User Nurse3 = new User
             {
@@ -225,7 +229,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Password = "nurse3",
                 Active = true,
                 LastLastLogin = DateTime.Now,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                Deleted = false
             };
             User Nurse4 = new User
             {
@@ -236,7 +241,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Password = "nurse4",
                 Active = true,
                 LastLastLogin = DateTime.Now,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                Deleted = false
             };
             User Patient1 = new User();
             Patient1.Employee = null;
@@ -248,6 +254,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient1.Patient = patient1;
             Patient1.LastLastLogin = DateTime.Now;
             Patient1.LastLogin = DateTime.Now;
+            Patient1.Deleted = false;
             User Patient2 = new User();
             Patient2.Employee = null;
             Patient2.Patient = null;
@@ -258,6 +265,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient2.Patient = patient2;
             Patient2.LastLastLogin = DateTime.Now;
             Patient2.LastLogin = DateTime.Now;
+            Patient2.Deleted = false;
             User Patient3 = new User();
             Patient3.Employee = null;
             Patient3.Patient = null;
@@ -268,6 +276,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient3.Patient = patient3;
             Patient3.LastLastLogin = DateTime.Now;
             Patient3.LastLogin = DateTime.Now;
+            Patient3.Deleted = false;
             User Head = new User();
             Head.Employee = null;
             Head.Patient = null;
@@ -277,6 +286,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Head.Active = true;
             Head.LastLastLogin = DateTime.Now;
             Head.LastLogin = DateTime.Now;
+            Head.Deleted = false;
             context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse1, Nurse2, Nurse3, Nurse4, Patient1, Patient2, Patient3, Head);
 
 

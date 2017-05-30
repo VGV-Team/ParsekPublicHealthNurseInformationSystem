@@ -23,7 +23,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 vm = new WorkOrderFilterViewModel();
             }
 
-            vm.Issuers = DB.Employees.Where(e => e.JobTitle.Title == JobTitle.Doctor || e.JobTitle.Title == JobTitle.Head).ToList();
+            vm.Issuers = DB.Employees.Where(e => (e.JobTitle.Title == JobTitle.Doctor || e.JobTitle.Title == JobTitle.Head)).ToList();
             vm.Patients = DB.Patients.ToList();
             vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.JobTitle.Title == JobTitle.HealthNurse).ToList();
 
@@ -113,9 +113,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 vm = new WorkOrderFilterViewModel();
             }
 
-            vm.Issuers = DB.Employees.Where(e => e.JobTitle.Title == JobTitle.Doctor || e.JobTitle.Title == JobTitle.Head).ToList();
+            vm.Issuers = DB.Employees.Where(e => (e.JobTitle.Title == JobTitle.Doctor || e.JobTitle.Title == JobTitle.Head)).ToList();
             vm.Patients = DB.Patients.ToList();
             vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.JobTitle.Title == JobTitle.HealthNurse).ToList();
+
 
             vm.WorkOrders = DB.WorkOrders.ToList();
             vm.CanDelete = new List<bool>();

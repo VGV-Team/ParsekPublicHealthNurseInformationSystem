@@ -123,6 +123,9 @@
                     <input type="submit" value="Spremeni podatke" class="btn btn-default" />
                 </div>
             </div>
+
+            @Html.ActionLink("Izbriši zaposlenega", "DeleteUser", new { employeeId = Model.Id })
+
         </div>
     }
 }
