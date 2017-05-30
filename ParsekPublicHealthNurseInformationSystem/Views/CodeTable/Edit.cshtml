@@ -13,12 +13,15 @@
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.IsNew)
         @Html.HiddenFor(m => m.Medicine.MedicineId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Medicine.Code, "Koda", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Medicine.Code, new { htmlAttributes = new { @class = "form-control" } } )
+                @(Model.IsNew ? @Html.EditorFor(model => model.Medicine.Code, new { htmlAttributes = new { @class = "form-control" } }) :
+                                @Html.EditorFor(model => model.Medicine.Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }))
+
                 @Html.ValidationMessageFor(model => model.Medicine.Code, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.Medicine.Title, "Naziv", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -41,12 +44,14 @@
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.IsNew)
         @Html.HiddenFor(m => m.Contractor.ContractorId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Contractor.Number, "Številka", htmlAttributes: new { @class = "control -label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Contractor.Number, new { htmlAttributes = new { @class = "form-control" } })
+                @(Model.IsNew ? @Html.EditorFor(model => model.Contractor.Number, new { htmlAttributes = new { @class = "form-control" } }) :
+                                @Html.EditorFor(model => model.Contractor.Number, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }))
                 @Html.ValidationMessageFor(model => model.Contractor.Number, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.Contractor.Title, "Naziv", htmlAttributes: new { @class = "control -label col-md-2" })
@@ -79,12 +84,14 @@
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.IsNew)
         @Html.HiddenFor(m => m.Disease.DiseaseId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Disease.Code, "Koda", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Disease.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @(Model.IsNew ? @Html.EditorFor(model => model.Disease.Code, new { htmlAttributes = new { @class = "form-control" } }) :
+                                @Html.EditorFor(model => model.Disease.Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }))
                 @Html.ValidationMessageFor(model => model.Disease.Code, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.Disease.Description, "Opis", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -107,6 +114,7 @@
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.IsNew)
         @Html.HiddenFor(m => m.Relationship.RelationshipId)
 
         <div class="form-group">
@@ -130,12 +138,14 @@
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.IsNew)
         @Html.HiddenFor(m => m.Service.ServiceId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Service.ServiceCode, "Koda", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Service.ServiceCode, new { htmlAttributes = new { @class = "form-control" } })
+                @(Model.IsNew ? @Html.EditorFor(model => model.Service.ServiceCode, new { htmlAttributes = new { @class = "form-control" } }) :
+                                @Html.EditorFor(model => model.Service.ServiceCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }))
                 @Html.ValidationMessageFor(model => model.Service.ServiceCode, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.Service.ServiceTitle, "Naziv", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -179,12 +189,14 @@
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.IsNew)
         @Html.HiddenFor(m => m.Activity.ActivityId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Activity.ActivityCode, "Koda", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Activity.ActivityCode, new { htmlAttributes = new { @class = "form-control" } })
+                @(Model.IsNew ? @Html.EditorFor(model => model.Activity.ActivityCode, new { htmlAttributes = new { @class = "form-control" } }) :
+                                @Html.EditorFor(model => model.Activity.ActivityCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } } ))
                 @Html.ValidationMessageFor(model => model.Activity.ActivityCode, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.Activity.ActivityTitle, "Naziv", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -207,6 +219,7 @@
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.IsNew)
         @Html.HiddenFor(m => m.ActivityInput.ActivityInputId)
 
         <div class="form-group">
@@ -240,6 +253,7 @@
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.IsNew)
         @Html.HiddenFor(m => m.Role.RoleId)
 
         <div class="form-group">
@@ -263,6 +277,7 @@
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(m => m.Category)
+        @Html.HiddenFor(m => m.IsNew)
         @Html.HiddenFor(m => m.JobTitle.JobTitleId)
 
         <div class="form-group">

@@ -22,7 +22,6 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public List<Role> Roles { get; set; }
         public List<JobTitle> JobTitles { get; set; }
 
-
         public Medicine Medicine { get; set; }
         public Contractor Contractor { get; set; }
         public Disease Disease { get; set; }
@@ -35,6 +34,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         [Display(Name = "Iskanje:")]
         public string SelectedId { get; set; }
+        public bool IsNew { get; set; }
 
         public List<PostOffice> PostOffices { get; set; }
 
@@ -59,5 +59,9 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
             [Display(Name = "Šifranti zdravstvenih delavcev")]
             JobTitle
         }
+
+
+        
+
     }
 }
