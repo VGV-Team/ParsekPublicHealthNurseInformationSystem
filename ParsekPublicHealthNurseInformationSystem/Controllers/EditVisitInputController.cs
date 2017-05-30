@@ -31,7 +31,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.ActivityInputList = new List<Activity>();
             vm.InputActivityList = new List<Activity>();
 
-            vm.VisitTypesList = DB.Services.ToList();
+            vm.VisitTypesList = DB.Services.Where(s => s.Active == true).ToList();
             
             
             if (vm.SelectedVisitType != null && vm.SelectedVisitType > 0)
@@ -112,7 +112,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     Models.Activity Act = DB.Activities.Find(vm.SelectedInputActivity);
                     Models.Service Serv = DB.Services.Find(vm.SelectedVisitType);
 
-                    Models.ServiceActivity SA = DB.ServiceActivities.FirstOrDefault(sa => sa.Activity.ActivityId == Act.ActivityId && sa.Service.ServiceId == Serv.ServiceId && sa.Active == true);
+                    Models.ServiceActivity SA = DB.ServiceActivities.FirstOrDefault(sa => sa.Activity.ActivityId == Act.ActivityId && sa.Service.ServiceId == Serv.ServiceId && sa.Active == false);
 
                     if (SA == null)
                     {

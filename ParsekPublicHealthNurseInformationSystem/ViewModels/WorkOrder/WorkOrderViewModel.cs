@@ -18,8 +18,8 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public WorkOrderViewModel()
         {
             NumberOfVisits = 1;
-            AllPatients = DB.Patients.Where(x => x.ParentPatient==null).ToList();
-            AllMedicines = DB.Medicines.ToList();
+            AllPatients = DB.Patients.Where(x => x.ParentPatient==null && x.User.FirstOrDefault().Deleted == false).ToList();
+            AllMedicines = DB.Medicines.Where(m => m.Active == true).ToList();
         }
 
         [Display(Name = "Dodatni pacienti")]

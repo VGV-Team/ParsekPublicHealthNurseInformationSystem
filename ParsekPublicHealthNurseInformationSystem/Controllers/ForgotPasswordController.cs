@@ -66,6 +66,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     return Index(vm);
                 }
 
+                if (user.Deleted == true)
+                {
+                    vm.ViewMessage = "Uporabniški račun je izbrisan";
+                    return Index(vm);
+                }
+
 
                 user.Password = vm.Password;
                 DateTime emailExpire = DateTime.Now.AddHours(1);

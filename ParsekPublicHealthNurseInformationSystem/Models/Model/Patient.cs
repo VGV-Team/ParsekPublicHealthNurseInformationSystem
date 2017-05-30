@@ -58,7 +58,19 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         public virtual ICollection<ActivityInputData> ActivityInputDatas { get; set; }
 
 
-        public string DisplayName { get { return string.Format("{0} {1} [{2}]", Name, Surname, CardNumber); } }
+        public string DisplayName {
+            get {
+                if (User.FirstOrDefault() != null && User.FirstOrDefault().Deleted == true)
+                {
+                    return string.Format("{0} {1} [{2} IZBRISAN]", Name, Surname, CardNumber);
+                }
+                else
+                {
+                    return string.Format("{0} {1} [{2}]", Name, Surname, CardNumber);
+                }
+                
+            }
+        }
 
         public enum GenderEnum
         {

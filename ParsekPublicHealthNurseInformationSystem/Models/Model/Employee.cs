@@ -32,11 +32,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
         public virtual ICollection<Absence> Absences { get; set; } //Only nurse
 
-        public string DisplayName => $"{Name} {Surname} [{Number}]";
+        public string DisplayName => User.Deleted ? $"{Name} {Surname} [{Number} IZBRISAN]" : $"{Name} {Surname} [{Number}]";
 
         public string FullNameWithCode => $"{Surname} {Name} - ({EmployeeId})" + (JobTitle.Title == JobTitle.HealthNurse ? $" - {District.Name}" : "");
 
-        public string FullName => $"{Surname} {Name}";
+        public string FullName => User.Deleted ? $"{Surname} {Name}" : $"{Surname} {Name}";
+
     }
     
 }

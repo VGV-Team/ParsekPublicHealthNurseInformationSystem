@@ -17,7 +17,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         public ActionResult Index()
         {
             EndReplacementViewModel ervm = new EndReplacementViewModel();
-            ervm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
+            ervm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse && x.User.Active == true).ToList();
             ervm.Absences = new List<Absence>();
             ervm.CanDelete = new List<bool>();
             return View("Index", ervm);
@@ -51,7 +51,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             
             //ervm.AllNurses = DB.Employees.Where(x => x.Title == Employee.JobTitle.HealthNurse).ToList();
             EndReplacementViewModel ervm = new EndReplacementViewModel();
-            ervm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
+            ervm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse && x.User.Active == true).ToList();
             ervm.Absences = new List<Absence>();
             ervm.CanDelete = new List<bool>();
             ervm.ViewMessage = "Konec nadomeščanja uspešna";
@@ -66,7 +66,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             ervm.CanDelete = new List<bool>();
             if (ervm.NurseId.IsNullOrWhiteSpace())
             {
-                ervm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
+                ervm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse && x.User.Active == true).ToList();
                 ervm.ViewMessage = "Ponovno preverite vnešene podatke!";
                 return View("Index", ervm);
             }
@@ -75,7 +75,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             if (NurseId == null || NurseId.Length != 1)
             {
-                ervm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
+                ervm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse && x.User.Active == true).ToList();
                 ervm.ViewMessage = "Preverite vnešeno sestro";
                 return View("Index", ervm);
             }
@@ -86,7 +86,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             if (ervm.Absences.Count == 0)
             {
-                ervm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
+                ervm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse && x.User.Active == true).ToList();
                 //ervm.ViewMessage = "Izbrana sestra ni nikdar odsotna";
                 return View("Index", ervm);
             }
@@ -95,7 +95,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             for (int i = 0; i < ervm.Absences.Count; i++)
                 ervm.CanDelete.Add(true);
 
-            ervm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse).ToList();
+            ervm.AllNurses = DB.Employees.Where(x => x.JobTitle.Title == JobTitle.HealthNurse && x.User.Active == true).ToList();
             return View("Index", ervm);
 
 

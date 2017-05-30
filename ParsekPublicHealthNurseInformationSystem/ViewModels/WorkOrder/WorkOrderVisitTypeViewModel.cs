@@ -20,7 +20,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 
         public void CreateWorkOrderVisitTypeViewModel(bool isDoctor)
         {
-            Services = isDoctor ? DB.Services.ToList() : DB.Services.Where(x => x.PreventiveVisit == true).ToList();
+            Services = isDoctor ? DB.Services.Where(s => s.Active == true).ToList() : DB.Services.Where(x => x.PreventiveVisit == true && x.Active == true).ToList();
         }
     }
 }

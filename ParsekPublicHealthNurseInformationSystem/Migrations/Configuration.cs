@@ -77,10 +77,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             // TODO: ...
 
             // Post Office
-            var p1 = new PostOffice { Title = "Ajdovšèina", Number = "5270" };
-            var p2 = new PostOffice { Title = "Bled", Number = "4260" }; // kremšnite
-            var p3 = new PostOffice { Title = "Litija", Number = "1270" };
-            var p4 = new PostOffice { Title = "Ljubljana", Number = "1000" };
+            var p1 = new PostOffice { Title = "Ajdovšèina", Number = "5270", Active = true };
+            var p2 = new PostOffice { Title = "Bled", Number = "4260", Active = true }; // kremšnite
+            var p3 = new PostOffice { Title = "Litija", Number = "1270", Active = true };
+            var p4 = new PostOffice { Title = "Ljubljana", Number = "1000", Active = true };
             context.PostOffices.AddOrUpdate(p => p.Number, p1, p2, p3, p4);
             // TODO: ...
 
@@ -92,14 +92,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             // TODO: ...
 
             // Districts
-            var di1 = new District { Name = "Okoliš 1", Lat = (decimal)100.0, Lon = (decimal)100.0, Contractor = c1 };
-            var di2 = new District { Name = "Okoliš 2", Lat = (decimal)200.0, Lon = (decimal)200.0, Contractor = c1 };
-            var di3 = new District { Name = "Okoliš 3", Lat = (decimal)300.0, Lon = (decimal)300.0, Contractor = c1 };
-            var di4 = new District { Name = "Okoliš 4", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c1 };
-            var di5 = new District { Name = "Okoliš 5", Lat = (decimal)400.0, Lon = (decimal)999.0 };
-            var di6 = new District { Name = "Okoliš 6", Lat = (decimal)400.0, Lon = (decimal)999.0 };
-            var di7 = new District { Name = "Okoliš 7", Lat = (decimal)400.0, Lon = (decimal)999.0 };
-            var di8 = new District { Name = "Okoliš 8", Lat = (decimal)400.0, Lon = (decimal)999.0 };
+            var di1 = new District { Name = "Okoliš 1", Lat = (decimal)100.0, Lon = (decimal)100.0, Contractor = c1, Active = true };
+            var di2 = new District { Name = "Okoliš 2", Lat = (decimal)200.0, Lon = (decimal)200.0, Contractor = c1, Active = true };
+            var di3 = new District { Name = "Okoliš 3", Lat = (decimal)300.0, Lon = (decimal)300.0, Contractor = c1, Active = true };
+            var di4 = new District { Name = "Okoliš 4", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c1, Active = true };
+            var di5 = new District { Name = "Okoliš 5", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c2, Active = true };
+            var di6 = new District { Name = "Okoliš 6", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c2, Active = true };
+            var di7 = new District { Name = "Okoliš 7", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c2, Active = true };
+            var di8 = new District { Name = "Okoliš 8", Lat = (decimal)400.0, Lon = (decimal)999.0, Contractor = c2, Active = true };
 
             /*di5.Contractor = c3;
             di6.Contractor = c3;

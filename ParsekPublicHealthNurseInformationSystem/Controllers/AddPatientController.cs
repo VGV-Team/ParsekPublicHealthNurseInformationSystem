@@ -32,9 +32,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             ModelState.Remove("PostOffices");
             ModelState.Remove("Districts");
 
-            acpvm.Districts = DB.Districts.ToList();
-            acpvm.PostOffices = DB.PostOffices.ToList();
-            acpvm.Relationships = DB.Relationships.ToList();
+            acpvm.Districts = DB.Districts.Where(x => x.Active == true).ToList();
+            acpvm.PostOffices = DB.PostOffices.Where(x => x.Active == true).ToList();
+            acpvm.Relationships = DB.Relationships.Where(x => x.Active == true).ToList();
 
             if (Session["user"] != null)
             {

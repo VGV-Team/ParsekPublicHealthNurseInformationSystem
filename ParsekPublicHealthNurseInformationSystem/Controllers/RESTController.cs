@@ -20,7 +20,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         public JsonResult GetDistrictsByContractorId(int ID)
         {
 
-            List<District> Districts = DB.Districts.Where(d => d.Contractor.ContractorId == ID).ToList();
+            List<District> Districts = DB.Districts.Where(d => d.Contractor.ContractorId == ID && d.Active == true).ToList();
 
             List<int> IDs = new List<int>();
             List<string> Names = new List<string>();

@@ -32,7 +32,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.ActivityInputList = new List<ActivityInput>();
             vm.ActivityActivityInputList = new List<ActivityActivityInput>();
 
-            vm.ActivityList = DB.Activities.ToList();
+            vm.ActivityList = DB.Activities.Where(a => a.Active == true).ToList();
 
 
             if (vm.SelectedActivity != null && vm.SelectedActivity > 0)
