@@ -239,6 +239,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 acvm.Districts = DB.Districts.ToList();
                 acvm.JobTitleList = DB.JobTitles.ToList();
                 acvm.EmployeeId = employee.FullNameWithCode;
+                acvm.SelectedJobTitleId = employee.JobTitle.JobTitleId;
                 ModelState.Clear();
                 acvm.ViewMessage = "Sprememba profila uspešna";
                 return View("ChangeProfile", acvm);
