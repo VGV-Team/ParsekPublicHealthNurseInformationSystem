@@ -204,6 +204,27 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             return Index(vm);
         }
 
+
+        public ActionResult DeletePatient(int? patientId)
+        {
+            if (patientId != null && patientId > 0)
+            {
+                try
+                {
+                    DB.Patients.Find(patientId).User.FirstOrDefault().Deleted = true;
+                    DB.SaveChanges();
+
+                    Session["user"] = null;
+                }
+                catch(Exception e)
+                {
+                    //ERROR
+                }
+            }
+
+            return Redirect("/");
+        }
+
         
 
     }

@@ -147,10 +147,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         public ActionResult ChangeProfile()
         {
             AdminConsoleViewModel acvm = new AdminConsoleViewModel();
-            acvm.AllEmployees = DB.Employees.ToList();
+            acvm.AllEmployees = DB.Employees.Where(e => e.User.Deleted == false).ToList();
             acvm.Contractors = DB.Contractors.ToList();
             acvm.Districts = DB.Districts.ToList();
             acvm.JobTitleList = DB.JobTitles.ToList();
+            acvm.EmployeeId = null;
+            ModelState.Clear();
             return View("ChangeProfile", acvm);
         }
 
@@ -161,7 +163,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             {
                 if (acvm.EmployeeId.IsNullOrWhiteSpace())
                 {
-                    acvm.AllEmployees = DB.Employees.ToList();
+                    acvm.AllEmployees = DB.Employees.Where(e => e.User.Deleted == false).ToList();
                     acvm.Contractors = DB.Contractors.ToList();
                     acvm.Districts = DB.Districts.ToList();
                     acvm.JobTitleList = DB.JobTitles.ToList();
@@ -173,7 +175,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
                 if (EmployeeId == null || EmployeeId.Length != 1)
                 {
-                    acvm.AllEmployees = DB.Employees.ToList();
+                    acvm.AllEmployees = DB.Employees.Where(e => e.User.Deleted == false).ToList();
                     acvm.Contractors = DB.Contractors.ToList();
                     acvm.Districts = DB.Districts.ToList();
                     acvm.JobTitleList = DB.JobTitles.ToList();
@@ -194,7 +196,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 acvm.PhoneNumber = employee.PhoneNumber;
                 acvm.Email = employee.User.Email;
                 ModelState.Clear();
-                acvm.AllEmployees = DB.Employees.ToList();
+                acvm.AllEmployees = DB.Employees.Where(e => e.User.Deleted == false).ToList();
                 acvm.Contractors = DB.Contractors.ToList();
                 acvm.Districts = DB.Districts.ToList();
                 acvm.JobTitleList = DB.JobTitles.ToList();
@@ -219,7 +221,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     acvm.Number.IsNullOrWhiteSpace() ||
                     acvm.PhoneNumber.IsNullOrWhiteSpace())
                 {
-                    acvm.AllEmployees = DB.Employees.ToList();
+                    acvm.AllEmployees = DB.Employees.Where(e => e.User.Deleted == false).ToList();
                     acvm.Contractors = DB.Contractors.ToList();
                     acvm.Districts = DB.Districts.ToList();
                     acvm.JobTitleList = DB.JobTitles.ToList();
@@ -234,7 +236,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 employee.Contractor = employee.Contractor;
                 employee.JobTitle = employee.JobTitle;
                 DB.SaveChanges();
-                acvm.AllEmployees = DB.Employees.ToList();
+                acvm.AllEmployees = DB.Employees.Where(e => e.User.Deleted == false).ToList();
                 acvm.Contractors = DB.Contractors.ToList();
                 acvm.Districts = DB.Districts.ToList();
                 acvm.JobTitleList = DB.JobTitles.ToList();
@@ -249,6 +251,18 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 return View("ChangeProfile", acvm);
             }
 
+        }
+
+        public ActionResult DeleteUser(int? employeeId)
+        {
+            if (employeeId == null || employeeId <= 0)
+            {
+                return ChangeProfile();
+            }
+
+            DB.Employees.Find(employeeId).User.Deleted = true;
+            DB.SaveChanges();
+            return ChangeProfile();
         }
 
     }

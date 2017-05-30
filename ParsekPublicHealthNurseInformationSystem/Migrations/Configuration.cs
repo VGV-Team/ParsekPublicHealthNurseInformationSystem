@@ -181,7 +181,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Password = "admin",
                 Active = true,
                 LastLastLogin = DateTime.Now,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                Deleted = false
             };
             User Doctor = new User
             {
@@ -192,7 +193,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Password = "doctor",
                 Active = true,
                 LastLastLogin = DateTime.Now,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                Deleted = false
             };
             User Nurse1 = new User
             {
@@ -203,7 +205,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Password = "nurse1",
                 Active = true,
                 LastLastLogin = DateTime.Now,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                Deleted = false
             };
             User Nurse2 = new User
             {
@@ -214,7 +217,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Password = "nurse2",
                 Active = true,
                 LastLastLogin = DateTime.Now,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                Deleted = false
             };
             User Nurse3 = new User
             {
@@ -225,7 +229,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Password = "nurse3",
                 Active = true,
                 LastLastLogin = DateTime.Now,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                Deleted = false
             };
             User Nurse4 = new User
             {
@@ -236,7 +241,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Password = "nurse4",
                 Active = true,
                 LastLastLogin = DateTime.Now,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                Deleted = false
             };
             User Patient1 = new User();
             Patient1.Employee = null;
@@ -248,6 +254,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient1.Patient = patient1;
             Patient1.LastLastLogin = DateTime.Now;
             Patient1.LastLogin = DateTime.Now;
+            Patient1.Deleted = false;
             User Patient2 = new User();
             Patient2.Employee = null;
             Patient2.Patient = null;
@@ -258,6 +265,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient2.Patient = patient2;
             Patient2.LastLastLogin = DateTime.Now;
             Patient2.LastLogin = DateTime.Now;
+            Patient2.Deleted = false;
             User Patient3 = new User();
             Patient3.Employee = null;
             Patient3.Patient = null;
@@ -268,6 +276,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient3.Patient = patient3;
             Patient3.LastLastLogin = DateTime.Now;
             Patient3.LastLogin = DateTime.Now;
+            Patient3.Deleted = false;
             User Head = new User();
             Head.Employee = null;
             Head.Patient = null;
@@ -277,6 +286,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Head.Active = true;
             Head.LastLastLogin = DateTime.Now;
             Head.LastLogin = DateTime.Now;
+            Head.Deleted = false;
             context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse1, Nurse2, Nurse3, Nurse4, Patient1, Patient2, Patient3, Head);
 
 
