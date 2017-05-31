@@ -30,6 +30,9 @@ namespace ParsekPublicHealthNurseInformationSystem
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/themes/base/*.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/chart").Include(
+                      "~/Scripts/Chart.js"));
         }
     }
 }

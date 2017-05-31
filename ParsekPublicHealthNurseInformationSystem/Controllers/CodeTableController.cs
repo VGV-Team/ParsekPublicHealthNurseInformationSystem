@@ -16,8 +16,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         // GET: CodeTable
         public ActionResult Index(CodeTableViewModel ctvm)
         {
-            CodeTableViewModel.CodeCategory? category = ctvm.Category;
+            CodeTableViewModel.CodeCategory? category = ctvm?.Category;
             ctvm = new CodeTableViewModel();
+            if(category != null)
+                ctvm.Category = category.Value;
 
             switch (category)
             {
@@ -243,13 +245,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         {
                             if(DB.Medicines.Count(x => x.Code == ctvm.Medicine.Code)>0)
                                 return View("Edit", ctvm);
-                            DB.Medicines.Add(ctvm.Medicine);
+                            medicine = new Medicine();
+                            DB.Medicines.Add(medicine);
                         }
-                        else
-                        {
-                            medicine.Title = ctvm.Medicine.Title;
-                            medicine.Code = ctvm.Medicine.Code;
-                        }
+                        medicine.Title = ctvm.Medicine.Title;
+                        medicine.Code = ctvm.Medicine.Code;
                         DB.SaveChanges();
                     }
                     break;
@@ -264,16 +264,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                                 ctvm.PostOffices = DB.PostOffices.ToList();
                                 return View("Edit", ctvm);
                             }
-                            ctvm.Contractor.PostOffice = DB.PostOffices.FirstOrDefault(x => x.PostOfficeId == ctvm.Contractor.PostOffice.PostOfficeId);
-                            DB.Contractors.Add(ctvm.Contractor);
+                            contractor = new Contractor();
+                            DB.Contractors.Add(contractor);
                         }
-                        else
-                        {
-                            contractor.Number = ctvm.Contractor.Number;
-                            contractor.Title = ctvm.Contractor.Title;
-                            contractor.Address = ctvm.Contractor.Address;
-                            contractor.PostOffice = DB.PostOffices.FirstOrDefault(x => x.PostOfficeId == ctvm.Contractor.PostOffice.PostOfficeId);
-                        }
+                        contractor.Number = ctvm.Contractor.Number;
+                        contractor.Title = ctvm.Contractor.Title;
+                        contractor.Address = ctvm.Contractor.Address;
+                        contractor.PostOffice = DB.PostOffices.FirstOrDefault(x => x.PostOfficeId == ctvm.Contractor.PostOffice.PostOfficeId);
                         DB.SaveChanges();
                     }
                     break;
@@ -285,13 +282,11 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         {
                             if (DB.Diseases.Count(x => x.Code == ctvm.Disease.Code) > 0)
                                 return View("Edit", ctvm);
-                            DB.Diseases.Add(ctvm.Disease);
+                            disease = new Disease();
+                            DB.Diseases.Add(disease);
                         }
-                        else
-                        {
-                            disease.Code = ctvm.Disease.Code;
-                            disease.Description = ctvm.Disease.Description;
-                        }
+                        disease.Code = ctvm.Disease.Code;
+                        disease.Description = ctvm.Disease.Description;
                         DB.SaveChanges();
                     }
                     break;
@@ -301,12 +296,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         Relationship relationship = DB.Relationships.FirstOrDefault(x => x.RelationshipId == ctvm.Relationship.RelationshipId);
                         if (relationship == null)
                         {
-                            DB.Relationships.Add(ctvm.Relationship);
+                            relationship = new Relationship();
+                            DB.Relationships.Add(relationship);
                         }
-                        else
-                        {
-                            relationship.Name = ctvm.Relationship.Name;
-                        }
+                        relationship.Name = ctvm.Relationship.Name;
                         DB.SaveChanges();
                     }
                     break;
@@ -318,17 +311,15 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         {
                             if (DB.Services.Count(x => x.ServiceCode == ctvm.Service.ServiceCode) > 0)
                                 return View("Edit", ctvm);
-                            DB.Services.Add(ctvm.Service);
+                            service = new Service();
+                            DB.Services.Add(service);
                         }
-                        else
-                        {
-                            service.ServiceCode = ctvm.Service.ServiceCode;
-                            service.ServiceTitle = ctvm.Service.ServiceTitle;
-                            service.PreventiveVisit = ctvm.Service.PreventiveVisit;
-                            service.RequiresMedicine = ctvm.Service.RequiresMedicine;
-                            service.RequiresBloodSample = ctvm.Service.RequiresBloodSample;
-                            service.RequiresPatients = ctvm.Service.RequiresPatients;
-                        }
+                        service.ServiceCode = ctvm.Service.ServiceCode;
+                        service.ServiceTitle = ctvm.Service.ServiceTitle;
+                        service.PreventiveVisit = ctvm.Service.PreventiveVisit;
+                        service.RequiresMedicine = ctvm.Service.RequiresMedicine;
+                        service.RequiresBloodSample = ctvm.Service.RequiresBloodSample;
+                        service.RequiresPatients = ctvm.Service.RequiresPatients;
                         DB.SaveChanges();
                     }
                     break;
@@ -338,52 +329,44 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     {
                         if (DB.Activities.Count(x => x.ActivityCode == ctvm.Activity.ActivityCode) > 0)
                             return View("Edit", ctvm);
-                        DB.Activities.Add(ctvm.Activity);
+                        activity = new Activity();
+                        DB.Activities.Add(activity);
                     }
-                    else
-                    {
-                        activity.ActivityCode = ctvm.Activity.ActivityCode;
-                        activity.ActivityTitle = ctvm.Activity.ActivityTitle;
-                        //activity.ActivityInputFor = ctvm.Activity.ActivityInputFor;
-                    }
+                    activity.ActivityCode = ctvm.Activity.ActivityCode;
+                    activity.ActivityTitle = ctvm.Activity.ActivityTitle;
+                    //activity.ActivityInputFor = ctvm.Activity.ActivityInputFor;
                     DB.SaveChanges();
                     break;
                 case CodeTableViewModel.CodeCategory.ActivityInput:
                     ActivityInput activityInput = DB.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == ctvm.ActivityInput.ActivityInputId);
                     if (activityInput == null)
                     {
-                        DB.ActivityInputs.Add(ctvm.ActivityInput);
+                        activityInput = new ActivityInput();
+                        DB.ActivityInputs.Add(activityInput);
                     }
-                    else
-                    {
-                        activityInput.Title = ctvm.ActivityInput.Title;
-                        activityInput.InputType = ctvm.ActivityInput.InputType;
-                        activityInput.PossibleValues = ctvm.ActivityInput.PossibleValues;
-                    }
+                    activityInput.Title = ctvm.ActivityInput.Title;
+                    activityInput.InputType = ctvm.ActivityInput.InputType;
+                    activityInput.PossibleValues = ctvm.ActivityInput.PossibleValues;
                     DB.SaveChanges();
                     break;
                 case CodeTableViewModel.CodeCategory.Role:
                     Role role = DB.Roles.FirstOrDefault(x => x.RoleId == ctvm.Role.RoleId);
                     if (role == null)
                     {
-                        DB.Roles.Add(ctvm.Role);
+                        role = new Role();
+                        DB.Roles.Add(role);
                     }
-                    else
-                    {
-                        role.Title = ctvm.Role.Title;
-                    }
+                    role.Title = ctvm.Role.Title;
                     DB.SaveChanges();
                     break;
                 case CodeTableViewModel.CodeCategory.JobTitle:
                     JobTitle jobTitle = DB.JobTitles.FirstOrDefault(x => x.JobTitleId == ctvm.JobTitle.JobTitleId);
                     if (jobTitle == null)
                     {
-                        DB.JobTitles.Add(ctvm.JobTitle);
+                        jobTitle = new JobTitle();
+                        DB.JobTitles.Add(jobTitle);
                     }
-                    else
-                    {
-                        jobTitle.Title = ctvm.JobTitle.Title;
-                    }
+                    jobTitle.Title = ctvm.JobTitle.Title;
                     DB.SaveChanges();
                     break;
                 default:

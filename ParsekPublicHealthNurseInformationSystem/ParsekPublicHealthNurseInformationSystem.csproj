@@ -170,11 +170,16 @@
     <Compile Include="Controllers\VisitPatientController.cs" />
     <Compile Include="Controllers\VisitPlannerController.cs" />
     <Compile Include="Controllers\VisitController.cs" />
+    <Compile Include="Controllers\VisualizationController.cs" />
     <Compile Include="Controllers\WODetailsController.cs" />
     <Compile Include="Controllers\WOFilterController.cs" />
     <Compile Include="Controllers\WorkOrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705312044093_Initial.cs" />
+    <Compile Include="Migrations\201705312044093_Initial.Designer.cs">
+      <DependentUpon>201705312044093_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Globals.cs" />
@@ -206,6 +211,7 @@
     <Compile Include="Models\Model\ServiceActivity.cs" />
     <Compile Include="Models\Model\User.cs" />
     <Compile Include="Models\Model\Visit.cs" />
+    <Compile Include="ViewModels\Visualization\VisualizationViewModel.cs" />
     <Compile Include="Models\Model\WorkOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AdminConsole\AdminConsoleViewModel.cs" />
@@ -291,6 +297,8 @@
     <Content Include="Migrations\DataFiles\activity inputs.xlsx" />
     <None Include="Properties\PublishProfiles\ParsekPublicHealthNurseInformationSystem - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
@@ -347,6 +355,7 @@
     <Content Include="Views\CodeTable\Edit.cshtml" />
     <Content Include="Views\AdminConsole\ChangeProfile.cshtml" />
     <Content Include="Views\EditActivity\Index.cshtml" />
+    <Content Include="Views\Visualization\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -363,6 +372,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705312044093_Initial.resx">
+      <DependentUpon>201705312044093_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
