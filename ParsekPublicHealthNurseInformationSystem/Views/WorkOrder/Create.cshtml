@@ -23,6 +23,7 @@
 
         @Html.HiddenFor(m => m.SelectedServiceId)
 
+        <h3>@Model.ViewMessage</h3>
 
         @Html.Raw(Globals.GenerateDropDown(Model.AllPatients, "PatientId", false))
         <div class="form-group">

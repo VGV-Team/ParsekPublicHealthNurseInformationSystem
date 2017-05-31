@@ -4,7 +4,7 @@
 @using ParsekPublicHealthNurseInformationSystem.ViewModels
 
 @{
-    ViewBag.Title = "ChangeProfile";
+    ViewBag.Title = "Zaposleni";
 }
 
 <h2>Urejanje podatkov</h2>
@@ -54,7 +54,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.JobTitleList, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.SelectedJobTitleId, new SelectList(Model.JobTitleList, "JobTitleId", "Title"), "-- Izberi --", htmlAttributes: new { @class = "form-control dropdown", @id = "JobTitleDropdown", @readonly = true, @disabled = true })
+                    @Html.DropDownListFor(model => model.SelectedJobTitleId, new SelectList(Model.JobTitleList, "JobTitleId", "Title"), htmlAttributes: new { @class = "form-control dropdown", @id = "JobTitleDropdown"  })
                     @Html.ValidationMessageFor(model => model.JobTitleList, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -92,16 +92,41 @@
                 </div>
             </div>
             
-            @if (Model.SelectedJobTitleId == 3)
-            {
-                <div class="form-group">
-                    @Html.LabelFor(model => model.District, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.District, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                        @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
-                    </div>
+            
+            
+            <div class="form-group" id="DistrictDropdown">
+                @Html.LabelFor(model => model.Districts, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SelectedDistrictId, new SelectList(Model.Districts, "DistrictId", "Name"), htmlAttributes: new { @class = "form-control dropdown" })
+                    @Html.ValidationMessageFor(model => model.Districts, "", new { @class = "text-danger" })
                 </div>
+            </div>
+            
+
+
+
+            <script>
+                        
+
+            $('#DistrictDropdown').hide();
+
+            if ($('#JobTitleDropdown').val() == 3)
+            {
+                $('#DistrictDropdown').show();
             }
+
+            $('#JobTitleDropdown').on('change',
+                function () {
+                    if (this.value == 3) {
+                        $("#DistrictDropdown").show();
+                    } else {
+                        $("#DistrictDropdown").hide();
+                    }
+                });
+
+            </script>
+
+
             <div class="form-group">
                 @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">

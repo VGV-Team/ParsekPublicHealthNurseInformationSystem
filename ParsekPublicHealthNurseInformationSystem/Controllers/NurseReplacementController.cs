@@ -23,6 +23,55 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
 
 
+        public string NurseReplacement(int id1)
+        {
+            try
+            {
+                Employee Nurse1 = DB.Employees.Find(id1);
+                int tmpId = id1;
+                List<WorkOrder> WO = DB.WorkOrders.Where(x => x.Nurse.EmployeeId == Nurse1.EmployeeId).ToList();
+                //List<Visit> visits = new List<Visit>();
+                foreach (var workorder in WO)
+                {
+                    foreach (var visit in workorder.Visits)
+                    {
+                        if (visit.Done == false)
+                        {
+                            Employee Nurse2 = DB.Employees.FirstOrDefault(x => x.EmployeeId != id1 && x.JobTitle.Title == JobTitle.HealthNurse && x.Absences.All(abs => abs.DateStart > visit.DateConfirmed || abs.DateEnd < visit.DateConfirmed));
+                            if (Nurse2 == null) return "Neuspešno! Na dan " + visit.DateConfirmed.ToString("dd. MM. yyyy") + "ni ustrezne zamenjave!";
+                            visit.NurseReplacement = Nurse2;
+                        }
+                        
+                    }
+                }
+                List<Visit> visits = DB.Visits.Where(x => x.Done == false && x.NurseReplacement != null && x.NurseReplacement.EmployeeId == tmpId).ToList();
+                foreach (var visit in visits)
+                {
+                    Employee Nurse2 = DB.Employees.FirstOrDefault(x => x.EmployeeId != id1 && x.JobTitle.Title == JobTitle.HealthNurse && x.Absences.All(abs => abs.DateStart > visit.DateConfirmed || abs.DateEnd < visit.DateConfirmed));
+                    if (Nurse2 == null) return "Neuspešno! Na dan " + visit.DateConfirmed.ToString("dd. MM. yyyy") + "ni ustrezne zamenjave!";
+                    if (Nurse2.EmployeeId == visit.WorkOrder.Nurse.EmployeeId)
+                    {
+                        var forceLoad = visit.NurseReplacement; //Aleluja
+                        visit.NurseReplacement = null; // Now EF knows something has changed
+                    }
+                    else
+                    {
+                        visit.NurseReplacement = Nurse2;
+                    }
+                }
+
+
+                DB.SaveChanges();
+
+                return "";
+            }
+            catch (Exception e)
+            {
+                return "Hujša napaka";
+            }
+        }
+
+
         [HttpPost]
         public ActionResult NurseReplacement(NurseReplacementViewModel nrvm)
         {
@@ -73,7 +122,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 {
                     foreach (var visit in workorder.Visits)
                     {
-                        if (visit.Done == false)
+                        if (visit.Done == false && visit.DateConfirmed <= nrvm.DateEnd && visit.DateConfirmed >= nrvm.DateStart)
                             //visits.Add(visit);
                             visit.NurseReplacement = Nurse2;
                     }

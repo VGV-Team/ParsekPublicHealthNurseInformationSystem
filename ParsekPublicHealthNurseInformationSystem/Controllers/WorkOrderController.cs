@@ -171,7 +171,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 Employee selectedNurse = DB.Employees.FirstOrDefault(x => x.JobTitle.Title == JobTitle.HealthNurse && x.District.DistrictId == selectedPatient.District.DistrictId);
                 if (selectedNurse == null)
                 {
-                    // TODO: error
+                    wovm.ViewMessage = "Pacientov okoliš nima dodeljene patronažne sestre!";
+                    return View("Create", wovm);
                 }
                 wodvm.SelectedNurseId = selectedNurse.EmployeeId;
                 wosvm.Nurse = selectedNurse.FullName;

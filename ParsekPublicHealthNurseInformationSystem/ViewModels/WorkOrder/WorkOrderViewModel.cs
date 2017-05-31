@@ -98,8 +98,8 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = "Polje je obvezno")]
         public int BloodVialGreenCount { get; set; }
 
-
-
+        // Used for warning if no nurse in district
+        public string ViewMessage { get; set; }
 
         public bool EnterMedicine { get; set; }
         public bool EnterBloodSample { get; set; }
