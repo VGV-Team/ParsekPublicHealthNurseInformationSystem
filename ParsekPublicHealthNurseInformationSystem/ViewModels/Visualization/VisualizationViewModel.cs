@@ -11,14 +11,18 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
     {
         public int MainPatientId { get; set; }
 
-        public List<ActivityInputData> Datas { get; set; }
-
+        [Required]
         [Display(Name = "Od")]
         [DataType(DataType.Date)]
         public DateTime DateStart { get; set; }
 
+        [Required]
         [Display(Name = "Do")]
         [DataType(DataType.Date)]
         public DateTime DateEnd { get; set; }
+
+        public List<DateTime> Dates;
+        public List<double> SystolicValues;
+        public List<double> DiastolicValues;
     }
 }

@@ -8,6 +8,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 {
     public static class Globals
     {
+        public const string SystolicBloodPressureTitle = "Sistolični (mm Hg)";
+        public const string DiastolicBloodPressureTitle = "Diastolični (mm Hg)";
+
+
         public static int[] GetIdsFromString(string input)
         {
             string[] splits = input.Split(',');
@@ -24,6 +28,90 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
 
             return ids.ToArray().Distinct().ToArray();
         }
+
+
+        #region Graph
+
+        public static string GenerateGraph(string chartName, int? width, int? height, List<string> labels, string title1, List<double> values1, string title2, List<double> values2)
+        {
+
+            string str = @"
+                <canvas id='" + chartName + "' " + (width != null ? "width='" + width.ToString() + "' " : "") +
+                         (height != null ? "height='" + height.ToString() + "' " : "") + @"></canvas>
+                <script>
+	                var ctx" + chartName + @" = document.getElementById('" + chartName + @"').getContext('2d');
+	                var myLineChart = new Chart(ctx" + chartName + @",
+		                {
+			                'type': 'line',
+			                'data':
+			                {
+				                'labels': [";
+
+                for(int i = 0; i < labels.Count; i++)
+                {
+                    if (i != 0)
+                        str += ",";
+                    str += "'" + labels[i] + "'";
+                }
+
+            str +=
+                                @"],
+				                'datasets': [";
+
+            str += @"
+                {
+                    'label': '" + title1 + @"',
+                    'data': [";
+
+            for (int i = 0; i < values1.Count; i++)
+            {
+                if (i != 0)
+                    str += ",";
+                str += "'" + values1[i] + "'";
+            }
+
+            str += @"],
+                'fill': false,
+			    'borderColor': 'rgb(75, 192, 192)',
+			    'lineTension': 0.1
+            }";
+
+            if (title2 != null && values2 != null)
+            {
+                str += @",
+                {
+                    'label': '" + title2 + @"',
+                    'data': [";
+
+                for (int i = 0; i < values2.Count; i++)
+                {
+                    if (i != 0)
+                        str += ",";
+                    str += "'" + values2[i] + "'";
+                }
+
+                str += @"],
+                'fill': false,
+			    'borderColor': 'rgb(192, 25, 64)',
+			    'lineTension': 0.1
+                }";
+            }
+
+            str +=		      @"]
+			                },
+			                'options': {}
+		                }
+	                );
+                </script>
+            ";
+
+            return str;
+        }
+
+        #endregion
+
+
+        #region DropDown
 
         public static string GenerateDropDown(List<Medicine> list, string id, bool multiChoice = true)
         {
@@ -115,7 +203,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
             return GenerateDropDown(converterToStrings, id, multiChoice);
         }
 
-
         public static string GenerateDropDown(List<Patient> list, string id, bool multiChoice = true)
         {
             List<string> converterToStrings = new List<string>();
@@ -135,6 +222,39 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
             }
             return GenerateDropDown(converterToStrings, id, multiChoice);
         }
+
+        /*
+        public static string GenerateDropDown(List<object> list, string id, bool multiChoice = true)
+        {
+            List<string> converterToStrings = new List<string>();
+            foreach (var element in list)
+            {
+                if(element.GetType() == typeof(Medicine))
+                    converterToStrings.Add(((Medicine)element).FullNameWithCode);
+                if (element.GetType() == typeof(Contractor))
+                    converterToStrings.Add(((Contractor)element).FullNameWithCode);
+                if (element.GetType() == typeof(Disease))
+                    converterToStrings.Add(((Disease)element).FullNameWithCode);
+                if (element.GetType() == typeof(Relationship))
+                    converterToStrings.Add(((Relationship)element).FullNameWithCode);
+                if (element.GetType() == typeof(Service))
+                    converterToStrings.Add(((Service)element).FullNameWithCode);
+                if (element.GetType() == typeof(Activity))
+                    converterToStrings.Add(((Activity)element).FullNameWithCode);
+                if (element.GetType() == typeof(ActivityInput))
+                    converterToStrings.Add(((ActivityInput)element).FullNameWithCode);
+                if (element.GetType() == typeof(Role))
+                    converterToStrings.Add(((Role)element).FullNameWithCode);
+                if (element.GetType() == typeof(JobTitle))
+                    converterToStrings.Add(((JobTitle)element).FullNameWithCode);
+                if (element.GetType() == typeof(Patient))
+                    converterToStrings.Add(((Patient)element).FullNameWithCode);
+                if (element.GetType() == typeof(Employee))
+                    converterToStrings.Add(((Employee)element).FullNameWithCode);
+            }
+            return GenerateDropDown(converterToStrings, id, multiChoice);
+        }
+        */
 
         public static string GenerateDropDown(List<string> list, string id, bool multiChoice = true)
         {
@@ -203,5 +323,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
             }
             return str;
         }
+
+        #endregion
     }
 }
