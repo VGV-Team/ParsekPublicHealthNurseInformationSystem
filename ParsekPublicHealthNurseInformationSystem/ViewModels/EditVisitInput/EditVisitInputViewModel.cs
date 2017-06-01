@@ -14,7 +14,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public int SelectedVisitType { get; set; }
 
         public List<Models.Activity> ActivityInputList { get; set; }
-
+        public List<Models.Activity> ActivityInputListNoNumber { get; set; }
 
 
         //new input

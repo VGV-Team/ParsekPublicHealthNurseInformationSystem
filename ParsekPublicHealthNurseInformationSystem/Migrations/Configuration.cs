@@ -32,25 +32,27 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Role EmployeeRole = new Role { Title = Role.Employee, Active = true };
             Role PatientRole = new Role { Title = Role.Patient, Active = true };
 
-            context.Roles.AddOrUpdate(
-                r => r.Title,
-                AdminRole,
-                EmployeeRole,
-                PatientRole
-            );
+            if (!context.Roles.Any())
+                context.Roles.AddOrUpdate(
+                    r => r.Title,
+                    AdminRole,
+                    EmployeeRole,
+                    PatientRole
+                );
 
             JobTitle DoctorJobTitle = new JobTitle { Title = JobTitle.Doctor, Active = true };
             JobTitle HeadJobTitle = new JobTitle { Title = JobTitle.Head, Active = true };
             JobTitle HealthNurseJobTitle = new JobTitle { Title = JobTitle.HealthNurse, Active = true };
             JobTitle CoworkerJobTitle = new JobTitle { Title = JobTitle.Coworker, Active = true };
 
-            context.JobTitles.AddOrUpdate(
-                r => r.Title,
-                DoctorJobTitle,
-                HeadJobTitle,
-                HealthNurseJobTitle,
-                CoworkerJobTitle
-            );
+            if (!context.JobTitles.Any())
+                context.JobTitles.AddOrUpdate(
+                    r => r.Title,
+                    DoctorJobTitle,
+                    HeadJobTitle,
+                    HealthNurseJobTitle,
+                    CoworkerJobTitle
+                );
 
 
             // Relationships
@@ -58,22 +60,22 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             var rel2 = new Relationship {Name = "Ožji družinski krog", Active = true };
             var rel3 = new Relationship {Name = "Širši družinski krog", Active = true };
             var rel4 = new Relationship {Name = "Ni v sorodu", Active = true };
-            context.Relationships.AddOrUpdate(rel => rel.Name, rel1, rel2, rel3, rel4);
+            if (!context.Relationships.Any()) context.Relationships.AddOrUpdate(rel => rel.Name, rel1, rel2, rel3, rel4);
 
             // Diseases
             var d1 = new Disease {Code = "Z34.0", Description = "Nadzor nad normalno prvo noseènostjo", Active = true };
             var d2 = new Disease { Code = "Z34.8", Description = "Nadzor nad drugimi normalnimi noseènostmi", Active = true };
             var d3 = new Disease { Code = "Z34.9", Description = "Nadzor nad normalno noseènostjo, neopredeljen", Active = true };
             var d4 = new Disease { Code = "Z35.0", Description = "Nadzor nad noseènostjo z anamnezo infertilnosti", Active = true };
-            context.Diseases.AddOrUpdate(d => d.Code, d1, d2, d3, d4);
+            if (!context.Diseases.Any()) context.Diseases.AddOrUpdate(d => d.Code, d1, d2, d3, d4);
             // TODO: ...
 
             // Medicine
-            var m1 = new Medicine {Code = "13300", Title = "Abseamed 8.000 i.e./0,8 ml raztopina za inj", Active = true, Cost = 2 };
-            var m2 = new Medicine { Code = "13692", Title = "Acidum nitricum C30 kroglice", Active = true, Cost = 3 };
-            var m3 = new Medicine { Code = "02504", Title = "Acipan 40 mg prašek za raztopino za injicir", Active = true, Cost = 5 };
-            var m4 = new Medicine { Code = "21550", Title = "Aconitum napellus C200 kroglice", Active = true, Cost = 7 };
-            context.Medicines.AddOrUpdate(m => m.Code, m1, m2, m3, m4);
+            var m1 = new Medicine {Code = "13300", Title = "Abseamed 8.000 i.e./0,8 ml raztopina za inj", Active = true };
+            var m2 = new Medicine { Code = "13692", Title = "Acidum nitricum C30 kroglice", Active = true };
+            var m3 = new Medicine { Code = "02504", Title = "Acipan 40 mg prašek za raztopino za injicir", Active = true };
+            var m4 = new Medicine { Code = "21550", Title = "Aconitum napellus C200 kroglice", Active = true };
+            if (!context.Medicines.Any()) context.Medicines.AddOrUpdate(m => m.Code, m1, m2, m3, m4);
             // TODO: ...
 
             // Post Office
@@ -81,7 +83,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             var p2 = new PostOffice { Title = "Bled", Number = "4260", Active = true }; // kremšnite
             var p3 = new PostOffice { Title = "Litija", Number = "1270", Active = true };
             var p4 = new PostOffice { Title = "Ljubljana", Number = "1000", Active = true };
-            context.PostOffices.AddOrUpdate(p => p.Number, p1, p2, p3, p4);
+            if (!context.PostOffices.Any())  context.PostOffices.AddOrUpdate(p => p.Number, p1, p2, p3, p4);
             // TODO: ...
 
             // Contractors
@@ -108,15 +110,15 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             di8.Contractor = c4;*/
 
             //context.Districts.AddOrUpdate(d => d.Name, di1, di2, di3, di4, di5, di6, di7, di8);
-            context.Districts.AddOrUpdate(d => d.Name, di1, di2, di3, di4);
-            context.Contractors.AddOrUpdate(c => c.Number, c1, c2, c3, c4);
+            if (!context.Districts.Any()) context.Districts.AddOrUpdate(d => d.Name, di1, di2, di3, di4);
+            if (!context.Contractors.Any()) context.Contractors.AddOrUpdate(c => c.Number, c1, c2, c3, c4);
             // TODO: ...
 
-            var mat1 = new Material { Title = "Epruveta", Description = "Splošno uporabna epruveta", Active = true, Cost = 2 };
-            var mat2 = new Material { Title = "Injekcija", Description = "Splošno uporabna injekcija", Active = true, Cost = 3 };
-            var mat3 = new Material { Title = "Radijeva sol", Description = "Za boljše poèutje", Active = true, Cost = 5 };
-            var mat4 = new Material { Title = "Svinènik", Description = "Za zapisovanje", Active = true, Cost = 7 };
-            context.Materials.AddOrUpdate(m => m.Title, mat1, mat2, mat3, mat4);
+            var mat1 = new Material { Title = "Epruveta", Description = "Splošno uporabna epruveta", Active = true };
+            var mat2 = new Material { Title = "Injekcija", Description = "Splošno uporabna injekcija", Active = true };
+            var mat3 = new Material { Title = "Radijeva sol", Description = "Za boljše poèutje", Active = true };
+            var mat4 = new Material { Title = "Svinènik", Description = "Za zapisovanje", Active = true };
+            if (!context.Materials.Any()) context.Materials.AddOrUpdate(m => m.Title, mat1, mat2, mat3, mat4);
             // TODO: ...
 
             Patient patient1 = new Patient
@@ -155,7 +157,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 Gender = Models.Patient.GenderEnum.Female,
                 BirthDate = DateTime.Now.AddYears(-40)
             };
-            context.Patients.AddOrUpdate(y => y.CardNumber, patient1, patient2, patient3);
+            if (!context.Patients.Any()) context.Patients.AddOrUpdate(y => y.CardNumber, patient1, patient2, patient3);
             Patient patient1_1 = new Patient
             {
                 CardNumber = "88888",
@@ -170,7 +172,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 ParentPatient = patient1,
                 ParentPatientRelationship = rel1
             };
-            context.Patients.AddOrUpdate(y => y.CardNumber, patient1_1);
+            if (context.Patients.FirstOrDefault(x => x.CardNumber == patient1_1.CardNumber) == null) context.Patients.AddOrUpdate(y => y.CardNumber, patient1_1);
 
             User Admin = new User
             {
@@ -287,7 +289,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Head.LastLastLogin = DateTime.Now;
             Head.LastLogin = DateTime.Now;
             Head.Deleted = false;
-            context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse1, Nurse2, Nurse3, Nurse4, Patient1, Patient2, Patient3, Head);
+            if (!context.Users.Any()) context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse1, Nurse2, Nurse3, Nurse4, Patient1, Patient2, Patient3, Head);
 
 
             Employee DoctorEmployee = new Employee();
@@ -344,7 +346,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             NurseEmployee4.Number = "45455";
             NurseEmployee4.PhoneNumber = "666444777";
             NurseEmployee4.JobTitle = HealthNurseJobTitle;
-            context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, NurseEmployee1, NurseEmployee2, NurseEmployee3, NurseEmployee4);
+            if (!context.Employees.Any()) context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, NurseEmployee1, NurseEmployee2, NurseEmployee3, NurseEmployee4);
 
             Service ac1 = new Service
             {
@@ -354,8 +356,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 RequiresMedicine = false,
                 RequiresBloodSample = false,
                 RequiresPatients = false,
-                Active = true,
-                Cost = 21
+                Active = true
             };
             //ac1.ServiceCode = "10";
             //ac1.ServiceTitle = "Seznanitev noseènice o normalnem poteku noseènosti in o spremembah na telesu.";
@@ -384,8 +385,7 @@ ac3.RequiresPatients = true;
                 RequiresMedicine = false,
                 RequiresBloodSample = false,
                 RequiresPatients = true,
-                Active = true,
-                Cost = 37
+                Active = true
             };
 
             Service ac4 = new Service
@@ -396,8 +396,7 @@ ac3.RequiresPatients = true;
                 RequiresMedicine = false,
                 RequiresBloodSample = false,
                 RequiresPatients = false,
-                Active = true,
-                Cost = 15
+                Active = true
             };
             // Was in requirements!
             Service ac5 = new Service
@@ -408,8 +407,7 @@ ac3.RequiresPatients = true;
                 RequiresMedicine = true,
                 RequiresBloodSample = false,
                 RequiresPatients = false,
-                Active = true,
-                Cost = 7
+                Active = true
             };
             //ac5.ServiceCode = "10";
             //ac5.ServiceTitle = "Aplikacija injekcije";
@@ -422,8 +420,7 @@ ac3.RequiresPatients = true;
                 RequiresMedicine = false,
                 RequiresBloodSample = true,
                 RequiresPatients = false,
-                Active = true,
-                Cost = 3
+                Active = true
             };
             //ac6.ServiceCode = "10";
             //ac6.ServiceTitle = "Odvzem krvi";
@@ -436,14 +433,13 @@ ac3.RequiresPatients = true;
                 RequiresMedicine = false,
                 RequiresBloodSample = false,
                 RequiresPatients = false,
-                Active = true,
-                Cost = 11
+                Active = true
             };
             //ac7.ServiceCode = "20";
             //ac7.ServiceTitle = "Krvni pritisk: sistolièni, diastolièni";
             //ac7.Report = "Sistolièni (mm Hg) * Diastolièni(mm Hg) *";
 
-            context.Services.AddOrUpdate(y => y.ServiceId, ac1, ac2, /*ac3,*/ ac4, ac5, ac6, ac7);
+            if (!context.Services.Any()) context.Services.AddOrUpdate(y => y.ServiceCode, ac1, ac2, /*ac3,*/ ac4, ac5, ac6, ac7);
 
 
 
@@ -525,99 +521,99 @@ ac3.RequiresPatients = true;
             #endregion
 
             #region ServiceActivity
-            ServiceActivity sa1 = new ServiceActivity() { Activity = a1, Service = ac1, Active = true };
-            ServiceActivity sa2 = new ServiceActivity() { Activity = a2, Service = ac1, Active = true };
-            ServiceActivity sa3 = new ServiceActivity() { Activity = a3, Service = ac1, Active = true };
-            ServiceActivity sa4 = new ServiceActivity() { Activity = a4, Service = ac1, Active = true };
-            ServiceActivity sa5 = new ServiceActivity() { Activity = a5, Service = ac1, Active = true };
-            ServiceActivity sa6 = new ServiceActivity() { Activity = a6, Service = ac1, Active = true };
-            ServiceActivity sa7 = new ServiceActivity() { Activity = a7, Service = ac1, Active = true };
-            ServiceActivity sa8 = new ServiceActivity() { Activity = a8, Service = ac1, Active = true };
-            ServiceActivity sa9 = new ServiceActivity() { Activity = a9, Service = ac1, Active = true };
-            ServiceActivity sa10 = new ServiceActivity() { Activity = a10, Service = ac1, Active = true };
-            ServiceActivity sa11 = new ServiceActivity() { Activity = a11, Service = ac1, Active = true };
-            ServiceActivity sa12 = new ServiceActivity() { Activity = a12, Service = ac1, Active = true };
-            ServiceActivity sa13 = new ServiceActivity() { Activity = a13, Service = ac1, Active = true };
-            ServiceActivity sa14 = new ServiceActivity() { Activity = a14, Service = ac1, Active = true };
-            ServiceActivity sa15 = new ServiceActivity() { Activity = a15, Service = ac1, Active = true };
-            ServiceActivity sa16 = new ServiceActivity() { Activity = a16, Service = ac1, Active = true };
-            ServiceActivity sa17 = new ServiceActivity() { Activity = a17, Service = ac1, Active = true };
-            ServiceActivity sa18 = new ServiceActivity() { Activity = a18, Service = ac1, Active = true };
-            ServiceActivity sa19 = new ServiceActivity() { Activity = a19, Service = ac1, Active = true };
-            ServiceActivity sa20 = new ServiceActivity() { Activity = a20, Service = ac1, Active = true };
-            ServiceActivity sa21 = new ServiceActivity() { Activity = a21, Service = ac1, Active = true };
-            ServiceActivity sa22 = new ServiceActivity() { Activity = a22, Service = ac1, Active = true };
-            ServiceActivity sa23 = new ServiceActivity() { Activity = a23, Service = ac1, Active = true };
-            ServiceActivity sa24 = new ServiceActivity() { Activity = a24, Service = ac1, Active = true };
-            ServiceActivity sa25 = new ServiceActivity() { Activity = a15, Service = ac2, Active = true };
-            ServiceActivity sa26 = new ServiceActivity() { Activity = a16, Service = ac2, Active = true };
-            ServiceActivity sa27 = new ServiceActivity() { Activity = a17, Service = ac2, Active = true };
-            ServiceActivity sa28 = new ServiceActivity() { Activity = a18, Service = ac2, Active = true };
-            ServiceActivity sa29 = new ServiceActivity() { Activity = a20, Service = ac2, Active = true };
-            ServiceActivity sa30 = new ServiceActivity() { Activity = a21, Service = ac2, Active = true };
-            ServiceActivity sa31 = new ServiceActivity() { Activity = a22, Service = ac2, Active = true };
-            ServiceActivity sa32 = new ServiceActivity() { Activity = a24, Service = ac2, Active = true };
-            ServiceActivity sa33 = new ServiceActivity() { Activity = a25, Service = ac2, Active = true };
-            ServiceActivity sa34 = new ServiceActivity() { Activity = a26, Service = ac2, Active = true };
-            ServiceActivity sa35 = new ServiceActivity() { Activity = a27, Service = ac2, Active = true };
-            ServiceActivity sa36 = new ServiceActivity() { Activity = a28, Service = ac2, Active = true };
-            ServiceActivity sa37 = new ServiceActivity() { Activity = a29, Service = ac2, Active = true };
-            ServiceActivity sa38 = new ServiceActivity() { Activity = a30, Service = ac2, Active = true };
-            ServiceActivity sa39 = new ServiceActivity() { Activity = a31, Service = ac2, Active = true };
-            ServiceActivity sa40 = new ServiceActivity() { Activity = a32, Service = ac2, Active = true };
-            ServiceActivity sa41 = new ServiceActivity() { Activity = a33, Service = ac2, Active = true };
-            ServiceActivity sa42 = new ServiceActivity() { Activity = a34, Service = ac2, Active = true };
-            ServiceActivity sa43 = new ServiceActivity() { Activity = a35, Service = ac2, Active = true };
-            ServiceActivity sa44 = new ServiceActivity() { Activity = a36, Service = ac2, Active = true };
-            ServiceActivity sa45 = new ServiceActivity() { Activity = a37, Service = ac2, Active = true };
-            ServiceActivity sa46 = new ServiceActivity() { Activity = a38, Service = ac2, Active = true };
-            ServiceActivity sa47 = new ServiceActivity() { Activity = a39, Service = ac2, Active = true };
-            ServiceActivity sa48 = new ServiceActivity() { Activity = a40, Service = ac2, Active = true };
-            ServiceActivity sa49 = new ServiceActivity() { Activity = a41, Service = ac2, Active = true };
-            ServiceActivity sa50 = new ServiceActivity() { Activity = a42, Service = ac2, Active = true };
-            ServiceActivity sa51 = new ServiceActivity() { Activity = a43, Service = ac2, Active = true };
-            ServiceActivity sa52 = new ServiceActivity() { Activity = a44, Service = ac2, Active = true };
-            ServiceActivity sa53 = new ServiceActivity() { Activity = a45, Service = ac2, Active = true };
-            ServiceActivity sa54 = new ServiceActivity() { Activity = a46, Service = ac2, Active = true };
-            ServiceActivity sa55 = new ServiceActivity() { Activity = a47, Service = ac2, Active = true };
-            ServiceActivity sa56 = new ServiceActivity() { Activity = a48, Service = ac2, Active = true };
-            ServiceActivity sa57 = new ServiceActivity() { Activity = a49, Service = ac2, Active = true };
-            ServiceActivity sa58 = new ServiceActivity() { Activity = a50, Service = ac2, Active = true };
-            ServiceActivity sa59 = new ServiceActivity() { Activity = a51, Service = ac2, Active = true };
-            ServiceActivity sa60 = new ServiceActivity() { Activity = a52, Service = ac2, Active = true };
-            ServiceActivity sa61 = new ServiceActivity() { Activity = a53, Service = ac2, Active = true };
-            ServiceActivity sa62 = new ServiceActivity() { Activity = a19, Service = ac4, Active = true };
-            ServiceActivity sa63 = new ServiceActivity() { Activity = a20, Service = ac4, Active = true };
-            ServiceActivity sa64 = new ServiceActivity() { Activity = a21, Service = ac4, Active = true };
-            ServiceActivity sa65 = new ServiceActivity() { Activity = a22, Service = ac4, Active = true };
-            ServiceActivity sa66 = new ServiceActivity() { Activity = a49, Service = ac4, Active = true };
-            ServiceActivity sa67 = new ServiceActivity() { Activity = a54, Service = ac4, Active = true };
-            ServiceActivity sa68 = new ServiceActivity() { Activity = a55, Service = ac4, Active = true };
-            ServiceActivity sa69 = new ServiceActivity() { Activity = a56, Service = ac4, Active = true };
-            ServiceActivity sa70 = new ServiceActivity() { Activity = a57, Service = ac4, Active = true };
-            ServiceActivity sa71 = new ServiceActivity() { Activity = a58, Service = ac4, Active = true };
-            ServiceActivity sa72 = new ServiceActivity() { Activity = a59, Service = ac4, Active = true };
-            ServiceActivity sa73 = new ServiceActivity() { Activity = a60, Service = ac4, Active = true };
-            ServiceActivity sa74 = new ServiceActivity() { Activity = a61, Service = ac4, Active = true };
-            ServiceActivity sa75 = new ServiceActivity() { Activity = a62, Service = ac4, Active = true };
-            ServiceActivity sa76 = new ServiceActivity() { Activity = a63, Service = ac4, Active = true };
-            ServiceActivity sa77 = new ServiceActivity() { Activity = a64, Service = ac4, Active = true };
-            ServiceActivity sa78 = new ServiceActivity() { Activity = a65, Service = ac4, Active = true };
-            ServiceActivity sa79 = new ServiceActivity() { Activity = a65, Service = ac5, Active = true };
-            ServiceActivity sa80 = new ServiceActivity() { Activity = a66, Service = ac5, Active = true };
-            ServiceActivity sa81 = new ServiceActivity() { Activity = a65, Service = ac6, Active = true };
-            ServiceActivity sa82 = new ServiceActivity() { Activity = a67, Service = ac6, Active = true };
-            ServiceActivity sa83 = new ServiceActivity() { Activity = a19, Service = ac7, Active = true };
-            ServiceActivity sa84 = new ServiceActivity() { Activity = a20, Service = ac7, Active = true };
-            ServiceActivity sa85 = new ServiceActivity() { Activity = a21, Service = ac7, Active = true };
-            ServiceActivity sa86 = new ServiceActivity() { Activity = a22, Service = ac7, Active = true };
-            ServiceActivity sa87 = new ServiceActivity() { Activity = a54, Service = ac7, Active = true };
-            ServiceActivity sa88 = new ServiceActivity() { Activity = a65, Service = ac7, Active = true };
-            ServiceActivity sa89 = new ServiceActivity() { Activity = a68, Service = ac7, Active = true };
-            ServiceActivity sa90 = new ServiceActivity() { Activity = a69, Service = ac7, Active = true };
-            ServiceActivity sa91 = new ServiceActivity() { Activity = a70, Service = ac7, Active = true };
-            ServiceActivity sa92 = new ServiceActivity() { Activity = a71, Service = ac7, Active = true };
-            ServiceActivity sa93 = new ServiceActivity() { Activity = a72, Service = ac7, Active = true };
+            ServiceActivity sa1 = new ServiceActivity() { Activity = a1, Service = ac1, Active = true, ServiceActivityId = 1 };
+            ServiceActivity sa2 = new ServiceActivity() { Activity = a2, Service = ac1, Active = true, ServiceActivityId = 2 };
+            ServiceActivity sa3 = new ServiceActivity() { Activity = a3, Service = ac1, Active = true, ServiceActivityId = 3 };
+            ServiceActivity sa4 = new ServiceActivity() { Activity = a4, Service = ac1, Active = true, ServiceActivityId = 4 };
+            ServiceActivity sa5 = new ServiceActivity() { Activity = a5, Service = ac1, Active = true, ServiceActivityId = 5 };
+            ServiceActivity sa6 = new ServiceActivity() { Activity = a6, Service = ac1, Active = true, ServiceActivityId = 6 };
+            ServiceActivity sa7 = new ServiceActivity() { Activity = a7, Service = ac1, Active = true, ServiceActivityId = 7 };
+            ServiceActivity sa8 = new ServiceActivity() { Activity = a8, Service = ac1, Active = true, ServiceActivityId = 8 };
+            ServiceActivity sa9 = new ServiceActivity() { Activity = a9, Service = ac1, Active = true, ServiceActivityId = 9 };
+            ServiceActivity sa10 = new ServiceActivity() { Activity = a10, Service = ac1, Active = true, ServiceActivityId = 10 };
+            ServiceActivity sa11 = new ServiceActivity() { Activity = a11, Service = ac1, Active = true, ServiceActivityId = 11 };
+            ServiceActivity sa12 = new ServiceActivity() { Activity = a12, Service = ac1, Active = true, ServiceActivityId = 12 };
+            ServiceActivity sa13 = new ServiceActivity() { Activity = a13, Service = ac1, Active = true, ServiceActivityId = 13 };
+            ServiceActivity sa14 = new ServiceActivity() { Activity = a14, Service = ac1, Active = true, ServiceActivityId = 14 };
+            ServiceActivity sa15 = new ServiceActivity() { Activity = a15, Service = ac1, Active = true, ServiceActivityId = 15 };
+            ServiceActivity sa16 = new ServiceActivity() { Activity = a16, Service = ac1, Active = true, ServiceActivityId = 16 };
+            ServiceActivity sa17 = new ServiceActivity() { Activity = a17, Service = ac1, Active = true, ServiceActivityId = 17 };
+            ServiceActivity sa18 = new ServiceActivity() { Activity = a18, Service = ac1, Active = true, ServiceActivityId = 18 };
+            ServiceActivity sa19 = new ServiceActivity() { Activity = a19, Service = ac1, Active = true, ServiceActivityId = 19 };
+            ServiceActivity sa20 = new ServiceActivity() { Activity = a20, Service = ac1, Active = true, ServiceActivityId = 20 };
+            ServiceActivity sa21 = new ServiceActivity() { Activity = a21, Service = ac1, Active = true, ServiceActivityId = 21 };
+            ServiceActivity sa22 = new ServiceActivity() { Activity = a22, Service = ac1, Active = true, ServiceActivityId = 22 };
+            ServiceActivity sa23 = new ServiceActivity() { Activity = a23, Service = ac1, Active = true, ServiceActivityId = 23 };
+            ServiceActivity sa24 = new ServiceActivity() { Activity = a24, Service = ac1, Active = true, ServiceActivityId = 24 };
+            ServiceActivity sa25 = new ServiceActivity() { Activity = a15, Service = ac2, Active = true, ServiceActivityId = 25 };
+            ServiceActivity sa26 = new ServiceActivity() { Activity = a16, Service = ac2, Active = true, ServiceActivityId = 26 };
+            ServiceActivity sa27 = new ServiceActivity() { Activity = a17, Service = ac2, Active = true, ServiceActivityId = 27 };
+            ServiceActivity sa28 = new ServiceActivity() { Activity = a18, Service = ac2, Active = true, ServiceActivityId = 28 };
+            ServiceActivity sa29 = new ServiceActivity() { Activity = a20, Service = ac2, Active = true, ServiceActivityId = 29 };
+            ServiceActivity sa30 = new ServiceActivity() { Activity = a21, Service = ac2, Active = true, ServiceActivityId = 30 };
+            ServiceActivity sa31 = new ServiceActivity() { Activity = a22, Service = ac2, Active = true, ServiceActivityId = 31 };
+            ServiceActivity sa32 = new ServiceActivity() { Activity = a24, Service = ac2, Active = true, ServiceActivityId = 32 };
+            ServiceActivity sa33 = new ServiceActivity() { Activity = a25, Service = ac2, Active = true, ServiceActivityId = 33 };
+            ServiceActivity sa34 = new ServiceActivity() { Activity = a26, Service = ac2, Active = true, ServiceActivityId = 34 };
+            ServiceActivity sa35 = new ServiceActivity() { Activity = a27, Service = ac2, Active = true, ServiceActivityId = 35 };
+            ServiceActivity sa36 = new ServiceActivity() { Activity = a28, Service = ac2, Active = true, ServiceActivityId = 36 };
+            ServiceActivity sa37 = new ServiceActivity() { Activity = a29, Service = ac2, Active = true, ServiceActivityId = 37 };
+            ServiceActivity sa38 = new ServiceActivity() { Activity = a30, Service = ac2, Active = true, ServiceActivityId = 38 };
+            ServiceActivity sa39 = new ServiceActivity() { Activity = a31, Service = ac2, Active = true, ServiceActivityId = 39 };
+            ServiceActivity sa40 = new ServiceActivity() { Activity = a32, Service = ac2, Active = true, ServiceActivityId = 40 };
+            ServiceActivity sa41 = new ServiceActivity() { Activity = a33, Service = ac2, Active = true, ServiceActivityId = 41 };
+            ServiceActivity sa42 = new ServiceActivity() { Activity = a34, Service = ac2, Active = true, ServiceActivityId = 42 };
+            ServiceActivity sa43 = new ServiceActivity() { Activity = a35, Service = ac2, Active = true, ServiceActivityId = 43 };
+            ServiceActivity sa44 = new ServiceActivity() { Activity = a36, Service = ac2, Active = true, ServiceActivityId = 44 };
+            ServiceActivity sa45 = new ServiceActivity() { Activity = a37, Service = ac2, Active = true, ServiceActivityId = 45 };
+            ServiceActivity sa46 = new ServiceActivity() { Activity = a38, Service = ac2, Active = true, ServiceActivityId = 46 };
+            ServiceActivity sa47 = new ServiceActivity() { Activity = a39, Service = ac2, Active = true, ServiceActivityId = 47 };
+            ServiceActivity sa48 = new ServiceActivity() { Activity = a40, Service = ac2, Active = true, ServiceActivityId = 48 };
+            ServiceActivity sa49 = new ServiceActivity() { Activity = a41, Service = ac2, Active = true, ServiceActivityId = 49 };
+            ServiceActivity sa50 = new ServiceActivity() { Activity = a42, Service = ac2, Active = true, ServiceActivityId = 50 };
+            ServiceActivity sa51 = new ServiceActivity() { Activity = a43, Service = ac2, Active = true, ServiceActivityId = 51 };
+            ServiceActivity sa52 = new ServiceActivity() { Activity = a44, Service = ac2, Active = true, ServiceActivityId = 52 };
+            ServiceActivity sa53 = new ServiceActivity() { Activity = a45, Service = ac2, Active = true, ServiceActivityId = 53 };
+            ServiceActivity sa54 = new ServiceActivity() { Activity = a46, Service = ac2, Active = true, ServiceActivityId = 54 };
+            ServiceActivity sa55 = new ServiceActivity() { Activity = a47, Service = ac2, Active = true, ServiceActivityId = 55 };
+            ServiceActivity sa56 = new ServiceActivity() { Activity = a48, Service = ac2, Active = true, ServiceActivityId = 56 };
+            ServiceActivity sa57 = new ServiceActivity() { Activity = a49, Service = ac2, Active = true, ServiceActivityId = 57 };
+            ServiceActivity sa58 = new ServiceActivity() { Activity = a50, Service = ac2, Active = true, ServiceActivityId = 58 };
+            ServiceActivity sa59 = new ServiceActivity() { Activity = a51, Service = ac2, Active = true, ServiceActivityId = 59 };
+            ServiceActivity sa60 = new ServiceActivity() { Activity = a52, Service = ac2, Active = true, ServiceActivityId = 60 };
+            ServiceActivity sa61 = new ServiceActivity() { Activity = a53, Service = ac2, Active = true, ServiceActivityId = 61 };
+            ServiceActivity sa62 = new ServiceActivity() { Activity = a19, Service = ac4, Active = true, ServiceActivityId = 62 };
+            ServiceActivity sa63 = new ServiceActivity() { Activity = a20, Service = ac4, Active = true, ServiceActivityId = 63 };
+            ServiceActivity sa64 = new ServiceActivity() { Activity = a21, Service = ac4, Active = true, ServiceActivityId = 64 };
+            ServiceActivity sa65 = new ServiceActivity() { Activity = a22, Service = ac4, Active = true, ServiceActivityId = 65 };
+            ServiceActivity sa66 = new ServiceActivity() { Activity = a49, Service = ac4, Active = true, ServiceActivityId = 66 };
+            ServiceActivity sa67 = new ServiceActivity() { Activity = a54, Service = ac4, Active = true, ServiceActivityId = 67 };
+            ServiceActivity sa68 = new ServiceActivity() { Activity = a55, Service = ac4, Active = true, ServiceActivityId = 68 };
+            ServiceActivity sa69 = new ServiceActivity() { Activity = a56, Service = ac4, Active = true, ServiceActivityId = 69 };
+            ServiceActivity sa70 = new ServiceActivity() { Activity = a57, Service = ac4, Active = true, ServiceActivityId = 70 };
+            ServiceActivity sa71 = new ServiceActivity() { Activity = a58, Service = ac4, Active = true, ServiceActivityId = 71 };
+            ServiceActivity sa72 = new ServiceActivity() { Activity = a59, Service = ac4, Active = true, ServiceActivityId = 72 };
+            ServiceActivity sa73 = new ServiceActivity() { Activity = a60, Service = ac4, Active = true, ServiceActivityId = 73 };
+            ServiceActivity sa74 = new ServiceActivity() { Activity = a61, Service = ac4, Active = true, ServiceActivityId = 74 };
+            ServiceActivity sa75 = new ServiceActivity() { Activity = a62, Service = ac4, Active = true, ServiceActivityId = 75 };
+            ServiceActivity sa76 = new ServiceActivity() { Activity = a63, Service = ac4, Active = true, ServiceActivityId = 76 };
+            ServiceActivity sa77 = new ServiceActivity() { Activity = a64, Service = ac4, Active = true, ServiceActivityId = 77 };
+            ServiceActivity sa78 = new ServiceActivity() { Activity = a65, Service = ac4, Active = true, ServiceActivityId = 78 };
+            ServiceActivity sa79 = new ServiceActivity() { Activity = a65, Service = ac5, Active = true, ServiceActivityId = 79 };
+            ServiceActivity sa80 = new ServiceActivity() { Activity = a66, Service = ac5, Active = true, ServiceActivityId = 80 };
+            ServiceActivity sa81 = new ServiceActivity() { Activity = a65, Service = ac6, Active = true, ServiceActivityId = 81 };
+            ServiceActivity sa82 = new ServiceActivity() { Activity = a67, Service = ac6, Active = true, ServiceActivityId = 82 };
+            ServiceActivity sa83 = new ServiceActivity() { Activity = a19, Service = ac7, Active = true, ServiceActivityId = 83 };
+            ServiceActivity sa84 = new ServiceActivity() { Activity = a20, Service = ac7, Active = true, ServiceActivityId = 84 };
+            ServiceActivity sa85 = new ServiceActivity() { Activity = a21, Service = ac7, Active = true, ServiceActivityId = 85 };
+            ServiceActivity sa86 = new ServiceActivity() { Activity = a22, Service = ac7, Active = true, ServiceActivityId = 86 };
+            ServiceActivity sa87 = new ServiceActivity() { Activity = a54, Service = ac7, Active = true, ServiceActivityId = 87 };
+            ServiceActivity sa88 = new ServiceActivity() { Activity = a65, Service = ac7, Active = true, ServiceActivityId = 88 };
+            ServiceActivity sa89 = new ServiceActivity() { Activity = a68, Service = ac7, Active = true, ServiceActivityId = 89 };
+            ServiceActivity sa90 = new ServiceActivity() { Activity = a69, Service = ac7, Active = true, ServiceActivityId = 90 };
+            ServiceActivity sa91 = new ServiceActivity() { Activity = a70, Service = ac7, Active = true, ServiceActivityId = 91 };
+            ServiceActivity sa92 = new ServiceActivity() { Activity = a71, Service = ac7, Active = true, ServiceActivityId = 92 };
+            ServiceActivity sa93 = new ServiceActivity() { Activity = a72, Service = ac7, Active = true, ServiceActivityId = 93 };
             #endregion
 
             #region ActivityInput
@@ -656,112 +652,114 @@ ac3.RequiresPatients = true;
             #endregion
 
             #region ActivityActivityInput
-            ActivityActivityInput aai1 = new ActivityActivityInput() { Activity = a1, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai2 = new ActivityActivityInput() { Activity = a2, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai3 = new ActivityActivityInput() { Activity = a3, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai4 = new ActivityActivityInput() { Activity = a4, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai5 = new ActivityActivityInput() { Activity = a5, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai6 = new ActivityActivityInput() { Activity = a6, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai7 = new ActivityActivityInput() { Activity = a7, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai8 = new ActivityActivityInput() { Activity = a8, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai9 = new ActivityActivityInput() { Activity = a9, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai10 = new ActivityActivityInput() { Activity = a10, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai11 = new ActivityActivityInput() { Activity = a11, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai12 = new ActivityActivityInput() { Activity = a12, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai13 = new ActivityActivityInput() { Activity = a13, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai14 = new ActivityActivityInput() { Activity = a14, ActivityInput = ai2, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai15 = new ActivityActivityInput() { Activity = a15, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai16 = new ActivityActivityInput() { Activity = a16, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai17 = new ActivityActivityInput() { Activity = a17, ActivityInput = ai3, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai18 = new ActivityActivityInput() { Activity = a17, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai19 = new ActivityActivityInput() { Activity = a18, ActivityInput = ai4, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai20 = new ActivityActivityInput() { Activity = a18, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai21 = new ActivityActivityInput() { Activity = a19, ActivityInput = ai5, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai22 = new ActivityActivityInput() { Activity = a19, ActivityInput = ai6, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai23 = new ActivityActivityInput() { Activity = a20, ActivityInput = ai7, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai24 = new ActivityActivityInput() { Activity = a21, ActivityInput = ai8, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai25 = new ActivityActivityInput() { Activity = a22, ActivityInput = ai9, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai26 = new ActivityActivityInput() { Activity = a23, ActivityInput = ai10, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai27 = new ActivityActivityInput() { Activity = a24, ActivityInput = ai10, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai28 = new ActivityActivityInput() { Activity = a25, ActivityInput = ai11, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai29 = new ActivityActivityInput() { Activity = a25, ActivityInput = ai12, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai30 = new ActivityActivityInput() { Activity = a25, ActivityInput = ai13, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai31 = new ActivityActivityInput() { Activity = a25, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai32 = new ActivityActivityInput() { Activity = a26, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai33 = new ActivityActivityInput() { Activity = a27, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai34 = new ActivityActivityInput() { Activity = a28, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai35 = new ActivityActivityInput() { Activity = a29, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai36 = new ActivityActivityInput() { Activity = a30, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai37 = new ActivityActivityInput() { Activity = a31, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai38 = new ActivityActivityInput() { Activity = a32, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai39 = new ActivityActivityInput() { Activity = a33, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai40 = new ActivityActivityInput() { Activity = a34, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai41 = new ActivityActivityInput() { Activity = a35, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai42 = new ActivityActivityInput() { Activity = a36, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai43 = new ActivityActivityInput() { Activity = a37, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai44 = new ActivityActivityInput() { Activity = a38, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai45 = new ActivityActivityInput() { Activity = a39, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai46 = new ActivityActivityInput() { Activity = a40, ActivityInput = ai5, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai47 = new ActivityActivityInput() { Activity = a40, ActivityInput = ai6, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly };
-            ActivityActivityInput aai48 = new ActivityActivityInput() { Activity = a41, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai49 = new ActivityActivityInput() { Activity = a42, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai50 = new ActivityActivityInput() { Activity = a43, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai51 = new ActivityActivityInput() { Activity = a44, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai52 = new ActivityActivityInput() { Activity = a45, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai53 = new ActivityActivityInput() { Activity = a46, ActivityInput = ai14, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai54 = new ActivityActivityInput() { Activity = a47, ActivityInput = ai15, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai55 = new ActivityActivityInput() { Activity = a47, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai56 = new ActivityActivityInput() { Activity = a48, ActivityInput = ai15, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai57 = new ActivityActivityInput() { Activity = a48, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai58 = new ActivityActivityInput() { Activity = a49, ActivityInput = ai16, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai59 = new ActivityActivityInput() { Activity = a49, ActivityInput = ai17, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai60 = new ActivityActivityInput() { Activity = a49, ActivityInput = ai18, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai61 = new ActivityActivityInput() { Activity = a49, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai62 = new ActivityActivityInput() { Activity = a50, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai63 = new ActivityActivityInput() { Activity = a51, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai64 = new ActivityActivityInput() { Activity = a52, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai65 = new ActivityActivityInput() { Activity = a53, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly };
-            ActivityActivityInput aai66 = new ActivityActivityInput() { Activity = a54, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai67 = new ActivityActivityInput() { Activity = a55, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai68 = new ActivityActivityInput() { Activity = a56, ActivityInput = ai10, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai69 = new ActivityActivityInput() { Activity = a57, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai70 = new ActivityActivityInput() { Activity = a58, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai71 = new ActivityActivityInput() { Activity = a59, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai72 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai19, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai73 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai20, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai74 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai21, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai75 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai22, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai76 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai23, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai77 = new ActivityActivityInput() { Activity = a61, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai78 = new ActivityActivityInput() { Activity = a62, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai79 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai31, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai80 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai32, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai81 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai82 = new ActivityActivityInput() { Activity = a64, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai83 = new ActivityActivityInput() { Activity = a65, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai84 = new ActivityActivityInput() { Activity = a66, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai85 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai24, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai86 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai25, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai87 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai26, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai88 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai27, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai89 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai90 = new ActivityActivityInput() { Activity = a68, ActivityInput = ai28, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai91 = new ActivityActivityInput() { Activity = a68, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai92 = new ActivityActivityInput() { Activity = a69, ActivityInput = ai29, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai93 = new ActivityActivityInput() { Activity = a70, ActivityInput = ai30, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai94 = new ActivityActivityInput() { Activity = a70, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai95 = new ActivityActivityInput() { Activity = a71, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
-            ActivityActivityInput aai96 = new ActivityActivityInput() { Activity = a72, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All };
+            ActivityActivityInput aai1 = new ActivityActivityInput() { Activity = a1, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 1 };
+            ActivityActivityInput aai2 = new ActivityActivityInput() { Activity = a2, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 2 };
+            ActivityActivityInput aai3 = new ActivityActivityInput() { Activity = a3, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 3 };
+            ActivityActivityInput aai4 = new ActivityActivityInput() { Activity = a4, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 4 };
+            ActivityActivityInput aai5 = new ActivityActivityInput() { Activity = a5, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 5 };
+            ActivityActivityInput aai6 = new ActivityActivityInput() { Activity = a6, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 6 };
+            ActivityActivityInput aai7 = new ActivityActivityInput() { Activity = a7, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 7 };
+            ActivityActivityInput aai8 = new ActivityActivityInput() { Activity = a8, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 8 };
+            ActivityActivityInput aai9 = new ActivityActivityInput() { Activity = a9, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 9 };
+            ActivityActivityInput aai10 = new ActivityActivityInput() { Activity = a10, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 10 };
+            ActivityActivityInput aai11 = new ActivityActivityInput() { Activity = a11, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 11 };
+            ActivityActivityInput aai12 = new ActivityActivityInput() { Activity = a12, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 12 };
+            ActivityActivityInput aai13 = new ActivityActivityInput() { Activity = a13, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 13 };
+            ActivityActivityInput aai14 = new ActivityActivityInput() { Activity = a14, ActivityInput = ai2, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 14 };
+            ActivityActivityInput aai15 = new ActivityActivityInput() { Activity = a15, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 15 };
+            ActivityActivityInput aai16 = new ActivityActivityInput() { Activity = a16, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 16 };
+            ActivityActivityInput aai17 = new ActivityActivityInput() { Activity = a17, ActivityInput = ai3, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 17 };
+            ActivityActivityInput aai18 = new ActivityActivityInput() { Activity = a17, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 18 };
+            ActivityActivityInput aai19 = new ActivityActivityInput() { Activity = a18, ActivityInput = ai4, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 19 };
+            ActivityActivityInput aai20 = new ActivityActivityInput() { Activity = a18, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 20 };
+            ActivityActivityInput aai21 = new ActivityActivityInput() { Activity = a19, ActivityInput = ai5, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 21 };
+            ActivityActivityInput aai22 = new ActivityActivityInput() { Activity = a19, ActivityInput = ai6, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 22 };
+            ActivityActivityInput aai23 = new ActivityActivityInput() { Activity = a20, ActivityInput = ai7, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 23 };
+            ActivityActivityInput aai24 = new ActivityActivityInput() { Activity = a21, ActivityInput = ai8, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 24 };
+            ActivityActivityInput aai25 = new ActivityActivityInput() { Activity = a22, ActivityInput = ai9, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 25 };
+            ActivityActivityInput aai26 = new ActivityActivityInput() { Activity = a23, ActivityInput = ai10, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 26 };
+            ActivityActivityInput aai27 = new ActivityActivityInput() { Activity = a24, ActivityInput = ai10, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 27 };
+            ActivityActivityInput aai28 = new ActivityActivityInput() { Activity = a25, ActivityInput = ai11, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 28 };
+            ActivityActivityInput aai29 = new ActivityActivityInput() { Activity = a25, ActivityInput = ai12, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 29 };
+            ActivityActivityInput aai30 = new ActivityActivityInput() { Activity = a25, ActivityInput = ai13, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 30 };
+            ActivityActivityInput aai31 = new ActivityActivityInput() { Activity = a25, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 31 };
+            ActivityActivityInput aai32 = new ActivityActivityInput() { Activity = a26, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 32 };
+            ActivityActivityInput aai33 = new ActivityActivityInput() { Activity = a27, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 33 };
+            ActivityActivityInput aai34 = new ActivityActivityInput() { Activity = a28, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 34 };
+            ActivityActivityInput aai35 = new ActivityActivityInput() { Activity = a29, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 35 };
+            ActivityActivityInput aai36 = new ActivityActivityInput() { Activity = a30, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 36 };
+            ActivityActivityInput aai37 = new ActivityActivityInput() { Activity = a31, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 37 };
+            ActivityActivityInput aai38 = new ActivityActivityInput() { Activity = a32, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 38 };
+            ActivityActivityInput aai39 = new ActivityActivityInput() { Activity = a33, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 39 };
+            ActivityActivityInput aai40 = new ActivityActivityInput() { Activity = a34, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 40 };
+            ActivityActivityInput aai41 = new ActivityActivityInput() { Activity = a35, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 41 };
+            ActivityActivityInput aai42 = new ActivityActivityInput() { Activity = a36, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 42 };
+            ActivityActivityInput aai43 = new ActivityActivityInput() { Activity = a37, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 43 };
+            ActivityActivityInput aai44 = new ActivityActivityInput() { Activity = a38, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 44 };
+            ActivityActivityInput aai45 = new ActivityActivityInput() { Activity = a39, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 45 };
+            ActivityActivityInput aai46 = new ActivityActivityInput() { Activity = a40, ActivityInput = ai5, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 46 };
+            ActivityActivityInput aai47 = new ActivityActivityInput() { Activity = a40, ActivityInput = ai6, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.ParentOnly, ActivityActivityInputId = 47 };
+            ActivityActivityInput aai48 = new ActivityActivityInput() { Activity = a41, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 48 };
+            ActivityActivityInput aai49 = new ActivityActivityInput() { Activity = a42, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 49 };
+            ActivityActivityInput aai50 = new ActivityActivityInput() { Activity = a43, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 50 };
+            ActivityActivityInput aai51 = new ActivityActivityInput() { Activity = a44, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 51 };
+            ActivityActivityInput aai52 = new ActivityActivityInput() { Activity = a45, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 52 };
+            ActivityActivityInput aai53 = new ActivityActivityInput() { Activity = a46, ActivityInput = ai14, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 53 };
+            ActivityActivityInput aai54 = new ActivityActivityInput() { Activity = a47, ActivityInput = ai15, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 54 };
+            ActivityActivityInput aai55 = new ActivityActivityInput() { Activity = a47, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 55 };
+            ActivityActivityInput aai56 = new ActivityActivityInput() { Activity = a48, ActivityInput = ai15, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 56 };
+            ActivityActivityInput aai57 = new ActivityActivityInput() { Activity = a48, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 57 };
+            ActivityActivityInput aai58 = new ActivityActivityInput() { Activity = a49, ActivityInput = ai16, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 58 };
+            ActivityActivityInput aai59 = new ActivityActivityInput() { Activity = a49, ActivityInput = ai17, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 59 };
+            ActivityActivityInput aai60 = new ActivityActivityInput() { Activity = a49, ActivityInput = ai18, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 60 };
+            ActivityActivityInput aai61 = new ActivityActivityInput() { Activity = a49, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 61 };
+            ActivityActivityInput aai62 = new ActivityActivityInput() { Activity = a50, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 62 };
+            ActivityActivityInput aai63 = new ActivityActivityInput() { Activity = a51, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 63 };
+            ActivityActivityInput aai64 = new ActivityActivityInput() { Activity = a52, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 64 };
+            ActivityActivityInput aai65 = new ActivityActivityInput() { Activity = a53, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.PatientOnly, ActivityActivityInputId = 65 };
+            ActivityActivityInput aai66 = new ActivityActivityInput() { Activity = a54, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 66 };
+            ActivityActivityInput aai67 = new ActivityActivityInput() { Activity = a55, ActivityInput = ai1, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 67 };
+            ActivityActivityInput aai68 = new ActivityActivityInput() { Activity = a56, ActivityInput = ai10, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 68 };
+            ActivityActivityInput aai69 = new ActivityActivityInput() { Activity = a57, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 69 };
+            ActivityActivityInput aai70 = new ActivityActivityInput() { Activity = a58, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 70 };
+            ActivityActivityInput aai71 = new ActivityActivityInput() { Activity = a59, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 71 };
+            ActivityActivityInput aai72 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai19, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 72 };
+            ActivityActivityInput aai73 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai20, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 73 };
+            ActivityActivityInput aai74 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai21, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 74 };
+            ActivityActivityInput aai75 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai22, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 75 };
+            ActivityActivityInput aai76 = new ActivityActivityInput() { Activity = a60, ActivityInput = ai23, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 76 };
+            ActivityActivityInput aai77 = new ActivityActivityInput() { Activity = a61, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 77 };
+            ActivityActivityInput aai78 = new ActivityActivityInput() { Activity = a62, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 78 };
+            ActivityActivityInput aai79 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai31, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 79 };
+            ActivityActivityInput aai80 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai32, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 80 };
+            ActivityActivityInput aai81 = new ActivityActivityInput() { Activity = a63, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 81 };
+            ActivityActivityInput aai82 = new ActivityActivityInput() { Activity = a64, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 82 };
+            ActivityActivityInput aai83 = new ActivityActivityInput() { Activity = a65, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 83 };
+            ActivityActivityInput aai84 = new ActivityActivityInput() { Activity = a66, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 84 };
+            ActivityActivityInput aai85 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai24, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 85 };
+            ActivityActivityInput aai86 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai25, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 86 };
+            ActivityActivityInput aai87 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai26, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 87 };
+            ActivityActivityInput aai88 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai27, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 88 };
+            ActivityActivityInput aai89 = new ActivityActivityInput() { Activity = a67, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 89 };
+            ActivityActivityInput aai90 = new ActivityActivityInput() { Activity = a68, ActivityInput = ai28, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 90 };
+            ActivityActivityInput aai91 = new ActivityActivityInput() { Activity = a68, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 91 };
+            ActivityActivityInput aai92 = new ActivityActivityInput() { Activity = a69, ActivityInput = ai29, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 92 };
+            ActivityActivityInput aai93 = new ActivityActivityInput() { Activity = a70, ActivityInput = ai30, Active = true, Required = true, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 93 };
+            ActivityActivityInput aai94 = new ActivityActivityInput() { Activity = a70, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 94 };
+            ActivityActivityInput aai95 = new ActivityActivityInput() { Activity = a71, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 95 };
+            ActivityActivityInput aai96 = new ActivityActivityInput() { Activity = a72, ActivityInput = ai1, Active = true, Required = false, OneTime = false, ActivityInputFor = ActivityActivityInput.InputForType.All, ActivityActivityInputId = 96 };
+
             #endregion
 
 
-            context.ServiceActivities.AddOrUpdate(x => x.ServiceActivityId, sa1, sa2, sa3, sa4, sa5, sa6, sa7, sa8, sa9, sa10, sa11, sa12, sa13, sa14, sa15, sa16, sa17, sa18, sa19, sa20, sa21, sa22, sa23, sa24, sa25, sa26, sa27, sa28, sa29, sa30, sa31, sa32, sa33, sa34, sa35, sa36, sa37, sa38, sa39, sa40, sa41, sa42, sa43, sa44, sa45, sa46, sa47, sa48, sa49, sa50, sa51, sa52, sa53, sa54, sa55, sa56, sa57, sa58, sa59, sa60, sa61, sa62, sa63, sa64, sa65, sa66, sa67, sa68, sa69, sa70, sa71, sa72, sa73, sa74, sa75, sa76, sa77, sa78, sa79, sa80, sa81, sa82, sa83, sa84, sa85, sa86, sa87, sa88, sa89, sa90, sa91, sa92, sa93);
 
-            context.Activities.AddOrUpdate(x => x.ActivityId, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51, a52, a53, a54, a55, a56, a57, a58, a59, a60, a61, a62, a63, a64, a65, a66, a67, a68, a69, a70, a71, a72);
+            if (!context.Activities.Any()) context.Activities.AddOrUpdate(x => x.ActivityCode, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, a51, a52, a53, a54, a55, a56, a57, a58, a59, a60, a61, a62, a63, a64, a65, a66, a67, a68, a69, a70, a71, a72);
 
-            context.ActivityInputs.AddOrUpdate(y => y.ActivityInputId, ai1, ai2, ai3, ai4, ai5, ai6, ai7, ai8, ai9, ai10, ai11, ai12, ai13, ai14, ai15, ai16, ai17, ai18, ai19, ai20, ai21, ai22, ai23, ai24, ai25, ai26, ai27, ai28, ai29, ai30);
+            if (!context.ActivityInputs.Any()) context.ActivityInputs.AddOrUpdate(y => y.Title, ai1, ai2, ai3, ai4, ai5, ai6, ai7, ai8, ai9, ai10, ai11, ai12, ai13, ai14, ai15, ai16, ai17, ai18, ai19, ai20, ai21, ai22, ai23, ai24, ai25, ai26, ai27, ai28, ai29, ai30);
 
-            context.ActivityActivityInputs.AddOrUpdate(x => x.ActivityActivityInputId, aai1, aai2, aai3, aai4, aai5, aai6, aai7, aai8, aai9, aai10, aai11, aai12, aai13, aai14, aai15, aai16, aai17, aai18, aai19, aai20, aai21, aai22, aai23, aai24, aai25, aai26, aai27, aai28, aai29, aai30, aai31, aai32, aai33, aai34, aai35, aai36, aai37, aai38, aai39, aai40, aai41, aai42, aai43, aai44, aai45, aai46, aai47, aai48, aai49, aai50, aai51, aai52, aai53, aai54, aai55, aai56, aai57, aai58, aai59, aai60, aai61, aai62, aai63, aai64, aai65, aai66, aai67, aai68, aai69, aai70, aai71, aai72, aai73, aai74, aai75, aai76, aai77, aai78, aai79, aai80, aai81, aai82, aai83, aai84, aai85, aai86, aai87, aai88, aai89, aai90, aai91, aai92, aai93, aai94, aai95, aai96);
+            if (!context.ServiceActivities.Any()) context.ServiceActivities.AddOrUpdate(x => x.ServiceActivityId, sa1, sa2, sa3, sa4, sa5, sa6, sa7, sa8, sa9, sa10, sa11, sa12, sa13, sa14, sa15, sa16, sa17, sa18, sa19, sa20, sa21, sa22, sa23, sa24, sa25, sa26, sa27, sa28, sa29, sa30, sa31, sa32, sa33, sa34, sa35, sa36, sa37, sa38, sa39, sa40, sa41, sa42, sa43, sa44, sa45, sa46, sa47, sa48, sa49, sa50, sa51, sa52, sa53, sa54, sa55, sa56, sa57, sa58, sa59, sa60, sa61, sa62, sa63, sa64, sa65, sa66, sa67, sa68, sa69, sa70, sa71, sa72, sa73, sa74, sa75, sa76, sa77, sa78, sa79, sa80, sa81, sa82, sa83, sa84, sa85, sa86, sa87, sa88, sa89, sa90, sa91, sa92, sa93);
+
+            if (!context.ActivityActivityInputs.Any()) context.ActivityActivityInputs.AddOrUpdate(x => x.ActivityActivityInputId, aai1, aai2, aai3, aai4, aai5, aai6, aai7, aai8, aai9, aai10, aai11, aai12, aai13, aai14, aai15, aai16, aai17, aai18, aai19, aai20, aai21, aai22, aai23, aai24, aai25, aai26, aai27, aai28, aai29, aai30, aai31, aai32, aai33, aai34, aai35, aai36, aai37, aai38, aai39, aai40, aai41, aai42, aai43, aai44, aai45, aai46, aai47, aai48, aai49, aai50, aai51, aai52, aai53, aai54, aai55, aai56, aai57, aai58, aai59, aai60, aai61, aai62, aai63, aai64, aai65, aai66, aai67, aai68, aai69, aai70, aai71, aai72, aai73, aai74, aai75, aai76, aai77, aai78, aai79, aai80, aai81, aai82, aai83, aai84, aai85, aai86, aai87, aai88, aai89, aai90, aai91, aai92, aai93, aai94, aai95, aai96);
 
             #endregion
 

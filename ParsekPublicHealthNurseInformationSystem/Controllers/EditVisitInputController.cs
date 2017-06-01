@@ -30,6 +30,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             
             vm.ActivityInputList = new List<Activity>();
             vm.InputActivityList = new List<Activity>();
+            vm.ActivityInputListNoNumber = new List<Activity>();
 
             vm.VisitTypesList = DB.Services.Where(s => s.Active == true).ToList();
             
@@ -41,14 +42,17 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 //                                                     .ToList();
 
                 vm.ActivityInputList = DB.Activities.Where(a => a.ServiceActivities.Any(sa => sa.Service.ServiceId == vm.SelectedVisitType && sa.Active && sa.Activity.ActivityActivityInputs.Any( ai => ai.ActivityInput.InputType == ActivityInput.InputTypeEnum.Number))).ToList();
-
+                //vm.ActivityInputList = DB.Activities.Where(a => a.ServiceActivities.Any(sa => sa.Service.ServiceId == vm.SelectedVisitType && sa.Active)).OrderByDescending(x => x.ActivityActivityInputs.Any(aai => aai.ActivityInput.InputType == ActivityInput.InputTypeEnum.Number)).ToList();
+                vm.ActivityInputListNoNumber = DB.Activities.Where(a => a.ServiceActivities.Any(sa => sa.Service.ServiceId == vm.SelectedVisitType && sa.Active && !sa.Activity.ActivityActivityInputs.Any(ai => ai.ActivityInput.InputType == ActivityInput.InputTypeEnum.Number))).ToList();
                 //vm.InputActivityList = DB.Services.Find(vm.SelectedVisitType).Activities.ToList();
 
                 Service tmpService = DB.Services.Find(vm.SelectedVisitType);
 
-                vm.InputActivityList = DB.Activities.Where(a => a.ActivityActivityInputs.Any(ai => ai.ActivityInput.InputType == ActivityInput.InputTypeEnum.Number)).ToList();
+                // Only number input activities //OLD
+                //vm.InputActivityList = DB.Activities.Where(a => a.ActivityActivityInputs.Any(ai => ai.ActivityInput.InputType == ActivityInput.InputTypeEnum.Number)).ToList();
+                vm.InputActivityList = DB.Activities.ToList();
                 vm.InputActivityList = vm.InputActivityList.Except(tmpService.ServiceActivities.Where(sa => sa.Active).Select(sa => sa.Activity)).ToList();
-
+                vm.InputActivityList = vm.InputActivityList.OrderByDescending(x => x.ActivityActivityInputs.Any(aai => aai.ActivityInput.InputType == ActivityInput.InputTypeEnum.Number)).ToList();
             }
 
 

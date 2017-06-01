@@ -19,5 +19,6 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         // Deleted?
         public bool Active { get; set; }
 
+
     }
 }
