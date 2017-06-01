@@ -177,9 +177,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705312044093_Initial.cs" />
-    <Compile Include="Migrations\201705312044093_Initial.Designer.cs">
-      <DependentUpon>201705312044093_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201706011943117_qwe.cs" />
+    <Compile Include="Migrations\201706011943117_qwe.Designer.cs">
+      <DependentUpon>201706011943117_qwe.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Globals.cs" />
@@ -374,8 +374,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705312044093_Initial.resx">
-      <DependentUpon>201705312044093_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706011943117_qwe.resx">
+      <DependentUpon>201706011943117_qwe.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

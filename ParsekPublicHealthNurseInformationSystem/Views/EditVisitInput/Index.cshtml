@@ -49,7 +49,35 @@
             </tbody>
         </table>
 
-        
+        <div class="btn-group">
+            <button onclick="return false;" class="btn btn-info form-control " data-toggle="collapse" data-target="#OtherData">Ostalo</button>
+        </div>
+
+        <br />
+
+        <div id="OtherData" class="collapse">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Naziv vnosa</th>
+                        <th>Število vnosov</th>
+                        <th>Možnosti</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.ActivityInputListNoNumber.Count; i++)
+                    {
+
+                        <tr>
+                            <td>@Model.ActivityInputListNoNumber.ElementAt(i).ActivityTitle</td>
+                            <td>@Model.ActivityInputListNoNumber.ElementAt(i).ActivityActivityInputs.Count</td>
+                            <td>@Html.ActionLink("Izbriši", "DeleteInput", "EditVisitInput", new { visitInputId = Model.ActivityInputListNoNumber.ElementAt(i).ActivityId, serviceId = Model.SelectedVisitType }, new { @class = "btn btn-danger", @style = "color:white" })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 }
 
