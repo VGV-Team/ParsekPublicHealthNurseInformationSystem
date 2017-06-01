@@ -118,9 +118,19 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (IsLoggedIn)
                     {
+                        <style>
+                            .tooltip{
+                                width:200px;
+                            }
+                        </style>
+                        <script>
+                        $(document).ready(function(){
+                            $('[data-toggle="tooltip"]').tooltip();
+                        });
+                        </script>
                         //<li class="navbar-text">Zadnja prijava: @LastLogin</li>
                         <li>
-                            <img data-toggle="tooltip" data-placement="bottom"  title="Zadnja prijava: @LastLogin" src="~/Content/themes/base/images/icon.png" style="margin-top: 10px"/>
+                            <img data-toggle="tooltip" data-placement="bottom" data-toggle="tooltip" title="Zadnja prijava: @LastLogin" src="~/Content/themes/base/images/icon.png" style="margin-top: 10px"/>
                         </li>
                     }
                     
