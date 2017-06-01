@@ -29,6 +29,11 @@
                 @Html.EditorFor(model => model.Medicine.Title, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Medicine.Title, "", new { @class = "text-danger" })
             </div>
+            @Html.LabelFor(model => model.Medicine.Cost, "Cena", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Medicine.Cost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Medicine.Cost, "", new { @class = "text-danger" })
+            </div>
 
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Izberi" class="btn btn-default" />
@@ -173,6 +178,11 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Service.RequiresPatients, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Service.RequiresPatients, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Service.Cost, "Cena", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Service.Cost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Service.Cost, "", new { @class = "text-danger" })
             </div>
 
             <div class="col-md-offset-2 col-md-10">
