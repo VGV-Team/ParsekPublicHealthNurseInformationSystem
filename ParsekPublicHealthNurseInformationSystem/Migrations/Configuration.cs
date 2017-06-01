@@ -69,10 +69,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             // TODO: ...
 
             // Medicine
-            var m1 = new Medicine {Code = "13300", Title = "Abseamed 8.000 i.e./0,8 ml raztopina za inj", Active = true };
-            var m2 = new Medicine { Code = "13692", Title = "Acidum nitricum C30 kroglice", Active = true };
-            var m3 = new Medicine { Code = "02504", Title = "Acipan 40 mg prašek za raztopino za injicir", Active = true };
-            var m4 = new Medicine { Code = "21550", Title = "Aconitum napellus C200 kroglice", Active = true };
+            var m1 = new Medicine {Code = "13300", Title = "Abseamed 8.000 i.e./0,8 ml raztopina za inj", Active = true, Cost = 2 };
+            var m2 = new Medicine { Code = "13692", Title = "Acidum nitricum C30 kroglice", Active = true, Cost = 3 };
+            var m3 = new Medicine { Code = "02504", Title = "Acipan 40 mg prašek za raztopino za injicir", Active = true, Cost = 5 };
+            var m4 = new Medicine { Code = "21550", Title = "Aconitum napellus C200 kroglice", Active = true, Cost = 7 };
             context.Medicines.AddOrUpdate(m => m.Code, m1, m2, m3, m4);
             // TODO: ...
 
@@ -112,10 +112,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             context.Contractors.AddOrUpdate(c => c.Number, c1, c2, c3, c4);
             // TODO: ...
 
-            var mat1 = new Material { Title = "Epruveta", Description = "Splošno uporabna epruveta", Active = true };
-            var mat2 = new Material { Title = "Injekcija", Description = "Splošno uporabna injekcija", Active = true };
-            var mat3 = new Material { Title = "Radijeva sol", Description = "Za boljše poèutje", Active = true };
-            var mat4 = new Material { Title = "Svinènik", Description = "Za zapisovanje", Active = true };
+            var mat1 = new Material { Title = "Epruveta", Description = "Splošno uporabna epruveta", Active = true, Cost = 2 };
+            var mat2 = new Material { Title = "Injekcija", Description = "Splošno uporabna injekcija", Active = true, Cost = 3 };
+            var mat3 = new Material { Title = "Radijeva sol", Description = "Za boljše poèutje", Active = true, Cost = 5 };
+            var mat4 = new Material { Title = "Svinènik", Description = "Za zapisovanje", Active = true, Cost = 7 };
             context.Materials.AddOrUpdate(m => m.Title, mat1, mat2, mat3, mat4);
             // TODO: ...
 
@@ -354,7 +354,8 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 RequiresMedicine = false,
                 RequiresBloodSample = false,
                 RequiresPatients = false,
-                Active = true
+                Active = true,
+                Cost = 21
             };
             //ac1.ServiceCode = "10";
             //ac1.ServiceTitle = "Seznanitev noseènice o normalnem poteku noseènosti in o spremembah na telesu.";
@@ -383,7 +384,8 @@ ac3.RequiresPatients = true;
                 RequiresMedicine = false,
                 RequiresBloodSample = false,
                 RequiresPatients = true,
-                Active = true
+                Active = true,
+                Cost = 37
             };
 
             Service ac4 = new Service
@@ -394,7 +396,8 @@ ac3.RequiresPatients = true;
                 RequiresMedicine = false,
                 RequiresBloodSample = false,
                 RequiresPatients = false,
-                Active = true
+                Active = true,
+                Cost = 15
             };
             // Was in requirements!
             Service ac5 = new Service
@@ -405,7 +408,8 @@ ac3.RequiresPatients = true;
                 RequiresMedicine = true,
                 RequiresBloodSample = false,
                 RequiresPatients = false,
-                Active = true
+                Active = true,
+                Cost = 7
             };
             //ac5.ServiceCode = "10";
             //ac5.ServiceTitle = "Aplikacija injekcije";
@@ -418,7 +422,8 @@ ac3.RequiresPatients = true;
                 RequiresMedicine = false,
                 RequiresBloodSample = true,
                 RequiresPatients = false,
-                Active = true
+                Active = true,
+                Cost = 3
             };
             //ac6.ServiceCode = "10";
             //ac6.ServiceTitle = "Odvzem krvi";
@@ -431,7 +436,8 @@ ac3.RequiresPatients = true;
                 RequiresMedicine = false,
                 RequiresBloodSample = false,
                 RequiresPatients = false,
-                Active = true
+                Active = true,
+                Cost = 11
             };
             //ac7.ServiceCode = "20";
             //ac7.ServiceTitle = "Krvni pritisk: sistolièni, diastolièni";

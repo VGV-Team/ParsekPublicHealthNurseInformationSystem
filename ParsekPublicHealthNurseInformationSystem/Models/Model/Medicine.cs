@@ -16,6 +16,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         [Required]
         public string Title { get; set; }
 
+        [Required]
+        public double Cost { get; set;  }
+
         public string FullNameWithCode => $"{Code}; {Title}; ({MedicineId})";
 
         public string FullName => $"{Code}; {Title}";
