@@ -106,9 +106,9 @@
                     }
                     @if (IsHead)
                     {
-                        <li>@Html.ActionLink("Nadomeščanje", "Index", "NurseReplacement")</li>
-                        <li>@Html.ActionLink("Izpis nadomeščanj", "Index", "EndReplacement")</li>
-                        <li>@Html.ActionLink("Obračun storitev", "Index", "ServiceCost")</li>
+                        <li>@Html.ActionLink("Nad.", "Index", "NurseReplacement")</li>
+                        <li>@Html.ActionLink("Izpis nad.", "Index", "EndReplacement")</li>
+                        <li>@Html.ActionLink("Obračun", "Index", "ServiceCost")</li>
                     }
                     @if (IsNurse)
                     {
@@ -118,8 +118,22 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (IsLoggedIn)
                     {
-                    <li class="navbar-text">Zadnja prijava: @LastLogin</li>
+                        <style>
+                            .tooltip{
+                                width:200px;
+                            }
+                        </style>
+                        <script>
+                        $(document).ready(function(){
+                            $('[data-toggle="tooltip"]').tooltip();
+                        });
+                        </script>
+                        //<li class="navbar-text">Zadnja prijava: @LastLogin</li>
+                        <li>
+                            <img data-toggle="tooltip" data-placement="bottom" data-toggle="tooltip" title="Zadnja prijava: @LastLogin" src="~/Content/themes/base/images/icon.png" style="margin-top: 10px"/>
+                        </li>
                     }
+                    
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             @if (!IsLoggedIn)

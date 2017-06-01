@@ -14,7 +14,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EnumDropDownListFor(model => model.Category, "-- Izberite--",  new { @class = "form-control dropdown" } )
+            @Html.EnumDropDownListFor(model => model.Category, "-- Izberite--", new { @class = "form-control dropdown" })
             @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
         </div>
         <div class="col-md-offset-2 col-md-10">
@@ -23,7 +23,9 @@
     </div>
 }
 
-
+@{
+    int forCounter = 0;
+}
 
 @if (Model?.Medicines != null)
 {
@@ -46,6 +48,8 @@
         </div>
     }
 
+    
+
     <div class="form-group">
         <table class="table table-hover">
             <thead>
@@ -64,10 +68,18 @@
                         <td>@medicine.Title</td>
                         <td>@medicine.Cost</td>
                         <td>
-                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId}, new {@class = "btn btn-primary", @style = "color:white"})
-                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId}, new {@class = "btn btn-danger", @style = "color:white"})
+                            @if (Model.Deleted[forCounter] == false)
+                            {
+                                @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId }, new { @class = "btn btn-primary", @style = "color:white" })
+                                @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId }, new { @class = "btn btn-danger", @style = "color:white" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Aktiviraj", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId }, new { @class = "btn btn-primary", @style = "color:white" })
+                            }
                         </td>
                     </tr>
+                    forCounter++;
                 }
             </tbody>
         </table>
@@ -116,10 +128,19 @@
                         <td>@contractor.Address</td>
                         <td>@contractor.PostOffice.FullName</td>
                         <td>
-                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Contractor, id = contractor.ContractorId}, new {@class = "btn btn-primary", @style = "color:white"})
-                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Contractor, id = contractor.ContractorId}, new {@class = "btn btn-danger", @style = "color:white"})
+                            @if (Model.Deleted[forCounter] == false)
+                            {
+                                @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Contractor, id = contractor.ContractorId }, new { @class = "btn btn-primary", @style = "color:white" })
+                                @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Contractor, id = contractor.ContractorId }, new { @class = "btn btn-danger", @style = "color:white" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Aktiviraj", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Contractor, id = contractor.ContractorId }, new { @class = "btn btn-primary", @style = "color:white" })
+                            }
+
                         </td>
                     </tr>
+                    forCounter++;
                 }
             </tbody>
         </table>
@@ -164,10 +185,19 @@
                         <td>@disease.Code</td>
                         <td>@disease.Description</td>
                         <td>
-                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Disease, id = disease.DiseaseId}, new {@class = "btn btn-primary", @style = "color:white"})
-                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Disease, id = disease.DiseaseId}, new {@class = "btn btn-danger", @style = "color:white"})
+                            @if (Model.Deleted[forCounter] == false)
+                            {
+                                @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Disease, id = disease.DiseaseId }, new { @class = "btn btn-primary", @style = "color:white" })
+                                @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Disease, id = disease.DiseaseId }, new { @class = "btn btn-danger", @style = "color:white" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Aktiviraj", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Disease, id = disease.DiseaseId }, new { @class = "btn btn-primary", @style = "color:white" })
+                            }
+                            
                         </td>
                     </tr>
+                    forCounter++;
                 }
             </tbody>
         </table>
@@ -210,9 +240,18 @@
                     <tr>
                     <td>@relationship.Name</td>
                     <td>
-                        @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Relationship, id = relationship.RelationshipId}, new {@class = "btn btn-primary", @style = "color:white"})
-                        @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Relationship, id = relationship.RelationshipId }, new { @class = "btn btn-danger", @style = "color:white" })</td>
+                        @if (Model.Deleted[forCounter] == false)
+                        { 
+                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Relationship, id = relationship.RelationshipId}, new {@class = "btn btn-primary", @style = "color:white"})
+                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Relationship, id = relationship.RelationshipId }, new { @class = "btn btn-danger", @style = "color:white" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Aktiviraj", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Relationship, id = relationship.RelationshipId }, new { @class = "btn btn-primary", @style = "color:white" })
+                        }
+                     </td>  
                     </tr>
+                    forCounter++;
                 }
             </tbody>
         </table>
@@ -267,10 +306,19 @@
                         <td>@(service.RequiresPatients ? "Da" : "Ne")</td>
                         <td>@service.Cost</td>
                         <td>
-                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Service, id = service.ServiceId}, new {@class = "btn btn-primary", @style = "color:white"})
-                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Service, id = service.ServiceId}, new {@class = "btn btn-danger", @style = "color:white"})
+                            @if (Model.Deleted[forCounter] == false)
+                            {
+                                @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Service, id = service.ServiceId }, new { @class = "btn btn-primary", @style = "color:white" })
+                                @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Service, id = service.ServiceId }, new { @class = "btn btn-danger", @style = "color:white" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Aktiviraj", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Service, id = service.ServiceId }, new { @class = "btn btn-primary", @style = "color:white" })
+                            }
+                            
                         </td>
                     </tr>
+                    forCounter++;
                 }
             </tbody>
         </table>
@@ -315,10 +363,18 @@
                         <td>@activity.ActivityCode</td>
                         <td>@activity.ActivityTitle</td>
                         <td>
-                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Activity, id = activity.ActivityId }, new { @class = "btn btn-primary", @style = "color:white" })
-                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Activity, id = activity.ActivityId }, new { @class = "btn btn-danger", @style = "color:white" })
-                        </td>
+                            @if (Model.Deleted[forCounter] == false)
+                            {
+                                @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Activity, id = activity.ActivityId }, new { @class = "btn btn-primary", @style = "color:white" })
+                                @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Activity, id = activity.ActivityId }, new { @class = "btn btn-danger", @style = "color:white" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Aktiviraj", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Activity, id = activity.ActivityId }, new { @class = "btn btn-primary", @style = "color:white" })
+                            }
+                         </td>
                     </tr>
+                    forCounter++;
                 }
             </tbody>
         </table>
@@ -383,10 +439,18 @@
                         </td>
                         <td>@activityInput.PossibleValues</td>
                         <td>
-                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.ActivityInput, id = activityInput.ActivityInputId }, new { @class = "btn btn-primary", @style = "color:white" })
-                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.ActivityInput, id = activityInput.ActivityInputId }, new { @class = "btn btn-danger", @style = "color:white" })
+                             @if (Model.Deleted[forCounter] == false)
+                             {  
+                                 @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.ActivityInput, id = activityInput.ActivityInputId }, new { @class = "btn btn-primary", @style = "color:white" })
+                                 @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.ActivityInput, id = activityInput.ActivityInputId }, new { @class = "btn btn-danger", @style = "color:white" })
+                             }
+                             else
+                             {
+                                @Html.ActionLink("Aktiviraj", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.ActivityInput, id = activityInput.ActivityInputId }, new { @class = "btn btn-primary", @style = "color:white" })
+                             }
                         </td>
                     </tr>
+                    forCounter++;
                 }
             </tbody>
         </table>
@@ -429,10 +493,18 @@
                     <tr>
                         <td>@role.Title</td>
                         <td>
-                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Role, id = role.RoleId }, new { @class = "btn btn-primary", @style = "color:white" })
-                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Role, id = role.RoleId }, new { @class = "btn btn-danger", @style = "color:white" })
+                             @if (Model.Deleted[forCounter] == false)
+                             {
+                                @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Role, id = role.RoleId }, new { @class = "btn btn-primary", @style = "color:white" })
+                                @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Role, id = role.RoleId }, new { @class = "btn btn-danger", @style = "color:white" })
+                             }
+                             else
+                             {
+                                @Html.ActionLink("Aktiviraj", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.Role, id = role.RoleId }, new { @class = "btn btn-primary", @style = "color:white" })
+                             }
                         </td>
                     </tr>
+                    forCounter++;
                 }
             </tbody>
         </table>
@@ -475,10 +547,18 @@
                     <tr>
                         <td>@jobTitle.Title</td>
                         <td>
-                            @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.JobTitle, id = jobTitle.JobTitleId }, new { @class = "btn btn-primary", @style = "color:white" })
-                            @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.JobTitle, id = jobTitle.JobTitleId }, new { @class = "btn btn-danger", @style = "color:white" })
-                        </td>
+                             @if (Model.Deleted[forCounter] == false)
+                             {
+                                @Html.ActionLink("Uredi", "Edit", "CodeTable", new { category = CodeTableViewModel.CodeCategory.JobTitle, id = jobTitle.JobTitleId }, new { @class = "btn btn-primary", @style = "color:white" })
+                                @Html.ActionLink("Izbriši", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.JobTitle, id = jobTitle.JobTitleId }, new { @class = "btn btn-danger", @style = "color:white" })
+                             }
+                             else
+                             {
+                                @Html.ActionLink("Aktiviraj", "Delete", "CodeTable", new { category = CodeTableViewModel.CodeCategory.JobTitle, id = jobTitle.JobTitleId }, new { @class = "btn btn-primary", @style = "color:white" })
+                             }
+                         </td>
                     </tr>
+                    forCounter++;
                 }
             </tbody>
         </table>

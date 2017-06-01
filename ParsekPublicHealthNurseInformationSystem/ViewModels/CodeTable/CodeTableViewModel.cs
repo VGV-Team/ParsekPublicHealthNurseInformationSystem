@@ -22,6 +22,8 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public List<Role> Roles { get; set; }
         public List<JobTitle> JobTitles { get; set; }
 
+        public List<bool> Deleted { get; set; }
+
         public Medicine Medicine { get; set; }
         public Contractor Contractor { get; set; }
         public Disease Disease { get; set; }
