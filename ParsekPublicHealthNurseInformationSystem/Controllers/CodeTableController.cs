@@ -250,6 +250,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         }
                         medicine.Title = ctvm.Medicine.Title;
                         medicine.Code = ctvm.Medicine.Code;
+                        medicine.Cost = ctvm.Medicine.Cost;
                         DB.SaveChanges();
                     }
                     break;
@@ -320,6 +321,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         service.RequiresMedicine = ctvm.Service.RequiresMedicine;
                         service.RequiresBloodSample = ctvm.Service.RequiresBloodSample;
                         service.RequiresPatients = ctvm.Service.RequiresPatients;
+                        service.Cost = ctvm.Service.Cost;
                         DB.SaveChanges();
                     }
                     break;

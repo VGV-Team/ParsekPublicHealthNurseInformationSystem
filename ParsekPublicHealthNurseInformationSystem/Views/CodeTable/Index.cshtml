@@ -52,6 +52,7 @@
                 <tr>
                     <th>Koda</th>
                     <th>Naziv</th>
+                    <th>Cena</th>
                     <th>Možnosti</th>
                 </tr>
             </thead>
@@ -61,6 +62,7 @@
                     <tr>
                         <td>@medicine.Code</td>
                         <td>@medicine.Title</td>
+                        <td>@medicine.Cost</td>
                         <td>
                             @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId}, new {@class = "btn btn-primary", @style = "color:white"})
                             @Html.ActionLink("Izbriši", "Delete", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Medicine, id = medicine.MedicineId}, new {@class = "btn btn-danger", @style = "color:white"})
@@ -249,6 +251,7 @@
                     <th>Vnos zdravil</th>
                     <th>Vnos krvnih vzorcev</th>
                     <th>Potrebni podpacienti</th>
+                    <th>Cena</th>
                     <th>Možnosti</th>
                 </tr>
             </thead>
@@ -262,6 +265,7 @@
                         <td>@(service.RequiresMedicine ? "Da" : "Ne")</td>
                         <td>@(service.RequiresBloodSample ? "Da" : "Ne")</td>
                         <td>@(service.RequiresPatients ? "Da" : "Ne")</td>
+                        <td>@service.Cost</td>
                         <td>
                             @Html.ActionLink("Uredi", "Edit", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Service, id = service.ServiceId}, new {@class = "btn btn-primary", @style = "color:white"})
                             @Html.ActionLink("Izbriši", "Delete", "CodeTable", new {category = CodeTableViewModel.CodeCategory.Service, id = service.ServiceId}, new {@class = "btn btn-danger", @style = "color:white"})
