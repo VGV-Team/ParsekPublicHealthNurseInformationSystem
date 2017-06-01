@@ -6,50 +6,37 @@
     ViewBag.Title = "Krvni tlak";
 }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/chart")
-}
 
-@using (Html.BeginForm("Show", "Visualization", FormMethod.Post))
+@if ((Session["user"] as User)?.Patient != null)
 {
-    
-
-    <div class="form-horizontal">
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.MainPatientId)
-        
-        <h2>Vizualizacija krvnega tlaka</h2>
-        <hr />
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateStart, htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateStart, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.DateStart, "", new {@class = "text-danger"})
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateEnd, htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateEnd, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.DateEnd, "", new {@class = "text-danger"})
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Prikaži" class="btn btn-default"/>
-            </div>
-        </div>
+    <hr/>
+    <div class="form-group">
+        @foreach (var patient in Model.Patients)
+        {
+            @Html.ActionLink(patient.FullName, "Show", "Visualization", new { id = patient.PatientId }, new { @class = "btn btn-primary", @style = "color:white" })
+        }
     </div>
 }
-
-
-@if (Model.Dates != null && Model.SystolicValues != null && Model.DiastolicValues != null)
+else
 {
-    @Html.Raw(Globals.GenerateGraph("bloodPressure", null, null,
-        Model.Dates.ConvertAll(x => x.ToString("d")),
-        "Sistolični", Model.SystolicValues,
-        "Diastolični", Model.DiastolicValues))
+    <hr />
+    using (Html.BeginForm("Index", "Visualization", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.Raw(Globals.GenerateDropDown(Model.Patients, "PatientId", false))
+            <div class="form-group">
+                @Html.LabelFor(model => model.PatientId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PatientId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izberi" class="btn btn-default" />
+            </div>
+        </div>
+    }
 }
+
+

@@ -143,6 +143,11 @@
                                 <li>@Html.ActionLink("Profil", "", "Profile")</li>
                                 <li>@Html.ActionLink("Moji pacienti", "", "AddPatient")</li>
                                 <li>@Html.ActionLink("Moji obiski", "Index", "VisitPatient")</li>
+                                <li>@Html.ActionLink("Krvni tlak", "Index", "Visualization")</li>
+                            }
+                            @if (IsNurse || IsDoctor)
+                            {
+                                <li>@Html.ActionLink("Krvni tlak", "Index", "Visualization")</li>
                             }
                             @if (IsLoggedIn)
                             {

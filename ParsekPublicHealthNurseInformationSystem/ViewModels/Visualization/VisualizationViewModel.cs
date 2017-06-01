@@ -9,7 +9,16 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
 {
     public class VisualizationViewModel
     {
-        public int MainPatientId { get; set; }
+        public List<Patient> Patients { get; set; }
+
+        [Required]
+        [Display(Name = "Pacient")]
+        public string PatientId { get; set; }
+
+
+        public int? MainPatientId { get; set; }
+
+
 
         [Required]
         [Display(Name = "Od")]

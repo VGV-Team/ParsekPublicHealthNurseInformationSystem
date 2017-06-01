@@ -9,32 +9,66 @@ using ParsekPublicHealthNurseInformationSystem.ViewModels;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
+    [AuthorizationFilter(JobTitle.Doctor, JobTitle.HealthNurse, Role.Patient)]
     public class VisualizationController : Controller
     {
         private EntityDataModel DB = new EntityDataModel();
 
         // GET: Visualization
-        public ActionResult Index(int id)
+        public ActionResult Index(VisualizationViewModel vvm)
         {
-            VisualizationViewModel vvm = new VisualizationViewModel();
-            vvm.MainPatientId = id;
+            if (vvm == null)
+            {
+                vvm = new VisualizationViewModel();
+            }
+
+            if (vvm.PatientId != null)
+            {
+                int[] ids = Globals.GetIdsFromString(vvm.PatientId);
+                if (ids.Length == 1)
+                {
+                    int id = ids.FirstOrDefault();
+                    Patient patient = DB.Patients.FirstOrDefault(x => x.PatientId == id);
+                    if (patient != null)
+                    {
+                        vvm.MainPatientId = id;
+                        return RedirectToAction("Show", "Visualization", new { id = vvm.MainPatientId });
+                    }
+                }
+            }
+
+            User user = (Session["user"] as User);
+            if (user?.Employee != null)
+                vvm.Patients = DB.Patients.ToList();
+            else if (user?.Patient != null)
+            {
+                User patient = DB.Users.FirstOrDefault(x => x.UserId == user.UserId);
+                if (patient != null)
+                    vvm.Patients = DB.Patients.Where(x => x.PatientId == patient.Patient.PatientId || x.ChildPatients.Any(y => y.ParentPatient.PatientId == patient.Patient.PatientId)).ToList();
+            }
+            else
+                vvm.Patients = new List<Patient>();
 
             return View("Index", vvm);
         }
 
-        public ActionResult Show(VisualizationViewModel vvm)
+        public ActionResult Show(VisualizationViewModel vvm, int? id)
         {
+            if (!(vvm != null && vvm.MainPatientId != null && DB.Patients.Count(x => x.PatientId == vvm.MainPatientId) == 1 ||
+                id != null && DB.Patients.Count(x => x.PatientId == id) == 1))
+            {
+                return RedirectToAction("Index", "Visualization");
+            }
+
             if (vvm == null)
             {
-                if ((Session["user"] as Models.User).Patient != null)
-                    return RedirectToAction("Index", new {id = (Session["user"] as Models.User).Patient.PatientId});
-                else
-                    return RedirectToAction("Index", "Home");
-
+                vvm = new VisualizationViewModel();
+                vvm.MainPatientId = id;
             }
-            else
-            {
-                List<ActivityInputData> datas =
+                
+            
+
+            List<ActivityInputData> datas =
                     DB.ActivityInputDatas.Where(x => x.Patient.PatientId == vvm.MainPatientId &&
                                                      x.Visit.DateConfirmed >= vvm.DateStart &&
                                                      x.Visit.DateConfirmed <= vvm.DateEnd &&
@@ -44,31 +78,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
 
 
-                vvm.Dates = datas.Select(x => x.Visit.DateConfirmed).ToArray().Distinct().ToList();
-                vvm.SystolicValues = datas.Where(x => String.Compare(x.ActivityActivityInput.ActivityInput.Title, Globals.SystolicBloodPressureTitle, StringComparison.Ordinal) == 0).Select(y => double.Parse(y.Value)).ToList();
-                vvm.DiastolicValues = datas.Where(x => String.Compare(x.ActivityActivityInput.ActivityInput.Title, Globals.DiastolicBloodPressureTitle, StringComparison.Ordinal) == 0).Select(y => double.Parse(y.Value)).ToList();
-                /*
-                foreach (var data in datas)
-                {
-                    VisualizationViewModel.Data newData = new VisualizationViewModel.Data();
-                    newData.Date = data.Visit.DateConfirmed;
-                    ActivityInputData systolicData = datas.FirstOrDefault(x =>
-                                    String.Compare(x.ActivityActivityInput.ActivityInput.Title, "Sistolični (mm Hg)",
-                                        StringComparison.Ordinal) == 0);
-                    ActivityInputData diastolicData = datas.FirstOrDefault(x =>
-                                    String.Compare(x.ActivityActivityInput.ActivityInput.Title, "Diastolični (mm Hg)",
-                                        StringComparison.Ordinal) == 0);
-
-                    newData.SystolicValue = systolicData != null ? double.Parse(systolicData.Value) : 0;
-                    newData.DiastolicValue = diastolicData != null ? double.Parse(diastolicData.Value) : 0;
-
-                    vvm.Datas.Add(newData);
-                }
-                */
-            }
+            vvm.Dates = datas.Select(x => x.Visit.DateConfirmed).ToArray().Distinct().ToList();
+            vvm.SystolicValues = datas.Where(x => String.Compare(x.ActivityActivityInput.ActivityInput.Title, Globals.SystolicBloodPressureTitle, StringComparison.Ordinal) == 0).Select(y => double.Parse(y.Value)).ToList();
+            vvm.DiastolicValues = datas.Where(x => String.Compare(x.ActivityActivityInput.ActivityInput.Title, Globals.DiastolicBloodPressureTitle, StringComparison.Ordinal) == 0).Select(y => double.Parse(y.Value)).ToList();
 
 
-            return View("Index", vvm);
+            return View("Show", vvm);
         }
     }
 }

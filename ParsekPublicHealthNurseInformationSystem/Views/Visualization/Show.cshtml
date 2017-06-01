@@ -1,0 +1,53 @@
+﻿@using System.Web.UI.WebControls
+@using ParsekPublicHealthNurseInformationSystem.Models
+@model ParsekPublicHealthNurseInformationSystem.ViewModels.VisualizationViewModel
+
+@{
+    ViewBag.Title = "Krvni tlak";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/chart")
+}
+
+
+@using (Html.BeginForm("Show", "Visualization", FormMethod.Post))
+{
+<div class="form-horizontal">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.MainPatientId)
+
+    <h2>Vizualizacija krvnega tlaka</h2>
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DateStart, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DateStart, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DateStart, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Prikaži" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+    }
+
+    @if (Model.Dates != null && Model.SystolicValues != null && Model.DiastolicValues != null)
+    {
+@Html.Raw(Globals.GenerateGraph("bloodPressure", null, null,
+            Model.Dates.ConvertAll(x => x.ToString("d")),
+            "Sistolični", Model.SystolicValues,
+            "Diastolični", Model.DiastolicValues))
+    }
