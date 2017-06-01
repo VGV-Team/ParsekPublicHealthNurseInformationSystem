@@ -20,35 +20,81 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             ctvm = new CodeTableViewModel();
             if(category != null)
                 ctvm.Category = category.Value;
+            ctvm.Deleted = new List<bool>();
 
             switch (category)
             {
                 case CodeTableViewModel.CodeCategory.Medicine:
                     ctvm.Medicines = DB.Medicines.ToList();
+                    for (int i = 0; i < ctvm.Medicines.Count; i++)
+                    {
+                        if (ctvm.Medicines[i].Active) ctvm.Deleted.Add(false);
+                        else ctvm.Deleted.Add(true);
+                    }
                     break;
                 case CodeTableViewModel.CodeCategory.Contractor:
                     ctvm.Contractors = DB.Contractors.ToList();
+                    for (int i = 0; i < ctvm.Contractors.Count; i++)
+                    {
+                        if (ctvm.Contractors[i].Active) ctvm.Deleted.Add(false);
+                        else ctvm.Deleted.Add(true);
+                    }
                     break;
                 case CodeTableViewModel.CodeCategory.Disease:
                     ctvm.Diseases = DB.Diseases.ToList();
+                    for (int i = 0; i < ctvm.Diseases.Count; i++)
+                    {
+                        if (ctvm.Diseases[i].Active) ctvm.Deleted.Add(false);
+                        else ctvm.Deleted.Add(true);
+                    }
                     break;
                 case CodeTableViewModel.CodeCategory.Relationship:
                     ctvm.Relationships = DB.Relationships.ToList();
+                    for (int i = 0; i < ctvm.Relationships.Count; i++)
+                    {
+                        if (ctvm.Relationships[i].Active) ctvm.Deleted.Add(false);
+                        else ctvm.Deleted.Add(true);
+                    }
                     break;
                 case CodeTableViewModel.CodeCategory.Service:
                     ctvm.Services = DB.Services.ToList();
+                    for (int i = 0; i < ctvm.Services.Count; i++)
+                    {
+                        if (ctvm.Services[i].Active) ctvm.Deleted.Add(false);
+                        else ctvm.Deleted.Add(true);
+                    }
                     break;
                 case CodeTableViewModel.CodeCategory.Activity:
                     ctvm.Activities = DB.Activities.ToList();
+                    for (int i = 0; i < ctvm.Activities.Count; i++)
+                    {
+                        if (ctvm.Activities[i].Active) ctvm.Deleted.Add(false);
+                        else ctvm.Deleted.Add(true);
+                    }
                     break;
                 case CodeTableViewModel.CodeCategory.ActivityInput:
                     ctvm.ActivityInputs = DB.ActivityInputs.ToList();
+                    for (int i = 0; i < ctvm.ActivityInputs.Count; i++)
+                    {
+                        if (ctvm.ActivityInputs[i].Active) ctvm.Deleted.Add(false);
+                        else ctvm.Deleted.Add(true);
+                    }
                     break;
                 case CodeTableViewModel.CodeCategory.Role:
                     ctvm.Roles = DB.Roles.ToList();
+                    for (int i = 0; i < ctvm.Roles.Count; i++)
+                    {
+                        if (ctvm.Roles[i].Active) ctvm.Deleted.Add(false);
+                        else ctvm.Deleted.Add(true);
+                    }
                     break;
                 case CodeTableViewModel.CodeCategory.JobTitle:
                     ctvm.JobTitles = DB.JobTitles.ToList();
+                    for (int i = 0; i < ctvm.JobTitles.Count; i++)
+                    {
+                        if (ctvm.JobTitles[i].Active) ctvm.Deleted.Add(false);
+                        else ctvm.Deleted.Add(true);
+                    }
                     break;
             }
             return View("Index", ctvm);
@@ -170,55 +216,55 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 case CodeTableViewModel.CodeCategory.Medicine:
                     Medicine medicine = DB.Medicines.FirstOrDefault(x => x.MedicineId == id);
                     if (medicine != null)
-                        medicine.Active = false;
+                        medicine.Active = !medicine.Active;
                         //DB.Medicines.Remove(medicine);
                     break;
                 case CodeTableViewModel.CodeCategory.Contractor:
                     Contractor contractor = DB.Contractors.FirstOrDefault(x => x.ContractorId == id);
                     if (contractor != null)
-                        contractor.Active = false;
+                        contractor.Active = !contractor.Active;
                         //DB.Contractors.Remove(contractor);
                     break;
                 case CodeTableViewModel.CodeCategory.Disease:
                     Disease disease = DB.Diseases.FirstOrDefault(x => x.DiseaseId == id);
                     if (disease != null)
-                        disease.Active = false;
+                        disease.Active = !disease.Active;
                         //DB.Diseases.Remove(disease);
                     break;
                 case CodeTableViewModel.CodeCategory.Relationship:
                     Relationship relationship = DB.Relationships.FirstOrDefault(x => x.RelationshipId == id);
                     if (relationship != null)
-                        relationship.Active = false;
+                        relationship.Active = !relationship.Active;
                         //DB.Relationships.Remove(relationship);
                     break;
                 case CodeTableViewModel.CodeCategory.Service:
                     Service service = DB.Services.FirstOrDefault(x => x.ServiceId == id);
                     if (service != null)
-                        service.Active = false;
+                        service.Active = !service.Active;
                         //DB.Services.Remove(service);
                     break;
                 case CodeTableViewModel.CodeCategory.Activity:
                     Activity activity = DB.Activities.FirstOrDefault(x => x.ActivityId == id);
                     if (activity != null)
-                        activity.Active = false;
+                        activity.Active = !activity.Active;
                         //DB.Activities.Remove(activity);
                     break;
                 case CodeTableViewModel.CodeCategory.ActivityInput:
                     ActivityInput activityInput = DB.ActivityInputs.FirstOrDefault(x => x.ActivityInputId == id);
                     if (activityInput != null)
-                        activityInput.Active = false;
+                        activityInput.Active = !activityInput.Active;
                         //DB.ActivityInputs.Remove(activityInput);
                     break;
                 case CodeTableViewModel.CodeCategory.Role:
                     Role role = DB.Roles.FirstOrDefault(x => x.RoleId == id);
                     if (role != null)
-                        role.Active = false;
+                        role.Active = !role.Active;
                         //DB.Roles.Remove(role);
                     break;
                 case CodeTableViewModel.CodeCategory.JobTitle:
                     JobTitle jobTitle = DB.JobTitles.FirstOrDefault(x => x.JobTitleId == id);
                     if (jobTitle != null)
-                        jobTitle.Active = false;
+                        jobTitle.Active = !jobTitle.Active;
                         //DB.JobTitles.Remove(jobTitle);
                     break;
                 default:
@@ -248,6 +294,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                             medicine = new Medicine();
                             DB.Medicines.Add(medicine);
                         }
+                        medicine.Active = true;
                         medicine.Title = ctvm.Medicine.Title;
                         medicine.Code = ctvm.Medicine.Code;
                         medicine.Cost = ctvm.Medicine.Cost;
@@ -268,6 +315,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                             contractor = new Contractor();
                             DB.Contractors.Add(contractor);
                         }
+                        contractor.Active = true;
                         contractor.Number = ctvm.Contractor.Number;
                         contractor.Title = ctvm.Contractor.Title;
                         contractor.Address = ctvm.Contractor.Address;
@@ -286,6 +334,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                             disease = new Disease();
                             DB.Diseases.Add(disease);
                         }
+                        disease.Active = true;
                         disease.Code = ctvm.Disease.Code;
                         disease.Description = ctvm.Disease.Description;
                         DB.SaveChanges();
@@ -301,6 +350,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                             DB.Relationships.Add(relationship);
                         }
                         relationship.Name = ctvm.Relationship.Name;
+                        relationship.Active = true;
                         DB.SaveChanges();
                     }
                     break;
@@ -315,6 +365,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                             service = new Service();
                             DB.Services.Add(service);
                         }
+                        service.Active = true;
                         service.ServiceCode = ctvm.Service.ServiceCode;
                         service.ServiceTitle = ctvm.Service.ServiceTitle;
                         service.PreventiveVisit = ctvm.Service.PreventiveVisit;
@@ -334,6 +385,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         activity = new Activity();
                         DB.Activities.Add(activity);
                     }
+                    activity.Active = true;
                     activity.ActivityCode = ctvm.Activity.ActivityCode;
                     activity.ActivityTitle = ctvm.Activity.ActivityTitle;
                     //activity.ActivityInputFor = ctvm.Activity.ActivityInputFor;
@@ -346,6 +398,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         activityInput = new ActivityInput();
                         DB.ActivityInputs.Add(activityInput);
                     }
+                    activityInput.Active = true;
                     activityInput.Title = ctvm.ActivityInput.Title;
                     activityInput.InputType = ctvm.ActivityInput.InputType;
                     activityInput.PossibleValues = ctvm.ActivityInput.PossibleValues;
@@ -368,6 +421,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                         jobTitle = new JobTitle();
                         DB.JobTitles.Add(jobTitle);
                     }
+                    jobTitle.Active = true;
                     jobTitle.Title = ctvm.JobTitle.Title;
                     DB.SaveChanges();
                     break;
