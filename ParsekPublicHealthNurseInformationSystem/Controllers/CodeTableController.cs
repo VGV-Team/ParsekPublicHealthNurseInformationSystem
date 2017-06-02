@@ -9,6 +9,7 @@ using ParsekPublicHealthNurseInformationSystem.ViewModels;
 
 namespace ParsekPublicHealthNurseInformationSystem.Controllers
 {
+    [AuthorizationFilter(Role.Admin)]
     public class CodeTableController : Controller
     {
         private EntityDataModel DB = new EntityDataModel();

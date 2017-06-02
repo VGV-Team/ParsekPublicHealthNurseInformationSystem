@@ -31,13 +31,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     scvm.ViewMessage = "Ponovno preverite vnešene podatke!";
                     return View("Index", scvm);
                 }
-
+                /*
                 if (scvm.DateStart < DateTime.Now.Date || scvm.DateEnd < DateTime.Now.Date)
                 {
                     scvm.ViewMessage = "Vsaj eden izmed datumov je preteklost";
                     return View("Index", scvm);
                 }
-
+                */
                 if (scvm.DateEnd < scvm.DateStart)
                 {
                     scvm.ViewMessage = "Datum konca je pred datumom začetka";
