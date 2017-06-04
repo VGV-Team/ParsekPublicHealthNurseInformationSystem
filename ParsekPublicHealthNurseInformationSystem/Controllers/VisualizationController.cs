@@ -44,7 +44,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             {
                 User patient = DB.Users.FirstOrDefault(x => x.UserId == user.UserId);
                 if (patient != null)
-                    vvm.Patients = DB.Patients.Where(x => x.PatientId == patient.Patient.PatientId || x.ChildPatients.Any(y => y.ParentPatient.PatientId == patient.Patient.PatientId)).ToList();
+                    vvm.Patients = DB.Patients.Where(x => x.PatientId == patient.Patient.PatientId || x.ParentPatientId == patient.Patient.PatientId).ToList();
             }
             else
                 vvm.Patients = new List<Patient>();
@@ -65,7 +65,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 vvm = new VisualizationViewModel();
                 vvm.MainPatientId = id;
             }
-                
+            if(vvm.MainPatientId == null)
+            {
+                vvm.MainPatientId = id;
+            }
             
 
             List<ActivityInputData> datas =
@@ -78,9 +81,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
 
 
-            vvm.Dates = datas.Select(x => x.Visit.DateConfirmed).ToArray().Distinct().ToList();
-            vvm.SystolicValues = datas.Where(x => String.Compare(x.ActivityActivityInput.ActivityInput.Title, Globals.SystolicBloodPressureTitle, StringComparison.Ordinal) == 0).Select(y => double.Parse(y.Value)).ToList();
-            vvm.DiastolicValues = datas.Where(x => String.Compare(x.ActivityActivityInput.ActivityInput.Title, Globals.DiastolicBloodPressureTitle, StringComparison.Ordinal) == 0).Select(y => double.Parse(y.Value)).ToList();
+            vvm.Dates = datas.OrderBy(z => z.Visit.DateConfirmed).Select(x => x.Visit.DateConfirmed).ToArray().Distinct().ToList();
+            vvm.SystolicValues = datas.Where(x => String.Compare(x.ActivityActivityInput.ActivityInput.Title, Globals.SystolicBloodPressureTitle, StringComparison.Ordinal) == 0).OrderBy(z => z.Visit.DateConfirmed).Select(y => double.Parse(y.Value)).ToList();
+            vvm.DiastolicValues = datas.Where(x => String.Compare(x.ActivityActivityInput.ActivityInput.Title, Globals.DiastolicBloodPressureTitle, StringComparison.Ordinal) == 0).OrderBy(z => z.Visit.DateConfirmed).Select(y => double.Parse(y.Value)).ToList();
 
 
             return View("Show", vvm);
