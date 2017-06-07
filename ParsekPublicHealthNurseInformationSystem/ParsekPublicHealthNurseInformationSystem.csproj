@@ -294,6 +294,8 @@
     </Content>
     <Content Include="Migrations\DataFiles\activities.xlsx" />
     <Content Include="Migrations\DataFiles\activity inputs.xlsx" />
+    <Content Include="Migrations\DataFiles\medicines.xlsx" />
+    <Content Include="Migrations\DataFiles\postoffices.xlsx" />
     <None Include="Properties\PublishProfiles\ParsekPublicHealthNurseInformationSystem - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
