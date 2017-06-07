@@ -178,6 +178,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706071956043_Initial.cs" />
+    <Compile Include="Migrations\201706071956043_Initial.Designer.cs">
+      <DependentUpon>201706071956043_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Globals.cs" />
     <Compile Include="Models\Model\Absence.cs" />
@@ -294,8 +298,6 @@
     </Content>
     <Content Include="Migrations\DataFiles\activities.xlsx" />
     <Content Include="Migrations\DataFiles\activity inputs.xlsx" />
-    <Content Include="Migrations\DataFiles\medicines.xlsx" />
-    <Content Include="Migrations\DataFiles\postoffices.xlsx" />
     <None Include="Properties\PublishProfiles\ParsekPublicHealthNurseInformationSystem - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
@@ -375,6 +377,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706071956043_Initial.resx">
+      <DependentUpon>201706071956043_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

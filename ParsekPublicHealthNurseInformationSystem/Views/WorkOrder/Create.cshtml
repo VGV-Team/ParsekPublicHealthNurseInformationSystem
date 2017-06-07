@@ -232,7 +232,7 @@
             @Html.HiddenFor(m => m.EnterMedicine)
             @if (Model.EnterMedicine)
             {
-                @Html.Raw(Globals.GenerateDropDown(Model.AllMedicines, "MedicineIds"))
+                @Html.Raw(Globals.GenerateDropDown(Model.AllMedicines, "MedicineIds", true, 4))
 
                 @Html.LabelFor(model => model.MedicineIds, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
