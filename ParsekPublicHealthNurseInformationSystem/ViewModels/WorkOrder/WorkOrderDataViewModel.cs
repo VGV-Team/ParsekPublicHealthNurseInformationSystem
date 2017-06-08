@@ -12,6 +12,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public int PatientId { get; set; }
         public List<int> PatientIds { get; set; }
         public int SelectedServiceId { get; set; }
+        public DateTime DateCreated { get; set; }
         public DateTime DateTimeOfFirstVisit { get; set; }
         public bool MandatoryFirstVisit { get; set; }
         public int NumberOfVisits { get; set; }

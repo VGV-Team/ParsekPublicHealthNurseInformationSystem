@@ -40,6 +40,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
 
             //doctor 1
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-08");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1*(new Random().Next(1,4)));
             VM.PatientId = "1";
             VM.SelectedServiceId = 1;
             VM.MandatoryFirstVisit = true;
@@ -50,6 +51,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 1, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-08");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "1";
             VM.SelectedServiceId = 4;
             VM.MultipleVisits = true;
@@ -61,6 +63,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 1, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-08");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "1";
             VM.SelectedServiceId = 5;
             VM.MandatoryFirstVisit = true;
@@ -76,6 +79,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 1, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-08");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "3";
             VM.SelectedServiceId = 1;
             VM.MandatoryFirstVisit = false;
@@ -86,6 +90,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 1, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-08");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "3";
             VM.SelectedServiceId = 4;
             VM.MultipleVisits = true;
@@ -97,6 +102,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 1, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-08");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "3";
             VM.SelectedServiceId = 5;
             VM.MandatoryFirstVisit = true;
@@ -112,6 +118,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 1, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-08");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "3";
             VM.SelectedServiceId = 3;
             VM.MandatoryFirstVisit = false;
@@ -122,6 +129,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 1, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-08");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "2";
             VM.SelectedServiceId = 6;
             VM.MandatoryFirstVisit = false;
@@ -136,6 +144,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
 
             //doctor 2
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-12");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "1";
             VM.SelectedServiceId = 6;
             VM.MandatoryFirstVisit = false;
@@ -146,6 +155,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 2, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-08");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "3";
             VM.SelectedServiceId = 6;
             VM.MandatoryFirstVisit = false;
@@ -156,6 +166,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 2, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-12");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "2";
             VM.SelectedServiceId = 1;
             VM.MandatoryFirstVisit = true;
@@ -166,6 +177,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 2, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-08");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "2";
             VM.SelectedServiceId = 2;
             VM.MandatoryFirstVisit = false;
@@ -177,6 +189,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 2, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-15");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "1";
             VM.SelectedServiceId = 6;
             VM.MandatoryFirstVisit = false;
@@ -187,6 +200,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 2, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-12");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "2";
             VM.SelectedServiceId = 2;
             VM.MandatoryFirstVisit = false;
@@ -199,6 +213,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             res = SubmitWorkOrder(VM, 2, DB);
 
             VM.DateTimeOfFirstVisit = DateTime.Parse("2017-06-15");
+            VM.DateCreated = VM.DateTimeOfFirstVisit.AddDays(-1 * (new Random().Next(1, 4)));
             VM.PatientId = "3";
             VM.SelectedServiceId = 6;
             VM.MandatoryFirstVisit = false;
@@ -264,6 +279,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 wodvm.BloodVialRedCount = wovm.EnterBloodSample ? wovm.BloodVialRedCount : 0;
                 wodvm.BloodVialYellowCount = wovm.EnterBloodSample ? wovm.BloodVialYellowCount : 0;
                 wodvm.EnterPatients = wovm.EnterPatients;
+                wodvm.DateCreated = wovm.DateCreated != DateTime.MinValue ? wovm.DateCreated : DateTime.Now;
 
                 WorkOrderSummaryViewModel wosvm = new WorkOrderSummaryViewModel();
                 wosvm.Patient = selectedPatient.FullName;
@@ -279,6 +295,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 wosvm.EnterBloodSample = wovm.EnterBloodSample;
                 wosvm.EnterMedicine = wovm.EnterMedicine;
                 wosvm.EnterPatients = wovm.EnterPatients;
+                wosvm.DateCreated = wodvm.DateCreated;
 
                 if (wovm.EnterMedicine)
                 {
@@ -341,6 +358,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 workOrder.Nurse = DB.Employees.FirstOrDefault(x => x.EmployeeId == wodvm.SelectedNurseId);
                 //workOrder.NurseReplacement = null;
                 workOrder.Patient = DB.Patients.FirstOrDefault(x => x.PatientId == wodvm.PatientId);
+                workOrder.DateCreated = wodvm.DateCreated;
 
                 Visit visit = new Visit();
                 visit.Date = wodvm.DateTimeOfFirstVisit;

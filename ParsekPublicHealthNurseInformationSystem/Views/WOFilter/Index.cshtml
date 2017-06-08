@@ -115,6 +115,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th>Datum</th>
                         <th>Vrsta obiska</th>
                         <th>Izdajatelj</th>
                         <th>Zadolžena sestra</th>
@@ -140,7 +141,7 @@
                                     "Doktor" : "Vodja";
                                 }
 
-
+                                <td>@WO.DateCreated.ToString("dd.MM.yyyy")</td>
                                 <td>@WO.Name</td>
                                 <td>@WO.Issuer.Name @WO.Issuer.Surname, @WOIssuerTitle</td>
                                 <td>@WO.Nurse.Name @WO.Nurse.Surname</td>

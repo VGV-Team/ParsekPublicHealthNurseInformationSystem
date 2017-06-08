@@ -79,6 +79,8 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [Required(ErrorMessage = "Polje je obvezno")]
         public string MedicineIds { get; set; }
 
+        public DateTime DateCreated { get; set; }
+
 
 
         [Display(Name = "Št. rdečih epruvet")]

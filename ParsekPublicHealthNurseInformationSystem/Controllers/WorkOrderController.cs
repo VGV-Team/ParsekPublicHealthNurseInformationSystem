@@ -111,6 +111,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 wodvm.BloodVialRedCount = wovm.EnterBloodSample ? wovm.BloodVialRedCount : 0;
                 wodvm.BloodVialYellowCount = wovm.EnterBloodSample ? wovm.BloodVialYellowCount : 0;
                 wodvm.EnterPatients = wovm.EnterPatients;
+                wodvm.DateCreated = wovm.DateCreated != DateTime.MinValue ? wovm.DateCreated : DateTime.Now;
 
                 WorkOrderSummaryViewModel wosvm = new WorkOrderSummaryViewModel();
                 wosvm.Patient = selectedPatient.FullName;
@@ -126,6 +127,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 wosvm.EnterBloodSample = wovm.EnterBloodSample;
                 wosvm.EnterMedicine = wovm.EnterMedicine;
                 wosvm.EnterPatients = wovm.EnterPatients;
+                wosvm.DateCreated = wodvm.DateCreated;
 
                 if (wovm.EnterMedicine)
                 {
@@ -238,6 +240,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             workOrder.Nurse = DB.Employees.FirstOrDefault(x => x.EmployeeId == wodvm.SelectedNurseId);
             //workOrder.NurseReplacement = null;
             workOrder.Patient = DB.Patients.FirstOrDefault(x => x.PatientId == wodvm.PatientId);
+            workOrder.DateCreated = wodvm.DateCreated;
 
             Visit visit = new Visit();
             visit.Date = wodvm.DateTimeOfFirstVisit;

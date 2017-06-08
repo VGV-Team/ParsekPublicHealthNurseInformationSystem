@@ -19,6 +19,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Models
         //public virtual Employee NurseReplacement { get; set; }
         public virtual Patient Patient { get; set; }
 
+        public DateTime DateCreated { get; set; }
 
         public virtual Contractor Contractor { get; set; }
         public virtual Disease Disease { get; set; }

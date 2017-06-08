@@ -127,11 +127,13 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             if (vm.DateStart != null)
             {
-                vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Visits.Any(v => v.Date > vm.DateStart)).ToList();
+                //vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Visits.Any(v => v.Date > vm.DateStart)).ToList();
+                vm.WorkOrders = vm.WorkOrders.Where(wo => wo.DateCreated >= vm.DateStart).ToList();
             }
             if (vm.DateEnd != null)
             {
-                vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Visits.Any(v => v.Date < vm.DateEnd)).ToList();
+                //vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Visits.Any(v => v.Date < vm.DateEnd)).ToList();
+                vm.WorkOrders = vm.WorkOrders.Where(wo => wo.DateCreated <= vm.DateEnd).ToList();
             }
             if (vm.VisitType != 0)
             {
@@ -163,6 +165,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             #endregion
 
+            vm.WorkOrders = vm.WorkOrders.OrderBy(x => x.DateCreated).ToList();
             CheckForDelete(vm);
 
             return View("Index", vm);

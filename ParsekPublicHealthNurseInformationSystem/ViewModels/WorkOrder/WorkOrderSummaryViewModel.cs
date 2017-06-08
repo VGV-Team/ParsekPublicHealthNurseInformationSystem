@@ -21,6 +21,7 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         public int TimeInterval { get; set; }
         public bool MandatoryFirstVisit { get; set; }
         public List<string> Medicine { get; set; }
+        public DateTime DateCreated { get; set; }
 
         public int BloodVialRedCount { get; set; }
         public int BloodVialBlueCount { get; set; }

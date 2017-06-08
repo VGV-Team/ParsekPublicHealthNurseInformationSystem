@@ -62,7 +62,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
 
             vm.Districts = DB.Districts.Where(x => x.Active).ToList();
             vm.Relationships = DB.Relationships.Where(x => x.Active).ToList();
-            vm.PostOffices = DB.PostOffices.Where(x => x.Active).ToList();
+            vm.PostOffices = DB.PostOffices.Where(x => x.Active).OrderBy(x => x.Number).ToList();
 
 
             for (int i = 0; i < patient.ChildPatients.Count; i++)

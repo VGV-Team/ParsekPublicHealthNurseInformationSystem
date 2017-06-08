@@ -206,7 +206,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         public ActionResult ConfirmVisit(VisitPlannerViewModel vm)
         {
 
-            if (vm.PlanDate.Value.Date > DateTime.Now.Date && vm.HiddenVisitId != null)
+            if (vm.PlanDate.Value.Date >= DateTime.Now.Date && vm.HiddenVisitId != null)
             {
                 Models.Visit visit = DB.Visits.Find(vm.HiddenVisitId);
 

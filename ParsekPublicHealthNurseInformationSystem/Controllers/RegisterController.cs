@@ -33,9 +33,9 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             }
 
             
-            rvm.Districts = DB.Districts.ToList();
-            rvm.PostOffices = DB.PostOffices.ToList();
-            rvm.Relationships = DB.Relationships.ToList();
+            rvm.Districts = DB.Districts.Where(x => x.Active).ToList();
+            rvm.PostOffices = DB.PostOffices.Where(x => x.Active).OrderBy(x => x.Number).ToList();
+            rvm.Relationships = DB.Relationships.Where(x => x.Active).ToList();
 
             //hack
             if (rvm.ViewMessage != "Neustrezen datum!")
@@ -51,7 +51,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
         [HttpGet]
         public ActionResult EmailActivation(string userEmail, string emailCode)
         {
-            Models.User u = DB.Users.Where(us => us.Email == userEmail).FirstOrDefault();
+            Models.User u = DB.Users.FirstOrDefault(us => us.Email == userEmail);
 
             if (u != null && u.Active == false && u.EmailCode == emailCode && u.EmailExpire > DateTime.Now)
             {
@@ -111,7 +111,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     return Form(rvm);
                 }
 
-                if (DB.Users.Where(u => u.Email == rvm.Email).FirstOrDefault() != null)
+                if (DB.Users.FirstOrDefault(u => u.Email == rvm.Email) != null)
                 {
                     rvm.ViewMessage = "Pacient s tem e-mail naslovom že obstaja!";
                     return Form(rvm);
@@ -123,14 +123,14 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     return Form(rvm);
                 }
 
-                if (!rvm.Password.Any(c => char.IsDigit(c)))
+                if (!rvm.Password.Any(char.IsDigit))
                 {
                     //acvm.ViewMessage = "Geslo mora vsebovati vsaj eno številko!";
                     return Form(rvm);
                 }
 
 
-                Models.Role role = DB.Roles.Where(r => r.Title == Role.Patient).FirstOrDefault();
+                Models.Role role = DB.Roles.FirstOrDefault(r => r.Title == Role.Patient);
 
                 Models.User user = new Models.User();
                 user.Email = rvm.Email;
