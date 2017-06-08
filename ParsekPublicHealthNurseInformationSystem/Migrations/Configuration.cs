@@ -3820,8 +3820,20 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 ParentPatient = patient3,
                 ParentPatientRelationship = rel1
             };
+            Patient patient4 = new Patient
+            {
+                CardNumber = "44444",
+                Name = "Artanis",
+                Surname = "Sinatra",
+                Address = "Aiur",
+                PostOffice = p3,
+                District = di3,
+                PhoneNumber = "444444444",
+                Gender = Models.Patient.GenderEnum.Male,
+                BirthDate = DateTime.Now.AddYears(-33)
+            };
 
-            if (!context.Patients.Any()) context.Patients.AddOrUpdate(y => y.CardNumber, patient1, patient2, patient3, patient3_1);
+            if (!context.Patients.Any()) context.Patients.AddOrUpdate(y => y.CardNumber, patient1, patient2, patient3, patient3_1, patient4);
             /*Patient patient1_1 = new Patient
             {
                 CardNumber = "88888",
@@ -4006,6 +4018,17 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient3.LastLastLogin = DateTime.Now;
             Patient3.LastLogin = DateTime.Now;
             Patient3.Deleted = false;
+            User Patient4 = new User();
+            Patient4.Employee = null;
+            Patient4.Patient = null;
+            Patient4.Role = PatientRole;
+            Patient4.Email = "patient4@parsek.si";
+            Patient4.Password = "patient4";
+            Patient4.Active = true;
+            Patient4.Patient = patient4;
+            Patient4.LastLastLogin = DateTime.Now;
+            Patient4.LastLogin = DateTime.Now;
+            Patient4.Deleted = false;
             /*User Head = new User();
             Head.Employee = null;
             Head.Patient = null;
@@ -4017,7 +4040,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Head.LastLogin = DateTime.Now;
             Head.Deleted = false;*/
             //if (!context.Users.Any()) context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse1, Nurse2, Nurse3, Nurse4, Patient1, Patient2, Patient3, Head);
-            if (!context.Users.Any()) context.Users.AddOrUpdate(a => a.Email, Admin, Doctor1, Doctor2, Nurse1, Nurse2, Nurse3, Patient1, Patient2, Patient3);
+            if (!context.Users.Any()) context.Users.AddOrUpdate(a => a.Email, Admin, Doctor1, Doctor2, Nurse1, Nurse2, Nurse3, Patient1, Patient2, Patient3, Patient4);
 
 
             /*Employee DoctorEmployee = new Employee();
