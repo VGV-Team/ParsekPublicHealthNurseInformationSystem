@@ -3734,7 +3734,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             if (!context.Materials.Any()) context.Materials.AddOrUpdate(m => m.Title, mat1, mat2, mat3, mat4);
             // TODO: ...
 
-            Patient patient1 = new Patient
+            /*Patient patient1 = new Patient
             {
                 CardNumber = "65456",
                 Name = "Janežina",
@@ -3769,9 +3769,60 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 PhoneNumber = "090888880",
                 Gender = Models.Patient.GenderEnum.Female,
                 BirthDate = DateTime.Now.AddYears(-40)
+            };*/
+            Patient patient1 = new Patient
+            {
+                CardNumber = "65456",
+                Name = "Blaž",
+                Surname = "Blažiè",
+                Address = "Žememlje 8",
+                PostOffice = p1,
+                District = di1,
+                PhoneNumber = "1234566666",
+                Gender = Models.Patient.GenderEnum.Male,
+                BirthDate = DateTime.Now.AddYears(-30),
             };
-            if (!context.Patients.Any()) context.Patients.AddOrUpdate(y => y.CardNumber, patient1, patient2, patient3);
-            Patient patient1_1 = new Patient
+            Patient patient2 = new Patient
+            {
+                CardNumber = "99878",
+                Name = "Anton",
+                Surname = "Antonèiè",
+                Address = "Partizanska 99",
+                PostOffice = p2,
+                District = di1,
+                PhoneNumber = "090999999",
+                Gender = Models.Patient.GenderEnum.Male,
+                BirthDate = DateTime.Now.AddYears(-50)
+            };
+            Patient patient3 = new Patient
+            {
+                CardNumber = "78879",
+                Name = "Jana",
+                Surname = "Janežiè",
+                Address = "Domobranska 11",
+                PostOffice = p3,
+                District = di2,
+                PhoneNumber = "090888880",
+                Gender = Models.Patient.GenderEnum.Female,
+                BirthDate = DateTime.Now.AddYears(-40)
+            };
+            Patient patient3_1 = new Patient
+            {
+                CardNumber = "88888",
+                Name = "Janin",
+                Surname = "Sinko",
+                Address = "Domobranska 11",
+                PostOffice = p1,
+                District = di2,
+                PhoneNumber = "090888881",
+                Gender = Patient.GenderEnum.Male,
+                BirthDate = DateTime.Now.AddYears(-1),
+                ParentPatient = patient3,
+                ParentPatientRelationship = rel1
+            };
+
+            if (!context.Patients.Any()) context.Patients.AddOrUpdate(y => y.CardNumber, patient1, patient2, patient3, patient3_1);
+            /*Patient patient1_1 = new Patient
             {
                 CardNumber = "88888",
                 Name = "Sif",
@@ -3786,7 +3837,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 ParentPatientRelationship = rel1
             };
             if (context.Patients.FirstOrDefault(x => x.CardNumber == patient1_1.CardNumber) == null) context.Patients.AddOrUpdate(y => y.CardNumber, patient1_1);
-
+            */
             User Admin = new User
             {
                 Employee = null,
@@ -3799,7 +3850,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 LastLogin = DateTime.Now,
                 Deleted = false
             };
-            User Doctor = new User
+            /*User Doctor = new User
             {
                 Employee = null,
                 Patient = null,
@@ -3859,6 +3910,69 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
                 LastLogin = DateTime.Now,
                 Deleted = false
             };
+            */
+
+            User Doctor1 = new User
+            {
+                Employee = null,
+                Patient = null,
+                Role = EmployeeRole,
+                Email = "doctor1@parsek.si",
+                Password = "doctor1",
+                Active = true,
+                LastLastLogin = DateTime.Now,
+                LastLogin = DateTime.Now,
+                Deleted = false
+            };
+            User Doctor2 = new User
+            {
+                Employee = null,
+                Patient = null,
+                Role = EmployeeRole,
+                Email = "doctor2@parsek.si",
+                Password = "doctor2",
+                Active = true,
+                LastLastLogin = DateTime.Now,
+                LastLogin = DateTime.Now,
+                Deleted = false
+            };
+            User Nurse1 = new User
+            {
+                Employee = null,
+                Patient = null,
+                Role = EmployeeRole,
+                Email = "nurse1@parsek.si",
+                Password = "nurse1",
+                Active = true,
+                LastLastLogin = DateTime.Now,
+                LastLogin = DateTime.Now,
+                Deleted = false
+            };
+            User Nurse2 = new User
+            {
+                Employee = null,
+                Patient = null,
+                Role = EmployeeRole,
+                Email = "nurse2@parsek.si",
+                Password = "nurse2",
+                Active = true,
+                LastLastLogin = DateTime.Now,
+                LastLogin = DateTime.Now,
+                Deleted = false
+            };
+            User Nurse3 = new User
+            {
+                Employee = null,
+                Patient = null,
+                Role = EmployeeRole,
+                Email = "nurse3@parsek.si",
+                Password = "nurse3",
+                Active = true,
+                LastLastLogin = DateTime.Now,
+                LastLogin = DateTime.Now,
+                Deleted = false
+            };
+
             User Patient1 = new User();
             Patient1.Employee = null;
             Patient1.Patient = null;
@@ -3892,7 +4006,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient3.LastLastLogin = DateTime.Now;
             Patient3.LastLogin = DateTime.Now;
             Patient3.Deleted = false;
-            User Head = new User();
+            /*User Head = new User();
             Head.Employee = null;
             Head.Patient = null;
             Head.Role = EmployeeRole;
@@ -3901,11 +4015,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Head.Active = true;
             Head.LastLastLogin = DateTime.Now;
             Head.LastLogin = DateTime.Now;
-            Head.Deleted = false;
-            if (!context.Users.Any()) context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse1, Nurse2, Nurse3, Nurse4, Patient1, Patient2, Patient3, Head);
+            Head.Deleted = false;*/
+            //if (!context.Users.Any()) context.Users.AddOrUpdate(a => a.Email, Admin, Doctor, Nurse1, Nurse2, Nurse3, Nurse4, Patient1, Patient2, Patient3, Head);
+            if (!context.Users.Any()) context.Users.AddOrUpdate(a => a.Email, Admin, Doctor1, Doctor2, Nurse1, Nurse2, Nurse3, Patient1, Patient2, Patient3);
 
 
-            Employee DoctorEmployee = new Employee();
+            /*Employee DoctorEmployee = new Employee();
             DoctorEmployee.User = Doctor;
             DoctorEmployee.Name = "Doctory";
             DoctorEmployee.Surname = "Doktorsky";
@@ -3958,8 +4073,53 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             NurseEmployee4.District = di4;
             NurseEmployee4.Number = "45455";
             NurseEmployee4.PhoneNumber = "666444777";
-            NurseEmployee4.JobTitle = HealthNurseJobTitle;
-            if (!context.Employees.Any()) context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee, NurseEmployee1, NurseEmployee2, NurseEmployee3, NurseEmployee4);
+            NurseEmployee4.JobTitle = HealthNurseJobTitle;*/
+            Employee DoctorEmployee1 = new Employee();
+            DoctorEmployee1.User = Doctor1;
+            DoctorEmployee1.Name = "Zdravko";
+            DoctorEmployee1.Surname = "Zdraviè";
+            DoctorEmployee1.Contractor = c1;
+            DoctorEmployee1.Number = "78989";
+            DoctorEmployee1.PhoneNumber = "081579856";
+            DoctorEmployee1.JobTitle = DoctorJobTitle;
+            Employee DoctorEmployee2 = new Employee();
+            DoctorEmployee2.User = Doctor2;
+            DoctorEmployee2.Name = "Marko";
+            DoctorEmployee2.Surname = "Markiè";
+            DoctorEmployee2.Contractor = c1;
+            DoctorEmployee2.Number = "78989";
+            DoctorEmployee2.PhoneNumber = "081579856";
+            DoctorEmployee2.JobTitle = DoctorJobTitle;
+
+            Employee NurseEmployee1 = new Employee();
+            NurseEmployee1.User = Nurse1;
+            NurseEmployee1.Name = "Franja";
+            NurseEmployee1.Surname = "Frankoviè";
+            NurseEmployee1.Contractor = c1;
+            NurseEmployee1.District = di1;
+            NurseEmployee1.Number = "44646";
+            NurseEmployee1.PhoneNumber = "222333444";
+            NurseEmployee1.JobTitle = HealthNurseJobTitle;
+            Employee NurseEmployee2 = new Employee();
+            NurseEmployee2.User = Nurse2;
+            NurseEmployee2.Name = "Vida";
+            NurseEmployee2.Surname = "Vidiè";
+            NurseEmployee2.Contractor = c1;
+            NurseEmployee2.District = di2;
+            NurseEmployee2.Number = "78797";
+            NurseEmployee2.PhoneNumber = "888777654";
+            NurseEmployee2.JobTitle = HealthNurseJobTitle;
+            Employee NurseEmployee3 = new Employee();
+            NurseEmployee3.User = Nurse3;
+            NurseEmployee3.Name = "Petra";
+            NurseEmployee3.Surname = "Petriè";
+            NurseEmployee3.Contractor = c1;
+            NurseEmployee3.District = di3;
+            NurseEmployee3.Number = "99999";
+            NurseEmployee3.PhoneNumber = "035897546";
+            NurseEmployee3.JobTitle = HealthNurseJobTitle;
+
+            if (!context.Employees.Any()) context.Employees.AddOrUpdate(a => a.Number, DoctorEmployee1, DoctorEmployee2, NurseEmployee1, NurseEmployee2, NurseEmployee3);
 
             Service ac1 = new Service
             {
@@ -4381,6 +4541,19 @@ ac3.RequiresPatients = true;
             if (!context.ActivityActivityInputs.Any()) context.ActivityActivityInputs.AddOrUpdate(x => x.ActivityActivityInputId, aai1, aai2, aai3, aai4, aai5, aai6, aai7, aai8, aai9, aai10, aai11, aai12, aai13, aai14, aai15, aai16, aai17, aai18, aai19, aai20, aai21, aai22, aai23, aai24, aai25, aai26, aai27, aai28, aai29, aai30, aai31, aai32, aai33, aai34, aai35, aai36, aai37, aai38, aai39, aai40, aai41, aai42, aai43, aai44, aai45, aai46, aai47, aai48, aai49, aai50, aai51, aai52, aai53, aai54, aai55, aai56, aai57, aai58, aai59, aai60, aai61, aai62, aai63, aai64, aai65, aai66, aai67, aai68, aai69, aai70, aai71, aai72, aai73, aai74, aai75, aai76, aai77, aai78, aai79, aai80, aai81, aai82, aai83, aai84, aai85, aai86, aai87, aai88, aai89, aai90, aai91, aai92, aai93, aai94, aai95, aai96);
 
             #endregion
+
+            #region Workorders
+
+            if (context.WorkOrders.Any() == false)
+            {
+                WorkorderTestData WODATA = new WorkorderTestData();
+                WODATA.Fill(context);
+            }
+
+            
+
+            #endregion
+
 
             #region Commented
 

@@ -92,14 +92,14 @@
 
             $('#DistrictDropdown').hide();
 
-            if ($('#JobTitleDropdown').val() == 3)
+            if ($('#JobTitleDropdown').val() == 2)
             {
                 $('#DistrictDropdown').show();
             }
 
             $('#JobTitleDropdown').on('change',
                 function () {
-                    if (this.value == 3) {
+                    if (this.value == 2) {
                         $("#DistrictDropdown").show();
                     } else {
                         $("#DistrictDropdown").hide();

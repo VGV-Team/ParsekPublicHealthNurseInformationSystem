@@ -54,6 +54,7 @@
                 <thead>
                     <tr>
                         <th>Vrsta obiska</th>
+                        <th>Pacient</th>
                         <th>Naslov pacienta</th>
                         <th>Okviren datum</th>
                         <th>Določen datum</th>
@@ -69,7 +70,8 @@
                         <tr>
 
                             <td>@Model.Visits[j][i].WorkOrder.Name</td>
-                            
+                            <td>@Model.Visits[j][i].WorkOrder.Patient.FullName</td>
+
                             @if (Model.Visits[j][i].WorkOrder.Patient != null)
                             {
                                 <td>@Model.Visits[j][i].WorkOrder.Patient.Address</td>
@@ -83,14 +85,14 @@
                                     <td>@Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</td>
                                     <td>@Model.Visits[j][i].DateConfirmed.ToString("dd. MM. yyyy")</td>
                                     <td>NE</td>
-                                    <td>@Html.ActionLink("Odstrani iz plana", "DisconfirmVisit", "VisitPlanner", routeValues: new { date = Model.Visits[j][i].Date, DisconfirmedVisitId = Model.Visits[j][i].VisitId }, htmlAttributes: null)</td>
+                                    <td>@Html.ActionLink("Odstrani iz plana", "DisconfirmVisit", "VisitPlanner", routeValues: new { date = Model.Visits[j][i].Date, DisconfirmedVisitId = Model.Visits[j][i].VisitId }, htmlAttributes: null) | @Html.ActionLink("Podrobnosti", "Index", "VisitDetails", routeValues: new { visitId = Model.Visits[j][i].VisitId }, htmlAttributes: null)</td>
                                 }
                                 else
                                 {
                                     <td>@Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</td>
                                     <td>@Model.Visits[j][i].DateConfirmed.ToString("dd. MM. yyyy")</td>
                                     <td>NE</td>
-                                    <td><strong>Obisk je opravljen</strong></td>
+                                    <td><strong>Obisk je opravljen</strong> | @Html.ActionLink("Podrobnosti", "Index", "VisitDetails", routeValues: new { visitId = Model.Visits[j][i].VisitId }, htmlAttributes: null)</td>
                                 }
 
                             }
@@ -101,14 +103,14 @@
                                     <td>/</td>
                                     <td>@Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</td>
                                     <td>DA</td>
-                                    <td>Datum je fiksen</td>
+                                    <td>Datum je fiksen | @Html.ActionLink("Podrobnosti", "Index", "VisitDetails", routeValues: new { visitId = Model.Visits[j][i].VisitId }, htmlAttributes: null)</td>
                                 }
                                 else
                                 {
                                     <td>/</td>
                                     <td>@Model.Visits[j][i].Date.ToString("dd. MM. yyyy")</td>
                                     <td>DA</td>
-                                    <td><strong>Obisk je opravljen</strong></td>
+                                    <td><strong>Obisk je opravljen</strong> | @Html.ActionLink("Podrobnosti", "Index", "VisitDetails", routeValues: new { visitId = Model.Visits[j][i].VisitId }, htmlAttributes: null)</td>
                                 }
                             }
                         </tr>
@@ -177,6 +179,7 @@
     <thead>
         <tr>
             <th>Vrsta obiska</th>
+            <th>Pacient</th>
             <th>Naslov pacienta</th>
             <th>Okviren datum</th>
             <th>Obvezen</th>
@@ -192,6 +195,8 @@
             <tr>
                 <td>@Model.OptionalVisits[i].WorkOrder.Name</td>
                 
+                <td>@Model.OptionalVisits[i].WorkOrder.Patient.FullName</td>
+
                 @if (Model.OptionalVisits[i].WorkOrder.Patient != null)
                 {
                     <td>@Model.OptionalVisits[i].WorkOrder.Patient.Address</td>
@@ -208,7 +213,7 @@
                         {
 
                             Model.HiddenVisitId = Model.OptionalVisits[i].VisitId;
-                            @Html.EditorFor(e => e.PlanDate, new { htmlAttributes = new { @min = DateTime.Now.Date.AddDays(1).ToString("yyyy-MM-dd") } })
+                            @Html.EditorFor(e => e.PlanDate, new { htmlAttributes = new { @min = DateTime.Now.Date.AddDays(0).ToString("yyyy-MM-dd") } })
                             @Html.EditorFor(e => e.HiddenVisitId, new { htmlAttributes = new { @class = "hidden", @value = Model.OptionalVisits[i].VisitId } })
                             <span class="form-group">
                                 <span class="">
