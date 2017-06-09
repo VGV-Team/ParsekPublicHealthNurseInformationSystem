@@ -3823,12 +3823,12 @@ namespace ParsekPublicHealthNurseInformationSystem.Migrations
             Patient patient4 = new Patient
             {
                 CardNumber = "44444",
-                Name = "Artanis",
-                Surname = "Sinatra",
-                Address = "Aiur",
+                Name = "Joža",
+                Surname = "Boža",
+                Address = "Tabul Vas",
                 PostOffice = p3,
                 District = di3,
-                PhoneNumber = "444444444",
+                PhoneNumber = "43774377",
                 Gender = Models.Patient.GenderEnum.Male,
                 BirthDate = DateTime.Now.AddYears(-33)
             };
@@ -4428,7 +4428,7 @@ ac3.RequiresPatients = true;
             ActivityInput ai7 = new ActivityInput() { Title = "Udarci na minuto", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "30;;150" };
             ActivityInput ai8 = new ActivityInput() { Title = "Vdihi na minuto", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "10;;150" };
             ActivityInput ai9 = new ActivityInput() { Title = "st C", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "30;;45" };
-            ActivityInput ai10 = new ActivityInput() { Title = "kg", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "20;;500" };
+            ActivityInput ai10 = new ActivityInput() { Title = "kg", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "1;;500" };
             ActivityInput ai11 = new ActivityInput() { Title = "Datum rojstva otroka", InputType = ActivityInput.InputTypeEnum.Date, Active = true, PossibleValues = "" };
             ActivityInput ai12 = new ActivityInput() { Title = "Porodna teža otroka (g)", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "100;;20000" };
             ActivityInput ai13 = new ActivityInput() { Title = "Porodna višina otroka (cm)", InputType = ActivityInput.InputTypeEnum.Number, Active = true, PossibleValues = "20;;100" };
