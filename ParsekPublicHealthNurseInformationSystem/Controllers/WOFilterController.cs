@@ -27,6 +27,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.Patients = DB.Patients.ToList();
             vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.JobTitle.Title == JobTitle.HealthNurse).ToList();
 
+            vm.Services = DB.Services.ToList();
             vm.WorkOrders = DB.WorkOrders.ToList();
             vm.CanDelete = new List<bool>();
 
@@ -117,6 +118,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
             vm.Patients = DB.Patients.ToList();
             vm.Nurse = vm.NurseReplacement = DB.Employees.Where(e => e.JobTitle.Title == JobTitle.HealthNurse).ToList();
 
+            vm.Services = DB.Services.ToList();
 
             vm.WorkOrders = DB.WorkOrders.ToList();
             vm.CanDelete = new List<bool>();
@@ -135,12 +137,16 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 //vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Visits.Any(v => v.Date < vm.DateEnd)).ToList();
                 vm.WorkOrders = vm.WorkOrders.Where(wo => wo.DateCreated <= vm.DateEnd).ToList();
             }
-            if (vm.VisitType != 0)
+            /*if (vm.VisitType != 0)
             {
                 if (vm.VisitType == WorkOrderFilterViewModel.VisitTypeEnum.Preventive)
                     vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Service.PreventiveVisit == true).ToList();
                 else
                     vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Service.PreventiveVisit == false).ToList();
+            }*/
+            if (vm.ServiceId != null && vm.ServiceId > 0)
+            {
+                vm.WorkOrders = vm.WorkOrders.Where(wo => wo.Service.ServiceId == vm.ServiceId).ToList();
             }
             if (vm.SelectedIssuerId > 0)
             {

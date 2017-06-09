@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParsekPublicHealthNurseInformationSystem.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,8 +18,12 @@ namespace ParsekPublicHealthNurseInformationSystem.ViewModels
         [DataType(DataType.Date)]
         public DateTime? DateEnd { get; set; }
 
+        /*[Display(Name = "Vrsta obiska")]
+        public VisitTypeEnum VisitType { get; set; }*/
         [Display(Name = "Vrsta obiska")]
-        public VisitTypeEnum VisitType { get; set; }
+        public List<Service> Services { get; set; }
+
+        public int? ServiceId { get; set; }
 
         [Display(Name = "Izdajatelj")]
         public List<Models.Employee> Issuers { get; set; }
