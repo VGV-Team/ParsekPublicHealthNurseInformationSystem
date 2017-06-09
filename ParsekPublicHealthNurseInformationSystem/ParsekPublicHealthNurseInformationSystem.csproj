@@ -178,10 +178,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706091053422_qwe.cs" />
-    <Compile Include="Migrations\201706091053422_qwe.Designer.cs">
-      <DependentUpon>201706091053422_qwe.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\WorkorderTestData.cs" />
     <Compile Include="Models\Globals.cs" />
@@ -380,11 +376,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706091053422_qwe.resx">
-      <DependentUpon>201706091053422_qwe.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
