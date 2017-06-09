@@ -86,6 +86,10 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                 }
                 else
                 {
+                    if (wo.Patient != null)
+                    {
+                        vm.Patients.Add(wo.Patient.FullNameWithCode);
+                    }
                     for (int i = 0; i < wo.PatientWorkOrders.Count; i++)
                     {
                         vm.Patients.Add(wo.PatientWorkOrders.ElementAt(i).Patient.FullNameWithCode);

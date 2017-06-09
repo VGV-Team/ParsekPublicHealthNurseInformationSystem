@@ -260,15 +260,15 @@
 
                                 <tr>
                                     <td>@Model.OverdueVisits[i].WorkOrder.Name</td>
-                                    @if (@Model.OptionalVisits[i].WorkOrder.PatientWorkOrders.Count > 0)
+                                    @if (@Model.OverdueVisits[i].WorkOrder.PatientWorkOrders.Count > 0)
                                     {
-                                        <td>@Model.OptionalVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</td>
+                                        <td>@Model.OverdueVisits[i].WorkOrder.PatientWorkOrders.First().Patient.Address</td>
                                     }
                                     else
                                     {
-                                        if (Model.OptionalVisits[i].WorkOrder.Patient != null)
+                                        if (Model.OverdueVisits[i].WorkOrder.Patient != null)
                                         {
-                                            <td>@Model.OptionalVisits[i].WorkOrder.Patient.Address</td>
+                                            <td>@Model.OverdueVisits[i].WorkOrder.Patient.Address</td>
                                         }
                                     }
                                     <td>@Model.OverdueVisits[i].Date.ToString("dd. MM. yyyy")</td>
