@@ -70,7 +70,7 @@ namespace ParsekPublicHealthNurseInformationSystem.Controllers
                     ip = DB.IpLogs.Where(i => i.Ips == visitorIPAddress).FirstOrDefault();
                 }
 
-                if (ip.counter >= 2)
+                if (ip.counter > 3)
                 {
                     if (ip.LastTry.AddMinutes(5) < DateTime.Now)
                     {
